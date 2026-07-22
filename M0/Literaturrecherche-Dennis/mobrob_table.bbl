@@ -1,0 +1,460 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{BibEntry2018Dec}{misc}{}{}
+      \field{labelalpha}{18}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{month}{12}
+      \field{note}{[Online; accessed 20. Jul. 2026]}
+      \field{title}{{Veter - robot for researchers}}
+      \field{year}{2018}
+      \verb{urlraw}
+      \verb https://veterobot.com/index.html
+      \endverb
+      \verb{url}
+      \verb https://veterobot.com/index.html
+      \endverb
+    \endentry
+    \entry{BibEntry2020Jul}{misc}{}{}
+      \field{labelalpha}{20}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Science Buddies}
+      \field{month}{7}
+      \field{note}{[Online; accessed 20. Jul. 2026]}
+      \field{title}{{Build an Arduino Robot with your Science Buddies Bluebot Kit}}
+      \field{year}{2020}
+      \verb{urlraw}
+      \verb https://www.sciencebuddies.org/science-fair-projects/project-ideas/Robotics_p033/robotics/edge-detecting-arduino-robot
+      \endverb
+      \verb{url}
+      \verb https://www.sciencebuddies.org/science-fair-projects/project-ideas/Robotics_p033/robotics/edge-detecting-arduino-robot
+      \endverb
+    \endentry
+    \entry{BibEntry2026Jan}{misc}{}{}
+      \field{labelalpha}{26}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extraalpha}{1}
+      \field{labeltitlesource}{title}
+      \field{month}{1}
+      \field{note}{[Online; accessed 20. Jul. 2026]}
+      \field{title}{{E-Puck}}
+      \field{year}{2026}
+      \verb{urlraw}
+      \verb https://e-puck.gctronic.com
+      \endverb
+      \verb{url}
+      \verb https://e-puck.gctronic.com
+      \endverb
+    \endentry
+    \entry{BibEntry2026Jul}{misc}{}{}
+      \field{labelalpha}{26}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{extraalpha}{2}
+      \field{labeltitlesource}{title}
+      \field{month}{7}
+      \field{note}{[Online; accessed 20. Jul. 2026]}
+      \field{title}{{Repr{\ifmmode\ddot{a}\elseä\fi}sentative Umfrage: Digitale Gastronomie}}
+      \field{year}{2026}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://newsroom.metroag.de/de/news/repraesentative-umfrage-digitale-gastronomie?dt=20250221
+      \endverb
+      \verb{url}
+      \verb https://newsroom.metroag.de/de/news/repraesentative-umfrage-digitale-gastronomie?dt=20250221
+      \endverb
+    \endentry
+    \entry{Arvin2019Jun}{article}{}{}
+      \name{author}{6}{}{%
+        {{hash=5e5f0a44488fc29a75782c925abbf6ad}{%
+           family={Arvin},
+           familyi={A\bibinitperiod},
+           given={Farshad},
+           giveni={F\bibinitperiod}}}%
+        {{hash=5087f8a8a2a724816c8f1f4927cdd66e}{%
+           family={Espinosa},
+           familyi={E\bibinitperiod},
+           given={Jose},
+           giveni={J\bibinitperiod}}}%
+        {{hash=b9bfc2d6570dd6059c81a7b142fa7eaa}{%
+           family={Bird},
+           familyi={B\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+        {{hash=ad9ce2555cd8aeca6871f4932817e125}{%
+           family={West},
+           familyi={W\bibinitperiod},
+           given={Andrew},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e791d0d4c781a87154b4bfe95495665c}{%
+           family={Watson},
+           familyi={W\bibinitperiod},
+           given={Simon},
+           giveni={S\bibinitperiod}}}%
+        {{hash=199cbfd30970ff80d0cb0545af935595}{%
+           family={Lennox},
+           familyi={L\bibinitperiod},
+           given={Barry},
+           giveni={B\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Netherlands}%
+      }
+      \strng{namehash}{3d46e8d44b511d78427331b57e93d387}
+      \strng{fullhash}{b8b6901d2f38adaebf74361e3b6d6129}
+      \strng{fullhashraw}{b8b6901d2f38adaebf74361e3b6d6129}
+      \strng{bibnamehash}{3d46e8d44b511d78427331b57e93d387}
+      \strng{authorbibnamehash}{3d46e8d44b511d78427331b57e93d387}
+      \strng{authornamehash}{3d46e8d44b511d78427331b57e93d387}
+      \strng{authorfullhash}{b8b6901d2f38adaebf74361e3b6d6129}
+      \strng{authorfullhashraw}{b8b6901d2f38adaebf74361e3b6d6129}
+      \field{labelalpha}{Arv+19}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1573-0409}
+      \field{journaltitle}{J. Intell. Rob. Syst.}
+      \field{month}{6}
+      \field{number}{3}
+      \field{title}{{Mona: an Affordable Open-Source Mobile Robot for Education and Research}}
+      \field{volume}{94}
+      \field{year}{2019}
+      \field{pages}{761\bibrangedash 775}
+      \range{pages}{15}
+      \verb{doi}
+      \verb 10.1007/s10846-018-0866-9
+      \endverb
+    \endentry
+    \entry{Balbuena2026Mar}{article}{}{}
+      \name{author}{5}{}{%
+        {{hash=89d329376544d5dae1222f9de4c5e12e}{%
+           family={Balbuena},
+           familyi={B\bibinitperiod},
+           given={Jose},
+           giveni={J\bibinitperiod}}}%
+        {{hash=ee29fd28f831e86329f7f469cc41f3e0}{%
+           family={Sinche},
+           familyi={S\bibinitperiod},
+           given={Julio},
+           giveni={J\bibinitperiod}}}%
+        {{hash=eb7e1613f3c627f709389f02d17f1a5c}{%
+           family={Quiroz},
+           familyi={Q\bibinitperiod},
+           given={Diego},
+           giveni={D\bibinitperiod}}}%
+        {{hash=9e61c8b4e803cd5e9b7d31228c01502a}{%
+           family={Arce},
+           familyi={A\bibinitperiod},
+           given={Diego},
+           giveni={D\bibinitperiod}}}%
+        {{hash=a62458e518e605f1991b5605c48ac22f}{%
+           family={Villota},
+           familyi={V\bibinitperiod},
+           given={Elizabeth},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier}%
+      }
+      \strng{namehash}{5b8793919167db960c9d2c35c431ff06}
+      \strng{fullhash}{1574e042d8c90cf2bc791a0c805d19e9}
+      \strng{fullhashraw}{1574e042d8c90cf2bc791a0c805d19e9}
+      \strng{bibnamehash}{5b8793919167db960c9d2c35c431ff06}
+      \strng{authorbibnamehash}{5b8793919167db960c9d2c35c431ff06}
+      \strng{authornamehash}{5b8793919167db960c9d2c35c431ff06}
+      \strng{authorfullhash}{1574e042d8c90cf2bc791a0c805d19e9}
+      \strng{authorfullhashraw}{1574e042d8c90cf2bc791a0c805d19e9}
+      \field{labelalpha}{Bal+26}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2468-0672}
+      \field{journaltitle}{HardwareX}
+      \field{month}{3}
+      \field{title}{{PlatROB: An open-source, modular, and low-cost hardware platform for mobile robotics and AI education}}
+      \field{volume}{25}
+      \field{year}{2026}
+      \field{pages}{e00747}
+      \range{pages}{-1}
+      \verb{doi}
+      \verb 10.1016/j.ohx.2026.e00747
+      \endverb
+    \endentry
+    \entry{DEHOGA2025Q4}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=261b00a8d1396a03427e9e7172a47024}{%
+           family={{Deutscher Hotel- und Gaststättenverband e.V. (DEHOGA Bundesverband)}},
+           familyi={D\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {DEHOGA Bundesverband}%
+      }
+      \list{location}{1}{%
+        {Berlin}%
+      }
+      \strng{namehash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{fullhash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{fullhashraw}{261b00a8d1396a03427e9e7172a47024}
+      \strng{bibnamehash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{authorbibnamehash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{authornamehash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{authorfullhash}{261b00a8d1396a03427e9e7172a47024}
+      \strng{authorfullhashraw}{261b00a8d1396a03427e9e7172a47024}
+      \field{labelalpha}{Deu26}
+      \field{sortinit}{D}
+      \field{sortinithash}{6f385f66841fb5e82009dc833c761848}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Stand: 24. Februar 2026}
+      \field{title}{DEHOGA-Zahlenspiegel IV/2025}
+      \field{type}{Zahlenspiegel}
+      \field{year}{2026}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.dehoga-bundesverband.de/fileadmin/Startseite/04_Zahlen___Fakten/DEHOGA-Zahlenspiegel_4._Quartal_2025.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.dehoga-bundesverband.de/fileadmin/Startseite/04_Zahlen___Fakten/DEHOGA-Zahlenspiegel_4._Quartal_2025.pdf
+      \endverb
+    \endentry
+    \entry{Gonzalez-Gomez2012Jan}{book}{}{}
+      \name{author}{4}{}{%
+        {{hash=8ad6bf4e4f3b4b4f043746f845cb7a5e}{%
+           family={Gonzalez-Gomez},
+           familyi={G\bibinithyphendelim G\bibinitperiod},
+           given={J.},
+           giveni={J\bibinitperiod}}}%
+        {{hash=3f0bd4933c354f5faeec79a16b14e614}{%
+           family={Valero-Gomez},
+           familyi={V\bibinithyphendelim G\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=3c6436939979d222f9bf0851a7550511}{%
+           family={Prieto-Moreno},
+           familyi={P\bibinithyphendelim M\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=e5098dfdc1beacdd5eb13d6000b368b8}{%
+           family={Abderrahim},
+           familyi={A\bibinitperiod},
+           given={M.},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{4862e6bfd5f62f318ed4859893fd4079}
+      \strng{fullhash}{2d3367fb2945b0a359eaea53b700872e}
+      \strng{fullhashraw}{2d3367fb2945b0a359eaea53b700872e}
+      \strng{bibnamehash}{4862e6bfd5f62f318ed4859893fd4079}
+      \strng{authorbibnamehash}{4862e6bfd5f62f318ed4859893fd4079}
+      \strng{authornamehash}{4862e6bfd5f62f318ed4859893fd4079}
+      \strng{authorfullhash}{2d3367fb2945b0a359eaea53b700872e}
+      \strng{authorfullhashraw}{2d3367fb2945b0a359eaea53b700872e}
+      \field{labelalpha}{Gon+12}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{isbn}{978-3-642-27481-7}
+      \field{journaltitle}{ResearchGate}
+      \field{month}{1}
+      \field{title}{{A New Open Source 3D-Printable Mobile Robotic Platform for Education}}
+      \field{year}{2012}
+      \verb{doi}
+      \verb 10.1007/978-3-642-27482-4_8
+      \endverb
+    \endentry
+    \entry{Hirpo2017Oct}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=5f989469eda9534224695c9c0c3e80ec}{%
+           family={Hirpo},
+           familyi={H\bibinitperiod},
+           given={Boru\bibnamedelima Diriba},
+           giveni={B\bibinitperiod\bibinitdelim D\bibinitperiod}}}%
+        {{hash=470be4b9adcbd299d7a2a5df32abae55}{%
+           family={Zhongmin},
+           familyi={Z\bibinitperiod},
+           given={{\relax\bibnamedelimb Prof}.\bibnamedelimi Wang},
+           giveni={P\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IJERT-International Journal of Engineering Research {\&} Technology}%
+      }
+      \strng{namehash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{fullhash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{fullhashraw}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{bibnamehash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{authorbibnamehash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{authornamehash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{authorfullhash}{76b0cce574c62d1ed49a47b33fd44126}
+      \strng{authorfullhashraw}{76b0cce574c62d1ed49a47b33fd44126}
+      \field{labelalpha}{HZ17}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2278-0181}
+      \field{journaltitle}{International Journal of Engineering Research {\&} Technology}
+      \field{month}{10}
+      \field{number}{10}
+      \field{title}{{Design and Control for Differential Drive Mobile Robot}}
+      \field{volume}{6}
+      \field{year}{2017}
+      \verb{doi}
+      \verb 10.17577/IJERTV6IS100138
+      \endverb
+    \endentry
+    \entry{Karakaya2022Apr}{article}{}{}
+      \name{author}{1}{}{%
+        {{hash=6e95cca9dcfcc26a31ea58eae592c521}{%
+           family={Karakaya},
+           familyi={K\bibinitperiod},
+           given={Suat},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Birlesik Dunya Yenilik Arastirma ve Yayincilik Merkezi}%
+      }
+      \strng{namehash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{fullhash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{fullhashraw}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{bibnamehash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{authorbibnamehash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{authornamehash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{authorfullhash}{6e95cca9dcfcc26a31ea58eae592c521}
+      \strng{authorfullhashraw}{6e95cca9dcfcc26a31ea58eae592c521}
+      \field{labelalpha}{Kar22}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{2301-2587}
+      \field{journaltitle}{Global Journal of Computer Sciences Theory and Research}
+      \field{month}{4}
+      \field{number}{1}
+      \field{title}{{Mechanical design of a differential drive mobile robot platform}}
+      \field{volume}{12}
+      \field{year}{2022}
+      \field{pages}{01\bibrangedash 11}
+      \range{pages}{11}
+      \verb{doi}
+      \verb 10.18844/gjcs.v12i1.6508
+      \endverb
+    \endentry
+    \entry{PlonerOrderman2012}{report}{}{}
+      \name{author}{1}{}{%
+        {{hash=2b9f8137364e279a8bb8e0c57057cb35}{%
+           family={{Ploner Hospitality Consulting}},
+           familyi={P\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Orderman GmbH}%
+      }
+      \list{location}{1}{%
+        {Salzburg, Österreich}%
+      }
+      \strng{namehash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{fullhash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{fullhashraw}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{bibnamehash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{authorbibnamehash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{authornamehash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{authorfullhash}{2b9f8137364e279a8bb8e0c57057cb35}
+      \strng{authorfullhashraw}{2b9f8137364e279a8bb8e0c57057cb35}
+      \field{labelalpha}{Plo12}
+      \field{sortinit}{P}
+      \field{sortinithash}{ff3bcf24f47321b42cb156c2cc8a8422}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Im Auftrag der Orderman GmbH durchgeführt}
+      \field{title}{Studie über das europäische Gastgewerbe: Trends, Erfolgsfaktoren, Technologien. Mit Fokus auf Service und Funkboniersysteme}
+      \field{type}{Studie}
+      \field{year}{2012}
+      \true{nocite}
+      \verb{urlraw}
+      \verb https://www.orderman.com/wp-content/uploads/Gastrostudie-DE-web.pdf
+      \endverb
+      \verb{url}
+      \verb https://www.orderman.com/wp-content/uploads/Gastrostudie-DE-web.pdf
+      \endverb
+    \endentry
+    \entry{Rezeck2023Mar}{article}{}{}
+      \name{author}{4}{}{%
+        {{hash=3e5214b04333f1713f6fd21026e91673}{%
+           family={Rezeck},
+           familyi={R\bibinitperiod},
+           given={Paulo},
+           giveni={P\bibinitperiod}}}%
+        {{hash=681d17b3ad4e30182d8b62393ef0885b}{%
+           family={Azp{\ifmmode\acute{u}\elseú\fi}rua},
+           familyi={A\bibinitperiod},
+           given={H{\ifmmode\acute{e}\elseé\fi}ctor},
+           giveni={H\bibinitperiod}}}%
+        {{hash=be26f7e560b837aec5ddc59da72c6566}{%
+           family={Corr{\ifmmode\hat{e}\elseê\fi}a},
+           familyi={C\bibinitperiod},
+           given={Maur{\ifmmode\acute{\imath}\elseí\fi}cio\bibnamedelimb F.\bibnamedelimi S.},
+           giveni={M\bibinitperiod\bibinitdelim F\bibinitperiod\bibinitdelim S\bibinitperiod}}}%
+        {{hash=0540120b83be44c1b0c3daa33e9eb2ef}{%
+           family={Chaimowicz},
+           familyi={C\bibinitperiod},
+           given={Luiz},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Nature}%
+      }
+      \strng{namehash}{502c92be1370ac2eb521950e2eae2105}
+      \strng{fullhash}{cbc8c31ba6df95250dc5223a57ad530b}
+      \strng{fullhashraw}{cbc8c31ba6df95250dc5223a57ad530b}
+      \strng{bibnamehash}{502c92be1370ac2eb521950e2eae2105}
+      \strng{authorbibnamehash}{502c92be1370ac2eb521950e2eae2105}
+      \strng{authornamehash}{502c92be1370ac2eb521950e2eae2105}
+      \strng{authorfullhash}{cbc8c31ba6df95250dc5223a57ad530b}
+      \strng{authorfullhashraw}{cbc8c31ba6df95250dc5223a57ad530b}
+      \field{labelalpha}{Rez+23}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1573-7527}
+      \field{journaltitle}{Autonomous Robots}
+      \field{month}{3}
+      \field{number}{4}
+      \field{title}{{HeRo 2.0: a low-cost robot for swarm robotics research}}
+      \field{volume}{47}
+      \field{year}{2023}
+      \true{nocite}
+      \field{pages}{1\bibrangedash 25}
+      \range{pages}{25}
+      \verb{doi}
+      \verb 10.1007/s10514-023-10100-0
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

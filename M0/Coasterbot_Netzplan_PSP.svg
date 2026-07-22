@@ -1,0 +1,354 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3298" height="922" viewBox="0 0 3298 922" font-family="Helvetica,Arial,sans-serif">
+<rect width="3298" height="922" fill="#ffffff"/>
+<defs><marker id="ag" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#888"/></marker><marker id="ar" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 z" fill="#CC0000"/></marker></defs>
+<text x="90" y="46" font-size="26" font-weight="bold" fill="#23445D">Netzplan Coasterbot &#8212; Endtermin 07.11.2026 (Endbericht), verdichtet</text>
+<text x="90" y="76" font-size="16" fill="#555">15.07. &#8211; 07.11.2026 &#183; 83 Arbeitstage verf&#252;gbar &#183; 82 AT verplant &#183; 1 AT Endpuffer &#183; Endbericht fertig 05.11.2026</text>
+<text x="90" y="104" font-size="14" fill="#777">Knoten: <tspan font-weight="bold">FAZ | Dauer | FEZ</tspan> / AP-Nr: Arbeitspaket (Ressource) / <tspan font-weight="bold">SAZ | GP | SEZ</tspan> &#160;&#8212;&#160; roter Rahmen/Kante = kritischer Pfad &#183; gestrichelte Kante = Fast-Tracking (Vorlauf)</text>
+<rect x="90" y="118" width="15" height="15" fill="#E85642" rx="2"/><text x="111" y="130" font-size="13.5" fill="#555">1000 Recherche</text>
+<rect x="221.39999999999998" y="118" width="15" height="15" fill="#F08705" rx="2"/><text x="242.39999999999998" y="130" font-size="13.5" fill="#555">2000 Anforderungsaufnahme</text>
+<rect x="430.9" y="118" width="15" height="15" fill="#12AAB5" rx="2"/><text x="451.9" y="130" font-size="13.5" fill="#555">3000 Konzeption</text>
+<rect x="569.4" y="118" width="15" height="15" fill="#1699D3" rx="2"/><text x="590.4" y="130" font-size="13.5" fill="#555">4000 Prototyp erstellen</text>
+<rect x="764.6999999999999" y="118" width="15" height="15" fill="#2F5B7C" rx="2"/><text x="785.6999999999999" y="130" font-size="13.5" fill="#555">5000 Test durchführen</text>
+<rect x="945.8" y="118" width="15" height="15" fill="#8A4FA8" rx="2"/><text x="966.8" y="130" font-size="13.5" fill="#555">6000 Maturity Level</text>
+<rect x="1112.7" y="118" width="15" height="15" fill="#5A6B7B" rx="2"/><text x="1133.7" y="130" font-size="13.5" fill="#555">7000 Endbericht</text>
+<rect x="90" y="150" width="830" height="58" fill="#FFF7EC" stroke="#E0B060" rx="6"/>
+<text x="104" y="168" font-size="13.5" font-weight="bold" fill="#8A5A00">Verdichtungsmaßnahmen (Plan lag 17 AT über Deadline):</text>
+<text x="104" y="184" font-size="11.5" fill="#7A5A20">M1 Langläufer-Beschaffung vor Pflichtenheft vorgezogen</text>
+<text x="519" y="184" font-size="11.5" fill="#7A5A20">M2 Prototypaufbau mit TM-A+TM-B gemeinsam (15→10 AT)</text>
+<text x="104" y="200" font-size="11.5" fill="#7A5A20">M3 Test mit TM-B+TM-A gemeinsam (12→8 AT) + Vorlauf zu SW</text>
+<text x="519" y="200" font-size="11.5" fill="#7A5A20">M4 Endbericht überlappt Maturity-Feststellung (Vorlauf 3 AT)</text>
+<rect x="70" y="216" width="3188" height="180" fill="#F7F9FB" stroke="#E3E8EC" rx="6"/>
+<text x="86" y="236" font-size="17" font-weight="bold" fill="#2F5B7C">TM-A  Systems / Anforderungen / Aufbau</text>
+<rect x="70" y="430" width="3188" height="180" fill="#FFFFFF" stroke="#E3E8EC" rx="6"/>
+<text x="86" y="450" font-size="17" font-weight="bold" fill="#2F5B7C">TM-B  Elektrik / Hardware / Beschaffung</text>
+<rect x="70" y="644" width="3188" height="180" fill="#F7F9FB" stroke="#E3E8EC" rx="6"/>
+<text x="86" y="664" font-size="17" font-weight="bold" fill="#2F5B7C">TM-C  Software / Projektleitung</text>
+<path d="M286,736.0 L345,736.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M286,736.0 L316,736.0 L316,522.0 L345,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M286,736.0 L316,736.0 L316,308.0 L345,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M550,308.0 L609,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M814,308.0 L873,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M1078,308.0 L1108,308.0 L1108,522.0 L1137,522.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M550,522.0 L1137,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1078,308.0 L1108,308.0 L1108,736.0 L1137,736.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M550,736.0 L1137,736.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1078,308.0 L1137,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M814,308.0 L1137,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1342,522.0 L1372,522.0 L1372,308.0 L1401,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M1342,308.0 L1665,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1342,522.0 L1636,522.0 L1636,308.0 L1665,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1342,736.0 L1636,736.0 L1636,308.0 L1665,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1606,308.0 L1665,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M1342,522.0 L1929,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1606,308.0 L1900,308.0 L1900,522.0 L1929,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1870,308.0 L1900,308.0 L1900,736.0 L1929,736.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M1870,308.0 L1929,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M2134,522.0 L2164,522.0 L2164,308.0 L2193,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M2398,308.0 L2428,308.0 L2428,522.0 L2457,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M2134,736.0 L2428,736.0 L2428,522.0 L2457,522.0" fill="none" stroke="#CC0000" stroke-width="3.5" stroke-dasharray="7 5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M2134,308.0 L2428,308.0 L2428,522.0 L2457,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M1342,308.0 L2428,308.0 L2428,522.0 L2457,522.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M2662,522.0 L2692,522.0 L2692,308.0 L2721,308.0" fill="none" stroke="#CC0000" stroke-width="3.5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<path d="M814,308.0 L2721,308.0" fill="none" stroke="#999" stroke-width="2" marker-end="url(#ag)" stroke-linejoin="round"/>
+<path d="M2926,308.0 L2956,308.0 L2956,736.0 L2985,736.0" fill="none" stroke="#CC0000" stroke-width="3.5" stroke-dasharray="7 5" marker-end="url(#ar)" stroke-linejoin="round"/>
+<g><rect x="90" y="678" width="196" height="116" rx="4" fill="#E85642" stroke="#CC0000" stroke-width="4"/>
+<line x1="90" y1="708" x2="286" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="90" y1="764" x2="286" y2="764" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="155" y1="678" x2="155" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="155" y1="764" x2="155" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="220" y1="678" x2="220" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="220" y1="764" x2="220" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="122" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">15.07.</text>
+<text x="187" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">10 AT</text>
+<text x="253" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">28.07.</text>
+<text x="122" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">15.07.</text>
+<text x="187" y="784" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="253" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">28.07.</text>
+<text x="188.0" y="724" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">1030  (C)</text>
+<text x="188.0" y="740" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Stand Mobile Robotik</text>
+<text x="188.0" y="753" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">recherchieren</text>
+</g>
+<g><rect x="354" y="678" width="196" height="116" rx="4" fill="#E85642" stroke="#00000022" stroke-width="1"/>
+<line x1="354" y1="708" x2="550" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="354" y1="764" x2="550" y2="764" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="678" x2="419" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="764" x2="419" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="678" x2="484" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="764" x2="484" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="386" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">29.07.</text>
+<text x="451" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">12 AT</text>
+<text x="517" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">13.08.</text>
+<text x="386" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">10.08.</text>
+<text x="451" y="784" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 8</text>
+<text x="517" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">25.08.</text>
+<text x="452.0" y="732" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">1010  (C)</text>
+<text x="452.0" y="748" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Algorithmik recherchieren</text>
+</g>
+<g><rect x="354" y="464" width="196" height="116" rx="4" fill="#E85642" stroke="#00000022" stroke-width="1"/>
+<line x1="354" y1="494" x2="550" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="354" y1="550" x2="550" y2="550" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="464" x2="419" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="550" x2="419" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="464" x2="484" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="550" x2="484" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="386" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">29.07.</text>
+<text x="451" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">8 AT</text>
+<text x="517" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">07.08.</text>
+<text x="386" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">12.08.</text>
+<text x="451" y="570" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 10</text>
+<text x="517" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">21.08.</text>
+<text x="452.0" y="518" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">1020  (B)</text>
+<text x="452.0" y="534" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Marktsichtung durchführen</text>
+</g>
+<g><rect x="354" y="250" width="196" height="116" rx="4" fill="#F08705" stroke="#CC0000" stroke-width="4"/>
+<line x1="354" y1="280" x2="550" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="354" y1="336" x2="550" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="250" x2="419" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="419" y1="336" x2="419" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="250" x2="484" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="484" y1="336" x2="484" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="386" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">29.07.</text>
+<text x="451" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">6 AT</text>
+<text x="517" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">05.08.</text>
+<text x="386" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">29.07.</text>
+<text x="451" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="517" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">05.08.</text>
+<text x="452.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">2010  (A)</text>
+<text x="452.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Anwendungsfälle definieren</text>
+</g>
+<g><rect x="618" y="250" width="196" height="116" rx="4" fill="#F08705" stroke="#CC0000" stroke-width="4"/>
+<line x1="618" y1="280" x2="814" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="618" y1="336" x2="814" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="683" y1="250" x2="683" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="683" y1="336" x2="683" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="748" y1="250" x2="748" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="748" y1="336" x2="748" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="650" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">06.08.</text>
+<text x="715" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4 AT</text>
+<text x="781" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">11.08.</text>
+<text x="650" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">06.08.</text>
+<text x="715" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="781" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">11.08.</text>
+<text x="716.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">2020  (A)</text>
+<text x="716.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Maturity Level definieren</text>
+</g>
+<g><rect x="882" y="250" width="196" height="116" rx="4" fill="#F08705" stroke="#CC0000" stroke-width="4"/>
+<line x1="882" y1="280" x2="1078" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="882" y1="336" x2="1078" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="947" y1="250" x2="947" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="947" y1="336" x2="947" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1012" y1="250" x2="1012" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1012" y1="336" x2="1012" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="914" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">12.08.</text>
+<text x="979" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">8 AT</text>
+<text x="1045" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">21.08.</text>
+<text x="914" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">12.08.</text>
+<text x="979" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="1045" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">21.08.</text>
+<text x="980.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">2030  (A)</text>
+<text x="980.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Lastenheft erstellen</text>
+</g>
+<g><rect x="1146" y="464" width="196" height="116" rx="4" fill="#12AAB5" stroke="#CC0000" stroke-width="4"/>
+<line x1="1146" y1="494" x2="1342" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1146" y1="550" x2="1342" y2="550" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="464" x2="1211" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="550" x2="1211" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="464" x2="1276" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="550" x2="1276" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1178" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">24.08.</text>
+<text x="1243" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">8 AT</text>
+<text x="1309" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">02.09.</text>
+<text x="1178" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">24.08.</text>
+<text x="1243" y="570" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="1309" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">02.09.</text>
+<text x="1244.0" y="518" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">3020  (B)</text>
+<text x="1244.0" y="534" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Sensorik/Aktorik auswählen</text>
+</g>
+<g><rect x="1146" y="678" width="196" height="116" rx="4" fill="#12AAB5" stroke="#00000022" stroke-width="1"/>
+<line x1="1146" y1="708" x2="1342" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1146" y1="764" x2="1342" y2="764" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="678" x2="1211" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="764" x2="1211" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="678" x2="1276" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="764" x2="1276" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1178" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">24.08.</text>
+<text x="1243" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">10 AT</text>
+<text x="1309" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">04.09.</text>
+<text x="1178" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">26.08.</text>
+<text x="1243" y="784" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 2</text>
+<text x="1309" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">08.09.</text>
+<text x="1244.0" y="724" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">3030  (C)</text>
+<text x="1244.0" y="740" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Softwarearchitektur</text>
+<text x="1244.0" y="753" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">erarbeiten</text>
+</g>
+<g><rect x="1146" y="250" width="196" height="116" rx="4" fill="#12AAB5" stroke="#00000022" stroke-width="1"/>
+<line x1="1146" y1="280" x2="1342" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1146" y1="336" x2="1342" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="250" x2="1211" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1211" y1="336" x2="1211" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="250" x2="1276" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1276" y1="336" x2="1276" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1178" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">24.08.</text>
+<text x="1243" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">6 AT</text>
+<text x="1309" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">31.08.</text>
+<text x="1178" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">01.09.</text>
+<text x="1243" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 6</text>
+<text x="1309" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">08.09.</text>
+<text x="1244.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">3010  (A)</text>
+<text x="1244.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Testfälle definieren</text>
+</g>
+<g><rect x="1410" y="250" width="196" height="116" rx="4" fill="#12AAB5" stroke="#CC0000" stroke-width="4"/>
+<line x1="1410" y1="280" x2="1606" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1410" y1="336" x2="1606" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1475" y1="250" x2="1475" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1475" y1="336" x2="1475" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1540" y1="250" x2="1540" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1540" y1="336" x2="1540" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1442" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">03.09.</text>
+<text x="1507" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4 AT</text>
+<text x="1573" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">08.09.</text>
+<text x="1442" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">03.09.</text>
+<text x="1507" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="1573" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">08.09.</text>
+<text x="1508.0" y="296" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">3040  (A)</text>
+<text x="1508.0" y="312" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Kostenkalkulation</text>
+<text x="1508.0" y="325" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">durchführen</text>
+</g>
+<g><rect x="1674" y="250" width="196" height="116" rx="4" fill="#12AAB5" stroke="#CC0000" stroke-width="4"/>
+<line x1="1674" y1="280" x2="1870" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1674" y1="336" x2="1870" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1739" y1="250" x2="1739" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1739" y1="336" x2="1739" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1804" y1="250" x2="1804" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1804" y1="336" x2="1804" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1706" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">09.09.</text>
+<text x="1771" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">8 AT</text>
+<text x="1837" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">18.09.</text>
+<text x="1706" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">09.09.</text>
+<text x="1771" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="1837" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">18.09.</text>
+<text x="1772.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">3050  (A)</text>
+<text x="1772.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Pflichtenheft erstellen</text>
+</g>
+<g><rect x="1938" y="464" width="196" height="116" rx="4" fill="#1699D3" stroke="#00000022" stroke-width="1"/>
+<line x1="1938" y1="494" x2="2134" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1938" y1="550" x2="2134" y2="550" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="464" x2="2003" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="550" x2="2003" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="464" x2="2068" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="550" x2="2068" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1970" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">09.09.</text>
+<text x="2035" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">15 AT</text>
+<text x="2101" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">29.09.</text>
+<text x="1970" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">11.09.</text>
+<text x="2035" y="570" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 2</text>
+<text x="2101" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">01.10.</text>
+<text x="2036.0" y="518" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4010  (B)</text>
+<text x="2036.0" y="534" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Bauteile beschaffen</text>
+<rect x="2100" y="558" width="30" height="17" rx="3" fill="#FFFFFF" opacity="0.9"/>
+<text x="2115" y="571" font-size="11" font-weight="bold" fill="#B03000" text-anchor="middle" opacity="1">M1</text>
+</g>
+<g><rect x="1938" y="678" width="196" height="116" rx="4" fill="#1699D3" stroke="#CC0000" stroke-width="4"/>
+<line x1="1938" y1="708" x2="2134" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1938" y1="764" x2="2134" y2="764" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="678" x2="2003" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="764" x2="2003" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="678" x2="2068" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="764" x2="2068" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1970" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">21.09.</text>
+<text x="2035" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">25 AT</text>
+<text x="2101" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">23.10.</text>
+<text x="1970" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">21.09.</text>
+<text x="2035" y="784" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="2101" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">23.10.</text>
+<text x="2036.0" y="732" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4030  (C)</text>
+<text x="2036.0" y="748" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Software implementieren</text>
+</g>
+<g><rect x="1938" y="250" width="196" height="116" rx="4" fill="#1699D3" stroke="#00000022" stroke-width="1"/>
+<line x1="1938" y1="280" x2="2134" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="1938" y1="336" x2="2134" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="250" x2="2003" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2003" y1="336" x2="2003" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="250" x2="2068" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2068" y1="336" x2="2068" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="1970" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">21.09.</text>
+<text x="2035" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">10 AT</text>
+<text x="2101" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">02.10.</text>
+<text x="1970" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">02.10.</text>
+<text x="2035" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 9</text>
+<text x="2101" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">15.10.</text>
+<text x="2036.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4020  (A)</text>
+<text x="2036.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Softwaretest erstellen</text>
+</g>
+<g><rect x="2202" y="250" width="196" height="116" rx="4" fill="#1699D3" stroke="#00000022" stroke-width="1"/>
+<line x1="2202" y1="280" x2="2398" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2202" y1="336" x2="2398" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2267" y1="250" x2="2267" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2267" y1="336" x2="2267" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2332" y1="250" x2="2332" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2332" y1="336" x2="2332" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="2234" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">30.09.</text>
+<text x="2299" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">10 AT</text>
+<text x="2365" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">13.10.</text>
+<text x="2234" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">02.10.</text>
+<text x="2299" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 2</text>
+<text x="2365" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">15.10.</text>
+<text x="2300.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">4040  (A+B)</text>
+<text x="2300.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Prototyp aufbauen</text>
+<rect x="2364" y="344" width="30" height="17" rx="3" fill="#FFFFFF" opacity="0.9"/>
+<text x="2379" y="357" font-size="11" font-weight="bold" fill="#B03000" text-anchor="middle" opacity="1">M2</text>
+</g>
+<g><rect x="2466" y="464" width="196" height="116" rx="4" fill="#2F5B7C" stroke="#CC0000" stroke-width="4"/>
+<line x1="2466" y1="494" x2="2662" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2466" y1="550" x2="2662" y2="550" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2531" y1="464" x2="2531" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2531" y1="550" x2="2531" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2596" y1="464" x2="2596" y2="494" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2596" y1="550" x2="2596" y2="580" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="2498" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">16.10.</text>
+<text x="2563" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">8 AT</text>
+<text x="2629" y="484" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">27.10.</text>
+<text x="2498" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">16.10.</text>
+<text x="2563" y="570" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="2629" y="570" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">27.10.</text>
+<text x="2564.0" y="518" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">5000  (B+A)</text>
+<text x="2564.0" y="534" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Test durchführen</text>
+<rect x="2628" y="558" width="30" height="17" rx="3" fill="#FFFFFF" opacity="0.9"/>
+<text x="2643" y="571" font-size="11" font-weight="bold" fill="#B03000" text-anchor="middle" opacity="1">M3</text>
+</g>
+<g><rect x="2730" y="250" width="196" height="116" rx="4" fill="#8A4FA8" stroke="#CC0000" stroke-width="4"/>
+<line x1="2730" y1="280" x2="2926" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2730" y1="336" x2="2926" y2="336" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2795" y1="250" x2="2795" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2795" y1="336" x2="2795" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2860" y1="250" x2="2860" y2="280" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2860" y1="336" x2="2860" y2="366" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="2762" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">28.10.</text>
+<text x="2827" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">5 AT</text>
+<text x="2893" y="270" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">03.11.</text>
+<text x="2762" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">28.10.</text>
+<text x="2827" y="356" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="2893" y="356" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">03.11.</text>
+<text x="2828.0" y="304" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">6000  (A)</text>
+<text x="2828.0" y="320" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Maturity Level feststellen</text>
+</g>
+<g><rect x="2994" y="678" width="196" height="116" rx="4" fill="#5A6B7B" stroke="#CC0000" stroke-width="4"/>
+<line x1="2994" y1="708" x2="3190" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="2994" y1="764" x2="3190" y2="764" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="3059" y1="678" x2="3059" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="3059" y1="764" x2="3059" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="3124" y1="678" x2="3124" y2="708" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<line x1="3124" y1="764" x2="3124" y2="794" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+<text x="3026" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">30.10.</text>
+<text x="3091" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">5 AT</text>
+<text x="3157" y="698" font-size="13" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">05.11.</text>
+<text x="3026" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">30.10.</text>
+<text x="3091" y="784" font-size="12" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">GP 0</text>
+<text x="3157" y="784" font-size="12" font-weight="normal" fill="#fff" text-anchor="middle" opacity="0.9">05.11.</text>
+<text x="3092.0" y="724" font-size="13.5" font-weight="bold" fill="#fff" text-anchor="middle" opacity="1">7000  (C)</text>
+<text x="3092.0" y="740" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">Endbericht erstellen und</text>
+<text x="3092.0" y="753" font-size="11" font-weight="normal" fill="#fff" text-anchor="middle" opacity="1">abgeben</text>
+<rect x="3156" y="772" width="30" height="17" rx="3" fill="#FFFFFF" opacity="0.9"/>
+<text x="3171" y="785" font-size="11" font-weight="bold" fill="#B03000" text-anchor="middle" opacity="1">M4</text>
+</g>
+</svg>

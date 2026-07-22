@@ -1,0 +1,769 @@
+
+%\documentclass[manuscript]{acmart}
+%\documentclass[acmsmall]{acmart}
+%\settopmatter{printacmref=false}
+
+
+\documentclass[
+  a4paper,
+  12pt,
+  DIV=12,        % höherer Wert = schmalere Ränder, weniger Whitespacmi
+  parskip=half,  % Absätze mit halbem Abstand statt Einzug
+  headings=small % kleinere Überschriften, weniger vertikaler Abstand
+]{scrartcl}
+
+%\documentclass[a4paper,11pt]{scrartcl}
+%\documentclass[a4paper,11pt]{report}
+%\documentclass[a4paper,12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{svg}
+% Texte im SVG von Inkscape setzen lassen, nicht durch die Dokumentschrift ersetzen
+\svgsetup{inkscapelatex=false}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{gensymb}
+\usepackage{microtype}
+\usepackage{longtable}
+\usepackage{tabularx}   % Spalten, die die restliche Zeilenbreite auffüllen (X-Spalte)
+\usepackage{booktabs}   % \toprule \midrule \bottomrule (in mobrob_table.tex verwendet)
+\usepackage{wrapfig}    % Textumfluss um Abbildungen
+
+
+%\usepackage{geometry}
+\usepackage{siunitx}
+%\geometry{margin=2.5cm}
+
+
+\usepackage{amsthm}
+\usepackage{mdframed}
+
+\newmdtheoremenv{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newmdtheoremenv{derivation}{Derivation}
+
+
+%\mdfdefinestyle{leftline}{
+%    topline=false, bottomline=false, rightline=false,
+%    linewidth=2pt, linecolor=gray
+%}
+\theoremstyle{definition}
+\newmdtheoremenv[style=leftline]{myalgorithm}{Algorithm}
+
+
+
+
+%\usepackage{fancyvrb}
+
+
+
+
+
+
+
+\let\Bbbk\relax
+\usepackage{amssymb}
+
+
+\usepackage{yfonts}
+
+\usepackage{kvmap}
+
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sortlocale=de_DE,
+    natbib=true,
+    %url=false, 
+    doi=true,
+    %eprint=false
+]{biblatex}
+\addbibresource{Literaturrecherche-Stefan-Etringer/algo-references.bib}
+
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sortlocale=de_DE,
+    natbib=true,
+    %url=false, 
+    doi=true,
+    %eprint=false
+]{biblatex}
+\addbibresource{Literaturrecherche-Dennis/mobrob_references.bib}
+
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{trfsigns} %fourier transform arrow
+\usepackage{mathrsfs} %fourier F
+\usepackage{commath}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[european]{circuitikz}
+\ctikzset{tripoles/european not symbol=ieee circle}
+
+%\usepackage[shading]{moeptikz}
+%\moeptikzset{shading=true}
+
+%\usepackage{german,longtable}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{xfrac}
+
+\usepackage{listings}
+\usepackage{verbatimbox}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{pdflscape}   % einzelne Querformatseiten (im PDF gedreht)
+
+%%%% TIKZ
+
+\usepackage{tikz}
+
+\usepackage{pgfplots}
+\usetikzlibrary{calc,
+trees,positioning,arrows,
+chains,shapes.geometric,
+decorations.pathreplacing,
+decorations.pathmorphing,shapes,
+matrix,shapes.symbols,
+plotmarks}
+%\tikzexternalize[prefix=figures/]
+
+%\tikzset{%
+%  block/.style    = {draw, thick, rectangle, minimum height = 3em,
+%    minimum width = 3em},
+%  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+%  input/.style    = {coordinate}, % Input
+%  output/.style   = {coordinate} % Output
+%}
+% Defining string as labels of certain blocks.
+%\newcommand{\suma}{\Large$+$}
+%\newcommand{\multa}{\Large$\times$}
+%\newcommand{\inte}{$\displaystyle \int$}
+%\newcommand{\derv}{\huge$\frac{d}{dt}$}
+
+\usetikzlibrary{arrows,automata,positioning}
+%\usepackage{automata}
+
+
+%%% END TIKZ
+
+\usepackage[section]{placeins}
+
+\usepackage{textcomp}
+
+
+\usepackage{listings}
+\usepackage{verbatimbox}
+
+\usepackage{bold-extra}
+
+\usepackage{framed}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{\leftmark}
+%\chead{}
+%\rhead{}
+%\lfoot{}
+%\cfoot{\thepage}
+%\rfoot{}
+%\renewcommand{\headrulewidth}{0.2pt}
+%\renewcommand{\footrulewidth}{0.2pt}
+
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\SqrtNy}{$\sqrt{\textsc{Ny}}$}
+\newcommand{\conj}{\overline}
+\newcommand{\Kset}{\textswab{K}}
+\newcommand{\Qset}{\textswab{Q}}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\sorted}[1]{\textsc{sort}\left\lbrace #1 \right\rbrace}
+\newcommand{\SNRgain}{a_{SNR}}
+\newcommand{\EQgain}{a_{EQ}}
+\newcommand{\SIRgain}{a_{SIR}}
+\newcommand{\SNIRgain}{a_{SINR}}
+\newcommand{\SNR}{\textsc{SNR}}
+\newcommand{\CIRgain}{a_{CIR}}
+\newcommand{\CINRgain}{a_{CINR}}
+\newcommand{\CNR}{\textsc{CNR}}
+\newcommand{\CINR}{\textsc{CINR}}
+\newcommand{\HPAModel}{ Hughes 1177H TWTA }
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\CopWinCompl}{2.375377}
+\newcommand{\IBO}{\textsc{IBO}}
+\newcommand{\OBO}{\textsc{OBO}}
+\newcommand{\spacepage}{\newpage\null\thispagestyle{empty}\newpage}
+\newcommand{\satcom}{ SatCom }
+\newcommand{\db}{~\text{dB}}
+
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},   
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2,
+    language=C
+}
+
+\lstdefinelanguage{VHDL}{
+  morekeywords=[1]{library,use,all,entity,is,port,in,out,end,architecture,of,begin,process,if,then,else,elsif,when,others,signal,variable,wait,for,loop},
+  morecomment=[l]--,
+  morestring=[b]",
+  sensitive=true
+}
+
+\lstset{
+  language=VHDL,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=8pt,
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\lstset{numbers=none}
+
+%\newcounter{example}
+%\renewcommand{\theexample}{\thesection.\arabic{example}}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+
+
+
+\nocite{*}
+
+
+\begin{document}
+%\pagenumbering{roman}
+
+
+
+\title{Coasterbot}
+\subtitle{Phasenpaper M0}
+\author{Gereon Such}
+%\email{gereonsuch@suchdsp.com}
+%\affiliation{
+%  \institution{Wilhelm Büchner University of Applied Sciences}
+%  \department{Computer Engineering}
+%  \city{Hof}
+%  \country{Germany}
+%}
+
+
+
+\begin{titlepage}
+  \begin{center}
+    {\large Wilhelm Büchner University of Applied Sciences} \\[0.3em]
+    
+    {\normalsize Projektseminar Master}
+\vspace{5em}
+
+    {\LARGE\bfseries Coasterbot} \\[0.5em]
+    
+    {\large Phasenpaper M0} \\[1em]
+    
+\vspace{5em}
+    {\normalsize
+\begin{tabular}{ll}
+Dennis Borutta, B. Eng & dennis.borutta@outlook.com\\
+Stefan Etringer, B. Eng & mail@stefan.works\\
+Gereon Such, M. Sc. & gereonsuch@gmail.com\\
+\end{tabular}
+    }
+  \end{center}
+    
+  
+\end{titlepage}
+
+
+% einleitung preambel etc.
+
+
+% Versionshistorie des Dokuments -- eigene Seite direkt nach dem Titelblatt
+\section*{Versionshistorie}
+
+\begin{tabularx}{\textwidth}{@{}clp{2.6cm}X@{}}
+\toprule
+\textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
+\midrule
+1 & 20.07.2026 & Such & Erstfassung des Phasenpapiers M0\\
+2 & 21.07.2026 & Borutta, Such & Literaturrecherche und Einleitungstext ergänzt; Coasterbot-Abbildung eingefügt; Timeline und Projektzeitraum angepasst\\
+3 & 22.07.2026 & Such & Versionshistorie ergänzt\\
+\bottomrule
+\end{tabularx}
+
+
+\newpage
+
+
+\section{Projektübersicht}
+
+\begin{wrapfigure}{r}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.38\textwidth]{coasterbot.png}
+%  \caption{Coasterbot}
+  \label{coasterbot}
+\end{wrapfigure}
+
+In diesem Projekt soll ein Prototyp eines Coasterbots entwickelt werden. Ein Coasterbot ist ein Handtellergroßer Roboter, welcher selbstständig auf einem Tisch navigiert und dort Getränkeuntersetzer in Richtung von Personen spendet und diese automatisiert wieder aufnimmt. Außerdem soll der Coasterbot in Ausbaustufen Flüssigkeit vom Tisch aufnehmen und diesen so reinigen können. Optional kann der Coasterbot Getränke befördern, Bestellungen aufnehmen und Bezahlvorgänge initialisieren. 
+
+Durch diese Arbeiten setzt der Roboter Ressourcen beim Bedienpersonal in der Gastronomie frei, da sich ihr Aufgabenbereich reduziert. Außerdem ist ein solcher robotischer Helfer in der Gastronomie ein Alleinstellungsmerkmal für Bars und Restaurants und somit ein zusätzliches Attraktivitätsmerkmal für eine Gastronomie. Dieses Attraktivetätsmerkmal kann dazu führen, dass es mehr positive Bewertungen gibt und damit die online Präsenz eines lokals verbessert. Dies dürfte einen direkten Einfluss auf den Umsatz haben, da eine von YouGov durchgeführt Studie herausfand, dass die online Präsenz eine zunehmendere Relevanz bei der Restaurantauswahl besitzt. \cite{BibEntry2026Jul} Es wird außerdem erwartet, dass der Coasterbot in der Gatronomie einen Mehrwert bietet, da diese Branche seit mehreren Jahren unter einen Fachkräftemangel leidet und das Personal in der Gastronomie damit stark belastet ist. \cite{DEHOGA2025Q4} Weiterhin lassen Studien erkennen, dass Gäste elektronische Hilfsmittel in der Gastronomie zunehmend akzeptieren und diese als Mehrwert wahrnehmen, wenn sie eine Serviceleistung beschleunigen. \cite{PlonerOrderman2012, BibEntry2026Jan} Dies soll in einer ersten Ausbaustufe mit dem Coasterbot durch die Ausgabe und Aufnahme von Getränkedeckeln erreicht werden.
+
+
+Im Rahmen dieser Prototyp Entwicklung soll die folgende \textit{Definition of Done} gelten:
+\begin{itemize}
+\item STL-Dateien und Schaltplänen zur Fertigung eines Prototypen sind fertiggestellt
+\item Softwarearchitektur und -komponenten sind ausgearbeitet
+\item Eine Simulation des Programmablaufes ist erstellt und Validiert
+\item Tests die sich aus den Anforderungen ergeben, sind identifiziert und definiert
+\end{itemize}
+
+
+
+Nicht im Rahmen dieser Entwicklung(\textit{Out of scope}) sind:
+\begin{itemize}
+\item EMV-Betrachtungen
+\item Kartierung der Umgebung
+\item Einbindung in ein Netzwerk
+\item Marketingkonzepte
+\item Schwarmverhalten mehrerer Coasterbots
+\end{itemize}
+
+Der zeitliche Rahmen ist hart begrenzt auf den Projektbeginn am \textbf{15.7.2026} sowie Projektabschluss am \textbf{7.11.2026}.
+
+
+\section{Projektorganisation}
+
+Das Projektteam besteht aus den drei Mitgliedern 
+
+\begin{center}
+\begin{tabular}{lll}
+Dennis Burutta & Leiter & dennis.borutta@outlook.com\\
+Stefan Etringer & Admin & mail@stefan.works \\
+Gereon Such && gereonsuch@gmail.com\\
+\end{tabular}
+\end{center}
+
+
+
+
+Für die Projektorganisation und dokumentenbasierte Kommunikation im Team wird das Tool Notion \url{https://app.notion.com} genutzt. In diesem werden Projektphasen, Arbeitspakete, Fortschritt, Ergebnisse sowie Meilensteine protokolliert. Notion bietet hier vielfältige Planungsmöglichkeiten sowie Visualisierungen dazu. 
+
+Entwicklungsrelevante Dateien wie Source Code, CAD-Dateien für das Chassis oder Schaltungen werden in einem gemeinsamen Git Repository abgelegt. % ich lasse hier einfach offen wo und wie, ob github oder gitlab oder whatever...
+
+Zur Remote Kommunikation wird eine Kombination aus Instant Messaging fürfristige Information und Absprachen sowie regelmäßigen Videocalls mit dem Tool Alfaview \url{https://alfaview.com} genutzt. 
+
+
+
+
+\section{Projektplanung}
+
+Im Projektplanungstool Notion wurde durch das Team bereits ein Zeitplan hinterlegt. Dieser sieht für alle Teammitglieder wie folgt aus, der Übersichtlichkeit halber hier in reduzierter Komplexität, siehe Abbildung \ref{notiontimeline}. 
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[scale=0.3]{notion_proj_uebersicht_schmal.png}
+  \caption{Notion Timeline}
+  \label{notiontimeline}
+\end{figure}
+
+
+
+Die Arbeitspakete gliedern sich in Mind-Map Darstellung wie in Abbildung \ref{arbeitspaketemindmap}, daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen wie in Abbildung \ref{projektstrukturplan} gezeigt. 
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg[scale=0.4]{MindMap-Seite-1.drawio.svg}
+  \caption{Mindmap zur Projektstruktur}
+  \label{arbeitspaketemindmap}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includesvg[scale=0.45]{Projektstrukturplan-Seite-1.drawio.svg}
+  \caption{Projektstrukturplan}
+  \label{projektstrukturplan}
+\end{figure}
+
+
+
+
+Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arbeitspakete nach Aufwand und Priorität der in Abbildung~\ref{fig:netzplan} dargestellte Netzplan nach DIN 69900. Aufgrund seiner Breite ist dieser auf einer eigenen Seite im Querformat abgebildet.
+
+\begin{landscape}
+\thispagestyle{empty}   % keine Seitenzahl, Plan darf bis an den Papierrand
+\null\vfill
+% Auf dem Papier zentrieren, nicht im Satzspiegel: in der gedrehten Achse liegt
+% der Satzspiegel nicht mittig (vorn 1in+topmargin+headheight+headsep, hinten Rest).
+% Ausgleich = halbe Differenz der beiden Raender; die 3.8pt gleichen den
+% asymmetrischen Weissraum im SVG selbst aus (viewBox: links 70, rechts 40).
+% (in der landscape-Umgebung ist \linewidth die Ausdehnung entlang dieser Achse)
+\noindent\hspace*{\dimexpr 1in + \topmargin + \headheight + \headsep
+                  - (\paperheight-\linewidth)/2 - 3.8pt\relax}%
+\makebox[\linewidth]{%
+  \begin{minipage}{\dimexpr\paperheight-2.4cm\relax}
+    \centering
+    \includesvg[width=\linewidth]{Coasterbot_Netzplan_PSP.svg}
+    \captionof{figure}{Netzplan}
+    \label{fig:netzplan}
+  \end{minipage}}
+\vfill
+\end{landscape}
+
+
+
+\section{Stand der Forschung: Mobile Roboter}
+Das Feld der mobilen Roboter ist bereits weit erforscht und es lassen sich eine Vielzahl an Arbeiten finden, die unterschiedliche Ansätze und Lösungen für die Navigation, Manipulation und Interaktion von Robotern in verschiedenen Umgebungen präsentieren. Eine übersichtliche Zusammenfassung relevanter Arbeiten ist in der Tabelle \ref{tab:literaturrecherche-coasterbot} im Anhang dargestellt. Diese Tabelle enthält Informationen zu den jeweiligen Roboter-Projekten. Diese werden als Grundlage zur Bauteilauswahl und Softwarearchitektur des Coasterbots dienen. Insbesondere die Arbeit von \cite{Balbuena2026Mar} kann als Grundlage dienen, da hier mehrere mobile Roboter Varianten vorgestellt und mit fertigen Stücklisten und CAD-Dateien veröffentlicht wurden. Damit bieten diese Arbeiten eine gute Grundlage für die Entwicklung des Coasterbots, so dass sich das Team auf die Softwarearchitektur, die Navigation des Roboters und die Hauptfunktion - das Ablegen und Aufnehmen von Getränkeuntersetzer - konzentrieren kann.
+
+
+\section{Stand der Forschung: Algorithmen}
+
+
+\subsection{Klassische Graphalgorithmen}
+
+Die Grundlage vieler Verfahren zur autonomen Navigation bilden klassische
+Graphalgorithmen. Dabei wird die Umgebung als Graph modelliert, dessen Knoten
+diskrete Positionen oder Zustände repräsentieren, während Kanten mögliche
+Bewegungen zwischen diesen beschreiben. Ziel ist die Bestimmung eines optimalen
+Pfades hinsichtlich einer Kostenfunktion, beispielsweise der zurückgelegten
+Distanz, Fahrzeit oder des Energieverbrauchs.
+
+Ein Vertreter ist der Dijkstra-Algorithmus, der den kürzesten Pfad in Graphen
+mit Kantengewichten berechnet. Der Algorithmus garantiert optimale Lösungen
+insofern die Kantengewichte nicht-negativ sind und
+stellt ein Referenzverfahren für die globale Pfadplanung in statischen
+Umgebungen dar \cite{Dijkstra}. Seine mathematische Grundlage sowie Laufzeitanalyse werden
+ausführlich in "Introduction to Algorithms" von Cornet et al. beschrieben \cite{IntroToAlgs}.
+
+Neben Dijkstra existieren weitere grundlegende Suchverfahren, wie die
+Breitensuche (Breadth-First Search) und Tiefensuche (Depth-First Search,
+DFS)\cite{IntroToAlgs}.
+Während BFS optimale Lösungen in ungewichteten Graphen liefert, dient DFS vor
+allem der Strukturanalyse von Graphen und spielt in der Roboternavigation eine
+untergeordnete Rolle.
+
+Für Anwendungen mit einer vollständig bekannten und statischen Umgebung stellen
+diese Algorithmen eine zuverlässige Grundlage der globalen Pfadplanung dar.
+
+\subsection{Heuristische Verfahren}
+
+Da klassische Graphalgorithmen bei großen Suchräumen einen hohen Rechenaufwand
+verursachen, werden in der mobilen Robotik häufig heuristische Suchverfahren
+eingesetzt. Ein bedeutendes Verfahren ist der heusristische A* Algorithmus, um
+die Suche gezielt in Richtung des Zielknotens zu lenken \cite{IntroToAlgs,AStar}.
+
+Die Bewertung eines Knotens erfolgt über
+
+\begin{equation}
+f\left(n\right) = g\left(n\right) + h\left(n\right)
+\end{equation}
+%$$
+%f(n) = g(n)+h(n)
+%$$
+
+Hierbei stellen $g(n)$ die wirklichen Kosten eines optimalen Pfades $s$ nach
+$n$ und $h(n)$ die wirklichen Kosten eines optimalen Pfades von $n$ zu einem
+präferierten Zielknoten von $n$ darstellt. Allgemein ist $h(n)$ eine Schätzung
+der verbleibenden Distanz zum Ziel \cite{AStar}. Ist die Heuristik zulässig (admissible),
+garantiert A* ebenfalls optimale Lösungen, untersucht jedoch weniger Knoten als
+Dijkstra.
+
+Für mobile Roboter kommen häufig euklidische oder Manhattan-Distanzen \cite{IntroToAlgs} als
+Heuristik zum Einsatz. Dadurch eignet sich A* insbesondere für Gitternetze
+(Occupancy Grids), wie sie in der Robotik genutzt werden\cite{RoboticMapping}.
+
+Aktuellere Varianten wie Weighted A* oder Anytime A* priorisieren kürzere
+Rechenzeiten gegenüber der optimalen Lösung, weshalb deren Anwendung geeignet in
+Echtzeitsystemen ist\cite{WeightedA,AnytimeA}.
+
+\subsection{Dynamische Pfadplanung}
+
+In realen Einsatzgebieten verändert sich die Umgebung häufig während der Fahrt.
+Statische Algorithmen müssten den gesamten Pfad erneut berechnen. Dies führt zu
+hohen Rechenzeiten.
+
+Hier setzen Verfahren der dynamischen Pfadplanung an. Zu nennen sind unter
+anderem D* (Dynamic A*) \cite{DAlg} sowie dessen Weiterentwicklung D* Lite \cite{DLite}. Beide
+Verfahren aktualisieren ausschließlich die von einer Umweltveränderung
+betroffenen Bereiche des Suchgraphen und vermeiden dadurch vollständige
+Neuberechnungen.
+
+Ein weiteres relevantes Verfahren ist Lifelong Planning A* (LPA*), welches
+inkrementelle Änderungen effizient verarbeitet \cite{LifelongPlanningA}. Solche
+Algorithmen werden insbesondere in autonomen Fahrzeugen und mobilen
+Servicerobotern eingesetzt, deren Umgebungen durch Menschen oder bewegliche
+Objekte beeinflusst werden.
+
+Für einen Coaster Bot wären dynamische Planungsverfahren dann relevant, wenn
+sich während der Navigation Gläser, Teller oder Personen im Arbeitsbereich
+befinden.
+
+\subsection{Kollisionsvermeidung}
+
+Während globale Pfadplanung den optimalen Weg bestimmen, übernimmt die
+Kollisionsvermeidung die kurzfristige Reaktion auf Hindernisse.
+
+Ein Ansatz sind Potentialfeldmethoden, bei denen das Ziel eine anziehende Kraft
+und Hindernisse abstoßende Kräfte erzeugen. Diese Methoden sind einfach
+implementierbar, können jedoch in lokalen Minima stecken bleiben
+\cite{Potentialfeldmethoden}.
+
+In mobilen Robotersystemen wird u.a. der Dynamic Window Approach (DWA)
+verwendet, der die Bewegungsdynamik des Roboters selbst einbezieht
+\cite{DynamicWindowApproach}. Diese Strategie ist grundsätzlich ein statischer
+Ansatz, der die Eigenschaften von Veränderungen in der Umgebung nicht
+berücksichtigt. Durch den Einsatz von Neuronalen Netzen kann DWA, durch kurze
+Observationen der sich verändernden Umgebung, die Bewegungen der Hindernisse
+modellieren und somit auf Veränderungen der Umwelt reagieren
+\cite{DynamicAdaptiveDynamicWindowApproach}.
+
+Für komplexe Konfigurationsräume kommen außerdem samplingbasierte Verfahren wie
+Rapidly-exploring Random Trees (RRT) \cite{RRT} sowie RRT* \cite{RRTStar} zum Einsatz.
+Während RRT schnell zulässige Pfade findet, verbessert RRT* diese schrittweise
+bis zum asympotischen Optimum \cite{RRTStar}.
+
+Somit bildet die Kombination aus globalem Pfadplaner und lokaler
+Kollisionsvermeidung einen möglichen Ansatz zur Bewegung des Coaster Bots dar.
+
+\subsection{SLAM und Lokalisierung}
+
+Zur verbesserten Navigation kann ein Roboter seine eigene Position bestimmen und
+gleichzeitig eine Karte seiner Umgebung aufbauen. Dieses Problem wird als
+Simultaneous Localization and Mapping (SLAM) bezeichnet \cite{SLAM}.
+
+Zu den klassischen Verfahren gehören Extended Kalman Filter (EKF-SLAM),
+FastSLAM auf Basis von Paketfiltern sowie graphbasierte SLAM Verfahren \cite{EKF,EKF-SLAM,FastSLAM}.
+
+Besonders graphbasierte Optimierungsverfahren habe sich aufgrund ihrer hohen
+Genauigkeit etabliert und bilden die Grundlage von Robotik-Frameworks wie ROS2
+\cite{ROS2}.
+
+Für den Coaster Bot hängt die Bedeutung von SLAM vom Einsatzszenario und den
+verwendeten Sensoren ab. Wird ausschließlich auf einem bekannten Tisch
+gearbeitet, genügt meist eine vorher definierte Karte. Soll das System autonom
+unbekannte Arbeitsbereiche erfassen oder sich frei im Raum bewegen können, ist
+ein SLAM Verfahren vorteilhaft.
+
+\subsection{Manipulationsplanung}
+
+Neben der Navigation stellt die Manipulationsplanung einen wesentlichen
+Bestandteil autonomer Serviceroboter dar. Sie umfasst die Planung und Steuerung
+von Greifbewegungen sowie das sichere Aufnehmen und Ablegen von Objekten.
+Hierbei müssen sowohl die Kinematik des Roboters als auch mögliche Kollisionen
+zwischen Greifer, Objekt und Umgebung berücksichtigt werden
+\cite{ManipulationCBiRRT,MotionPlanning}.
+
+Zur Bewegungsplanung von Roboterarmen werden häufig samplingbasierte Verfahren
+wie RRT \cite{RRT}, RRT* \cite{RRTStar} oder Probabilistic Roadmaps (PRM) \cite{PRM}
+eingesetzt. Moderne Robotik-Frameworks wie MoveIt 2 \cite{MoveIt2} kombinieren diese
+Planungsverfahren mit Kollisionsprüfungen und inverser Kinematik.
+
+Für den Coaster Bot besteht die Manipulationsaufgabe darin, Getränkedeckel
+präzise aufzunehmen und an einer definierten Zielposition abzulegen. Neben
+einer genauen Positionierung des Roboters müssen dabei Greifstrategie,
+Objektorientierung sowie eine zuverlässige Ablage berücksichtigt werden.
+
+\subsection{Inertialnavigation}
+
+Die Inertialnavigation (Inertial Navigation System, INS) beschreibt Verfahren
+zur Bestimmung der Position, Orientierung und Bewegung eines mobilen Systems
+ausschließlich auf Grundlage von Trägheitssensoren. Im Gegensatz zu
+kamerabasierten oder laserbasierten Lokalisierungsmethoden ist die
+Inertialnavigation nicht auf externe Referenzpunkte oder eine Sichtverbindung
+zur Umgebung angewiesen. Dadurch eignet sie sich insbesondere für Anwendungen,
+in denen optische Sensoren nur eingeschränkt eingesetzt werden können oder
+zeitweise keine zuverlässigen Umgebungsinformationen zur Verfügung stehen
+\cite{IntegratedNavigationSystems,ModernRobotics}.
+
+Ein Inertialnavigationssystem besteht zumeist aus einer Inertial
+Measurement Unit (IMU), die Beschleunigungssensoren (Accelerometer) und
+Drehratensensoren (Gyroskope) kombiniert. Moderne Systeme integrieren
+zusätzlich Magnetometer zur Bestimmung der absoluten Orientierung. Aus den
+gemessenen Beschleunigungen und Winkelgeschwindigkeiten werden durch numerische
+Integration Geschwindigkeit, Orientierung und Position des Roboters berechnet.
+Die mathematischen Grundlagen dieser Verfahren basieren auf den
+Bewegungsgleichungen der klassischen Mechanik sowie auf Verfahren zur Schätzung
+von Zustandsgrößen \cite{IntegratedNavigationSystems,ModernRobotics}.
+
+Ein Problem der Inertialnavigation stellt der Drift dar. Geringe Messfehler der
+Sensoren werden durch die fortlaufende Integration akkumuliert und führen mit
+zunehmender Betriebsdauer zu wachsenden Positions- und Orientierungsfehlern.
+Aus diesem Grund wird eine reine Inertialnavigation in der mobilen Robotik nur
+selten dauerhaft eingesetzt. Stattdessen erfolgt eine Kombination mit externen
+Sensorsystemen wie LiDAR, Kameras oder Radencodern, um die Positionsschätzung
+regelmäßig zu korrigieren \cite{IntegratedNavigationSystems,ProbabilisticRobotics}.
+
+Zur Fusion verschiedener Sensordaten kommen häufig probabilistische
+Schätzverfahren wie der Kalman-Filter, der Extended Kalman Filter (EKF) \cite{EKF}
+oder der Unscented Kalman Filter (UKF) \cite{UKF} zum Einsatz. Diese Verfahren
+kombinieren die Messdaten der IMU mit absoluten Positionsinformationen anderer
+Sensoren und ermöglichen dadurch eine robustere Lokalisierung. In aktuellen
+Robotersystemen wird zudem vermehrt auf graphbasierte Optimierungsverfahren und
+faktorgraphbasierte Ansätze zurückgegriffen, welche mehrere Sensordatenquellen
+gleichzeitig berücksichtigen und die Genauigkeit der Positionsbestimmung
+verbessern \cite{ProbabilisticRobotics,HandbookOfRobotics}.
+
+Die Inertialnavigation findet in zahlreichen Bereichen der Robotik Anwendung.
+Autonome Serviceroboter, fahrerlose Transportsysteme (AGV), Drohnen sowie
+mobile Manipulatoren nutzen IMUs zur Stabilisierung der Bewegung, zur Schätzung
+der Fahrzeuglage und zur kurzfristigen Positionsbestimmung. Besonders in
+Innenräumen, in denen satellitengestützte Navigationssysteme wie GPS nicht
+verfügbar sind, stellt die IMU eine wichtige Informationsquelle für die
+Bewegungsregelung dar \cite{GPS}. Auch in IoT- und Embedded-Systemen werden aufgrund der
+geringen Baugröße, des niedrigen Energieverbrauchs und der geringen Kosten
+häufig kompakte Micro-Electro-Mechanical Systems Inertial Measurement Units
+(MEMS-IMUs) eingesetzt \cite{HandbookOfRobotics,ModernRobotics}.
+
+Für den geplanten Coaster Bot kann die Inertialnavigation die globale
+Pfadplanung und sensorbasierte Navigation ergänzen. Während Verfahren wie A*
+oder Dijkstra den optimalen Fahrweg berechnen und LiDAR- oder
+Kamerasysteme Hindernisse erkennen, liefert die IMU kontinuierlich
+Informationen über Beschleunigung und Drehrichtung des Roboters \cite{AStar,IntroToAlgs}. Dadurch können
+Fahrbewegungen zwischen Sensormessungen präziser geschätzt sowie kurzfristige
+Positionsänderungen erfasst werden. Beim Anfahren definierter Ablage- oder
+Aufnahmepositionen verbessert die Orientierungsschätzung die
+Wiederholgenauigkeit des Systems. Die Kombination einer IMU mit Verfahren der
+globalen Pfadplanung entspricht dem in der mobilen Robotik etablierten Ansatz
+einer mehrstufigen Navigation \cite{ModernRobotics,HandbookOfRobotics}.
+
+Da sich der Coaster Bot auf einer vergleichsweise kleinen Arbeitsfläche bewegt
+und Bewegungen präzise erfolgen sollten,
+ist eine alleinige Inertialnavigation aufgrund der Drift möglicherweise nicht
+ausreichend. Eine mögliche Kombination aus mehreren Sensoren wie IMU,
+Radencodern, einem LiDAR- oder kamerabasierten Lokalisierungssystem würden eine
+effizientere Positionsbestimmung erreichen.
+
+
+
+
+
+
+
+\section{Planung Entwicklungsphase}
+
+
+
+
+\appendix
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%acm bullshit
+%\bibliographystyle{ACM-Reference-Format}
+%\bibliography{quellen}
+
+% normal scr article
+\printbibliography[title={Bibliography}]
+
+\listoffigures
+
+
+%\newpage
+%\chapter*{References}
+%\addcontentsline{toc}{chapter}{References}
+%\printbibliography[heading=none]
+
+\input{Literaturrecherche-Dennis/mobrob_table.tex}
+
+\end{document}

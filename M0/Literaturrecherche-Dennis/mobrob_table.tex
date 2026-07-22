@@ -1,0 +1,102 @@
+\begin{landscape}
+\begin{longtable}{@{} >{\raggedright\arraybackslash}p{3.0cm}
+                      >{\raggedright\arraybackslash}p{2.6cm}
+                      >{\raggedright\arraybackslash}p{3.4cm}
+                      >{\raggedright\arraybackslash}p{5.0cm}
+                      >{\raggedright\arraybackslash}p{5.4cm} @{}}
+\caption{Vergleich mobiler Roboterplattformen aus der Literaturrecherche und Übertragbarkeit auf den Coasterbot}
+\label{tab:literaturrecherche-coasterbot} \\
+\toprule
+\textbf{Roboter / Paper} & \textbf{Kategorie} & \textbf{Komponente} & \textbf{Details / Spezifikation} & \textbf{Übertragbarkeit auf Coasterbot} \\
+\midrule
+\endfirsthead
+
+\multicolumn{5}{c}{{\tablename\ \thetable{} -- Fortsetzung von vorheriger Seite}} \\
+\toprule
+\textbf{Roboter / Paper} & \textbf{Kategorie} & \textbf{Komponente} & \textbf{Details / Spezifikation} & \textbf{Übertragbarkeit auf Coasterbot} \\
+\midrule
+\endhead
+
+\midrule
+\multicolumn{5}{r}{{Fortsetzung auf nächster Seite}} \\
+\endfoot
+
+\bottomrule
+\endlastfoot
+
+\multirow{11}{=}{Mona \cite{Arvin2019Jun}} & Mechanischer Aufbau & Leichtbau-Chassis & \textasciitilde{}45 g Gesamtgewicht, kompakte Bauform & Bedingt – Coasterbot braucht mehr Nutzlast (Untersetzer-Magazin, ggf. Getränke) \\
+ & Mechanischer Aufbau & Räder \& Radstand & Raddurchmesser 28 mm, Radstand 80 mm & Als Referenzgröße für Mini-Prototyp geeignet \\
+ & Aktor & 2x DC-Motor mit Untersetzungsgetriebe & Direktuntersetzung 250:1, symmetrischer Differentialantrieb & Hoch – Differentialantrieb ist Standardlösung für Coasterbot-Fahrwerk \\
+ & Aktor & H-Brücken-Motortreiber & PWM-Ansteuerung je Motor, ca. 74 mW Leistungsbedarf & Hoch – Standard-Ansteuerung, direkt übertragbar \\
+ & Sensor & 5x IR-Nahbereichssensor & 35° Sensorabstand, Hinderniserkennung/Bumper-Funktion & Mittel – für Personenerkennung ggf. zu kurze Reichweite, aber gut für Tischkantennähe \\
+ & Sensor & Magnetischer Encoder & 6-Pol-Magnetscheibe + Hall-Sensor pro Motor, 1500 Pulse/Radumdrehung & Hoch – für Odometrie/Positionsregelung des Coasterbots relevant \\
+ & Sensor & Spannungsteiler (Batterieüberwachung) & ADC-Messung der Akkuspannung & Hoch – einfache, günstige Lösung für Energiemanagement \\
+ & Steuerung & ATmega328 Mikrocontroller & 8-bit AVR, 16 MHz, Arduino-kompatibel, 32 KB Flash & Hoch – ausreichend für Fahrsteuerung, ggf. zu schwach für Bilderkennung \\
+ & Steuerung & Erweiterungsmodule (Raspberry Pi Zero, RF, WiFi, XBee) & Für höhere Rechenleistung/Kommunikation nachrüstbar & Hoch – Raspberry Pi als Rechen-Backbone für Vereinzelung/Erkennung denkbar \\
+ & Software & Arduino IDE (C/C++) & Offene Programmierumgebung & Hoch – einfacher Einstieg für Prototyp-Firmware \\
+ & Software & Stage-Simulator & 2D-Simulation von Multi-Robot-Szenarien & Gering – eher für Schwarmszenarien, für Einzelroboter-DoD nicht zwingend nötig \\
+\midrule
+\multirow{6}{=}{Diff.-Drive-Plattform \cite{Karakaya2022Apr}} & Mechanischer Aufbau & CAD-Chassis-Vollmodell & Solid-Modeling-Ansatz für Gesamtstruktur & Hoch – methodisches Vorbild für eigenes CAD/STL-Konzept \\
+ & Mechanischer Aufbau & Antriebsrad-Befestigung & 3 Schrauben zwischen zwei gegenüberliegenden Scheiben, Bushings gegen Korrosion & Hoch – direkt anwendbares Konstruktionsdetail für Radanbindung \\
+ & Aktor & DC-Motor (radachsnah montiert) & Motoren innenliegend entlang der Radachse & Hoch – platzsparende Motoranordnung fürs Chassis \\
+ & Sensor & – (nicht spezifiziert) & Paper fokussiert rein mechanisch, keine Sensor-BOM & n/a \\
+ & Steuerung & – (nicht spezifiziert) & Keine Angaben zu Controller/Elektronik & n/a \\
+ & Software & CAD/Solid-Modeling-Software & Für mechanischen Entwurf verwendet & Hoch – Standardwerkzeug auch für STL-Erstellung im eigenen Projekt \\
+\midrule
+\multirow{5}{=}{Diff.-Drive Mobile Robot \cite{Hirpo2017Oct}} & Mechanischer Aufbau & 3D-Chassis-Modell & CAD-Baugruppe von Antriebs- und Castor-Rad & Mittel – gutes Referenzmodell, aber generisch \\
+ & Aktor & 2x 12V-DC-Motor mit Getriebekopf & Bürsten-DC-Motor, Übersetzung n=3 & Hoch – Dimensionierungsbeispiel für Motorauswahl \\
+ & Sensor & Tachometer/Drehzahlgeber & Ktach = 1,8, zur Drehzahlrückführung & Hoch – für geschlossene Drehzahlregelung der Antriebsmotoren relevant \\
+ & Steuerung & PID-Regler & Kp/Ki/Kd-Tuning für Drehzahlregelung & Hoch – Regelkonzept direkt für Fahrsteuerung übernehmbar \\
+ & Software & MATLAB/Simulink & Modellierung \& Simulation des Regelkreises & Hoch – geeignet für die im DoD geforderte Ablaufsimulation \\
+\midrule
+\multirow{5}{=}{Edge Detecting Arduino Robot \cite{BibEntry2020Jul}} & Mechanischer Aufbau & Rad-Chassis (Kit-Basis) & Einfaches, kommerzielles Robot-Chassis & Gering – nur als didaktisches Beispiel, kein Custom-Design \\
+ & Aktor & DC-Antriebsmotoren & Standard-Radantrieb & Gering – funktional redundant zu anderen Quellen \\
+ & Sensor & IR-LED + IR-Fototransistor & Abwärts gerichtet, erkennt Tischkante/Cliff über fehlende Reflexion & Sehr hoch – Kernprinzip für die Tischkantenerkennung des Coasterbots \\
+ & Steuerung & Arduino-Board & Einfacher Mikrocontroller zur Schwellenwert-Auswertung & Hoch – ausreichend für einfache Kantenerkennungslogik \\
+ & Software & Arduino IDE, Schwellenwertlogik & Vergleich IR-Signal gegen festen Grenzwert & Hoch – einfachster Einstieg für Cliff-Detection-Funktion \\
+\midrule
+\multirow{6}{=}{Miniskybot \cite{Gonzalez-Gomez2012Jan}} & Mechanischer Aufbau & 3D-gedrucktes Chassis (9 Teile) & Front, Rear, 2 Räder, Batteriefach, -halter, 3-teiliges Castor-Rad & Sehr hoch – nahezu 1:1 übertragbares Konzept für STL-basierten Prototyp \\
+ & Mechanischer Aufbau & O-Ring-Reifen \& M3-Verschraubung & Standard-O-Ringe als Bereifung, M3-Schrauben/Muttern & Hoch – kostengünstige, einfach zu beschaffende Lösung \\
+ & Aktor & 2x modifizierter Hobby-Servomotor (Futaba 3003) & Für Dauerdrehung gehackt (Continuous Rotation) & Mittel – günstige Alternative zu DC-Motor+Getriebe, aber weniger präzise \\
+ & Sensor & 2x SRF02-Ultraschallsensor & I2C-Bus, beliebig erweiterbar & Mittel – Ultraschall ggf. für Personen-/Hinderniserkennung nutzbar \\
+ & Steuerung & PIC16F876A Mikrocontroller (Skycube-Board) & 8-bit, RS232-Programmierung, 4x AAA-Batterien & Mittel – funktional ausreichend, aber weniger verbreitet als Arduino/ATmega \\
+ & Software & SDCC Cross-Compiler, OpenSCAD/FreeCAD, KiCad & Parametrisches CAD (Scripting) + offenes PCB-Design & Hoch – Open-Source-Toolchain für STL- und Schaltplan-Erstellung direkt nutzbar \\
+\midrule
+\multirow{10}{=}{Veter Robot \cite{BibEntry2018Dec}} & Mechanischer Aufbau & Dagu Rover 5 Kettenfahrwerk & Kommerzielles Tracked-Chassis als Basis & Gering – Kettenantrieb überdimensioniert für Coasterbot-Anwendung \\
+ & Mechanischer Aufbau & 3D-gedruckter Aufbaukörper & Individuell anpassbarer Body für Sensorplatzierung & Hoch – Prinzip der modularen 3D-Druck-Karosserie übertragbar \\
+ & Aktor & Sparkfun Dual-Motortreiber TB6612FNG & Ansteuerung der Rover-5-Antriebsmotoren & Hoch – bewährter, kompakter Motortreiber-IC \\
+ & Aktor & Servomotor (rotierbarer Sensorkopf) & Für Ausrichtung von Kamera/Sonar & Mittel – evtl. für ausrichtbare Personendetektion nutzbar \\
+ & Sensor & 3x Devantech SRF-02 + 1x SRF-08 Ultraschallsensor & Entfernungsmessung rund um den Roboter & Hoch – für Hindernis-/Tischkantenerkennung sowie Personenannäherung relevant \\
+ & Sensor & Devantech CMPS10 Kompass & Digitaler Kompass/Neigungssensor & Gering – für Coasterbot-Anwendung (Innenraum, kurze Strecken) meist verzichtbar \\
+ & Sensor & 2x Kamera + GPS-Empfänger & Für Bildverarbeitung und Außennavigation & Gering – GPS out of scope (Kartierung/Navigation), Kamera evtl. für Personenerkennung \\
+ & Steuerung & BeagleBoard-xM (ARM+DSP) & Haupt-Recheneinheit für Bildverarbeitung/Kommunikation & Mittel – leistungsfähig, aber ggf. überdimensioniert; Raspberry Pi als Alternative \\
+ & Steuerung & Pololu Power-Modul, Level-Shifter (Adafruit/Sparkfun) & Spannungswandlung \& Pegelanpassung zw. Logikebenen & Hoch – Standardkomponenten für saubere Spannungsversorgung \\
+ & Software & On-/Offboard-Softwarestack (Git), Video-Streaming, OpenGL-Cockpit & Fernsteuerungs- und Telemetrie-Software & Gering – Fernsteuerung/Netzwerkanbindung ist laut DoD Out-of-Scope \\
+\midrule
+\multirow{9}{=}{e-puck \cite{BibEntry2026Jan}} & Mechanischer Aufbau & Zylindrisches Chassis & Ø 70 mm, Höhe 50 mm, Gewicht 200 g & Mittel – Formfaktor zu klein, aber Bauweise als Inspiration nutzbar \\
+ & Aktor & 2x Schrittmotor mit Planetengetriebe & Präzise Positionierung, bis 13 cm/s & Mittel – Schrittmotoren bieten hohe Präzision, aber höhere Kosten als DC-Motor \\
+ & Sensor & 8x IR-Näherungs-/Lichtsensor (TCRT1000) & Rundum-Hinderniserkennung + Umgebungslicht & Hoch – umlaufende Sensoranordnung als Vorbild für 360°-Erkennung \\
+ & Sensor & 3D-Beschleunigungssensor (IMU) & Lage-/Bewegungserkennung & Mittel – z. B. zur Erkennung von Kollisionen/Kippen nutzbar \\
+ & Sensor & VGA-Farbkamera (640x480) & Für Bildverarbeitung/Objekterkennung & Hoch – für optionale Bestellaufnahme/Personenerkennung relevant \\
+ & Sensor & 3x omnidirektionales Mikrofon & Richtungserkennung von Audioquellen & Gering – für Coasterbot-Kernfunktion nicht erforderlich \\
+ & Steuerung & dsPIC-Mikrocontroller & 30–60 MHz, DSP-Kern, 8 KB RAM, 144 KB Flash & Mittel – leistungsfähig, aber proprietäres Ökosystem ggü. Arduino/ATmega \\
+ & Steuerung & Bluetooth/RS232-Kommunikation & Kabellose Programmierung \& Fernsteuerung & Gering – Netzwerkanbindung laut DoD Out-of-Scope, ggf. nur für Debugging \\
+ & Software & GNU GCC C-Compiler, Webots-Simulator & Offene Toolchain, 3D-Robotersimulation & Sehr hoch – Webots als möglicher Kandidat für die geforderte Programmablauf-Simulation \\
+\midrule
+\multirow{14}{=}{PlatROB \cite{Balbuena2026Mar}} & Mechanischer Aufbau & 4 modulare 3D-druckbare Baugruppen & Ackermann Drive Module (ADM), Omni-/Differential Drive Module (ODM/DDM), Control \& Processing Module (CPM), 4-DoF Manipulator (AMM) & Sehr hoch – modulares Baukastenprinzip direkt auf Fahr-/Spender-/Greifmodul des Coasterbots übertragbar \\
+ & Mechanischer Aufbau & CPM-Chassis mit Wechselabdeckung & Trägt Jetson Nano \& Akkus, abnehmbarer Deckel für Kamera/LiDAR-Nachrüstung & Hoch – Konzept für wartungsfreundliches, erweiterbares Elektronikgehäuse \\
+ & Aktor & Antriebsmotoren (Ackermann-Lenkung, Differential- \& Mecanum-Antrieb) & Austauschbare Fahrmodule je nach Anforderung (10 kg Nutzlast, 25 cm Wenderadius) & Hoch – Mecanum-/Differentialantrieb als Alternativkonzept für präzises Rangieren am Tisch \\
+ & Aktor & 4-DoF Manipulator-Modul (AMM) & Roboterarm-Modul, 450 g Nutzlast, für Greif-/Manipulationsaufgaben & Sehr hoch – direkt relevant für Aufnahme/Abgabe von Untersetzern bzw. Flüssigkeitsaufnahme \\
+ & Aktor & Motortreiber (auf Custom-PCB) & Ansteuerung der Antriebsmotoren je Fahrmodul & Hoch – Standardkomponente, gut dokumentiertes Referenzdesign \\
+ & Sensor & 3x Ultraschallsensor (Hinderniserkennung) & Auf Custom-PCB des ODM/DDM integriert & Hoch – für Hindernis-/Personenerkennung rund um den Coasterbot nutzbar \\
+ & Sensor & IMU (Inertial Measurement Unit) & Lageerkennung/Orientierung des Fahrmoduls & Mittel – z. B. zur Erkennung von Kippen oder unebenem Untergrund \\
+ & Sensor & Motor-Encoder & Drehzahl-/Positionsrückführung je Antriebsmotor & Hoch – für Odometrie und präzises Anfahren am Tisch relevant \\
+ & Sensor & Erweiterungs-Mounts (LiDAR, Kamera) & Vorgesehene Montagepunkte, nicht standardmäßig verbaut & Mittel – Kartierung ist laut DoD Out-of-Scope, Kamera für Personen-/Objekterkennung interessant \\
+ & Steuerung & Arduino R3 Mikrocontroller (je Fahrmodul) & Steuert Motoren, Sensorik und I2C-Kommunikation je Modul & Hoch – bewährte, günstige Steuerungslösung für einzelne Subsysteme \\
+ & Steuerung & NVIDIA Jetson Nano (CPM) & Zentrale Recheneinheit für KI-/Bildverarbeitungs-Workloads, 40–100 min Laufzeit & Hoch – geeignet als Hauptrechner für Personen-/Objekterkennung im optionalen Ausbau \\
+ & Steuerung & Standardisierter I2C-Bus über DB9-Steckverbinder & Einheitliche Inter-Modul-Kommunikation zwischen allen Baugruppen & Sehr hoch – elegantes Konzept für saubere modulare Verkabelung (Fahr-/Spender-/Sensor-Modul) \\
+ & Steuerung & 3x 18650 Li-Ion-Akku + Wippschalter/Relais & Energieversorgung inkl. einfacher Leistungsschaltung & Hoch – praxiserprobtes, günstiges Energiekonzept \\
+ & Software & Teleoperations- \& Navigationssoftware, Open-Source-Repository (OSF) & Für Fernsteuerung und autonome Navigation genutzt; alle Baupläne/Firmware frei verfügbar & Hoch – guter Fundus für Software-Architektur-Referenz sowie Lizenzmodell (CC-BY 4.0) \\
+
+\end{longtable}
+\end{landscape}

@@ -1,0 +1,2 @@
+# coasterbot
+CoasterBot Project

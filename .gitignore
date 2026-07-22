@@ -207,3 +207,4 @@ Temporary Items
 *.bbl-SAVE-ERROR
 *.fdb_latexmk
 *.log
+*.lof

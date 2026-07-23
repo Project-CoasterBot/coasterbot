@@ -347,6 +347,13 @@ showstringspaces=false
     
     {\large Phasenpaper M0} \\[1em]
     
+    \begin{figure}[h]
+      \centering
+      \includegraphics[width=0.5\textwidth]{coasterbot.png}
+%      \caption{Coasterbot}
+      \label{coasterbot}
+    \end{figure}
+
 \vspace{5em}
     {\normalsize
 \begin{tabular}{ll}
@@ -380,41 +387,65 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 
 \newpage
 
+\tableofcontents
 
-\section{Projektübersicht}
+\newpage
 
-\begin{wrapfigure}{r}{0.4\textwidth}
-  \centering
-  \includegraphics[width=0.38\textwidth]{coasterbot.png}
-%  \caption{Coasterbot}
-  \label{coasterbot}
-\end{wrapfigure}
+\section{Projektsteckbrief}
 
-In diesem Projekt soll ein Prototyp eines Coasterbots entwickelt werden. Ein Coasterbot ist ein Handtellergroßer Roboter, welcher selbstständig auf einem Tisch navigiert und dort Getränkeuntersetzer in Richtung von Personen spendet und diese automatisiert wieder aufnimmt. Außerdem soll der Coasterbot in Ausbaustufen Flüssigkeit vom Tisch aufnehmen und diesen so reinigen können. Optional kann der Coasterbot Getränke befördern, Bestellungen aufnehmen und Bezahlvorgänge initialisieren. 
+\begin{longtable}{@{}p{0.3\textwidth}p{0.7\textwidth}@{}}
+\toprule
+\textbf{Kategorie} & \textbf{Inhalt} \\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Kategorie} & \textbf{Inhalt} \\
+\midrule
+\endhead
 
-Durch diese Arbeiten setzt der Roboter Ressourcen beim Bedienpersonal in der Gastronomie frei, da sich ihr Aufgabenbereich reduziert. Außerdem ist ein solcher robotischer Helfer in der Gastronomie ein Alleinstellungsmerkmal für Bars und Restaurants und somit ein zusätzliches Attraktivitätsmerkmal für eine Gastronomie. Dieses Attraktivetätsmerkmal kann dazu führen, dass es mehr positive Bewertungen gibt und damit die online Präsenz eines lokals verbessert. Dies dürfte einen direkten Einfluss auf den Umsatz haben, da eine von YouGov durchgeführt Studie herausfand, dass die online Präsenz eine zunehmendere Relevanz bei der Restaurantauswahl besitzt. \cite{BibEntry2026Jul} Es wird außerdem erwartet, dass der Coasterbot in der Gatronomie einen Mehrwert bietet, da diese Branche seit mehreren Jahren unter einen Fachkräftemangel leidet und das Personal in der Gastronomie damit stark belastet ist. \cite{DEHOGA2025Q4} Weiterhin lassen Studien erkennen, dass Gäste elektronische Hilfsmittel in der Gastronomie zunehmend akzeptieren und diese als Mehrwert wahrnehmen, wenn sie eine Serviceleistung beschleunigen. \cite{PlonerOrderman2012, BibEntry2026Jan} Dies soll in einer ersten Ausbaustufe mit dem Coasterbot durch die Ausgabe und Aufnahme von Getränkedeckeln erreicht werden.
+Projektname & Coasterbot -- Entwicklung eines Prototyps \\
+\midrule
 
+Projektzeitraum & Beginn: \textbf{15.07.2026} \quad | \quad Abschluss: \textbf{07.11.2026} (hart begrenzt) \\
+\midrule
 
-Im Rahmen dieser Prototyp Entwicklung soll die folgende \textit{Definition of Done} gelten:
+Kurzbeschreibung & Entwicklung eines Prototyps eines Coasterbots: ein handtellergro{\ss}er Roboter, der selbstst\"andig auf einem Tisch navigiert, dort Getr\"ankeuntersetzer in Richtung von Personen ausgibt und diese automatisiert wieder aufnimmt. \\
+\midrule
+
+Ausbaustufen & Automatisierte Tischreinigung, Aufnahme von Bestellungen, Initialisierung von Bezahlvorg\"angen \\
+\midrule
+
+Motivation / Nutzen & 
 \begin{itemize}
-\item STL-Dateien und Schaltplänen zur Fertigung eines Prototypen sind fertiggestellt
-\item Softwarearchitektur und -komponenten sind ausgearbeitet
-\item Eine Simulation des Programmablaufes ist erstellt und Validiert
-\item Tests die sich aus den Anforderungen ergeben, sind identifiziert und definiert
-\end{itemize}
+  \item Entlastung des Bedienpersonals durch reduzierten Aufgabenbereich unterstützt damit den de seit Jahren bestehenden Fachkräftemangels in der Gastronomie~\cite{DEHOGA2025Q4}
+  \item Alleinstellungsmerkmal und zusätzliches Attraktivitätsmerkmal f\"ur Bars/Restaurants
+  \item Potenziell mehr positive Bewertungen und verbesserte Online-Pr\"asenz und damit Positiver Einfluss auf den Umsatz (Online-Pr\"asenz als zunehmend relevanter Faktor bei der Restaurantwahl)~\cite{BibEntry2026Jul}
+\end{itemize} \\
+\midrule
 
+Umsetzung 1. Ausbaustufe & Ausgabe und Aufnahme von Getr\"ankeuntersetzern (Deckeln) \\
+\midrule
 
-
-Nicht im Rahmen dieser Entwicklung(\textit{Out of scope}) sind:
+Definition of Done & 
 \begin{itemize}
-\item EMV-Betrachtungen
-\item Kartierung der Umgebung
-\item Einbindung in ein Netzwerk
-\item Marketingkonzepte
-\item Schwarmverhalten mehrerer Coasterbots
-\end{itemize}
+  \item STL-Dateien und Schaltpl\"ane zur Fertigung eines Prototypen sind fertiggestellt
+  \item Softwarearchitektur und -komponenten sind ausgearbeitet
+  \item Eine Simulation des Programmablaufes ist erstellt und validiert
+  \item Tests, die sich aus den Anforderungen ergeben, sind identifiziert und definiert
+\end{itemize} \\
+\midrule
 
-Der zeitliche Rahmen ist hart begrenzt auf den Projektbeginn am \textbf{15.7.2026} sowie Projektabschluss am \textbf{7.11.2026}.
+Out of Scope & 
+\begin{itemize}
+  \item EMV-Betrachtungen
+  \item Kartierung der Umgebung
+  \item Einbindung in ein Netzwerk
+  \item Marketingkonzepte
+  \item Schwarmverhalten mehrerer Coasterbots
+\end{itemize} \\
+\bottomrule
+
+\end{longtable}
 
 
 \section{Projektorganisation}

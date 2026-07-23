@@ -19,7 +19,7 @@
 \usepackage[german]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage{svg}
+\usepackage[inkscape=false]{svg}
 % Texte im SVG von Inkscape setzen lassen, nicht durch die Dokumentschrift ersetzen
 \svgsetup{inkscapelatex=false}
 \usepackage{amsmath}
@@ -39,6 +39,7 @@
 
 \usepackage{amsthm}
 \usepackage{mdframed}
+\usepackage{enumitem}
 
 \newmdtheoremenv{theorem}{Theorem}
 
@@ -346,15 +347,11 @@ showstringspaces=false
     {\LARGE\bfseries Coasterbot} \\[0.5em]
     
     {\large Phasenpaper M0} \\[1em]
-    
-    \begin{figure}[h]
-      \centering
-      \includegraphics[width=0.5\textwidth]{coasterbot.png}
-%      \caption{Coasterbot}
-      \label{coasterbot}
-    \end{figure}
 
-\vspace{5em}
+    {\includegraphics[width=0.38\textwidth]{coasterbot.png}} \\[1em]
+    
+\vspace{4em}
+
     {\normalsize
 \begin{tabular}{ll}
 Dennis Borutta, B. Eng & dennis.borutta@outlook.com\\
@@ -379,8 +376,10 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 20.07.2026 & Such & Erstfassung des Phasenpapiers M0\\
-2 & 21.07.2026 & Borutta, Such & Literaturrecherche und Einleitungstext ergänzt; Coasterbot-Abbildung eingefügt; Timeline und Projektzeitraum angepasst\\
-3 & 22.07.2026 & Such & Versionshistorie ergänzt\\
+2 & 21.07.2026 & Etringer & Literaturrecherche zu Algorithmen ergänzt\\
+3 & 21.07.2026 & Borutta, Such & Literaturrecherche und Einleitungstext ergänzt; Coasterbot-Abbildung eingefügt; Timeline und Projektzeitraum angepasst\\
+4 & 22.07.2026 & Such & Versionshistorie ergänzt\\
+5 & 23.07.2026 & Borutta & Projektsteckbrief in Tabelle umgewandelt. Dokumentenstruktur angepasst.\\
 \bottomrule
 \end{tabularx}
 
@@ -391,7 +390,8 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 
 \newpage
 
-\section{Projektsteckbrief}
+
+\section{Projektübersicht}
 
 \begin{longtable}{@{}p{0.3\textwidth}p{0.7\textwidth}@{}}
 \toprule
@@ -406,28 +406,30 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 Projektname & Coasterbot -- Entwicklung eines Prototyps \\
 \midrule
 
-Projektzeitraum & Beginn: \textbf{15.07.2026} \quad | \quad Abschluss: \textbf{07.11.2026} (hart begrenzt) \\
+Projektzeitraum & Beginn: \textbf{15.07.2026} \quad | \quad Abschluss: \textbf{07.11.2026}\\
 \midrule
 
-Kurzbeschreibung & Entwicklung eines Prototyps eines Coasterbots: ein handtellergro{\ss}er Roboter, der selbstst\"andig auf einem Tisch navigiert, dort Getr\"ankeuntersetzer in Richtung von Personen ausgibt und diese automatisiert wieder aufnimmt. \\
+Projektziel & Entwicklung eines Prototyps eines Coasterbots: ein handtellergro{\ss}er Roboter, der selbstst\"andig auf einem Tisch navigiert, dort Getr\"ankeuntersetzer in Richtung von Personen ausgibt und diese automatisiert wieder aufnimmt. \\
 \midrule
 
-Ausbaustufen & Automatisierte Tischreinigung, Aufnahme von Bestellungen, Initialisierung von Bezahlvorg\"angen \\
+Weitere Ausbaustufen (Nicht im Fokus) & Automatisierte Tischreinigung, Aufnahme von Bestellungen, Initialisierung von Bezahlvorg\"angen \\
 \midrule
 
-Motivation / Nutzen & 
-\begin{itemize}
+
+
+Motivation / Nutzen &
+\vspace{-\baselineskip}
+\begin{itemize}[partopsep=0pt, topsep=6pt, itemsep=2pt]
   \item Entlastung des Bedienpersonals durch reduzierten Aufgabenbereich unterstützt damit den de seit Jahren bestehenden Fachkräftemangels in der Gastronomie~\cite{DEHOGA2025Q4}
   \item Alleinstellungsmerkmal und zusätzliches Attraktivitätsmerkmal f\"ur Bars/Restaurants
   \item Potenziell mehr positive Bewertungen und verbesserte Online-Pr\"asenz und damit Positiver Einfluss auf den Umsatz (Online-Pr\"asenz als zunehmend relevanter Faktor bei der Restaurantwahl)~\cite{BibEntry2026Jul}
 \end{itemize} \\
 \midrule
 
-Umsetzung 1. Ausbaustufe & Ausgabe und Aufnahme von Getr\"ankeuntersetzern (Deckeln) \\
-\midrule
 
 Definition of Done & 
-\begin{itemize}
+\vspace{-\baselineskip}
+\begin{itemize}[partopsep=0pt, topsep=6pt, itemsep=2pt]
   \item STL-Dateien und Schaltpl\"ane zur Fertigung eines Prototypen sind fertiggestellt
   \item Softwarearchitektur und -komponenten sind ausgearbeitet
   \item Eine Simulation des Programmablaufes ist erstellt und validiert
@@ -436,7 +438,8 @@ Definition of Done &
 \midrule
 
 Out of Scope & 
-\begin{itemize}
+\vspace{-\baselineskip}
+\begin{itemize}[partopsep=0pt, topsep=6pt, itemsep=2pt]
   \item EMV-Betrachtungen
   \item Kartierung der Umgebung
   \item Einbindung in ein Netzwerk
@@ -447,23 +450,22 @@ Out of Scope &
 
 \end{longtable}
 
-
 \section{Projektorganisation}
 
 Das Projektteam besteht aus den drei Mitgliedern 
 
 \begin{center}
 \begin{tabular}{lll}
-Dennis Burutta & Leiter & dennis.borutta@outlook.com\\
-Stefan Etringer & Admin & mail@stefan.works \\
-Gereon Such && gereonsuch@gmail.com\\
+Dennis Burutta & Leiter/Mitglied & dennis.borutta@outlook.com\\
+Stefan Etringer & Admin/Mitglied & mail@stefan.works \\
+Gereon Such & Mitglied & gereonsuch@gmail.com\\
 \end{tabular}
 \end{center}
 
 
 
 
-Für die Projektorganisation und dokumentenbasierte Kommunikation im Team wird das Tool Notion \url{https://app.notion.com} genutzt. In diesem werden Projektphasen, Arbeitspakete, Fortschritt, Ergebnisse sowie Meilensteine protokolliert. Notion bietet hier vielfältige Planungsmöglichkeiten sowie Visualisierungen dazu. 
+Für die Projektorganisation und dokumentenbasierte Kommunikation im Team wird das Tool Notion \url{https://app.notion.com} genutzt. In diesem werden Projektphasen, Arbeitspakete, Fortschritt, Ergebnisse sowie Meilensteine protokolliert. Notion bietet hier vielfältige Planungsmöglichkeiten sowie Visualisierungen dazu. Eine Besonderheit dabei ist, dass Notion die Möglichkeit bietet kollaborativ an Dokumenten zu arbeiten und diese direkt an Arbeitspaketen zu knüpfen. So können die Arbeitsergbnisse und Referenzen strukturiert abgelegt werden.
 
 Entwicklungsrelevante Dateien wie Source Code, CAD-Dateien für das Chassis oder Schaltungen werden in einem gemeinsamen Git Repository abgelegt. % ich lasse hier einfach offen wo und wie, ob github oder gitlab oder whatever...
 
@@ -474,36 +476,25 @@ Zur Remote Kommunikation wird eine Kombination aus Instant Messaging fürfristig
 
 \section{Projektplanung}
 
-Im Projektplanungstool Notion wurde durch das Team bereits ein Zeitplan hinterlegt. Dieser sieht für alle Teammitglieder wie folgt aus, der Übersichtlichkeit halber hier in reduzierter Komplexität, siehe Abbildung \ref{notiontimeline}. 
+Mit Hilfe der Tools Draw.io und Notion wird im Team die Projektplanung durchgeführt. Hierzu wird zur Ermittlung notwendiger Teilaufgaben und Arbeitspakete die Kreativmethode der Mind-Map angewandt. Daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen gezeigt. Aus diesem wird anschließend eine Vorgangsliste erstellt, die in einem Netzplan überführt wird. Mit Hilfe des Netzplanes wird anschließend ein detaillierter Zeitplan in Notion erstellt.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[scale=0.3]{notion_proj_uebersicht_schmal.png}
-  \caption{Notion Timeline}
-  \label{notiontimeline}
-\end{figure}
-
-
-
-Die Arbeitspakete gliedern sich in Mind-Map Darstellung wie in Abbildung \ref{arbeitspaketemindmap}, daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen wie in Abbildung \ref{projektstrukturplan} gezeigt. 
+\subsection{Projektstruktur}
+Zur weiteren Bestimmung von erforderlichen Teilaufgaben und Arbeitspaketen wurde die Kreativmethode der Mind-Map angewandt. Die Ergebnisse hierzu sind in Abbildung~\ref{arbeitspaketemindmap} zu sehen. Daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen wie in Abbildung~\ref{projektstrukturplan} gezeigt. Hierbei wird ersichtlich, dass der Strang ``Organisation''   aus der Mind-Map nicht in dem Projektstrukturplan zu sehen ist. Dies wird begründet, da es sich dabei um fortlaufende Aufgaben handelt, die über die gesamte Projektlaufzeit hinweggeführt werden.
 
 \begin{figure}[htbp]
   \centering
   \includesvg[scale=0.4]{MindMap-Seite-1.drawio.svg}
-  \caption{Mindmap zur Projektstruktur}
-  \label{arbeitspaketemindmap}
+  \caption{Mindmap zur Projektstruktur}\label{arbeitspaketemindmap}
 \end{figure}
 
 \begin{figure}[htbp]
   \centering
   \includesvg[scale=0.45]{Projektstrukturplan-Seite-1.drawio.svg}
-  \caption{Projektstrukturplan}
-  \label{projektstrukturplan}
+  \caption{Projektstrukturplan}\label{projektstrukturplan}
 \end{figure}
 
-
-
-
+\newpage
+\subsection{Netzplan}
 Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arbeitspakete nach Aufwand und Priorität der in Abbildung~\ref{fig:netzplan} dargestellte Netzplan nach DIN 69900. Aufgrund seiner Breite ist dieser auf einer eigenen Seite im Querformat abgebildet.
 
 \begin{landscape}
@@ -526,6 +517,28 @@ Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arb
 \vfill
 \end{landscape}
 
+\subsection{Zeitplan}
+Mit Hilfe des Netzplanes wird der Zeitplan detailliert. Dieser ist in Abbildung\ref{fig:notiontimeline_full} zu sehen. Aufgrund der Größe ist er auf einer eigen Seite im Querformat zu sehen und es sind nur Phase, Teilaufgaben und Meilensteine dargestellt.
+
+\begin{landscape}
+\thispagestyle{empty}   % keine Seitenzahl, Plan darf bis an den Papierrand
+\null\vfill
+% Auf dem Papier zentrieren, nicht im Satzspiegel: in der gedrehten Achse liegt
+% der Satzspiegel nicht mittig (vorn 1in+topmargin+headheight+headsep, hinten Rest).
+% Ausgleich = halbe Differenz der beiden Raender; die 3.8pt gleichen den
+% asymmetrischen Weissraum im SVG selbst aus (viewBox: links 70, rechts 40).
+% (in der landscape-Umgebung ist \linewidth die Ausdehnung entlang dieser Achse)
+\noindent\hspace*{\dimexpr 1in + \topmargin + \headheight + \headsep
+                  - (\paperheight-\linewidth)/2 - 3.8pt\relax}%
+\makebox[\linewidth]{%
+  \begin{minipage}{\dimexpr\paperheight-2.4cm\relax}
+    \centering
+    \includegraphics[width=\linewidth]{notion_proj_final.png}
+    \captionof{figure}{Zeitplan}
+    \label{fig:notiontimeline_full}
+  \end{minipage}}
+\vfill
+\end{landscape}
 
 
 \section{Stand der Forschung: Mobile Roboter}
@@ -750,35 +763,10 @@ Radencodern, einem LiDAR- oder kamerabasierten Lokalisierungssystem würden eine
 effizientere Positionsbestimmung erreichen.
 
 
-
-
-
-
-
-\section{Planung Entwicklungsphase}
-
-
-
+\newpage
+\section{Literaturverzeichnis}
 
 \appendix
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 %acm bullshit
 %\bibliographystyle{ACM-Reference-Format}

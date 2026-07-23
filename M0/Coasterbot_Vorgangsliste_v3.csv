@@ -1,0 +1,25 @@
+ID;Arbeitspaket;Dauer;FAZ;FEZ;SAZ;SEZ
+1001;Steckbriefdefinition;1;15. Jul 26;17. Jul 26;13. Jul 26;15. Jul 26
+1002;Projektorganisation und Planung;4;20. Jul 26;25. Jul 26;21. Jul 26;26. Jul 26
+1010;Algorithmik recherchieren;8;15. Jul 26;24. Jul 26;17. Jul 26;26. Jul 26
+1020;Marktsichtung druchführen;8;15. Jul 26;24. Jul 26;17. Jul 26;26. Jul 26
+1030;Stand zu Mobile Robotik recherchieren;8;15. Jul 26;24. Jul 26;17. Jul 26;26. Jul 26
+101;Dokumente zusammentragen;3;21. Jul 26;25. Jul 26;22. Jul 26;26. Jul 26
+2010;Anwendungsfälle definieren;3;29. Jul 26;02. Aug 26;01. Aug 26;05. Aug 26
+2020;Maturity Level definieren;4;02. Aug 26;07. Aug 26;06. Aug 26;11. Aug 26
+2030;Lastenheft erstellen;7;08. Aug 26;16. Aug 26;09. Aug 26;17. Aug 26
+3010;Testfälle definieren;5;16. Aug 26;22. Aug 26;16. Aug 26;22. Aug 26
+3020;Sensorik/Aktorik auswählen;5;17. Aug 26;23. Aug 26;17. Aug 26;23. Aug 26
+3030;Softwarearchitektur erarbeiten;5;16. Aug 26;22. Aug 26;16. Aug 26;22. Aug 26
+3040;Kostenkalkulation durchführen;4;18. Aug 26;23. Aug 26;18. Aug 26;23. Aug 26
+3050;Pflichtenheft erstellen;8;23. Aug 26;01. Sep 26;24. Aug 26;02. Sep 26
+201;Dokumente zusammentragen;2;01. Sep 26;04. Sep 26;03. Sep 26;06. Sep 26
+4010; Bauteile beschaffen;14;05. Sep 26;20. Sep 26;09. Sep 26;24. Sep 26
+4020;Softwaretest erstellen;10;05. Sep 26;16. Sep 26;07. Sep 26;18. Sep 26
+4030;Software implementieren;15;16. Sep 26;02. Okt 26;19. Sep 26;05. Okt 26
+4040;Prototyp aufbauen;10;20. Sep 26;01. Okt 26;24. Sep 26;05. Okt 26
+5000;Test durchführen;8;02. Okt 26;11. Okt 26;06. Okt 26;15. Okt 26
+6000;Maturity Level feststellen;5;11. Okt 26;17. Okt 26;16. Okt 26;22. Okt 26
+301;Dokumente zusammentragen;3;18. Okt 26;22. Okt 26;23. Okt 26;27. Okt 26
+401;Endbericht erstellen und abgeben;6;31. Okt 26;07. Nov 26;31. Okt 26;07. Nov 26
+7000;Präsentation ausarbeiten;8;08. Nov 26;17. Nov 26;08. Nov 26;17. Nov 26

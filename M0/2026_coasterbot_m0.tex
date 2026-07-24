@@ -31,6 +31,8 @@
 \usepackage{booktabs}   % \toprule \midrule \bottomrule (in mobrob_table.tex verwendet)
 \usepackage{wrapfig}    % Textumfluss um Abbildungen
 
+\usepackage[citecolor=black, colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref}
+
 
 %\usepackage{geometry}
 \usepackage{siunitx}
@@ -78,7 +80,7 @@
     style=alphabetic,
     sortlocale=de_DE,
     natbib=true,
-    %url=false, 
+    %url=false,
     doi=true,
     %eprint=false
 ]{biblatex}
@@ -89,7 +91,7 @@
     style=alphabetic,
     sortlocale=de_DE,
     natbib=true,
-    %url=false, 
+    %url=false,
     doi=true,
     %eprint=false
 ]{biblatex}
@@ -223,21 +225,21 @@ plotmarks}
 \definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
 
 \lstdefinestyle{CStyle}{
-    backgroundcolor=\color{backgroundColour},   
+    backgroundcolor=\color{backgroundColour},
     commentstyle=\color{mGreen},
     keywordstyle=\color{magenta},
     numberstyle=\tiny\color{mGray},
     stringstyle=\color{mPurple},
     basicstyle=\footnotesize,
-    breakatwhitespace=false,         
-    breaklines=true,                 
-    captionpos=b,                    
-    keepspaces=true,                 
-    numbers=left,                    
-    numbersep=5pt,                  
-    showspaces=false,                
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
     showstringspaces=false,
-    showtabs=false,                  
+    showtabs=false,
     tabsize=2,
     language=C
 }
@@ -340,16 +342,16 @@ showstringspaces=false
 \begin{titlepage}
   \begin{center}
     {\large Wilhelm Büchner University of Applied Sciences} \\[0.3em]
-    
+
     {\normalsize Projektseminar Master}
 \vspace{5em}
 
     {\LARGE\bfseries Coasterbot} \\[0.5em]
-    
+
     {\large Phasenpaper M0} \\[1em]
 
     {\includegraphics[width=0.38\textwidth]{coasterbot.png}} \\[1em]
-    
+
 \vspace{4em}
 
     {\normalsize
@@ -360,8 +362,8 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \end{tabular}
     }
   \end{center}
-    
-  
+
+
 \end{titlepage}
 
 
@@ -427,7 +429,7 @@ Motivation / Nutzen &
 \midrule
 
 
-Definition of Done & 
+Definition of Done &
 \vspace{-\baselineskip}
 \begin{itemize}[partopsep=0pt, topsep=6pt, itemsep=2pt]
   \item STL-Dateien und Schaltpl\"ane zur Fertigung eines Prototypen sind fertiggestellt
@@ -437,7 +439,7 @@ Definition of Done &
 \end{itemize} \\
 \midrule
 
-Out of Scope & 
+Out of Scope &
 \vspace{-\baselineskip}
 \begin{itemize}[partopsep=0pt, topsep=6pt, itemsep=2pt]
   \item EMV-Betrachtungen
@@ -452,7 +454,7 @@ Out of Scope &
 
 \section{Projektorganisation}
 
-Das Projektteam besteht aus den drei Mitgliedern 
+Das Projektteam besteht aus den drei Mitgliedern
 
 \begin{center}
 \begin{tabular}{lll}
@@ -465,18 +467,26 @@ Gereon Such & Mitglied & gereonsuch@gmail.com\\
 
 
 
-Für die Projektorganisation und dokumentenbasierte Kommunikation im Team wird das Tool Notion \url{https://app.notion.com} genutzt. In diesem werden Projektphasen, Arbeitspakete, Fortschritt, Ergebnisse sowie Meilensteine protokolliert. Notion bietet hier vielfältige Planungsmöglichkeiten sowie Visualisierungen dazu. Eine Besonderheit dabei ist, dass Notion die Möglichkeit bietet kollaborativ an Dokumenten zu arbeiten und diese direkt an Arbeitspaketen zu knüpfen. So können die Arbeitsergbnisse und Referenzen strukturiert abgelegt werden.
+Für die Projektorganisation und dokumentenbasierte Kommunikation im Team wird
+das Tool Notion \url{https://app.notion.com} genutzt. In diesem werden
+\href{https://app.notion.com/p/Projektarbeit-39a745ea234f80d4b39ace9b616a41de}{Projektphasen,Arbeitspakete, Fortschritt, Ergebnisse sowie Meilensteine}
+protokolliert.
+Notion bietet hier vielfältige Planungsmöglichkeiten sowie Visualisierungen
+dazu. Eine Besonderheit dabei ist, dass Notion die Möglichkeit bietet
+kollaborativ an Dokumenten zu arbeiten und diese direkt an Arbeitspaketen zu
+knüpfen. So können die Arbeitsergbnisse und Referenzen strukturiert abgelegt
+werden.
 
-Entwicklungsrelevante Dateien wie Source Code, CAD-Dateien für das Chassis oder Schaltungen werden in einem gemeinsamen Git Repository abgelegt. % ich lasse hier einfach offen wo und wie, ob github oder gitlab oder whatever...
+Entwicklungsrelevante Dateien wie Source Code, CAD-Dateien für das Chassis oder Schaltungen werden in einem \href{https://github.com/Project-CoasterBot/coasterbot}{gemeinsamen Git Repository} abgelegt. % ich lasse hier einfach offen wo und wie, ob github oder gitlab oder whatever...
 
-Zur Remote Kommunikation wird eine Kombination aus Instant Messaging fürfristige Information und Absprachen sowie regelmäßigen Videocalls mit dem Tool Alfaview \url{https://alfaview.com} genutzt. 
+Zur Remote Kommunikation wird eine Kombination aus Instant Messaging für kurzfristige Information und Absprachen sowie regelmäßigen Videocalls mit dem Tool Alfaview \url{https://alfaview.com} genutzt.
 
 
 
 
 \section{Projektplanung}
 
-Mit Hilfe der Tools Draw.io und Notion wird im Team die Projektplanung durchgeführt. Hierzu wird zur Ermittlung notwendiger Teilaufgaben und Arbeitspakete die Kreativmethode der Mind-Map angewandt. Daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen gezeigt. Aus diesem wird anschließend eine Vorgangsliste erstellt, die in einem Netzplan überführt wird. Mit Hilfe des Netzplanes wird anschließend ein detaillierter Zeitplan in Notion erstellt.
+Mit Hilfe der Tools Draw.io und Notion wird im Team die Projektplanung durchgeführt. Hierzu wird zur Ermittlung notwendiger Teilaufgaben und Arbeitspakete die Kreativmethode der Mind-Map angewandt. Daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen. Aus diesem wird anschließend eine Vorgangsliste in ProjectLibre erstellt, die in einem Netzplan überführt wird. Mit Hilfe des Netzplanes wird anschließend ein detaillierter Zeitplan in Notion erstellt.
 
 \subsection{Projektstruktur}
 Zur weiteren Bestimmung von erforderlichen Teilaufgaben und Arbeitspaketen wurde die Kreativmethode der Mind-Map angewandt. Die Ergebnisse hierzu sind in Abbildung~\ref{arbeitspaketemindmap} zu sehen. Daraus ergibt sich der Projektstrukturplan mit Arbeitspaketen wie in Abbildung~\ref{projektstrukturplan} gezeigt. Hierbei wird ersichtlich, dass der Strang ``Organisation''   aus der Mind-Map nicht in dem Projektstrukturplan zu sehen ist. Dies wird begründet, da es sich dabei um fortlaufende Aufgaben handelt, die über die gesamte Projektlaufzeit hinweggeführt werden.
@@ -505,14 +515,14 @@ Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arb
 % Ausgleich = halbe Differenz der beiden Raender; die 3.8pt gleichen den
 % asymmetrischen Weissraum im SVG selbst aus (viewBox: links 70, rechts 40).
 % (in der landscape-Umgebung ist \linewidth die Ausdehnung entlang dieser Achse)
-\noindent\hspace*{\dimexpr 1in + \topmargin + \headheight + \headsep
+\noindent\hspace*{\dimexpr1in + \topmargin + \headheight + \headsep
                   - (\paperheight-\linewidth)/2 - 3.8pt\relax}%
 \makebox[\linewidth]{%
   \begin{minipage}{\dimexpr\paperheight-2.4cm\relax}
     \centering
     \includesvg[width=\linewidth]{Coasterbot_Netzplan_PSP.svg}
     \captionof{figure}{Netzplan}
-    \label{fig:netzplan}
+\label{fig:netzplan}
   \end{minipage}}
 \vfill
 \end{landscape}
@@ -528,7 +538,7 @@ Mit Hilfe des Netzplanes wird der Zeitplan detailliert. Dieser ist in Abbildung\
 % Ausgleich = halbe Differenz der beiden Raender; die 3.8pt gleichen den
 % asymmetrischen Weissraum im SVG selbst aus (viewBox: links 70, rechts 40).
 % (in der landscape-Umgebung ist \linewidth die Ausdehnung entlang dieser Achse)
-\noindent\hspace*{\dimexpr 1in + \topmargin + \headheight + \headsep
+\noindent\hspace*{\dimexpr1in + \topmargin + \headheight + \headsep
                   - (\paperheight-\linewidth)/2 - 3.8pt\relax}%
 \makebox[\linewidth]{%
   \begin{minipage}{\dimexpr\paperheight-2.4cm\relax}
@@ -542,7 +552,7 @@ Mit Hilfe des Netzplanes wird der Zeitplan detailliert. Dieser ist in Abbildung\
 
 
 \section{Stand der Forschung: Mobile Roboter}
-Das Feld der mobilen Roboter ist bereits weit erforscht und es lassen sich eine Vielzahl an Arbeiten finden, die unterschiedliche Ansätze und Lösungen für die Navigation, Manipulation und Interaktion von Robotern in verschiedenen Umgebungen präsentieren. Eine übersichtliche Zusammenfassung relevanter Arbeiten ist in der Tabelle \ref{tab:literaturrecherche-coasterbot} im Anhang dargestellt. Diese Tabelle enthält Informationen zu den jeweiligen Roboter-Projekten. Diese werden als Grundlage zur Bauteilauswahl und Softwarearchitektur des Coasterbots dienen. Insbesondere die Arbeit von \cite{Balbuena2026Mar} kann als Grundlage dienen, da hier mehrere mobile Roboter Varianten vorgestellt und mit fertigen Stücklisten und CAD-Dateien veröffentlicht wurden. Damit bieten diese Arbeiten eine gute Grundlage für die Entwicklung des Coasterbots, so dass sich das Team auf die Softwarearchitektur, die Navigation des Roboters und die Hauptfunktion - das Ablegen und Aufnehmen von Getränkeuntersetzer - konzentrieren kann.
+Das Feld der mobilen Roboter ist bereits weit erforscht und es lassen sich eine Vielzahl an Arbeiten finden, die unterschiedliche Ansätze und Lösungen für die Navigation, Manipulation und Interaktion von Robotern in verschiedenen Umgebungen präsentieren. Eine übersichtliche Zusammenfassung relevanter Arbeiten ist in der Tabelle~\ref{tab:literaturrecherche-coasterbot} im Anhang dargestellt. Diese Tabelle enthält Informationen zu den jeweiligen Roboter-Projekten. Diese werden als Grundlage zur Bauteilauswahl und Softwarearchitektur des Coasterbots dienen. Insbesondere die Arbeit von~\cite{Balbuena2026Mar} kann als Grundlage dienen, da hier mehrere mobile Roboter Varianten vorgestellt und mit fertigen Stücklisten und CAD-Dateien veröffentlicht wurden. Damit bieten diese Arbeiten eine gute Grundlage für die Entwicklung des Coasterbots, so dass sich das Team auf die Softwarearchitektur, die Navigation des Roboters und die Hauptfunktion \textemdash~das Ablegen und Aufnehmen von Getränkeuntersetzer \textemdash~konzentrieren kann.
 
 
 \section{Stand der Forschung: Algorithmen}
@@ -561,12 +571,12 @@ Ein Vertreter ist der Dijkstra-Algorithmus, der den kürzesten Pfad in Graphen
 mit Kantengewichten berechnet. Der Algorithmus garantiert optimale Lösungen
 insofern die Kantengewichte nicht-negativ sind und
 stellt ein Referenzverfahren für die globale Pfadplanung in statischen
-Umgebungen dar \cite{Dijkstra}. Seine mathematische Grundlage sowie Laufzeitanalyse werden
-ausführlich in "Introduction to Algorithms" von Cornet et al. beschrieben \cite{IntroToAlgs}.
+Umgebungen dar~\cite{Dijkstra}. Seine mathematische Grundlage sowie Laufzeitanalyse werden
+ausführlich in „Introduction to Algorithms“ von Cornet et al.\ beschrieben~\cite{IntroToAlgs}.
 
 Neben Dijkstra existieren weitere grundlegende Suchverfahren, wie die
 Breitensuche (Breadth-First Search) und Tiefensuche (Depth-First Search,
-DFS)\cite{IntroToAlgs}.
+DFS)~\cite{IntroToAlgs}.
 Während BFS optimale Lösungen in ungewichteten Graphen liefert, dient DFS vor
 allem der Strukturanalyse von Graphen und spielt in der Roboternavigation eine
 untergeordnete Rolle.
@@ -579,7 +589,7 @@ diese Algorithmen eine zuverlässige Grundlage der globalen Pfadplanung dar.
 Da klassische Graphalgorithmen bei großen Suchräumen einen hohen Rechenaufwand
 verursachen, werden in der mobilen Robotik häufig heuristische Suchverfahren
 eingesetzt. Ein bedeutendes Verfahren ist der heusristische A* Algorithmus, um
-die Suche gezielt in Richtung des Zielknotens zu lenken \cite{IntroToAlgs,AStar}.
+die Suche gezielt in Richtung des Zielknotens zu lenken~\cite{IntroToAlgs,AStar}.
 
 Die Bewertung eines Knotens erfolgt über
 
@@ -593,11 +603,11 @@ f\left(n\right) = g\left(n\right) + h\left(n\right)
 Hierbei stellen $g(n)$ die wirklichen Kosten eines optimalen Pfades $s$ nach
 $n$ und $h(n)$ die wirklichen Kosten eines optimalen Pfades von $n$ zu einem
 präferierten Zielknoten von $n$ darstellt. Allgemein ist $h(n)$ eine Schätzung
-der verbleibenden Distanz zum Ziel \cite{AStar}. Ist die Heuristik zulässig (admissible),
+der verbleibenden Distanz zum Ziel~\cite{AStar}. Ist die Heuristik zulässig (admissible),
 garantiert A* ebenfalls optimale Lösungen, untersucht jedoch weniger Knoten als
 Dijkstra.
 
-Für mobile Roboter kommen häufig euklidische oder Manhattan-Distanzen \cite{IntroToAlgs} als
+Für mobile Roboter kommen häufig euklidische oder Manhattan-Distanzen~\cite{IntroToAlgs} als
 Heuristik zum Einsatz. Dadurch eignet sich A* insbesondere für Gitternetze
 (Occupancy Grids), wie sie in der Robotik genutzt werden\cite{RoboticMapping}.
 
@@ -612,13 +622,13 @@ Statische Algorithmen müssten den gesamten Pfad erneut berechnen. Dies führt z
 hohen Rechenzeiten.
 
 Hier setzen Verfahren der dynamischen Pfadplanung an. Zu nennen sind unter
-anderem D* (Dynamic A*) \cite{DAlg} sowie dessen Weiterentwicklung D* Lite \cite{DLite}. Beide
+anderem D* (Dynamic A*)~\cite{DAlg} sowie dessen Weiterentwicklung D* Lite~\cite{DLite}. Beide
 Verfahren aktualisieren ausschließlich die von einer Umweltveränderung
 betroffenen Bereiche des Suchgraphen und vermeiden dadurch vollständige
 Neuberechnungen.
 
 Ein weiteres relevantes Verfahren ist Lifelong Planning A* (LPA*), welches
-inkrementelle Änderungen effizient verarbeitet \cite{LifelongPlanningA}. Solche
+inkrementelle Änderungen effizient verarbeitet~\cite{LifelongPlanningA}. Solche
 Algorithmen werden insbesondere in autonomen Fahrzeugen und mobilen
 Servicerobotern eingesetzt, deren Umgebungen durch Menschen oder bewegliche
 Objekte beeinflusst werden.
@@ -635,21 +645,21 @@ Kollisionsvermeidung die kurzfristige Reaktion auf Hindernisse.
 Ein Ansatz sind Potentialfeldmethoden, bei denen das Ziel eine anziehende Kraft
 und Hindernisse abstoßende Kräfte erzeugen. Diese Methoden sind einfach
 implementierbar, können jedoch in lokalen Minima stecken bleiben
-\cite{Potentialfeldmethoden}.
+~\cite{Potentialfeldmethoden}.
 
-In mobilen Robotersystemen wird u.a. der Dynamic Window Approach (DWA)
+In mobilen Robotersystemen wird u.a.\ der Dynamic Window Approach (DWA)
 verwendet, der die Bewegungsdynamik des Roboters selbst einbezieht
-\cite{DynamicWindowApproach}. Diese Strategie ist grundsätzlich ein statischer
+~\cite{DynamicWindowApproach}. Diese Strategie ist grundsätzlich ein statischer
 Ansatz, der die Eigenschaften von Veränderungen in der Umgebung nicht
 berücksichtigt. Durch den Einsatz von Neuronalen Netzen kann DWA, durch kurze
 Observationen der sich verändernden Umgebung, die Bewegungen der Hindernisse
 modellieren und somit auf Veränderungen der Umwelt reagieren
-\cite{DynamicAdaptiveDynamicWindowApproach}.
+~\cite{DynamicAdaptiveDynamicWindowApproach}.
 
 Für komplexe Konfigurationsräume kommen außerdem samplingbasierte Verfahren wie
-Rapidly-exploring Random Trees (RRT) \cite{RRT} sowie RRT* \cite{RRTStar} zum Einsatz.
+Rapidly-exploring Random Trees (RRT)~\cite{RRT} sowie RRT*~\cite{RRTStar} zum Einsatz.
 Während RRT schnell zulässige Pfade findet, verbessert RRT* diese schrittweise
-bis zum asympotischen Optimum \cite{RRTStar}.
+bis zum asympotischen Optimum~\cite{RRTStar}.
 
 Somit bildet die Kombination aus globalem Pfadplaner und lokaler
 Kollisionsvermeidung einen möglichen Ansatz zur Bewegung des Coaster Bots dar.
@@ -658,14 +668,14 @@ Kollisionsvermeidung einen möglichen Ansatz zur Bewegung des Coaster Bots dar.
 
 Zur verbesserten Navigation kann ein Roboter seine eigene Position bestimmen und
 gleichzeitig eine Karte seiner Umgebung aufbauen. Dieses Problem wird als
-Simultaneous Localization and Mapping (SLAM) bezeichnet \cite{SLAM}.
+Simultaneous Localization and Mapping (SLAM) bezeichnet~\cite{SLAM}.
 
 Zu den klassischen Verfahren gehören Extended Kalman Filter (EKF-SLAM),
-FastSLAM auf Basis von Paketfiltern sowie graphbasierte SLAM Verfahren \cite{EKF,EKF-SLAM,FastSLAM}.
+FastSLAM auf Basis von Paketfiltern sowie graphbasierte SLAM Verfahren~\cite{EKF,EKF-SLAM,FastSLAM}.
 
 Besonders graphbasierte Optimierungsverfahren habe sich aufgrund ihrer hohen
 Genauigkeit etabliert und bilden die Grundlage von Robotik-Frameworks wie ROS2
-\cite{ROS2}.
+~\cite{ROS2}.
 
 Für den Coaster Bot hängt die Bedeutung von SLAM vom Einsatzszenario und den
 verwendeten Sensoren ab. Wird ausschließlich auf einem bekannten Tisch
@@ -680,11 +690,11 @@ Bestandteil autonomer Serviceroboter dar. Sie umfasst die Planung und Steuerung
 von Greifbewegungen sowie das sichere Aufnehmen und Ablegen von Objekten.
 Hierbei müssen sowohl die Kinematik des Roboters als auch mögliche Kollisionen
 zwischen Greifer, Objekt und Umgebung berücksichtigt werden
-\cite{ManipulationCBiRRT,MotionPlanning}.
+~\cite{ManipulationCBiRRT,MotionPlanning}.
 
 Zur Bewegungsplanung von Roboterarmen werden häufig samplingbasierte Verfahren
-wie RRT \cite{RRT}, RRT* \cite{RRTStar} oder Probabilistic Roadmaps (PRM) \cite{PRM}
-eingesetzt. Moderne Robotik-Frameworks wie MoveIt 2 \cite{MoveIt2} kombinieren diese
+wie RRT~\cite{RRT}, RRT*~\cite{RRTStar} oder Probabilistic Roadmaps (PRM)~\cite{PRM}
+eingesetzt. Moderne Robotik-Frameworks wie MoveIt 2~\cite{MoveIt2} kombinieren diese
 Planungsverfahren mit Kollisionsprüfungen und inverser Kinematik.
 
 Für den Coaster Bot besteht die Manipulationsaufgabe darin, Getränkedeckel
@@ -702,7 +712,7 @@ Inertialnavigation nicht auf externe Referenzpunkte oder eine Sichtverbindung
 zur Umgebung angewiesen. Dadurch eignet sie sich insbesondere für Anwendungen,
 in denen optische Sensoren nur eingeschränkt eingesetzt werden können oder
 zeitweise keine zuverlässigen Umgebungsinformationen zur Verfügung stehen
-\cite{IntegratedNavigationSystems,ModernRobotics}.
+~\cite{IntegratedNavigationSystems,ModernRobotics}.
 
 Ein Inertialnavigationssystem besteht zumeist aus einer Inertial
 Measurement Unit (IMU), die Beschleunigungssensoren (Accelerometer) und
@@ -712,7 +722,7 @@ gemessenen Beschleunigungen und Winkelgeschwindigkeiten werden durch numerische
 Integration Geschwindigkeit, Orientierung und Position des Roboters berechnet.
 Die mathematischen Grundlagen dieser Verfahren basieren auf den
 Bewegungsgleichungen der klassischen Mechanik sowie auf Verfahren zur Schätzung
-von Zustandsgrößen \cite{IntegratedNavigationSystems,ModernRobotics}.
+von Zustandsgrößen~\cite{IntegratedNavigationSystems,ModernRobotics}.
 
 Ein Problem der Inertialnavigation stellt der Drift dar. Geringe Messfehler der
 Sensoren werden durch die fortlaufende Integration akkumuliert und führen mit
@@ -720,17 +730,17 @@ zunehmender Betriebsdauer zu wachsenden Positions- und Orientierungsfehlern.
 Aus diesem Grund wird eine reine Inertialnavigation in der mobilen Robotik nur
 selten dauerhaft eingesetzt. Stattdessen erfolgt eine Kombination mit externen
 Sensorsystemen wie LiDAR, Kameras oder Radencodern, um die Positionsschätzung
-regelmäßig zu korrigieren \cite{IntegratedNavigationSystems,ProbabilisticRobotics}.
+regelmäßig zu korrigieren~\cite{IntegratedNavigationSystems,ProbabilisticRobotics}.
 
 Zur Fusion verschiedener Sensordaten kommen häufig probabilistische
-Schätzverfahren wie der Kalman-Filter, der Extended Kalman Filter (EKF) \cite{EKF}
-oder der Unscented Kalman Filter (UKF) \cite{UKF} zum Einsatz. Diese Verfahren
+Schätzverfahren wie der Kalman-Filter, der Extended Kalman Filter (EKF)~\cite{EKF}
+oder der Unscented Kalman Filter (UKF)~\cite{UKF} zum Einsatz. Diese Verfahren
 kombinieren die Messdaten der IMU mit absoluten Positionsinformationen anderer
 Sensoren und ermöglichen dadurch eine robustere Lokalisierung. In aktuellen
 Robotersystemen wird zudem vermehrt auf graphbasierte Optimierungsverfahren und
 faktorgraphbasierte Ansätze zurückgegriffen, welche mehrere Sensordatenquellen
 gleichzeitig berücksichtigen und die Genauigkeit der Positionsbestimmung
-verbessern \cite{ProbabilisticRobotics,HandbookOfRobotics}.
+verbessern~\cite{ProbabilisticRobotics,HoB}.
 
 Die Inertialnavigation findet in zahlreichen Bereichen der Robotik Anwendung.
 Autonome Serviceroboter, fahrerlose Transportsysteme (AGV), Drohnen sowie
@@ -738,22 +748,23 @@ mobile Manipulatoren nutzen IMUs zur Stabilisierung der Bewegung, zur Schätzung
 der Fahrzeuglage und zur kurzfristigen Positionsbestimmung. Besonders in
 Innenräumen, in denen satellitengestützte Navigationssysteme wie GPS nicht
 verfügbar sind, stellt die IMU eine wichtige Informationsquelle für die
-Bewegungsregelung dar \cite{GPS}. Auch in IoT- und Embedded-Systemen werden aufgrund der
+Bewegungsregelung dar~\cite{GPS}. Auch in IoT- und Embedded-Systemen werden aufgrund der
 geringen Baugröße, des niedrigen Energieverbrauchs und der geringen Kosten
 häufig kompakte Micro-Electro-Mechanical Systems Inertial Measurement Units
-(MEMS-IMUs) eingesetzt \cite{HandbookOfRobotics,ModernRobotics}.
+(MEMS-IMUs) eingesetzt~\cite{HandbookOfRobotics,HoB}.
 
 Für den geplanten Coaster Bot kann die Inertialnavigation die globale
 Pfadplanung und sensorbasierte Navigation ergänzen. Während Verfahren wie A*
 oder Dijkstra den optimalen Fahrweg berechnen und LiDAR- oder
 Kamerasysteme Hindernisse erkennen, liefert die IMU kontinuierlich
-Informationen über Beschleunigung und Drehrichtung des Roboters \cite{AStar,IntroToAlgs}. Dadurch können
+Informationen über Beschleunigung und Drehrichtung des
+Roboters~\cite{AStar,IntroToAlgs}. Dadurch können
 Fahrbewegungen zwischen Sensormessungen präziser geschätzt sowie kurzfristige
 Positionsänderungen erfasst werden. Beim Anfahren definierter Ablage- oder
 Aufnahmepositionen verbessert die Orientierungsschätzung die
 Wiederholgenauigkeit des Systems. Die Kombination einer IMU mit Verfahren der
 globalen Pfadplanung entspricht dem in der mobilen Robotik etablierten Ansatz
-einer mehrstufigen Navigation \cite{ModernRobotics,HandbookOfRobotics}.
+einer mehrstufigen Navigation~\cite{ModernRobotics,HoB}.
 
 Da sich der Coaster Bot auf einer vergleichsweise kleinen Arbeitsfläche bewegt
 und Bewegungen präzise erfolgen sollten,
@@ -764,7 +775,7 @@ effizientere Positionsbestimmung erreichen.
 
 
 \newpage
-\section{Literaturverzeichnis}
+% \section{Literaturverzeichnis}
 
 \appendix
 
@@ -773,7 +784,7 @@ effizientere Positionsbestimmung erreichen.
 %\bibliography{quellen}
 
 % normal scr article
-\printbibliography[title={Bibliography}]
+\printbibliography[title={Literaturverzeichnis}]
 
 \listoffigures
 

@@ -513,7 +513,55 @@ Zur weiteren Bestimmung von erforderlichen Teilaufgaben und Arbeitspaketen wurde
 
 \newpage
 \subsection{Netzplan}
-Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arbeitspakete nach Aufwand und Priorität der in Abbildung~\ref{fig:netzplan} dargestellte Netzplan nach DIN 69900. Aufgrund seiner Breite ist dieser auf einer eigenen Seite im Querformat abgebildet. Folgende Tabelle aus ProjectLibre wurde als Grundlage für den Graphen genutzt, der per LLM erstellt wurde.
+Mit dem Zeithorizont von 4 Monaten ergibt sich mit Gewichtung der jeweiligen Arbeitspakete nach Aufwand und Priorität der in Abbildung~\ref{fig:netzplan} dargestellte Netzplan nach DIN 69900. Aufgrund seiner Breite ist dieser auf einer eigenen Seite im Querformat abgebildet. Folgende Tabelle aus ProjectLibre wurde als Grundlage für den Graphen genutzt, die Graphik selbst per LLM aus der Tabelle erstellt.
+
+
+
+
+\begin{tabularx}{\textwidth}{cX@{}ccccccc}
+\toprule
+\footnotesize
+\textbf{ID} & \footnotesize\textbf{Arbeitspaket} & \footnotesize\textbf{Dauer} & \footnotesize\textbf{FAZ} & \footnotesize\textbf{FEZ} & \footnotesize\textbf{SAZ} & \footnotesize\textbf{SEZ} & \footnotesize\textbf{Kritisch}\\
+\midrule
+\footnotesize 1001 & \footnotesize Steckbrief\-definition &	\footnotesize 1 &	\footnotesize 15.07.26 & \footnotesize 15.07.26	 & \footnotesize 09.10.26	 & \footnotesize 09.10.26 & 	 \footnotesize 	nein \\
+\footnotesize 1002	 & \footnotesize Projekt\-organisation und Planung & 	\footnotesize 4	 & \footnotesize 16.07.26	 & \footnotesize 19.07.26	 & \footnotesize 10.10.26	 & \footnotesize 13.10.26	& \footnotesize nein \\
+\footnotesize 1010	 & \footnotesize Algorithmik recherchieren & 	\footnotesize 8	 & \footnotesize 15.07.26	 & \footnotesize 22.07.26	 & \footnotesize 15.07.26	 & \footnotesize 22.07.26	 & 	\footnotesize ja \\
+\footnotesize 1020 & \footnotesize Marktsichtung durchführen & \footnotesize 	8	 & \footnotesize 15.07.26	 & \footnotesize 22.07.26 & \footnotesize 	15.07.26 & \footnotesize 	22.07.26 &  \footnotesize ja \\
+\footnotesize 1030	 & \footnotesize Stand zu Mobile Robotik recherchieren	 & \footnotesize 8	 & \footnotesize 15.07.26	 & \footnotesize 22.07.26	 & \footnotesize 15.07.26	 & \footnotesize 22.07.26	 & \footnotesize ja\\
+\footnotesize 101	 & \footnotesize Dokumente zusammentragen	 & \footnotesize 3	 & \footnotesize 23.07.26 & \footnotesize 	25.07.26	 & \footnotesize 14.10.26 & \footnotesize 	16.10.26	 & \footnotesize nein \\
+\footnotesize 2010	 & \footnotesize Anwendungsfälle definieren	 & \footnotesize 3	 & \footnotesize 23.07.26	 & \footnotesize 25.07.26 & \footnotesize 	23.07.26	 & \footnotesize 25.07.26	 & \footnotesize 	ja \\
+\footnotesize 2020 & \footnotesize 	Maturity Level definieren	 & \footnotesize 4 & \footnotesize 	26.07.26 & \footnotesize 	29.07.26	 & \footnotesize 26.07.26	 & \footnotesize 29.07.26	  & \footnotesize ja \\
+\footnotesize 2030 & \footnotesize 	Lastenheft erstellen	 & \footnotesize 7 & \footnotesize 	30.07.26 & \footnotesize 	05.08.26	 & \footnotesize 30.07.26	 & \footnotesize 05.08.26	  & \footnotesize ja\\
+\footnotesize 3010 & \footnotesize 	Testfälle definieren	 & \footnotesize 5	 & \footnotesize 06.08.26	 & \footnotesize 10.08.26 & \footnotesize 10.08.26 & \footnotesize 14.08.26 & \footnotesize nein \\
+\footnotesize 3020 & \footnotesize Sensorik/Aktorik auswählen & \footnotesize 5 & \footnotesize 06.08.26 & \footnotesize 10.08.26 & \footnotesize 06.08.26 & \footnotesize 10.08.26 & \footnotesize ja \\
+\footnotesize 3030 & \footnotesize Softwarearchitektur erarbeiten & \footnotesize 5 & \footnotesize 06.08.26 & \footnotesize 10.08.26 & \footnotesize 10.08.26 & \footnotesize 14.08.26 & \footnotesize nein \\
+\footnotesize 3040 & \footnotesize Kostenkalkulation durchführen & \footnotesize 4 & \footnotesize 11.08.26 & \footnotesize 14.08.26 & \footnotesize 11.08.26 & \footnotesize 14.08.26 & \footnotesize ja \\
+\footnotesize 3050 & \footnotesize Pflichtenheft erstellen & \footnotesize 8 & \footnotesize 15.08.26 & \footnotesize 22.08.26 & \footnotesize 15.08.26 & \footnotesize 22.08.26 & \footnotesize ja \\
+\footnotesize 201 & \footnotesize Dokumente zusammentragen & \footnotesize 2 & \footnotesize 23.08.26 & \footnotesize 24.08.26 & \footnotesize 15.10.26 & \footnotesize 16.10.26 &  \footnotesize nein \\
+\footnotesize 4010 & \footnotesize Bauteile beschaffen & \footnotesize 14 & \footnotesize 23.08.26 & \footnotesize 05.09.26 & \footnotesize 24.08.26 & \footnotesize 06.09.26 & \footnotesize nein \\
+\footnotesize 4020 & \footnotesize Softwaretest erstellen & \footnotesize 10 & \footnotesize 23.08.26 & \footnotesize 01.09.26 & \footnotesize 23.08.26 & \footnotesize 01.09.26 & \footnotesize ja \\
+\footnotesize 4030 & \footnotesize Software implementieren & \footnotesize 15 & \footnotesize 02.09.26 & \footnotesize 16.09.26 & \footnotesize 02.09.26 & \footnotesize 16.09.26 & \footnotesize ja \\
+\footnotesize 4040 & \footnotesize Prototyp aufbauen & \footnotesize 10 & \footnotesize 06.09.26 & \footnotesize 15.09.26 & \footnotesize 07.09.26 & \footnotesize 16.09.26 & \footnotesize nein \\
+\footnotesize 5000 & \footnotesize Test durchführen & \footnotesize 8 & \footnotesize 17.09.26 & \footnotesize 24.09.26 & \footnotesize 17.09.26 & \footnotesize 24.09.26 & \footnotesize ja \\
+\footnotesize 6000 & \footnotesize Maturity Level feststellen & \footnotesize 5 & \footnotesize 25.09.26 & \footnotesize 29.09.26 & \footnotesize 25.09.26 & \footnotesize 29.09.26 & \footnotesize ja \\
+\footnotesize 301 & \footnotesize Dokumente zusammentragen & \footnotesize 3 & \footnotesize 30.09.26 & \footnotesize 02.10.26 & \footnotesize 30.09.26 & \footnotesize 02.10.26 & \footnotesize ja \\
+\footnotesize 401 & \footnotesize Endbericht erstellen und abgeben & \footnotesize 6 & \footnotesize 03.10.26 & \footnotesize 08.10.26 & \footnotesize 03.10.26 & \footnotesize 08.10.26 & \footnotesize ja \\
+\footnotesize 7000 & \footnotesize Präsentation ausarbeiten & \footnotesize 8 & \footnotesize 09.10.26 & \footnotesize 16.10.26 & \footnotesize 09.10.26 & \footnotesize 16.10.26 & \footnotesize ja \\
+
+\bottomrule
+\end{tabularx}
+
+
+
+
+
+
+	
+
+
+
+
+
 
 
 

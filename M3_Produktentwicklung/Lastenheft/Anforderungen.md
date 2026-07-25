@@ -1,8 +1,18 @@
 # Anforderungen
 
+| Maturity Level | Definition |
+|----------------|------------|
+| 1              | Prototyp vor Marktreife |
+| 2              | MVP zur Markteinführung |
+| 3              | Komfortfunktionen       |
+| 4              | HMI Individualisierung  |
+| 5              | Getränketransport       |
+
+
+
 ## Funktionale Anforderungen
 
-### Navigation und Lokalisierung (Maturity Level: 0)
+### Navigation und Lokalisierung (Maturity Level: 1)
 
 * Der Bot muss Hindernisse auf dem Tisch erkennen.
 * Der Bot muss Hindernissen selbstständig ausweichen.
@@ -18,7 +28,7 @@
 * Der Bot darf keine Personen berühren.
 * Der Bot kann erkennen welche Getränke auf dem Tisch stehen.
 
-### Getränkeuntersetzer (Maturity Level: 0)
+### Getränkeuntersetzer (Maturity Level: 1)
 
 * Der Bot muss einen Getränkeuntersetzer aufnehmen können.
 * Der Bot muss einen Getränkeuntersetzer transportieren können.
@@ -37,7 +47,7 @@
 * Der Bot muss erkennen, wenn ein Getränk verrutscht.
 * Der Bot kann sich selbstständig unter einem Getränk platzieren.
 
-### Mensch-Roboter-Interaktion (Maturity Level: 3)
+### Mensch-Roboter-Interaktion (Maturity Level: 4)
 
 * Der Bot muss einen Kunden erkennen.
 * Der Bot muss erkennen, welcher Kunde ihn gerufen hat.
@@ -48,7 +58,7 @@
 * Der Bot kann vom Kunden zu seiner geografischen Lage gerufen werden.
 * Der Bot kann vom Kunden zur geografischen Lage anderer Menschen gerufen werden.
 
-### Bestellung und Bezahlung (Maturity Level: 2)
+### Bestellung und Bezahlung (Maturity Level: 3)
 
 * Der Bot muss Bestellungen entgegennehmen.
 * Der Bot muss Bestellungen digital erfassen.
@@ -58,7 +68,7 @@
 * Der Bot darf keine Zahlungsdaten dauerhaft speichern.
 * Der Bot muss den Abschluss einer Zahlung erkennen.
 
-### Reinigung (Maturity Level: 1)
+### Reinigung (Maturity Level: 2)
 
 * Der Bot muss verschüttete Flüssigkeiten lokalisieren.
 * Der Bot muss den Reinigungsbereich bestimmen.
@@ -66,7 +76,7 @@
 * Der Bot darf trockene Bereiche nicht unnötig reinigen.
 * Der Bot muss erkennen, wenn sein Reinigungselement gesättigt ist.
 
-### Sicherheit (Maturity Level: 0)
+### Sicherheit (Maturity Level: 1)
 
 * Der Bot muss bei Gefahr sofort anhalten können.
 * Der Bot muss bei einem Sensorfehler in einen sicheren Zustand wechseln.
@@ -75,7 +85,7 @@
 * Der Bot muss Kollisionen vermeiden.
 * Der Bot muss einen Not-Aus unterstützen.
 
-### Energieversorgung (Maturity Level: 0)
+### Energieversorgung (Maturity Level: 2)
 
 * Der Bot muss seinen Akkuladestand überwachen.
 * Der Bot muss einen niedrigen Akkuladestand erkennen.
@@ -83,7 +93,7 @@
 * Der Bot muss selbstständig zu einer Ladestation fahren können (optional).
 * Der Bot muss während des Betriebs seinen Energieverbrauch überwachen.
 
-### Systemüberwachung (Maturity Level: 0)
+### Systemüberwachung (Maturity Level: 1)
 
 * Der Bot muss Fehler erkennen.
 * Der Bot muss Fehler protokollieren.

@@ -209,3 +209,5 @@ Temporary Items
 *.log
 *.lof
 *.toc
+*.dvi
+*.out.ps

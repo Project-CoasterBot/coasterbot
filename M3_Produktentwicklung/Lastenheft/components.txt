@@ -1,0 +1,51 @@
+Sensoren:
+
+ - Tischkantensensor
+3x oder 4x IR Infrared Obstacle Avoidance Sensor https://projecthub.arduino.cc/aboda243/obstacle-detector-using-ir-module-tutorial-101320
+   * für ersten wurf möglicherweise nur einer ausreichend, aber bei 4 Motoren wie in Aktorik beschrieben kann er auch drehen, da ist das stürzen bei einer Drehbewegung ein großes Risiko
+ 
+ - Hindernis Detektion
+1x bis 3x nach vorne Ultraschall sensor HC-SR04 für https://projecthub.arduino.cc/Isaac100/getting-started-with-the-hc-sr04-ultrasonic-sensor-7cabe1
+   * für ersten wurf möglicherweise nur einer ausreichend, aber bei drehbewegungen sollte mglw. schräg nach vorne jeweils ein Sensor verfügbar sein
+ 
+ - inertial system für navigation
+eine der folgenden Lösungen könnte gewählt werden, vielleicht machen wir aber erstmal grundfunktionen wie blind fahren ohne vom tisch zu fallen oder gegen hindernisse zu fahren und eine Lösung für Navigation finden wir in einem späteren Maturity Level!
+   * Wenn Motoren mit Hall Encoder genutzt werden(Hall Sensoren sind Magnetische Sensoren auf der Nabe des Motors) kann der Vortrieb gemessen werden, diese kann akkumuliert werden und dient praktisch direkt als inertial system. beispiel N20 Motoren mit Encoder
+   * MPU-6050 Sensor, kostet ca. 3 €, 6 Achsen und I2C Anbindung. https://www.amazon.de/APKLVSR-MPU-6050-Gyroscope-Acceleration-Compatible/dp/B0FPQS4RV2
+   * LSM6DSOX ? gibt gute Libraries dafür, wird in einigen Projekten genutzt, finde aber keine Produkte...
+   * BNO055 Sensor, kostet 30€+, 9 Achsen, für unser Projekt zu teuer!
+ 
+
+ 
+ 
+ 
+Aktoren:
+ 
+ - hauptantrieb
+4x TT Motor https://www.amazon.de/Double-Shaft-Motor-Plastic-Tyres/dp/B0GXF19BHT
+2x Doppel H-Brücke als Treiber https://www.amazon.de/-/en/TB6612FNG-H-Bridge-Stepper-Controller-Function/dp/B09MN8F1SD
+ 
+ - Coaster Auswurf 
+1x Servo SG90 für Coaster Auswurf https://docs.sunfounder.com/projects/umsk/de/latest/02_arduino/uno_lesson33_servo.html
+ 
+ - Coaster Aufnahme
+Dennis hatte schöne FreeCAD Magnet Aufnahme vorgesehen, dieser soll vermutlich als Aufnahme Arm die Coaster oben drauf legen. 
+Vorschlag: Ein Aufnahmearm mit Magnet, der beim umklappen einen Magneten nach vorne fährt, beim zurück fahren den Magnet einfährt.  Antrieb dafür
+1x Servo SG90 https://docs.sunfounder.com/projects/umsk/de/latest/02_arduino/uno_lesson33_servo.html
+   -> Eventuell hier nochmal ein Sensor notwendig für Prüfung ob Coaster aufgenommen wurde, z.b. micro switch?
+
+ - Späteres Maturity Level: Aktor für Wischen -> TODO
+ 
+ 
+Steuerung und Regelung:
+ - Arduino Board?
+ - RP Pico2? 
+ -> Vermutlich noch nicht so wichtig... Arduino lib ist für beide verfügbar
+ 
+ - Leistungswandler Batterie / Netzbetrieb
+ -> nicht für Experimentphase notwendig, alles am Kabel für IDE Verbindung vermutlich ausreichend
+ 
+ 
+ 
+Divers:
+ - Haupt-/Not-Aus Schalter? 

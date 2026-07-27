@@ -8,7 +8,10 @@
 | 4              | HMI Individualisierung  |
 | 5              | Getränketransport       |
 
-
+Maturity Level auf [Guiding Manufacturing Companies Towards Digitalization A
+methodology for supporting manufacturing companies in defining their
+digitalization
+roadmap](https://www.researchgate.net/figure/Maturity-levels-definition_fig1_320287385)
 
 ## Funktionale Anforderungen
 

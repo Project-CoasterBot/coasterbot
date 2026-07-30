@@ -122,8 +122,8 @@ Die dortige „Dauer" ist Vorgangsdauer in Tagen; hier wird der **Personalaufwan
 | Test & Abschluss (5000–7000, 301, 401) | 128 | 22 % |
 | **Gesamt** | **580** | 100 % |
 
-**Kapazitätsabgleich:** 580 h ÷ 3 Personen ≈ **193 h/Person** über 13,5 Wochen
-≈ **14–15 h/Woche/Person**. Für ein „Nebenbei"-Projekt ambitioniert → siehe Risiken (§7).
+**Kapazitätsabgleich:** 580 h ÷ 3 Personen ≈ **193 h/Person** über 13,5 Wochen 
+≈ **14–15 h/Woche/Person**. 
 
 ---
 
@@ -141,9 +141,6 @@ Die dortige „Dauer" ist Vorgangsdauer in Tagen; hier wird der **Personalaufwan
 | **Materialkosten gesamt** | **≈ 207 €** |
 
 > 3D-Druck als Eigenfertigung angesetzt (Drucker unter „vorhandene Werkzeuge").
-> Bei externem Druckservice sind für das Chassis eher **30–50 €** einzuplanen.
-> Die „Ergänzung ML-1-Vollständigkeit" folgt aus dem Komponenten-Review
-> (fehlende Odometrie/Verifikations-/Statusteile für vollständige ML-1-Abdeckung).
 
 ---
 

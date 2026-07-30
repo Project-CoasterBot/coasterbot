@@ -35,8 +35,8 @@ Zwei Sichten werden getrennt ausgewiesen:
 ### 2.2 Sachmittel
 | Ressource | Status | Kostenrelevanz |
 |---|---|---|
-| Werkzeuge (Werkstatt, Lötausrüstung, ggf. 3D-Drucker) | vorhanden | 0 € (im Overhead) |
-| Software (Toolchain, Simulation, FreeCAD, KiCAD) | Open Source | 0 € |
+| Werkzeuge (Werkstatt, Lötausrüstung, 3D-Drucker) | vorhanden | 0 € (im Overhead) |
+| Software (IDE, Simulation, FreeCAD, KiCAD) | Open Source | 0 € |
 | Elektronik/Mechanik-Material Prototyp | zu beschaffen | siehe §5 |
 | 3D-Druck-Filament | zu beschaffen | siehe §5 |
 | Rechner/Arbeitsplatz/IT | vorhanden | im Overhead |
@@ -45,8 +45,7 @@ Zwei Sichten werden getrennt ausgewiesen:
 
 ## 3. Stundensatzermittlung (Zuschlagskalkulation)
 
-Kalkulatorischer Stundensatz eines Ingenieurs, hergeleitet über
-Personal(voll)kosten, produktive Stunden, Gemeinkosten sowie Wagnis & Gewinn.
+Kalkulatorischer Stundensatz eines Ingenieurs, hergeleitet über Personal(voll)kosten, produktive Stunden, Gemeinkosten sowie Wagnis & Gewinn.
 
 **Produktive Stunden pro Jahr:**
 

@@ -1,8 +1,6 @@
 # Ressourcen- und Kostenplan – CoasterBot
 
-*Grundsätzlicher Plan, kalkuliert „als wären wir ein Unternehmen". Ausgerichtet an
-Projektstrukturplan und Vorgangsliste (siehe `M0/`). Bezug zu Arbeitspaket
-**3040 – Kostenkalkulation durchführen**.*
+*Grundsätzlicher Plan, kalkuliert „als wären wir ein Unternehmen". Ausgerichtet an Projektstrukturplan und Vorgangsliste. Bezug zu Arbeitspaket **3040 – Kostenkalkulation durchführen**, sollten wir aber für M0 als Nachtrag vorziehen.*
 
 **Hinweis:** Der Plan folgt der klassischen ingenieurmäßigen Projektkalkulation (WBS-basierte Aufwandsschätzung + Stundensatzermittlung nach dem Zuschlagsverfahren). 
 

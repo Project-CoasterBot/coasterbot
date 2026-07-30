@@ -170,13 +170,7 @@ Arbeitszeit, Werkzeuge und Software verursachen keine realen Ausgaben.
 
 ## 7. Annahmen, Risiken und Puffer
 
-- **Aufwandsschätzung** beruht auf Erfahrungswerten; größte Unsicherheit bei
-  *4030 Software implementieren* (120 h) und *4020/5000 Test*. Abweichung ±25 % möglich.
-- **Kapazitätsrisiko:** ~15 h/Woche/Person sind für ein Nebenprojekt sportlich;
-  Verzug wirkt direkt auf den kritischen Pfad (vgl. Netzplan `M0/`).
-- **Materialrisiko:** Nachbeschaffung für vollständige ML-1-Abdeckung (Encoder/IMU
-  etc.) noch nicht final entschieden → +/- im Materialbudget; 15 % Puffer angesetzt.
-- **3D-Druck:** Iterationen (Passung Motorhalter, Reservoirs) können 1–2
-  Nachdrucke erfordern → im Filamentansatz grob berücksichtigt.
-- **Stundensatz-Parameter** (Gehalt, Zuschläge, produktive Stunden) sind Annahmen
-  und sollten bei Bedarf durch reale/vorgegebene Werte ersetzt werden.
+- **Aufwandsschätzung** beruht auf Erfahrungswerten; größte Unsicherheit bei *4030 Software implementieren* (120 h) und *4020/5000 Test*. Abweichung ±25 % möglich.
+- **Materialrisiko:** Nachbeschaffung für vollständige ML-1-Abdeckung (Encoder/IMU etc.) noch nicht final entschieden → +/- im Materialbudget; 15 % Puffer angesetzt.
+- **3D-Druck:** Iterationen (Passung Motorhalter, Reservoirs) können 1–2 Nachdrucke erfordern → im Filamentansatz grob berücksichtigt.
+- **Stundensatz-Parameter** (Gehalt, Zuschläge, produktive Stunden) sind Annahmen und sollten bei Bedarf durch reale/vorgegebene Werte ersetzt werden.

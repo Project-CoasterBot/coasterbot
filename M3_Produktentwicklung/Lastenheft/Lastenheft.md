@@ -43,6 +43,8 @@ Nicht Bestandteil dieses Projekts sind Funktionen, die über den Nachweis der gr
 * Vollständige Automatisierung von Bestell- oder Bezahlvorgängen.
 * Automatisierte Tischreinigung.
 * Getränketransport als Primärfunktion des Systems.
+* Automatisierter Austausch gegen einen weitere Coaster
+* Betrieb mit aufladbarem Akku
 
 Die genannten Funktionen stellen mögliche Erweiterungen zukünftiger Entwicklungsstufen dar und werden im Rahmen dieser Projektarbeit nicht umgesetzt.
 
@@ -551,7 +553,7 @@ Dieses Glossar definiert die im Lastenheft verwendeten Fachbegriffe. Ziel ist es
 
 Die nachfolgend aufgeführten Quellen bilden die fachliche Grundlage für die Erstellung des Lastenhefts sowie für die Entwicklung des Coasterbots. Sie umfassen Normen, Fachliteratur und wissenschaftliche Veröffentlichungen aus den Bereichen Requirements Engineering, Softwarearchitektur, Robotik und Qualitätssicherung.
 
-## A.1 Normen
+## Normen
 
 **ISO/IEC/IEEE 29148:2018**
 *Systems and software engineering – Life cycle processes – Requirements engineering.*
@@ -583,7 +585,7 @@ ISO, Genf, 2011.
 
 ---
 
-## A.2 Nationale Richtlinien
+## Nationale Richtlinien
 
 **V-Modell XT**
 
@@ -593,7 +595,7 @@ Bundesministerium des Innern und für Heimat (BMI)
 
 ---
 
-## A.3 Fachliteratur
+## Fachliteratur
 
 Pohl, K. (2022)
 
@@ -635,7 +637,7 @@ Prentice Hall.
 
 ---
 
-## A.4 Robotik
+## Robotik
 
 Siciliano, B.; Khatib, O. (Hrsg.) (2016)
 
@@ -667,7 +669,7 @@ MIT Press.
 
 ---
 
-## A.5 Softwarearchitektur
+## Softwarearchitektur
 
 Richards, M.; Ford, N. (2020)
 
@@ -689,7 +691,7 @@ Bass, L.; Clements, P.; Kazman, R. (2022)
 
 ---
 
-## A.6 Test und Qualitätssicherung
+## Test und Qualitätssicherung
 
 Myers, G. J.; Sandler, C.; Badgett, T. (2011)
 
@@ -711,7 +713,7 @@ Ammann, P.; Offutt, J. (2016)
 
 ---
 
-## A.7 Wissenschaftliche Quellen des Projekts
+## Wissenschaftliche Quellen des Projekts
 
 Deutsche Industrie- und Handelskammer (DIHK)
 
@@ -733,7 +735,7 @@ Quellen zur zunehmenden Bedeutung von Online-Bewertungen und deren Einfluss auf 
 
 ---
 
-## A.8 Projektspezifische Dokumente
+## Projektspezifische Dokumente
 
 Die folgenden Dokumente entstehen im Verlauf des Projekts und ergänzen das Lastenheft:
 

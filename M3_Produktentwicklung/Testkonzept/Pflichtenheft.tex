@@ -1,0 +1,5778 @@
+
+%\documentclass[manuscript]{acmart}
+%\documentclass[acmsmall]{acmart}
+%\settopmatter{printacmref=false}
+
+
+\documentclass[
+  a4paper,
+  12pt,
+  DIV=12,        % höherer Wert = schmalere Ränder, weniger Whitespacmi
+  parskip=half,  % Absätze mit halbem Abstand statt Einzug
+  headings=small % kleinere Überschriften, weniger vertikaler Abstand
+]{scrartcl}
+
+%\documentclass[a4paper,11pt]{scrartcl}
+%\documentclass[a4paper,11pt]{report}
+%\documentclass[a4paper,12pt]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[german]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[inkscapelatex=false]{svg}
+% Texte im SVG von Inkscape setzen lassen, nicht durch die Dokumentschrift ersetzen
+\svgsetup{inkscapelatex=false}
+\usepackage{amsmath}
+\usepackage{caption}
+\usepackage{gensymb}
+\usepackage{microtype}
+\usepackage{longtable}
+\usepackage{tabularx}   % Spalten, die die restliche Zeilenbreite auffüllen (X-Spalte)
+\usepackage{booktabs}   % \toprule \midrule \bottomrule (in mobrob_table.tex verwendet)
+\usepackage{wrapfig}    % Textumfluss um Abbildungen
+\usepackage{array}
+\usepackage{calc}
+\usepackage{pmboxdraw}
+
+\usepackage[citecolor=black, colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref}
+
+
+%\usepackage{geometry}
+\usepackage{siunitx}
+%\geometry{margin=2.5cm}
+
+\usepackage{amsthm}
+\usepackage{mdframed}
+\usepackage{enumitem}
+
+\newmdtheoremenv{theorem}{Theorem}
+
+\theoremstyle{definition}
+\newmdtheoremenv{derivation}{Derivation}
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+%\mdfdefinestyle{leftline}{
+%    topline=false, bottomline=false, rightline=false,
+%    linewidth=2pt, linecolor=gray
+%}
+\theoremstyle{definition}
+\newmdtheoremenv[style=leftline]{myalgorithm}{Algorithm}
+
+
+
+
+%\usepackage{fancyvrb}
+
+
+
+
+\let\Bbbk\relax
+\usepackage{amssymb}
+
+
+\usepackage{yfonts}
+
+\usepackage{kvmap}
+
+\usepackage[
+    backend=biber,
+    style=alphabetic,
+    sortlocale=de_DE,
+    natbib=true,
+    %url=false,
+    doi=true,
+    %eprint=false
+]{biblatex}
+% \addbibresource{Literaturrecherche-Stefan-Etringer/algo-references.bib}
+
+%\usepackage[
+%    backend=biber,
+%    style=alphabetic,
+%    sortlocale=de_DE,
+%    natbib=true,
+%    %url=false,
+%    doi=true,
+%    %eprint=false
+%]{biblatex}
+%\addbibresource{Literaturrecherche-Dennis/mobrob_references.bib}
+
+\usepackage[autostyle=true,german=quotes]{csquotes}
+\usepackage{trfsigns} %fourier transform arrow
+\usepackage{mathrsfs} %fourier F
+\usepackage{commath}
+
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage[european]{circuitikz}
+\ctikzset{tripoles/european not symbol=ieee circle}
+
+%\usepackage[shading]{moeptikz}
+%\moeptikzset{shading=true}
+
+%\usepackage{german,longtable}
+
+\usepackage{xcolor}
+\usepackage{color}
+\usepackage{url}
+
+\usepackage{xfrac}
+
+\usepackage{listings}
+\usepackage{verbatimbox}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{pdflscape}   % einzelne Querformatseiten (im PDF gedreht)
+
+%%%% TIKZ
+
+\usepackage{tikz}
+
+\usepackage{pgfplots}
+\usetikzlibrary{calc,
+trees,positioning,arrows,
+chains,shapes.geometric,
+decorations.pathreplacing,
+decorations.pathmorphing,shapes,
+matrix,shapes.symbols,
+plotmarks}
+%\tikzexternalize[prefix=figures/]
+
+%\tikzset{%
+%  block/.style    = {draw, thick, rectangle, minimum height = 3em,
+%    minimum width = 3em},
+%  sum/.style      = {draw, circle, node distance = 2cm}, % Adder
+%  input/.style    = {coordinate}, % Input
+%  output/.style   = {coordinate} % Output
+%}
+% Defining string as labels of certain blocks.
+%\newcommand{\suma}{\Large$+$}
+%\newcommand{\multa}{\Large$\times$}
+%\newcommand{\inte}{$\displaystyle \int$}
+%\newcommand{\derv}{\huge$\frac{d}{dt}$}
+
+\usetikzlibrary{arrows,automata,positioning}
+%\usepackage{automata}
+
+
+%%% END TIKZ
+
+\usepackage[section]{placeins}
+
+\usepackage{textcomp}
+
+
+\usepackage{listings}
+\usepackage{verbatimbox}
+
+\usepackage{bold-extra}
+
+\usepackage{framed}
+% Pandoc compatibility
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+%\lhead{\leftmark}
+%\chead{}
+%\rhead{}
+%\lfoot{}
+%\cfoot{\thepage}
+%\rfoot{}
+%\renewcommand{\headrulewidth}{0.2pt}
+%\renewcommand{\footrulewidth}{0.2pt}
+
+
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\SqrtNy}{$\sqrt{\textsc{Ny}}$}
+\newcommand{\conj}{\overline}
+\newcommand{\Kset}{\textswab{K}}
+\newcommand{\Qset}{\textswab{Q}}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\sorted}[1]{\textsc{sort}\left\lbrace #1 \right\rbrace}
+\newcommand{\SNRgain}{a_{SNR}}
+\newcommand{\EQgain}{a_{EQ}}
+\newcommand{\SIRgain}{a_{SIR}}
+\newcommand{\SNIRgain}{a_{SINR}}
+\newcommand{\SNR}{\textsc{SNR}}
+\newcommand{\CIRgain}{a_{CIR}}
+\newcommand{\CINRgain}{a_{CINR}}
+\newcommand{\CNR}{\textsc{CNR}}
+\newcommand{\CINR}{\textsc{CINR}}
+\newcommand{\HPAModel}{ Hughes 1177H TWTA }
+\newcommand{\bigO}{\mathcal{O}}
+\newcommand{\CopWinCompl}{2.375377}
+\newcommand{\IBO}{\textsc{IBO}}
+\newcommand{\OBO}{\textsc{OBO}}
+\newcommand{\spacepage}{\newpage\null\thispagestyle{empty}\newpage}
+\newcommand{\satcom}{ SatCom }
+\newcommand{\db}{~\text{dB}}
+
+
+\definecolor{mGreen}{rgb}{0,0.6,0}
+\definecolor{mGray}{rgb}{0.5,0.5,0.5}
+\definecolor{mPurple}{rgb}{0.58,0,0.82}
+\definecolor{backgroundColour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{CStyle}{
+    backgroundcolor=\color{backgroundColour},
+    commentstyle=\color{mGreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{mGray},
+    stringstyle=\color{mPurple},
+    basicstyle=\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    language=C
+}
+
+\lstdefinelanguage{VHDL}{
+  morekeywords=[1]{library,use,all,entity,is,port,in,out,end,architecture,of,begin,process,if,then,else,elsif,when,others,signal,variable,wait,for,loop},
+  morecomment=[l]--,
+  morestring=[b]",
+  sensitive=true
+}
+
+\lstset{
+  language=VHDL,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue},
+  commentstyle=\color{gray},
+  stringstyle=\color{red},
+  numbers=left,
+  numberstyle=\tiny,
+  stepnumber=1,
+  numbersep=8pt,
+  frame=single,
+  breaklines=true,
+  captionpos=b
+}
+
+\lstset{numbers=none}
+
+%\newcounter{example}
+%\renewcommand{\theexample}{\thesection.\arabic{example}}
+
+
+% Default fixed font does not support bold face
+\DeclareFixedFont{\ttb}{T1}{txtt}{bx}{n}{12} % for bold
+\DeclareFixedFont{\ttm}{T1}{txtt}{m}{n}{12}  % for normal
+
+% Custom colors
+\usepackage{color}
+\definecolor{deepblue}{rgb}{0,0,0.5}
+\definecolor{deepred}{rgb}{0.6,0,0}
+\definecolor{deepgreen}{rgb}{0,0.5,0}
+
+\usepackage{listings}
+
+% Python style for highlighting
+\newcommand\pythonstyle{\lstset{
+language=Python,
+basicstyle=\ttm,
+morekeywords={self},              % Add keywords here
+keywordstyle=\ttb\color{deepblue},
+emph={MyClass,__init__},          % Custom highlighting
+emphstyle=\ttb\color{deepred},    % Custom highlighting style
+stringstyle=\color{deepgreen},
+frame=tb,                         % Any extra options here
+showstringspaces=false
+}}
+
+
+% Python environment
+\lstnewenvironment{python}[1][]
+{
+\pythonstyle
+\lstset{#1}
+}
+{}
+
+% Python for external files
+\newcommand\pythonexternal[2][]{{
+\pythonstyle
+\lstinputlisting[#1]{#2}}}
+
+% Python for inline
+\newcommand\pythoninline[1]{{\pythonstyle\lstinline!#1!}}
+
+
+
+
+
+\nocite{*}
+
+
+\begin{document}
+%\pagenumbering{roman}
+
+
+
+\title{Coasterbot}
+\subtitle{Lastenheft}
+\author{Stefan Etringer}
+%\email{gereonsuch@suchdsp.com}
+%\affiliation{
+%  \institution{Wilhelm Büchner University of Applied Sciences}
+%  \department{Computer Engineering}
+%  \city{Hof}
+%  \country{Germany}
+%}
+
+
+
+\begin{titlepage}
+  \begin{center}
+    {\large Wilhelm Büchner University of Applied Sciences} \\[0.3em]
+
+    {\normalsize Projektseminar Master}
+\vspace{5em}
+
+    {\LARGE\bfseries Coasterbot} \\[0.5em]
+
+    {\large Pflichtenheft} \\[1em]
+
+    {\includegraphics[width=0.38\textwidth]{coasterbot.png}} \\[1em]
+
+\vspace{4em}
+
+    {\normalsize
+\begin{tabular}{ll}
+Dennis Borutta, B. Eng & dennis.borutta@outlook.com\\
+Stefan Etringer, B. Eng & mail@stefan.works\\
+Gereon Such, M. Sc. & gereonsuch@gmail.com\\
+\end{tabular}
+    }
+  \end{center}
+
+
+\end{titlepage}
+
+
+% einleitung preambel etc.
+
+
+% Versionshistorie des Dokuments -- eigene Seite direkt nach dem Titelblatt
+\section*{Versionshistorie}
+
+\begin{tabularx}{\textwidth}{@{}clp{2.6cm}X@{}}
+\toprule
+\textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
+\midrule
+1 & 05.08.2026 & Etringer & Erstfassung des Lastenhefts\\
+\bottomrule
+\end{tabularx}
+
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{1 Einleitung}\label{einleitung}
+
+\subsection{1.1 Zweck des
+Pflichtenhefts}\label{zweck-des-pflichtenhefts}
+
+Dieses Pflichtenheft beschreibt die technische Umsetzung des im
+Lastenheft definierten Coasterbot-Prototyps. Es dient als verbindliche
+Grundlage für die Entwicklung der Systemarchitektur, der
+Hardwarekomponenten, der Softwarekomponenten sowie der
+Simulationsumgebung.
+
+Während das Lastenheft die Anforderungen und Ziele des Auftraggebers
+beschreibt, legt dieses Dokument die geplante Realisierung des Systems
+fest. Es beschreibt die Architekturentscheidungen, die Aufteilung des
+Systems in einzelne Komponenten sowie die vorgesehenen Verfahren zur
+Umsetzung und Verifikation der geforderten Funktionen.
+
+Das Pflichtenheft dient allen an der Entwicklung beteiligten Personen
+als technische Referenz und ermöglicht eine nachvollziehbare Verbindung
+zwischen Anforderungen, Implementierung und Tests.
+
+\subsection{1.2 Projektbeschreibung}\label{projektbeschreibung}
+
+Im Rahmen der Projektarbeit wird ein Prototyp eines autonomen mobilen
+Roboters entwickelt, der als Coasterbot bezeichnet wird. Der Roboter
+soll in gastronomischen Umgebungen eingesetzt werden und die Aufgabe
+übernehmen, Getränkeuntersetzer selbstständig auf einer Tischoberfläche
+zu transportieren, unter Getränken zu platzieren und wieder aufzunehmen.
+
+Der Fokus der Entwicklung liegt auf der Realisierung eines
+funktionsfähigen Prototyps mit einer modularen Softwarearchitektur und
+einer validierbaren Simulationsumgebung. Dabei werden insbesondere die
+Bereiche autonome Navigation, Lokalisierung, Objekthandhabung,
+Systemüberwachung und Sicherheit betrachtet.
+
+Die Entwicklung erfolgt nach einem komponentenbasierten Ansatz, bei dem
+Hardware- und Softwarekomponenten über definierte Schnittstellen
+miteinander verbunden werden. Dadurch soll eine spätere Erweiterung des
+Systems um zusätzliche Funktionen wie Bestellaufnahme, Reinigung oder
+Getränketransport ermöglicht werden.
+
+\subsection{1.3 Zielsetzung}\label{zielsetzung}
+
+Ziel der technischen Umsetzung ist die Entwicklung eines prototypischen
+Robotersystems, welches die im Lastenheft definierten Anforderungen des
+Maturity Level 1 erfüllt.
+
+Hierzu werden folgende Ergebnisse angestrebt:
+
+\begin{itemize}
+\tightlist
+\item
+  Entwicklung einer modularen Softwarearchitektur für die Steuerung des
+  Roboters.
+\item
+  Entwicklung einer Hardwarearchitektur mit austauschbaren Sensor- und
+  Aktorkomponenten.
+\item
+  Umsetzung einer Navigations- und Lokalisierungskomponente für den
+  Betrieb auf einer Tischoberfläche.
+\item
+  Entwicklung einer Komponente zur Aufnahme, Positionierung und
+  Wiederaufnahme von Getränkeuntersetzern.
+\item
+  Implementierung von Sicherheitsmechanismen zur Vermeidung von
+  Kollisionen und Abstürzen.
+\item
+  Erstellung einer Simulationsumgebung zur Entwicklung und Validierung
+  der Software.
+\item
+  Definition und Durchführung von Tests zur Überprüfung der
+  Anforderungen.
+\end{itemize}
+
+Der Schwerpunkt liegt auf dem Nachweis der technischen Machbarkeit und
+nicht auf der Entwicklung eines serienreifen Produkts.
+
+\subsection{1.4 Technische
+Zielarchitektur}\label{technische-zielarchitektur}
+
+Der Coasterbot wird als eingebettetes, autonomes Robotersystem
+umgesetzt. Die geplante Architektur besteht aus mehreren logisch
+getrennten Ebenen:
+
+\subsubsection{Hardwareebene}\label{hardwareebene}
+
+Die Hardwareebene umfasst alle physischen Komponenten des Roboters:
+
+\begin{itemize}
+\tightlist
+\item
+  Recheneinheit zur Ausführung der Steuerungssoftware.
+\item
+  Sensorik zur Erfassung der Umgebung und des Systemzustands.
+\item
+  Aktorik zur Bewegung und Manipulation von Getränkeuntersetzern.
+\item
+  Energieversorgung einschließlich Akkumanagement.
+\end{itemize}
+
+\subsubsection{Abstraktionsebene}\label{abstraktionsebene}
+
+Die Abstraktionsebene stellt eine einheitliche Schnittstelle zwischen
+Hardware und Software bereit. Dadurch können konkrete
+Hardwarekomponenten ausgetauscht werden, ohne die darüberliegenden
+Softwarekomponenten anpassen zu müssen.
+
+\subsubsection{Steuerungs- und
+Anwendungsebene}\label{steuerungs--und-anwendungsebene}
+
+Die Anwendungsebene beinhaltet die eigentliche Systemlogik:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Lokalisierung
+\item
+  Bewegungsplanung
+\item
+  Untersetzerhandling
+\item
+  Sicherheitslogik
+\item
+  Systemüberwachung
+\end{itemize}
+
+\subsubsection{Simulationsebene}\label{simulationsebene}
+
+Die Simulationsebene ermöglicht die Ausführung und Validierung der
+Software ohne physische Hardware. Dabei werden Sensoren, Aktoren und
+Umgebungsbedingungen modelliert.
+
+\subsection{1.5 Abgrenzung}\label{abgrenzung}
+
+Die folgenden Funktionen werden im Rahmen dieser Projektarbeit nicht
+umgesetzt:
+
+\begin{itemize}
+\tightlist
+\item
+  Automatisierter Getränketransport.
+\item
+  Automatisierte Tischreinigung.
+\item
+  Digitale Bestellaufnahme.
+\item
+  Integration von Bezahlsystemen.
+\item
+  Kommunikation über externe Netzwerke.
+\item
+  Kartierung und dauerhafte Speicherung der Umgebung.
+\item
+  Koordination mehrerer Coasterbots.
+\end{itemize}
+
+Diese Funktionen werden ausschließlich als mögliche Erweiterungen
+berücksichtigt und beeinflussen die Architektur nur hinsichtlich einer
+zukünftigen Erweiterbarkeit.
+
+\subsection{1.6 Dokumentstruktur}\label{dokumentstruktur}
+
+Das Pflichtenheft ist wie folgt aufgebaut:
+
+\textbf{Kapitel 1 -- Einleitung} Beschreibung der Zielsetzung,
+Aufgabenstellung und Abgrenzung des Projekts.
+
+\textbf{Kapitel 2 -- Systemarchitektur} Beschreibung der Gesamtstruktur
+des Coasterbots sowie der Aufteilung in Hardware- und
+Softwarekomponenten.
+
+\textbf{Kapitel 3 -- Hardwarekonzept} Beschreibung der mechanischen
+Komponenten, Sensorik, Aktorik und Energieversorgung.
+
+\textbf{Kapitel 4 -- Softwarekonzept} Beschreibung der
+Softwarearchitektur, Komponenten und Schnittstellen.
+
+\textbf{Kapitel 5 -- Implementierungskonzept} Beschreibung der geplanten
+Umsetzung der Kernfunktionen.
+
+\textbf{Kapitel 6 -- Simulationskonzept} Beschreibung der
+Simulationsumgebung und der modellierten Systembestandteile.
+
+\textbf{Kapitel 7 -- Test- und Verifikationskonzept} Beschreibung der
+Teststrategie und Zuordnung von Tests zu Anforderungen.
+
+\textbf{Kapitel 8 -- Zusammenfassung und Ausblick} Bewertung der
+Umsetzung sowie mögliche zukünftige Erweiterungen.
+
+\section{2 Systemarchitektur}\label{systemarchitektur}
+
+\subsection{2.1 Ziel der
+Systemarchitektur}\label{ziel-der-systemarchitektur}
+
+Die Systemarchitektur beschreibt den grundlegenden Aufbau des
+Coasterbot-Prototyps sowie die Aufteilung des Gesamtsystems in einzelne
+technische Komponenten. Ziel der Architektur ist es, eine robuste,
+modulare und erweiterbare Struktur zu schaffen, welche die Umsetzung der
+im Lastenheft definierten Anforderungen ermöglicht.
+
+Die Architektur folgt einem komponentenbasierten Ansatz mit klar
+definierten Schnittstellen zwischen den einzelnen Systembestandteilen.
+Dadurch können einzelne Komponenten unabhängig voneinander entwickelt,
+getestet und bei Bedarf ausgetauscht werden.
+
+Besondere Bedeutung haben dabei die Trennung von Hardware und Software
+sowie die Möglichkeit, das System vollständig oder teilweise in einer
+Simulationsumgebung auszuführen.
+
+\subsection{2.2 Systemaufbau}\label{systemaufbau}
+
+Der Coasterbot wird als eingebettetes autonomes Robotersystem
+entwickelt. Das Gesamtsystem wird in mehrere Ebenen unterteilt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Hardwareebene
+\item
+  Hardwareabstraktionsebene
+\item
+  Systemlogikebene
+\item
+  Anwendungsebene
+\item
+  Simulationsebene
+\end{enumerate}
+
+Die Ebenen sind hierarchisch aufgebaut und kommunizieren ausschließlich
+über definierte Schnittstellen.
+
+\subsection{2.3 Architekturmodell}\label{architekturmodell}
+
+\subsubsection{2.3.1 Hardwareebene}\label{hardwareebene-1}
+
+Die Hardwareebene bildet die physische Grundlage des Roboters. Sie
+umfasst alle Komponenten, die zur Wahrnehmung der Umgebung, zur Bewegung
+und zur Energieversorgung erforderlich sind.
+
+Die Hardwareebene besteht aus folgenden Hauptkomponenten:
+
+\begin{itemize}
+\tightlist
+\item
+  Recheneinheit
+\item
+  Sensorik
+\item
+  Aktorik
+\item
+  Energieversorgung
+\item
+  Mechanische Konstruktion
+\end{itemize}
+
+Die Recheneinheit übernimmt die Verarbeitung der Sensordaten sowie die
+Berechnung der Steuerbefehle für die Aktoren.
+
+Die Sensorik stellt Informationen über den Zustand des Roboters und
+seiner Umgebung bereit. Dazu gehören insbesondere:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung von Hindernissen
+\item
+  Erkennung der Tischbegrenzung
+\item
+  Bestimmung der Position und Orientierung
+\item
+  Erkennung von Getränkeuntersetzern
+\end{itemize}
+
+Die Aktorik setzt die berechneten Steuerbefehle in physische Aktionen
+um. Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegung des Roboters
+\item
+  Aufnahme eines Getränkeuntersetzers
+\item
+  Positionierung eines Getränkeuntersetzers
+\end{itemize}
+
+\subsection{2.3.2
+Hardwareabstraktionsebene}\label{hardwareabstraktionsebene}
+
+Die Hardwareabstraktionsebene stellt eine Trennung zwischen der
+physischen Hardware und der darüberliegenden Softwarelogik her.
+
+Ziel dieser Ebene ist es, die Abhängigkeit der Software von konkreten
+Hardwarekomponenten zu reduzieren. Dadurch können beispielsweise
+unterschiedliche Sensoren oder Motoren verwendet werden, ohne die
+Navigations- oder Steuerungslogik anzupassen.
+
+Die Hardwareabstraktion umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Einheitliche Schnittstellen für Sensoren
+\item
+  Einheitliche Schnittstellen für Aktoren
+\item
+  Verwaltung der Hardwarekommunikation
+\item
+  Umwandlung hardwareabhängiger Daten in ein einheitliches Format
+\end{itemize}
+
+Durch diese Struktur können reale Hardwarekomponenten durch
+Simulationsmodelle ersetzt werden.
+
+\subsection{2.3.3 Systemlogikebene}\label{systemlogikebene}
+
+Die Systemlogikebene beinhaltet die zentralen Funktionen zur Steuerung
+des Roboters. Sie verarbeitet Informationen aus der Hardwareabstraktion
+und erzeugt entsprechende Steuerbefehle.
+
+Die wesentlichen Komponenten dieser Ebene sind:
+
+\subsubsection{Navigationskomponente}\label{navigationskomponente}
+
+Die Navigationskomponente ist verantwortlich für die autonome Bewegung
+des Roboters innerhalb des Arbeitsbereichs.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Planung einer Fahrroute
+\item
+  Erkennung von Hindernissen
+\item
+  Anpassung der Route bei Änderungen der Umgebung
+\item
+  Erreichen definierter Zielpositionen
+\end{itemize}
+
+\subsubsection{Lokalisierungskomponente}\label{lokalisierungskomponente}
+
+Die Lokalisierungskomponente bestimmt die aktuelle Position und
+Orientierung des Roboters.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Verarbeitung von Sensordaten
+\item
+  Positionsbestimmung
+\item
+  Aktualisierung der Roboterpose
+\item
+  Bereitstellung der Positionsinformationen für andere Komponenten
+\end{itemize}
+
+\subsubsection{Bewegungssteuerung}\label{bewegungssteuerung}
+
+Die Bewegungssteuerung übersetzt Navigationsentscheidungen in konkrete
+Bewegungsbefehle.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Steuerung der Motoren
+\item
+  Geschwindigkeitsregelung
+\item
+  Begrenzung kritischer Bewegungszustände
+\item
+  Umsetzung von Sicherheitsanforderungen
+\end{itemize}
+
+\subsubsection{Untersetzerhandling}\label{untersetzerhandling}
+
+Diese Komponente steuert die Aufnahme und Ausgabe von
+Getränkeuntersetzern.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennen eines verfügbaren Untersetzers
+\item
+  Aktivieren des Aufnahmemechanismus
+\item
+  Transport des Untersetzers
+\item
+  Positionierung unter einem Getränk
+\item
+  Überprüfung der erfolgreichen Platzierung
+\end{itemize}
+
+\subsubsection{Sicherheitskomponente}\label{sicherheitskomponente}
+
+Die Sicherheitskomponente überwacht sicherheitskritische Zustände.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennen gefährlicher Situationen
+\item
+  Auslösen eines kontrollierten Stopps
+\item
+  Überwachung sicherheitsrelevanter Sensoren
+\item
+  Wechsel in einen sicheren Zustand
+\end{itemize}
+
+\subsubsection{Systemüberwachung}\label{systemuxfcberwachung}
+
+Die Systemüberwachung stellt Informationen über den Betriebszustand
+bereit.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung von Fehlern
+\item
+  Speicherung von Fehlerinformationen
+\item
+  Überwachung von Systemzuständen
+\item
+  Meldung fehlgeschlagener Aufgaben
+\end{itemize}
+
+\subsection{2.3.4 Anwendungsebene}\label{anwendungsebene}
+
+Die Anwendungsebene beschreibt die übergeordnete Ablaufsteuerung des
+Coasterbots.
+
+Sie definiert die Reihenfolge der Systemaktionen und koordiniert die
+einzelnen Funktionskomponenten.
+
+Beispielhafter Ablauf:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Initialisierung des Systems.
+\item
+  Überprüfung der Betriebsbereitschaft.
+\item
+  Erfassung der Umgebung.
+\item
+  Bestimmung eines Zielpunkts.
+\item
+  Planung einer Route.
+\item
+  Navigation zum Ziel.
+\item
+  Aufnahme oder Ausgabe eines Getränkeuntersetzers.
+\item
+  Überprüfung des Ergebnisses.
+\item
+  Rückmeldung über den Systemstatus.
+\end{enumerate}
+
+Die Anwendungsebene enthält keine hardwareabhängigen Funktionen und
+kommuniziert ausschließlich über definierte Schnittstellen mit den
+darunterliegenden Komponenten.
+
+\subsection{2.4 Simulationsarchitektur}\label{simulationsarchitektur}
+
+Die Simulation stellt eine parallele Umgebung zur realen Hardware dar.
+Ziel ist es, die Softwarekomponenten unabhängig vom physischen Prototyp
+entwickeln und testen zu können.
+
+Die Simulationsarchitektur umfasst:
+
+\subsubsection{Umgebungsmodell}\label{umgebungsmodell}
+
+Das Umgebungsmodell beschreibt die virtuelle Tischoberfläche sowie
+darauf befindliche Objekte.
+
+Modelliert werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Tischgrenzen
+\item
+  Hindernisse
+\item
+  Getränke
+\item
+  Getränkeuntersetzer
+\end{itemize}
+
+\subsubsection{Sensormodelle}\label{sensormodelle}
+
+Sensormodelle erzeugen virtuelle Sensordaten entsprechend der
+simulierten Umgebung.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Abstandswerte
+\item
+  Positionserkennung
+\item
+  Hinderniserkennung
+\item
+  Tischkantenerkennung
+\end{itemize}
+
+\subsubsection{Aktormodelle}\label{aktormodelle}
+
+Aktormodelle bilden das Verhalten realer Aktoren nach.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Motorbewegungen
+\item
+  Geschwindigkeit
+\item
+  Aufnahme- und Ablegebewegungen
+\end{itemize}
+
+\subsubsection{Teststeuerung}\label{teststeuerung}
+
+Die Teststeuerung ermöglicht die Durchführung reproduzierbarer
+Testszenarien.
+
+Sie ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  Start definierter Szenarien
+\item
+  Simulation von Fehlerzuständen
+\item
+  Vergleich erwarteter und tatsächlicher Ergebnisse
+\end{itemize}
+
+\subsection{2.5
+Kommunikationsprinzipien}\label{kommunikationsprinzipien}
+
+Die Kommunikation zwischen Komponenten erfolgt über klar definierte
+Schnittstellen.
+
+Folgende Prinzipien werden berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  Komponenten besitzen eine eindeutige Verantwortlichkeit.
+\item
+  Direkte Abhängigkeiten zwischen nicht benachbarten Schichten werden
+  vermieden.
+\item
+  Hardwareabhängige Implementierungen bleiben gekapselt.
+\item
+  Simulations- und Hardwarekomponenten verwenden identische
+  Schnittstellen.
+\item
+  Datenformate werden einheitlich definiert.
+\end{itemize}
+
+\subsection{2.6 Erweiterbarkeit der
+Architektur}\label{erweiterbarkeit-der-architektur}
+
+Die Architektur wird so ausgelegt, dass zukünftige Entwicklungsstufen
+integriert werden können.
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Bestellaufnahme
+\item
+  Mensch-Roboter-Interaktion
+\item
+  Getränketransport
+\item
+  Automatische Reinigung
+\item
+  Kommunikation mehrerer Roboter
+\end{itemize}
+
+Die Erweiterungen sollen durch Ergänzung neuer Komponenten erfolgen
+können, ohne die Kernfunktionen des Systems grundlegend zu verändern.
+
+\subsection{2.7 Zusammenfassung}\label{zusammenfassung}
+
+Die entwickelte Systemarchitektur bildet die Grundlage für die Umsetzung
+des Coasterbot-Prototyps. Durch die Trennung in Hardware-,
+Abstraktions-, Logik-, Anwendungs- und Simulationsebene wird eine
+modulare und erweiterbare Struktur geschaffen.
+
+Die Architektur ermöglicht eine unabhängige Entwicklung und Prüfung
+einzelner Komponenten und erfüllt damit die im Lastenheft definierten
+Anforderungen hinsichtlich Modularität, Testbarkeit und
+Simulationsfähigkeit.
+
+\section{3 Hardwarekonzept}\label{hardwarekonzept}
+
+\subsection{3.1 Ziel des
+Hardwarekonzepts}\label{ziel-des-hardwarekonzepts}
+
+Dieses Kapitel beschreibt die technische Auslegung der Hardware des
+Coasterbot-Prototyps. Das Hardwarekonzept definiert die benötigten
+Komponenten zur Realisierung der autonomen Navigation, der sicheren
+Bewegung sowie der Aufnahme und Ausgabe von Getränkeuntersetzern.
+
+Die Auswahl und Anordnung der Hardwarekomponenten erfolgt unter
+Berücksichtigung der Anforderungen aus dem Lastenheft. Insbesondere
+werden dabei die Anforderungen hinsichtlich Modularität,
+Austauschbarkeit, Simulationsfähigkeit und Erweiterbarkeit
+berücksichtigt.
+
+Der Prototyp wird als kompakter, handtellergroßer mobiler Roboter
+ausgelegt. Die Hardware muss daher eine geringe Baugröße, ein niedriges
+Gewicht sowie einen energieeffizienten Betrieb ermöglichen.
+
+\subsection{3.2 Hardwarearchitektur}\label{hardwarearchitektur}
+
+Die Hardware des Coasterbots wird in folgende Hauptbereiche unterteilt:
+
+\begin{itemize}
+\tightlist
+\item
+  Recheneinheit
+\item
+  Sensorik
+\item
+  Aktorik
+\item
+  Energieversorgung
+\item
+  Kommunikationsschnittstellen
+\item
+  Mechanische Konstruktion
+\end{itemize}
+
+Die einzelnen Komponenten werden modular aufgebaut und über definierte
+Schnittstellen miteinander verbunden.
+
+\subsection{3.3 Recheneinheit}\label{recheneinheit}
+
+Die Recheneinheit bildet die zentrale Verarbeitungseinheit des Roboters.
+Sie übernimmt die Verarbeitung der Sensordaten, die Ausführung der
+Steuerungssoftware sowie die Berechnung der Bewegungsbefehle.
+
+Die Anforderungen an die Recheneinheit sind:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.0752}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.9248}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-CPU-001 & Die Recheneinheit muss ausreichend Rechenleistung für die
+Verarbeitung von Sensordaten und Steueralgorithmen bereitstellen. \\
+HW-CPU-002 & Die Recheneinheit muss die Ausführung der modularen
+Softwarearchitektur ermöglichen. \\
+HW-CPU-003 & Die Recheneinheit muss eine Kommunikation mit Sensoren und
+Aktoren ermöglichen. \\
+HW-CPU-004 & Die Recheneinheit muss eine Ausführung der Software in der
+Simulationsumgebung unterstützen. \\
+\end{longtable}
+
+Für den Prototyp wird eine Trennung zwischen leistungsintensiver
+Verarbeitung und hardwarenaher Steuerung vorgesehen. Dadurch können
+zeitkritische Aufgaben wie Motorregelung oder Sensorauswertung
+unabhängig von komplexeren Berechnungen ausgeführt werden.
+
+\subsection{3.4 Sensorik}\label{sensorik}
+
+Die Sensorik ermöglicht die Wahrnehmung der Umgebung sowie die Erfassung
+des Systemzustands. Die Auswahl der Sensoren orientiert sich an den
+Anforderungen der Navigation, Sicherheit und Objektbehandlung.
+
+\subsubsection{3.4.1 Hinderniserkennung}\label{hinderniserkennung}
+
+Zur sicheren Navigation muss der Coasterbot Hindernisse innerhalb seines
+Arbeitsbereichs erkennen können.
+
+Die Sensorik muss folgende Anforderungen erfüllen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-SEN-001 & Die Sensorik muss Objekte im Fahrbereich erkennen
+können. \\
+HW-SEN-002 & Die Sensorik muss Informationen zur Kollisionsvermeidung
+bereitstellen. \\
+HW-SEN-003 & Die erfassten Sensordaten müssen von der
+Navigationskomponente verarbeitet werden können. \\
+\end{longtable}
+
+Mögliche technische Lösungen sind Abstandssensoren, Kameras oder
+Kombinationen verschiedener Sensorprinzipien.
+
+\subsubsection{3.4.2 Tischkantenerkennung}\label{tischkantenerkennung}
+
+Da der Roboter ausschließlich auf einer Tischoberfläche betrieben wird,
+ist eine zuverlässige Erkennung der Tischbegrenzung erforderlich.
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1075}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8925}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-SEN-004 & Sensoren müssen die Annäherung an eine Tischkante erkennen
+können. \\
+HW-SEN-005 & Die Tischkantenerkennung muss eine rechtzeitige Reaktion
+der Steuerung ermöglichen. \\
+\end{longtable}
+
+Die Erkennung der Tischkante stellt eine zentrale Sicherheitsfunktion
+dar und wird unabhängig von der normalen Hinderniserkennung betrachtet.
+
+\subsubsection{3.4.3 Positions- und
+Orientierungserfassung}\label{positions--und-orientierungserfassung}
+
+Für die autonome Navigation benötigt der Roboter Informationen über
+seine Position und Orientierung.
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1163}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8837}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-SEN-006 & Das System muss Informationen zur Positionsbestimmung
+bereitstellen. \\
+HW-SEN-007 & Das System muss Informationen zur Bestimmung der
+Orientierung bereitstellen. \\
+\end{longtable}
+
+Die Positionsbestimmung kann durch eine Kombination verschiedener
+Sensorquellen erfolgen.
+
+\subsection{3.5 Aktorik}\label{aktorik}
+
+Die Aktorik setzt die berechneten Steuerbefehle in physische Aktionen
+um.
+
+Die Aktorik wird in zwei Bereiche unterteilt:
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsaktorik
+\item
+  Manipulationsaktorik
+\end{itemize}
+
+\subsection{3.5.1 Bewegungsaktorik}\label{bewegungsaktorik}
+
+Die Bewegungsaktorik ermöglicht die autonome Fortbewegung des
+Coasterbots auf der Tischoberfläche.
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1149}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8851}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-ACT-001 & Der Roboter muss sich kontrolliert in verschiedene
+Richtungen bewegen können. \\
+HW-ACT-002 & Die Geschwindigkeit muss steuerbar sein. \\
+HW-ACT-003 & Die Bewegung muss durch die Software geregelt werden
+können. \\
+HW-ACT-004 & Die Bewegung muss für die Simulation abstrahiert werden
+können. \\
+\end{longtable}
+
+Für den Prototyp wird ein Antriebssystem vorgesehen, das eine präzise
+Steuerung der Fahrbewegung ermöglicht.
+
+\subsection{3.5.2 Manipulationsaktorik}\label{manipulationsaktorik}
+
+Die Manipulationsaktorik ermöglicht die Aufnahme und Ausgabe von
+Getränkeuntersetzern.
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1250}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8750}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-ACT-005 & Der Aufnahmemechanismus muss einen Getränkeuntersetzer
+greifen können. \\
+HW-ACT-006 & Der Mechanismus muss eine kontrollierte Positionierung
+ermöglichen. \\
+HW-ACT-007 & Der Zustand des Aufnahmevorgangs muss überprüfbar sein. \\
+\end{longtable}
+
+Der Mechanismus muss so ausgelegt werden, dass Getränkeuntersetzer
+sicher bewegt werden können, ohne diese oder andere Gegenstände auf dem
+Tisch zu beschädigen.
+
+\subsection{3.6 Energieversorgung}\label{energieversorgung}
+
+Die Energieversorgung stellt die elektrische Versorgung aller
+Systemkomponenten sicher.
+
+Sie umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Energiespeicher
+\item
+  Spannungsregelung
+\item
+  Ladeelektronik
+\item
+  Überwachung des Energiezustands
+\end{itemize}
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-PWR-001 & Die Energieversorgung muss alle Hardwarekomponenten mit
+ausreichender Leistung versorgen. \\
+HW-PWR-002 & Der Akkuzustand muss überwacht werden können. \\
+HW-PWR-003 & Das System muss bei unzureichender Energieversorgung
+kontrolliert beendet werden können. \\
+HW-PWR-004 & Die Energieversorgung muss austauschbar aufgebaut sein. \\
+\end{longtable}
+
+Die Energieversorgung wird so ausgelegt, dass ein ausreichender
+Betriebszeitraum für Tests und Demonstrationen ermöglicht wird.
+
+\subsection{3.7 Mechanische
+Konstruktion}\label{mechanische-konstruktion}
+
+Die mechanische Konstruktion bildet die physische Struktur des
+Coasterbots.
+
+Anforderungen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1053}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8947}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-MEC-001 & Die Konstruktion muss die Integration aller
+Hardwarekomponenten ermöglichen. \\
+HW-MEC-002 & Die Abmessungen müssen den Anforderungen eines
+handtellergroßen Roboters entsprechen. \\
+HW-MEC-003 & Die Konstruktion muss ausreichend stabil für den
+vorgesehenen Betrieb sein. \\
+HW-MEC-004 & Die Konstruktion muss als digitale CAD-Datei dokumentiert
+werden. \\
+HW-MEC-005 & Fertigungsrelevante Bauteile müssen als STL-Dateien
+bereitgestellt werden. \\
+\end{longtable}
+
+Bei der Konstruktion werden insbesondere folgende Eigenschaften
+berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  geringes Gewicht,
+\item
+  einfache Fertigung,
+\item
+  Wartbarkeit,
+\item
+  Austauschbarkeit einzelner Komponenten,
+\item
+  Erweiterbarkeit für zukünftige Funktionen.
+\end{itemize}
+
+\subsection{3.8 Hardwareabstraktion}\label{hardwareabstraktion}
+
+Alle Hardwarekomponenten werden so integriert, dass sie über definierte
+Schnittstellen angesprochen werden können.
+
+Die Hardwareabstraktion ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  Austausch einzelner Sensoren,
+\item
+  Austausch einzelner Aktoren,
+\item
+  Verwendung identischer Schnittstellen in der Simulation,
+\item
+  unabhängige Entwicklung von Hard- und Software.
+\end{itemize}
+
+Dadurch wird sichergestellt, dass Änderungen an der Hardware keine
+grundlegenden Anpassungen der Systemlogik erfordern.
+
+\subsection{3.9 Zusammenfassung}\label{zusammenfassung-1}
+
+Das Hardwarekonzept definiert die technische Grundlage des
+Coasterbot-Prototyps. Durch die modulare Struktur können Sensorik,
+Aktorik und Energieversorgung unabhängig voneinander entwickelt und
+erweitert werden.
+
+Die Hardwarearchitektur unterstützt damit die zentralen
+Entwicklungsziele des Projekts:
+
+\begin{itemize}
+\tightlist
+\item
+  autonome Navigation,
+\item
+  sichere Bewegung,
+\item
+  automatisierte Handhabung von Getränkeuntersetzern,
+\item
+  Simulation und Testbarkeit,
+\item
+  Erweiterbarkeit zukünftiger Systemfunktionen.
+\end{itemize}
+
+\section{4 Softwarekonzept}\label{softwarekonzept}
+
+\subsection{4.1 Ziel des
+Softwarekonzepts}\label{ziel-des-softwarekonzepts}
+
+Dieses Kapitel beschreibt die technische Umsetzung der
+Softwarearchitektur des Coasterbot-Prototyps. Das Softwarekonzept
+definiert die Struktur der Softwarekomponenten, deren
+Verantwortlichkeiten sowie die Kommunikationsschnittstellen zwischen den
+einzelnen Modulen.
+
+Die Software wird entsprechend den Anforderungen des Lastenhefts
+komponentenbasiert, modular und hardwareunabhängig entwickelt. Dadurch
+wird ermöglicht, einzelne Funktionen unabhängig voneinander zu
+entwickeln, zu testen und bei zukünftigen Erweiterungen
+wiederzuverwenden.
+
+Ein zentraler Bestandteil des Softwarekonzepts ist die Trennung zwischen
+hardwareabhängigen Funktionen und der eigentlichen Systemlogik. Dadurch
+kann die Software sowohl auf der realen Hardware als auch innerhalb der
+Simulationsumgebung ausgeführt werden.
+
+\subsection{4.2 Softwarearchitektur}\label{softwarearchitektur}
+
+Die Softwarearchitektur orientiert sich an einem geschichteten
+Architekturmodell. Die einzelnen Schichten besitzen klar definierte
+Aufgaben und kommunizieren ausschließlich über festgelegte
+Schnittstellen.
+
+Die Software wird in folgende Ebenen unterteilt:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Hardwaretreiberebene
+\item
+  Hardwareabstraktionsebene
+\item
+  Systemdienste
+\item
+  Funktionskomponenten
+\item
+  Anwendungsebene
+\end{enumerate}
+
+\subsection{4.3 Hardwaretreiberebene}\label{hardwaretreiberebene}
+
+Die Hardwaretreiberebene stellt die direkte Verbindung zwischen Software
+und physischer Hardware her.
+
+Sie beinhaltet hardwarespezifische Implementierungen für:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensoransteuerung,
+\item
+  Motorsteuerung,
+\item
+  Manipulationsmechanismen,
+\item
+  Energieüberwachung,
+\item
+  Kommunikationsschnittstellen.
+\end{itemize}
+
+Die Aufgaben dieser Ebene sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Initialisierung der Hardwarekomponenten.
+\item
+  Verarbeitung hardwareabhängiger Kommunikationsprotokolle.
+\item
+  Bereitstellung von Rohdaten für höhere Softwareebenen.
+\item
+  Umsetzung von Steuerbefehlen in Hardwareaktionen.
+\end{itemize}
+
+Die Hardwaretreiberebene wird so gestaltet, dass Änderungen an der
+verwendeten Hardware möglichst keine Auswirkungen auf die
+darüberliegenden Softwarekomponenten haben.
+
+\subsection{4.4
+Hardwareabstraktionsebene}\label{hardwareabstraktionsebene-1}
+
+Die Hardwareabstraktionsebene bildet die Schnittstelle zwischen Hardware
+und Systemlogik.
+
+Ziel dieser Ebene ist die Bereitstellung einheitlicher Schnittstellen
+unabhängig von der konkreten Hardwareimplementierung.
+
+Beispiele:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Hardwarefunktion & Abstrakte Schnittstelle \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Abstandssensor & Entfernungsmessung \\
+Motor & Geschwindigkeits- und Richtungssteuerung \\
+Greifmechanismus & Aufnahme- und Ablagefunktion \\
+Batteriesensor & Energiezustand \\
+\end{longtable}
+
+Die Hardwareabstraktion ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  Austausch von Sensoren und Aktoren.
+\item
+  Wiederverwendung der Software in der Simulation.
+\item
+  Vereinfachte Tests einzelner Komponenten.
+\item
+  Entkopplung von Hardware und Anwendungslogik.
+\end{itemize}
+
+\subsection{4.5 Systemdienste}\label{systemdienste}
+
+Die Systemdienste stellen grundlegende Funktionen bereit, die von
+mehreren Komponenten verwendet werden.
+
+\subsubsection{4.5.1 Kommunikationsdienst}\label{kommunikationsdienst}
+
+Der Kommunikationsdienst übernimmt den Austausch von Daten zwischen
+Softwarekomponenten.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Übertragung von Zustandsinformationen.
+\item
+  Weiterleitung von Steuerbefehlen.
+\item
+  Verwaltung definierter Kommunikationsschnittstellen.
+\end{itemize}
+
+\subsubsection{4.5.2 Konfigurationsdienst}\label{konfigurationsdienst}
+
+Der Konfigurationsdienst verwaltet systemrelevante Parameter.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorkonfiguration.
+\item
+  Fahrparameter.
+\item
+  Sicherheitsgrenzen.
+\item
+  Simulationsparameter.
+\end{itemize}
+
+Durch die zentrale Verwaltung können Parameter angepasst werden, ohne
+die Softwarestruktur verändern zu müssen.
+
+\subsubsection{4.5.3 Diagnosedienst}\label{diagnosedienst}
+
+Der Diagnosedienst überwacht den Systemzustand und stellt Informationen
+für Fehleranalyse und Wartung bereit.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung von Fehlerzuständen.
+\item
+  Speicherung von Diagnoseinformationen.
+\item
+  Bereitstellung von Statusinformationen.
+\end{itemize}
+
+\subsection{4.6 Funktionskomponenten}\label{funktionskomponenten}
+
+Die Funktionskomponenten enthalten die eigentliche Systemlogik des
+Coasterbots.
+
+\subsection{4.6.1 Navigationskomponente}\label{navigationskomponente-1}
+
+Die Navigationskomponente ist für die autonome Bewegung des Roboters
+verantwortlich.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Verarbeitung von Umgebungsinformationen.
+\item
+  Planung einer Fahrroute.
+\item
+  Erkennung von Hindernissen.
+\item
+  Anpassung der Route bei Veränderungen.
+\item
+  Erreichen definierter Zielpositionen.
+\end{itemize}
+
+Die Navigationskomponente erhält Informationen über:
+
+\begin{itemize}
+\tightlist
+\item
+  aktuelle Position,
+\item
+  Orientierung,
+\item
+  Hindernisse,
+\item
+  Zielposition.
+\end{itemize}
+
+Als Ergebnis erzeugt sie Bewegungsbefehle für die Bewegungssteuerung.
+
+\subsection{4.6.2
+Lokalisierungskomponente}\label{lokalisierungskomponente-1}
+
+Die Lokalisierungskomponente bestimmt die aktuelle Position und
+Orientierung des Roboters.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Verarbeitung von Sensordaten.
+\item
+  Berechnung der Roboterposition.
+\item
+  Aktualisierung der aktuellen Pose.
+\item
+  Bereitstellung der Positionsdaten für Navigation und Steuerung.
+\end{itemize}
+
+Die Lokalisierung ist notwendig, damit der Roboter definierte Zielpunkte
+zuverlässig erreichen kann.
+
+\subsection{4.6.3 Bewegungssteuerung}\label{bewegungssteuerung-1}
+
+Die Bewegungssteuerung übersetzt Navigationsbefehle in konkrete
+Aktorbefehle.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Steuerung der Antriebsmotoren.
+\item
+  Regelung von Geschwindigkeit und Richtung.
+\item
+  Begrenzung sicherheitskritischer Bewegungen.
+\item
+  Umsetzung von Stoppsignalen.
+\end{itemize}
+
+Die Bewegungssteuerung stellt sicher, dass Bewegungen kontrolliert und
+reproduzierbar erfolgen.
+
+\subsection{4.6.4 Untersetzerhandling}\label{untersetzerhandling-1}
+
+Die Komponente für das Untersetzerhandling steuert alle Funktionen zur
+Aufnahme und Ausgabe von Getränkeuntersetzern.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennen eines Untersetzers.
+\item
+  Aktivieren des Aufnahmemechanismus.
+\item
+  Transport des Untersetzers.
+\item
+  Positionierung unter einem Getränk.
+\item
+  Überprüfung der erfolgreichen Platzierung.
+\item
+  Aufnahme eines gebrauchten Untersetzers.
+\end{itemize}
+
+Die Komponente arbeitet mit der Navigation und Sensorik zusammen, um
+eine präzise Positionierung zu ermöglichen.
+
+\subsection{4.6.5 Sicherheitskomponente}\label{sicherheitskomponente-1}
+
+Die Sicherheitskomponente überwacht alle sicherheitsrelevanten Zustände.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Überwachung kritischer Sensorwerte.
+\item
+  Erkennung von Gefahrensituationen.
+\item
+  Auslösen eines Notstopps.
+\item
+  Wechsel in einen sicheren Zustand.
+\end{itemize}
+
+Die Sicherheitslogik besitzt eine hohe Priorität gegenüber anderen
+Systemfunktionen.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennen einer Tischkante.
+\item
+  Verlust eines relevanten Sensorsignals.
+\item
+  Annäherung an ein Hindernis.
+\item
+  Fehlfunktion eines Aktors.
+\end{itemize}
+
+\subsection{4.6.6 Systemüberwachung}\label{systemuxfcberwachung-1}
+
+Die Systemüberwachung stellt Informationen über den Betriebszustand
+bereit.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Überwachung der Komponenten.
+\item
+  Erkennung von Fehlern.
+\item
+  Protokollierung von Ereignissen.
+\item
+  Anzeige des aktuellen Systemstatus.
+\item
+  Erkennung erfolgreicher oder fehlgeschlagener Aufgaben.
+\end{itemize}
+
+\subsection{4.7 Zustandsmodell des
+Coasterbots}\label{zustandsmodell-des-coasterbots}
+
+Die Ablaufsteuerung des Systems wird durch ein Zustandsmodell umgesetzt.
+
+Der Coasterbot besitzt folgende Hauptzustände:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Zustand & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Initialisierung & Start und Überprüfung der Systemkomponenten \\
+Bereitschaft & System ist einsatzbereit \\
+Navigation & Roboter bewegt sich zu einem Zielpunkt \\
+Untersetzeraufnahme & Aufnahme eines Getränkeuntersetzers \\
+Untersetzerplatzierung & Positionierung des Untersetzers \\
+Aufgabe abgeschlossen & Erfolgreicher Abschluss einer Aktion \\
+Fehlerzustand & Systemfehler erkannt \\
+Sicherheitsstopp & Sofortiger Halt aufgrund einer Gefahr \\
+\end{longtable}
+
+Der Wechsel zwischen Zuständen erfolgt ausschließlich durch definierte
+Ereignisse und Bedingungen.
+
+\subsection{4.8 Fehlerbehandlung}\label{fehlerbehandlung}
+
+Die Software muss Fehlerzustände kontrolliert behandeln.
+
+Folgende Fehlerfälle werden berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorausfall.
+\item
+  Kommunikationsfehler zwischen Komponenten.
+\item
+  Blockierung eines Aktors.
+\item
+  Verlust der Lokalisierung.
+\item
+  Kritischer Energiezustand.
+\end{itemize}
+
+Bei einem Fehler führt das System abhängig von der Fehlerart eine
+geeignete Reaktion aus:
+
+\begin{itemize}
+\tightlist
+\item
+  Wiederholung einer Aktion.
+\item
+  Wechsel in einen sicheren Zustand.
+\item
+  Abbruch einer Aufgabe.
+\item
+  Ausgabe einer Fehlermeldung.
+\end{itemize}
+
+\subsection{4.9 Schnittstellenkonzept}\label{schnittstellenkonzept}
+
+Die Softwarekomponenten kommunizieren über klar definierte
+Schnittstellen.
+
+Beispiele:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Schnittstelle & Quelle & Ziel \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensordaten & Hardwareabstraktion & Navigation \\
+Positionsdaten & Lokalisierung & Navigation \\
+Bewegungsbefehle & Navigation & Bewegungssteuerung \\
+Statusinformationen & Systemkomponenten & Systemüberwachung \\
+Simulationsdaten & Simulationsumgebung & Hardwareabstraktion \\
+\end{longtable}
+
+Die Schnittstellen werden so gestaltet, dass einzelne Komponenten
+unabhängig ausgetauscht werden können.
+
+\subsection{4.10 Zusammenfassung}\label{zusammenfassung-2}
+
+Das Softwarekonzept definiert eine modulare und erweiterbare Architektur
+für den Coasterbot-Prototyp. Durch die Trennung von Hardware,
+Abstraktion und Systemlogik wird eine flexible Entwicklungsumgebung
+geschaffen.
+
+Die Architektur ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  unabhängige Entwicklung einzelner Komponenten,
+\item
+  automatisierte Tests,
+\item
+  Nutzung einer Simulationsumgebung,
+\item
+  Austausch von Hardwarekomponenten,
+\item
+  Erweiterung um zukünftige Funktionen.
+\end{itemize}
+
+Damit erfüllt das Softwarekonzept die im Lastenheft definierten
+Anforderungen hinsichtlich Modularität, Testbarkeit und Erweiterbarkeit.
+
+\section{5 Implementierungskonzept}\label{implementierungskonzept}
+
+\subsection{5.1 Ziel des
+Implementierungskonzepts}\label{ziel-des-implementierungskonzepts}
+
+Dieses Kapitel beschreibt die geplante technische Umsetzung der im
+Softwarekonzept definierten Architektur. Das Implementierungskonzept
+legt fest, wie die einzelnen Softwarekomponenten realisiert werden und
+welche Methoden, Schnittstellen und Entwicklungsprinzipien dabei
+eingesetzt werden.
+
+Die Implementierung erfolgt mit dem Ziel, einen wartbaren, modularen und
+testbaren Softwareprototypen für den Coasterbot zu entwickeln. Dabei
+wird besonders berücksichtigt, dass die Software sowohl auf der realen
+Hardware als auch in der Simulationsumgebung eingesetzt werden kann.
+
+Die Umsetzung orientiert sich an den Anforderungen des Lastenhefts
+hinsichtlich:
+
+\begin{itemize}
+\tightlist
+\item
+  Modularität,
+\item
+  Hardwareabstraktion,
+\item
+  Erweiterbarkeit,
+\item
+  automatisierter Testbarkeit,
+\item
+  Simulationsfähigkeit.
+\end{itemize}
+
+\subsection{5.2 Entwicklungsumgebung}\label{entwicklungsumgebung}
+
+Die Entwicklung der Software erfolgt in einer Umgebung, die eine
+strukturierte Entwicklung und Validierung der einzelnen Komponenten
+ermöglicht.
+
+Die Entwicklungsumgebung umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Versionsverwaltung zur Nachverfolgung von Änderungen.
+\item
+  Entwicklungsumgebung zur Bearbeitung und Analyse des Quellcodes.
+\item
+  Build-System zur automatisierten Erstellung ausführbarer Software.
+\item
+  Testumgebung zur Durchführung automatisierter Tests.
+\item
+  Simulationsumgebung zur Validierung des Systemverhaltens.
+\end{itemize}
+
+Die verwendeten Werkzeuge und Frameworks werden so ausgewählt, dass sie
+eine komponentenbasierte Entwicklung unterstützen.
+
+\subsection{5.3 Programmiersprache und
+Softwarestruktur}\label{programmiersprache-und-softwarestruktur}
+
+Die Software wird objektorientiert und modular entwickelt. Die Wahl der
+Programmiersprache erfolgt anhand folgender Kriterien:
+
+\begin{itemize}
+\tightlist
+\item
+  Unterstützung objektorientierter Programmierung.
+\item
+  Verfügbarkeit geeigneter Bibliotheken für Robotik und Simulation.
+\item
+  Unterstützung automatisierter Tests.
+\item
+  Gute Wartbarkeit und Erweiterbarkeit.
+\end{itemize}
+
+Die Softwarestruktur wird nach Verantwortlichkeiten getrennt aufgebaut.
+
+Eine mögliche Projektstruktur ist:
+
+\begin{verbatim}
+Coasterbot
+│
+├── hardware
+│   ├── sensors
+│   ├── actuators
+│   └── communication
+│
+├── abstraction
+│   ├── sensor_interfaces
+│   ├── actuator_interfaces
+│   └── hardware_models
+│
+├── navigation
+│   ├── localization
+│   ├── path_planning
+│   └── obstacle_avoidance
+│
+├── manipulation
+│   └── coaster_handling
+│
+├── safety
+│   └── safety_controller
+│
+├── monitoring
+│   └── diagnostics
+│
+├── simulation
+│   ├── environment
+│   ├── sensors
+│   └── actuators
+│
+└── tests
+    ├── unit_tests
+    └── integration_tests
+\end{verbatim}
+
+Diese Struktur ermöglicht eine klare Trennung der einzelnen
+Verantwortlichkeiten.
+
+\subsection{5.4 Umsetzung der
+Hardwareabstraktion}\label{umsetzung-der-hardwareabstraktion}
+
+Die Hardwareabstraktion wird über Schnittstellen umgesetzt. Jede
+Hardwarekomponente erhält eine standardisierte Softwarebeschreibung.
+
+Beispiel:
+
+Ein Abstandssensor wird nicht direkt durch die Navigationslogik
+angesprochen. Stattdessen stellt die Hardwareabstraktion eine allgemeine
+Schnittstelle bereit:
+
+\begin{verbatim}
+DistanceSensor
+|
+├── RealDistanceSensor
+|
+└── SimulationDistanceSensor
+\end{verbatim}
+
+Dadurch kann die gleiche Navigationssoftware sowohl mit realen
+Sensordaten als auch mit simulierten Daten betrieben werden.
+
+Die Vorteile dieser Struktur sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Austauschbarkeit von Hardware.
+\item
+  Vereinfachte Tests.
+\item
+  Reduzierung von Abhängigkeiten.
+\item
+  Wiederverwendbarkeit der Software.
+\end{itemize}
+
+\subsection{5.5 Implementierung der
+Navigation}\label{implementierung-der-navigation}
+
+Die Navigationskomponente wird in mehrere Teilfunktionen aufgeteilt:
+
+\begin{itemize}
+\tightlist
+\item
+  Lokalisierung.
+\item
+  Hinderniserkennung.
+\item
+  Routenplanung.
+\item
+  Bewegungssteuerung.
+\end{itemize}
+
+\subsubsection{5.5.1 Lokalisierung}\label{lokalisierung}
+
+Die Lokalisierung bestimmt die aktuelle Position und Orientierung des
+Roboters.
+
+Die Verarbeitung erfolgt über:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensordaten.
+\item
+  Bewegungsinformationen.
+\item
+  interne Zustandsinformationen.
+\end{itemize}
+
+Das Ergebnis ist eine aktuelle Roboterpose:
+
+\[
+  [ Pose = (x, y, \theta) ]
+\]
+
+mit:
+
+\begin{itemize}
+\tightlist
+\item
+  \(x\): Position in horizontaler Richtung.
+\item
+  \(y\): Position in vertikaler Richtung.
+\item
+  \(\theta\): Orientierung des Roboters.
+\end{itemize}
+
+Die Pose wird kontinuierlich aktualisiert und anderen Komponenten
+bereitgestellt.
+
+\subsubsection{5.5.2 Hinderniserkennung}\label{hinderniserkennung-1}
+
+Die Hinderniserkennung verarbeitet Sensordaten und erstellt eine lokale
+Beschreibung der Umgebung.
+
+Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennen befahrbarer Bereiche.
+\item
+  Identifizieren von Hindernissen.
+\item
+  Bereitstellen von Kollisionsinformationen.
+\end{itemize}
+
+Die Informationen werden an die Routenplanung weitergegeben.
+
+\subsubsection{5.5.3 Routenplanung}\label{routenplanung}
+
+Die Routenplanung bestimmt einen geeigneten Weg zwischen Start- und
+Zielposition.
+
+Dabei werden folgende Kriterien berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  Vermeidung von Hindernissen.
+\item
+  Einhaltung der Tischgrenzen.
+\item
+  Minimierung unnötiger Bewegungen.
+\item
+  Sicherheitsabstände.
+\end{itemize}
+
+Die berechnete Route wird anschließend an die Bewegungssteuerung
+übergeben.
+
+\subsection{5.6 Implementierung der
+Bewegungssteuerung}\label{implementierung-der-bewegungssteuerung}
+
+Die Bewegungssteuerung übersetzt Bewegungsziele in konkrete
+Aktorbefehle.
+
+Die Steuerung erfolgt über:
+
+\begin{itemize}
+\tightlist
+\item
+  Geschwindigkeit.
+\item
+  Fahrtrichtung.
+\item
+  Beschleunigung.
+\item
+  Bremsvorgänge.
+\end{itemize}
+
+Besondere Anforderungen bestehen hinsichtlich eines sicheren
+Bewegungsverhaltens.
+
+Daher werden folgende Funktionen implementiert:
+
+\begin{itemize}
+\tightlist
+\item
+  Begrenzung maximaler Geschwindigkeit.
+\item
+  Kontrolliertes Anhalten.
+\item
+  Sofortiger Stopp bei Sicherheitsereignissen.
+\item
+  Anpassung der Geschwindigkeit in engen Bereichen.
+\end{itemize}
+
+\subsection{5.7 Implementierung des
+Untersetzerhandlings}\label{implementierung-des-untersetzerhandlings}
+
+Die Funktion zur Handhabung von Getränkeuntersetzern wird als
+eigenständige Softwarekomponente umgesetzt.
+
+Der Ablauf wird durch folgende Schritte beschrieben:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Erkennung eines verfügbaren Getränkeuntersetzers.
+\item
+  Navigation zur Aufnahmeposition.
+\item
+  Aktivierung des Aufnahmemechanismus.
+\item
+  Überprüfung der erfolgreichen Aufnahme.
+\item
+  Transport zum Zielpunkt.
+\item
+  Positionierung unter dem Getränk.
+\item
+  Überprüfung der korrekten Platzierung.
+\end{enumerate}
+
+Der Prozess wird durch einen Zustandsautomaten umgesetzt.
+
+Beispiel:
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{flowchart TD}
+% \NormalTok{IDLE {-}{-}\textgreater{} SEARCH\_COASTER {-}{-}\textgreater{} PICK\_UP {-}{-}\textgreater{} TRANSPORT {-}{-}\textgreater{} PLACE {-}{-}\textgreater{} VERIFY {-}{-}\textgreater{} DONE}
+% \end{Highlighting}
+% \end{Shaded}
+
+Fehler während des Vorgangs führen zu einem definierten Fehlerzustand.
+
+\subsection{5.8 Implementierung der
+Sicherheitslogik}\label{implementierung-der-sicherheitslogik}
+
+Die Sicherheitslogik wird unabhängig von den normalen Betriebsfunktionen
+implementiert.
+
+Sie besitzt eine übergeordnete Priorität und kann andere
+Systemfunktionen jederzeit unterbrechen.
+
+Überwachte Ereignisse:
+
+\begin{itemize}
+\tightlist
+\item
+  erkannte Tischkante,
+\item
+  Hindernis in kritischer Entfernung,
+\item
+  Sensorausfall,
+\item
+  Fehler der Bewegungssteuerung,
+\item
+  Not-Aus-Signal.
+\end{itemize}
+
+Bei Eintritt eines kritischen Ereignisses wird der Roboter in einen
+sicheren Zustand überführt.
+
+\subsection{5.9 Fehler- und
+Ereignisverwaltung}\label{fehler--und-ereignisverwaltung}
+
+Alle relevanten Systemereignisse werden über eine zentrale
+Ereignisverwaltung verarbeitet.
+
+Erfasste Ereignisse:
+
+\begin{itemize}
+\tightlist
+\item
+  Systemstart.
+\item
+  Zustandswechsel.
+\item
+  erkannte Fehler.
+\item
+  abgeschlossene Aufgaben.
+\item
+  Sicherheitsereignisse.
+\end{itemize}
+
+Jedes Ereignis enthält mindestens:
+
+\begin{itemize}
+\tightlist
+\item
+  Zeitstempel.
+\item
+  Ereignistyp.
+\item
+  betroffene Komponente.
+\item
+  zusätzliche Informationen.
+\end{itemize}
+
+Dadurch wird eine spätere Analyse von Fehlerzuständen ermöglicht.
+
+\subsection{5.10 Testkonzept der
+Implementierung}\label{testkonzept-der-implementierung}
+
+Die Software wird während der Entwicklung kontinuierlich getestet.
+
+Die Tests werden in mehrere Ebenen unterteilt:
+
+\subsubsection{Unit-Tests}\label{unit-tests}
+
+Überprüfung einzelner Softwarekomponenten.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Berechnung von Positionsänderungen.
+\item
+  Verarbeitung von Sensordaten.
+\item
+  Zustandsübergänge.
+\end{itemize}
+
+\subsubsection{Integrationstests}\label{integrationstests}
+
+Überprüfung der Kommunikation zwischen Komponenten.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation mit simulierten Sensoren.
+\item
+  Bewegungssteuerung mit Aktormodellen.
+\end{itemize}
+
+\subsubsection{Systemtests}\label{systemtests}
+
+Überprüfung des Gesamtverhaltens.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation zu einem Zielpunkt.
+\item
+  Erkennen und Umfahren eines Hindernisses.
+\item
+  Aufnahme und Platzierung eines Getränkeuntersetzers.
+\end{itemize}
+
+\subsection{5.11 Zusammenfassung}\label{zusammenfassung-3}
+
+Das Implementierungskonzept beschreibt die technische Realisierung der
+Softwarearchitektur des Coasterbots. Durch die konsequente Trennung von
+Hardware, Abstraktion und Systemlogik entsteht eine flexible
+Entwicklungsstruktur.
+
+Die geplante Umsetzung ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  parallele Entwicklung einzelner Komponenten,
+\item
+  Nutzung derselben Software in Simulation und Hardware,
+\item
+  automatisierte Validierung,
+\item
+  einfache Erweiterung zukünftiger Funktionen.
+\end{itemize}
+
+Damit bildet das Implementierungskonzept die Grundlage für die
+anschließende Entwicklung der Simulationsumgebung und der Testfälle.
+
+\section{6 Simulationskonzept}\label{simulationskonzept}
+
+\subsection{6.1 Ziel des
+Simulationskonzepts}\label{ziel-des-simulationskonzepts}
+
+Dieses Kapitel beschreibt den Aufbau und die Funktion der
+Simulationsumgebung für den Coasterbot-Prototyp. Die Simulation dient
+der Entwicklung, Validierung und Verifikation der Softwarekomponenten,
+bevor diese auf der realen Hardware eingesetzt werden.
+
+Da der Coasterbot als autonomes Robotersystem entwickelt wird, ist eine
+reproduzierbare Testumgebung erforderlich. Die Simulation ermöglicht es,
+verschiedene Umgebungsbedingungen, Bewegungsabläufe und
+Fehlersituationen kontrolliert nachzustellen.
+
+Die Simulationsumgebung unterstützt insbesondere folgende Ziele:
+
+\begin{itemize}
+\tightlist
+\item
+  Entwicklung der Software unabhängig von der vorhandenen Hardware.
+\item
+  Überprüfung der Navigations- und Steuerungslogik.
+\item
+  Durchführung reproduzierbarer Testfälle.
+\item
+  Simulation von Sensor- und Aktorverhalten.
+\item
+  Validierung sicherheitskritischer Situationen.
+\item
+  Reduzierung des Entwicklungsrisikos durch frühzeitige Tests.
+\end{itemize}
+
+Die Simulation bildet dabei nicht ausschließlich die physische Umgebung
+nach, sondern stellt eine virtuelle Ausführungsumgebung für die Software
+des Coasterbots bereit.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.2 Simulationsarchitektur}\label{simulationsarchitektur-1}
+
+Die Simulationsumgebung basiert auf derselben Softwarearchitektur wie
+der reale Prototyp. Dabei werden reale Hardwarekomponenten durch
+simulierte Komponenten ersetzt.
+
+Die Architektur besteht aus folgenden Ebenen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulationsumgebung
+\item
+  Simulierte Hardware
+\item
+  Hardwareabstraktion
+\item
+  Robotersoftware
+\item
+  Teststeuerung
+\end{enumerate}
+
+Die Robotersoftware selbst bleibt unverändert und verwendet
+ausschließlich die definierten Schnittstellen der Hardwareabstraktion.
+
+Dadurch kann die gleiche Software sowohl in der Simulation als auch auf
+dem realen Prototyp ausgeführt werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.3 Simulationsumgebung}\label{simulationsumgebung}
+
+Die Simulationsumgebung stellt die virtuelle Welt bereit, in der sich
+der Coasterbot bewegt.
+
+Sie beinhaltet:
+
+\begin{itemize}
+\tightlist
+\item
+  Tischoberfläche.
+\item
+  Tischbegrenzungen.
+\item
+  Hindernisse.
+\item
+  Getränke.
+\item
+  Getränkeuntersetzer.
+\item
+  Roboterposition.
+\item
+  Umgebungszustände.
+\end{itemize}
+
+Die Umgebung muss parametrisierbar aufgebaut werden, damit
+unterschiedliche Testszenarien erzeugt werden können.
+
+Beispiele für Parameter:
+
+\begin{itemize}
+\tightlist
+\item
+  Größe der Tischfläche.
+\item
+  Anzahl und Position von Hindernissen.
+\item
+  Position von Getränken.
+\item
+  Startposition des Roboters.
+\item
+  Zielposition des Roboters.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.4 Modellierung der
+Roboterphysik}\label{modellierung-der-roboterphysik}
+
+Die Simulation muss die relevanten Eigenschaften des realen Roboters
+abbilden.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Position.
+\item
+  Orientierung.
+\item
+  Geschwindigkeit.
+\item
+  Bewegungsrichtung.
+\item
+  Beschleunigung.
+\item
+  Kollisionsverhalten.
+\end{itemize}
+
+Das Bewegungsmodell beschreibt die Änderung der Roboterposition über die
+Zeit.
+
+Für einen mobilen Roboter kann die Bewegung beispielsweise durch ein
+kinematisches Modell beschrieben werden:
+
+\[ x\_\{t+1\}=x\_t+v \cdot cos(\theta)\cdot \Delta t \]
+\[ y\_\{t+1\}=y\_t+v \cdot sin(\theta)\cdot \Delta t\]
+\[ \theta\_\{t+1\}=\theta\_t+\omega \cdot \Delta t\]
+
+mit:
+
+\begin{itemize}
+\tightlist
+\item
+  \(x,y\): Position des Roboters.
+\item
+  \(\theta\): Orientierung.
+\item
+  \(v\): Geschwindigkeit.
+\item
+  \(\omega\): Winkelgeschwindigkeit.
+\item
+  \(\Delta t\): Zeitschritt der Simulation.
+\end{itemize}
+
+Das Modell muss ausreichend genau sein, um das Verhalten des realen
+Systems abzubilden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.5 Simulation der Sensorik}\label{simulation-der-sensorik}
+
+Die Simulation muss die für den Betrieb erforderlichen Sensoren
+modellieren.
+
+\subsection{6.5.1 Abstandssensoren}\label{abstandssensoren}
+
+Abstandssensoren werden genutzt, um Hindernisse zu erkennen.
+
+Das Simulationsmodell muss:
+
+\begin{itemize}
+\tightlist
+\item
+  Entfernungen zu Hindernissen berechnen.
+\item
+  Messbereiche berücksichtigen.
+\item
+  Sensorausfälle simulieren können.
+\end{itemize}
+
+Beispiel:
+
+Ein simuliertes Hindernis befindet sich innerhalb des Messbereichs eines
+Sensors. Die Simulation erzeugt daraus einen virtuellen Messwert, der
+von der Navigationssoftware verarbeitet wird.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.5.2 Tischkantenerkennung}\label{tischkantenerkennung-1}
+
+Die Simulation muss die Erkennung der Tischbegrenzung ermöglichen.
+
+Dabei werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Abstand zur Tischkante.
+\item
+  Position relativ zum Rand.
+\item
+  Gefahr eines Verlassens der Tischfläche
+\end{itemize}
+
+modelliert.
+
+Die Software muss auf simulierte Tischkantenerkennung genauso reagieren
+wie auf reale Sensordaten.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.5.3 Positionssensorik}\label{positionssensorik}
+
+Die Simulation stellt Positionsinformationen für die Lokalisierung
+bereit.
+
+Dabei können folgende Situationen simuliert werden:
+
+\begin{itemize}
+\tightlist
+\item
+  fehlerfreie Positionsdaten.
+\item
+  ungenaue Messwerte.
+\item
+  Verlust von Positionsinformationen.
+\end{itemize}
+
+Dadurch kann das Verhalten der Lokalisierungskomponente überprüft
+werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.6 Simulation der Aktorik}\label{simulation-der-aktorik}
+
+Die Aktoren des realen Roboters werden durch Simulationsmodelle ersetzt.
+
+Die Simulation umfasst:
+
+\subsection{6.6.1 Fahrantrieb}\label{fahrantrieb}
+
+Der Fahrantrieb simuliert:
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsbefehle.
+\item
+  Geschwindigkeit.
+\item
+  Richtungsänderungen.
+\item
+  Bremsvorgänge.
+\end{itemize}
+
+Die Bewegungsbefehle der Software werden in eine virtuelle Bewegung
+umgesetzt.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.6.2 Untersetzermechanismus}\label{untersetzermechanismus}
+
+Der Aufnahmemechanismus wird virtuell abgebildet.
+
+Simuliert werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Aufnahme eines Untersetzers.
+\item
+  Transport.
+\item
+  Ablage.
+\item
+  Fehler bei Aufnahme oder Platzierung.
+\end{itemize}
+
+Dadurch kann die Logik des Untersetzerhandlings unabhängig von der
+physischen Mechanik getestet werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.7 Testszenarien der
+Simulation}\label{testszenarien-der-simulation}
+
+Die Simulation muss alle relevanten Testfälle des Systems unterstützen.
+
+\subsection{6.7.1 Navigationstest}\label{navigationstest}
+
+Ziel:
+
+Überprüfung der autonomen Bewegung zu einem Zielpunkt.
+
+Ablauf:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter wird an einer definierten Startposition platziert.
+\item
+  Zielpunkt wird vorgegeben.
+\item
+  Navigation wird gestartet.
+\item
+  Position wird während der Fahrt überwacht.
+\end{enumerate}
+
+Erwartetes Ergebnis:
+
+Der Roboter erreicht den Zielpunkt innerhalb der definierten
+Genauigkeit.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.7.2 Hindernisvermeidung}\label{hindernisvermeidung}
+
+Ziel:
+
+Überprüfung der Reaktion auf Hindernisse.
+
+Ablauf:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Hindernis wird auf der geplanten Route platziert.
+\item
+  Roboter startet Navigation.
+\item
+  Hindernis wird erkannt.
+\item
+  Route wird angepasst.
+\end{enumerate}
+
+Erwartetes Ergebnis:
+
+Der Roboter umgeht das Hindernis ohne Kollision.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.7.3 Tischkantentest}\label{tischkantentest}
+
+Ziel:
+
+Überprüfung der Sicherheit gegenüber Tischkanten.
+
+Ablauf:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter bewegt sich in Richtung Tischkante.
+\item
+  Simulation erzeugt Kantenerkennung.
+\item
+  Sicherheitslogik wird aktiviert.
+\end{enumerate}
+
+Erwartetes Ergebnis:
+
+Der Roboter stoppt rechtzeitig und verlässt die Tischfläche nicht.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.7.4 Untersetzerhandling}\label{untersetzerhandling-2}
+
+Ziel:
+
+Überprüfung der Aufnahme und Platzierung eines Getränkeuntersetzers.
+
+Ablauf:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Untersetzer wird simuliert bereitgestellt.
+\item
+  Roboter navigiert zur Position.
+\item
+  Aufnahme wird durchgeführt.
+\item
+  Untersetzer wird unter einem Getränk platziert.
+\end{enumerate}
+
+Erwartetes Ergebnis:
+
+Der Untersetzer wird erfolgreich aufgenommen und korrekt positioniert.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{6.7.5 Fehlersimulation}\label{fehlersimulation}
+
+Ziel:
+
+Überprüfung der Reaktion auf Fehlerzustände.
+
+Simulierbare Fehler:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorausfall.
+\item
+  Aktorausfall.
+\item
+  Kommunikationsverlust.
+\item
+  fehlerhafte Positionsdaten.
+\end{itemize}
+
+Erwartetes Ergebnis:
+
+Das System erkennt den Fehler und wechselt in einen definierten sicheren
+Zustand.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.8 Reproduzierbarkeit der
+Simulation}\label{reproduzierbarkeit-der-simulation}
+
+Eine zentrale Anforderung der Simulation ist die Reproduzierbarkeit.
+
+Daher müssen:
+
+\begin{itemize}
+\tightlist
+\item
+  identische Eingaben zu identischen Ergebnissen führen.
+\item
+  Testfälle eindeutig dokumentiert werden.
+\item
+  Simulationsparameter gespeichert werden können.
+\item
+  Fehlerzustände gezielt wiederholbar sein.
+\end{itemize}
+
+Dadurch können Änderungen an der Software bewertet und Regressionstests
+durchgeführt werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.9 Simulation und reale
+Hardware}\label{simulation-und-reale-hardware}
+
+Die Simulation und der reale Prototyp verwenden dieselben
+Software-Schnittstellen.
+
+Die Unterschiede zwischen beiden Systemen beschränken sich auf:
+
+\begin{itemize}
+\tightlist
+\item
+  reale Hardwaretreiber im Prototyp.
+\item
+  Simulationsmodelle in der virtuellen Umgebung.
+\end{itemize}
+
+Dadurch wird eine möglichst hohe Übertragbarkeit zwischen Simulation und
+realem System erreicht.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{6.10 Zusammenfassung}\label{zusammenfassung-4}
+
+Das Simulationskonzept definiert eine virtuelle Entwicklungs- und
+Testumgebung für den Coasterbot-Prototyp.
+
+Durch die Modellierung von Umgebung, Sensorik und Aktorik können die
+Kernfunktionen des Systems unabhängig von der realen Hardware entwickelt
+und überprüft werden.
+
+Die Simulation ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  reproduzierbare Tests,
+\item
+  frühzeitige Fehlererkennung,
+\item
+  Validierung der Softwarearchitektur,
+\item
+  Prüfung sicherheitskritischer Situationen,
+\item
+  Unterstützung der Definition of Done.
+\end{itemize}
+
+Damit stellt die Simulationsumgebung einen zentralen Bestandteil der
+Entwicklung des Coasterbot-Prototyps dar.
+
+\section{7 Test- und
+Verifikationskonzept}\label{test--und-verifikationskonzept}
+
+\subsection{7.1 Ziel des Test- und
+Verifikationskonzepts}\label{ziel-des-test--und-verifikationskonzepts}
+
+Dieses Kapitel beschreibt die Vorgehensweise zur Überprüfung der im
+Lastenheft definierten Anforderungen sowie der im Pflichtenheft
+beschriebenen technischen Umsetzung.
+
+Ziel des Test- und Verifikationskonzepts ist es, nachzuweisen, dass der
+entwickelte Coasterbot-Prototyp die geforderten Funktionen erfüllt und
+die definierten Qualitätsanforderungen eingehalten werden.
+
+Die Verifikation erfolgt durch eine Kombination aus:
+
+\begin{itemize}
+\tightlist
+\item
+  automatisierten Softwaretests,
+\item
+  Simulationstests,
+\item
+  Integrationstests,
+\item
+  Systemtests,
+\item
+  Inspektionen von Entwicklungsartefakten.
+\end{itemize}
+
+Die Tests werden so gestaltet, dass jede wesentliche Anforderung aus dem
+Lastenheft eindeutig einem oder mehreren Prüfverfahren zugeordnet werden
+kann.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.2 Teststrategie}\label{teststrategie}
+
+Die Teststrategie basiert auf einem mehrstufigen Vorgehen. Die einzelnen
+Testebenen prüfen unterschiedliche Aspekte des Systems.
+
+Die Testebenen sind:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Komponententests
+\item
+  Integrationstests
+\item
+  Simulationstests
+\item
+  Systemtests
+\item
+  Abnahmetests
+\end{enumerate}
+
+Durch die schrittweise Erhöhung der Testebene können Fehler frühzeitig
+erkannt und isoliert werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.3 Unit- oder
+Komponententests}\label{unit--oder-komponententests}
+
+\subsection{7.3.1 Ziel}\label{ziel}
+
+Komponententests überprüfen einzelne Softwaremodule unabhängig von
+anderen Systembestandteilen.
+
+Dabei wird geprüft, ob einzelne Funktionen entsprechend ihrer
+Spezifikation arbeiten.
+
+Die Tests werden automatisiert ausgeführt und bilden die Grundlage für
+eine kontinuierliche Qualitätssicherung.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7.3.2 Zu testende
+Komponenten}\label{zu-testende-komponenten}
+
+Folgende Softwarekomponenten werden einzeln getestet:
+
+\begin{itemize}
+\tightlist
+\item
+  Lokalisierungskomponente.
+\item
+  Navigationskomponente.
+\item
+  Bewegungssteuerung.
+\item
+  Untersetzerhandling.
+\item
+  Sicherheitskomponente.
+\item
+  Systemüberwachung.
+\item
+  Hardwareabstraktionsschicht.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7.3.3 Beispiele für
+Komponententests}\label{beispiele-fuxfcr-komponententests}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2414}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3563}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4023}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Erwartetes Ergebnis
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Lokalisierung & Verarbeitung von Positionsdaten & Position wird korrekt
+berechnet \\
+Navigation & Berechnung einer Route & Gültige Route wird erzeugt \\
+Sicherheitskomponente & Auslösen eines Notstopps & System wechselt in
+sicheren Zustand \\
+Untersetzerhandling & Aufnahmevorgang & Erfolgreiche Aufnahme wird
+erkannt \\
+Systemüberwachung & Erzeugen eines Fehlers & Fehler wird
+protokolliert \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.4 Integrationstests}\label{integrationstests-1}
+
+\subsection{7.4.1 Ziel}\label{ziel-1}
+
+Integrationstests überprüfen das Zusammenspiel mehrerer
+Softwarekomponenten.
+
+Dabei wird festgestellt, ob Daten korrekt zwischen den Komponenten
+übertragen werden und die erwarteten Systemreaktionen auftreten.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7.4.2 Zu prüfende
+Schnittstellen}\label{zu-pruxfcfende-schnittstellen}
+
+Die wichtigsten Integrationspunkte sind:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5455}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4545}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Schnittstelle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prüfung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensorabstraktion → Navigation & Verarbeitung von Sensordaten \\
+Lokalisierung → Navigation & Übergabe der aktuellen Position \\
+Navigation → Bewegungssteuerung & Umsetzung von Fahrbefehlen \\
+Sicherheitskomponente → Bewegungssteuerung & Unterbrechung kritischer
+Bewegungen \\
+Untersetzerhandling → Aktorik & Steuerung des Aufnahmeprozesses \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.5 Simulationstests}\label{simulationstests}
+
+\subsection{7.5.1 Ziel}\label{ziel-2}
+
+Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb
+der virtuellen Umgebung.
+
+Sie ermöglichen die Prüfung von Funktionen, die aufgrund von
+Sicherheits- oder Entwicklungsgründen nicht ausschließlich auf der
+realen Hardware getestet werden können.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7.5.2 Testszenarien}\label{testszenarien}
+
+\subsubsection{Testfall SIM-001: Erreichen eines
+Zielpunkts}\label{testfall-sim-001-erreichen-eines-zielpunkts}
+
+\textbf{Ziel:}
+
+Überprüfung der autonomen Navigation.
+
+\textbf{Vorbedingungen:}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich an einer definierten Startposition.
+\item
+  Zielpunkt ist bekannt.
+\end{itemize}
+
+\textbf{Ablauf:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Startposition wird gesetzt.
+\item
+  Zielposition wird übergeben.
+\item
+  Navigation wird gestartet.
+\item
+  Bewegungsverlauf wird aufgezeichnet.
+\end{enumerate}
+
+\textbf{Erwartetes Ergebnis:}
+
+Der Roboter erreicht den Zielpunkt innerhalb der definierten
+Genauigkeit.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Testfall SIM-002: Hinderniserkennung und
+Ausweichen}\label{testfall-sim-002-hinderniserkennung-und-ausweichen}
+
+\textbf{Ziel:}
+
+Überprüfung der dynamischen Anpassung der Route.
+
+\textbf{Vorbedingungen:}
+
+\begin{itemize}
+\tightlist
+\item
+  Hindernis befindet sich auf der geplanten Route.
+\end{itemize}
+
+\textbf{Ablauf:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Navigation wird gestartet.
+\item
+  Hindernis wird erkannt.
+\item
+  Neue Route wird berechnet.
+\end{enumerate}
+
+\textbf{Erwartetes Ergebnis:}
+
+Der Roboter umfährt das Hindernis ohne Kollision.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Testfall SIM-003: Erkennung der
+Tischkante}\label{testfall-sim-003-erkennung-der-tischkante}
+
+\textbf{Ziel:}
+
+Überprüfung der Absturzvermeidung.
+
+\textbf{Ablauf:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter nähert sich einer Tischkante.
+\item
+  Sensor erzeugt ein Warnsignal.
+\item
+  Sicherheitslogik reagiert.
+\end{enumerate}
+
+\textbf{Erwartetes Ergebnis:}
+
+Der Roboter stoppt vor dem Verlassen der Tischoberfläche.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Testfall SIM-004: Aufnahme eines
+Getränkeuntersetzers}\label{testfall-sim-004-aufnahme-eines-getruxe4nkeuntersetzers}
+
+\textbf{Ziel:}
+
+Überprüfung des Aufnahmeprozesses.
+
+\textbf{Ablauf:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Untersetzer wird simuliert bereitgestellt.
+\item
+  Roboter fährt zur Position.
+\item
+  Aufnahme wird aktiviert.
+\item
+  Zustand wird überprüft.
+\end{enumerate}
+
+\textbf{Erwartetes Ergebnis:}
+
+Der Untersetzer wird erkannt und erfolgreich aufgenommen.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsubsection{Testfall SIM-005:
+Fehlerreaktion}\label{testfall-sim-005-fehlerreaktion}
+
+\textbf{Ziel:}
+
+Überprüfung der Fehlerbehandlung.
+
+\textbf{Ablauf:}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Ein Sensorfehler wird simuliert.
+\item
+  System verarbeitet den Fehler.
+\end{enumerate}
+
+\textbf{Erwartetes Ergebnis:}
+
+Der Roboter erkennt den Fehler und wechselt in einen sicheren Zustand.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.6 Systemtests}\label{systemtests-1}
+
+\subsection{7.6.1 Ziel}\label{ziel-3}
+
+Systemtests überprüfen das Verhalten des vollständigen
+Coasterbot-Prototyps.
+
+Dabei werden Hardware, Software und mechanische Komponenten gemeinsam
+betrachtet.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{7.6.2 Systemtestszenarien}\label{systemtestszenarien}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0805}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2989}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6207}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Erwartetes Ergebnis
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SYS-001 & Systemstart & Roboter initialisiert alle Komponenten
+erfolgreich \\
+SYS-002 & Navigation auf Tischfläche & Roboter bewegt sich kontrolliert
+innerhalb der Grenzen \\
+SYS-003 & Hindernisvermeidung & Keine Kollision mit Hindernissen \\
+SYS-004 & Untersetzertransport & Untersetzer wird sicher
+transportiert \\
+SYS-005 & Sicherheitsstopp & Roboter stoppt bei Gefahr \\
+SYS-006 & Fehleranzeige & Fehler wird erkannt und gemeldet \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.7 Verifikation der nichtfunktionalen
+Anforderungen}\label{verifikation-der-nichtfunktionalen-anforderungen}
+
+Die nichtfunktionalen Anforderungen werden durch geeignete Prüfverfahren
+bewertet.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2985}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7015}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prüfverfahren
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Modularität & Architekturprüfung \\
+Erweiterbarkeit & Analyse der Komponentenstruktur \\
+Hardwareabstraktion & Austausch von Hardwaremodellen durch Simulation \\
+Testbarkeit & Durchführung automatisierter Tests \\
+Simulationsfähigkeit & Ausführung der Software in der Simulation \\
+Dokumentation & Prüfung der Entwicklungsdokumente \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.8 Testumgebung}\label{testumgebung}
+
+Die Testumgebung besteht aus:
+
+\begin{itemize}
+\tightlist
+\item
+  Entwicklungsumgebung.
+\item
+  Simulationsumgebung.
+\item
+  Testframework.
+\item
+  Prototyp-Hardware.
+\item
+  Mess- und Diagnosewerkzeugen.
+\end{itemize}
+
+Die Testumgebung muss reproduzierbare Ergebnisse ermöglichen und eine
+eindeutige Zuordnung zwischen Testfällen und Anforderungen
+gewährleisten.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.9 Testdokumentation}\label{testdokumentation}
+
+Alle durchgeführten Tests werden dokumentiert.
+
+Die Testdokumentation enthält:
+
+\begin{itemize}
+\tightlist
+\item
+  Testfall-ID.
+\item
+  getestete Anforderung.
+\item
+  Testdatum.
+\item
+  Testumgebung.
+\item
+  Eingangsbedingungen.
+\item
+  Testablauf.
+\item
+  erwartetes Ergebnis.
+\item
+  tatsächliches Ergebnis.
+\item
+  Testergebnis.
+\end{itemize}
+
+Ein Test gilt als erfolgreich abgeschlossen, wenn das tatsächliche
+Ergebnis mit dem erwarteten Ergebnis übereinstimmt.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.10 Rückverfolgbarkeit}\label{ruxfcckverfolgbarkeit}
+
+Zur Sicherstellung der Qualität wird eine Rückverfolgbarkeit zwischen
+Anforderungen und Tests hergestellt.
+
+Die Zuordnung erfolgt nach folgendem Schema:
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Anforderung & Umsetzung & Test \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NAV-001 Hinderniserkennung & Navigationskomponente & SIM-002 \\
+NAV-004 Tisch nicht verlassen & Sicherheitskomponente & SIM-003 \\
+CST-001 Untersetzer aufnehmen & Untersetzerhandling & SIM-004 \\
+SAF-001 Notstopp & Sicherheitslogik & SYS-005 \\
+MON-001 Fehler erkennen & Systemüberwachung & SIM-005 \\
+\end{longtable}
+
+Dadurch kann jederzeit nachvollzogen werden, wie eine Anforderung
+umgesetzt und geprüft wurde.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{7.11 Zusammenfassung}\label{zusammenfassung-5}
+
+Das Test- und Verifikationskonzept stellt sicher, dass die Entwicklung
+des Coasterbot-Prototyps systematisch überprüft werden kann.
+
+Durch die Kombination aus automatisierten Tests, Simulation und Tests am
+realen System werden sowohl einzelne Softwarekomponenten als auch das
+Gesamtsystem validiert.
+
+Das Konzept gewährleistet:
+
+\begin{itemize}
+\tightlist
+\item
+  nachvollziehbare Qualitätssicherung,
+\item
+  eindeutige Zuordnung von Anforderungen und Tests,
+\item
+  reproduzierbare Testergebnisse,
+\item
+  frühzeitige Erkennung von Fehlern.
+\end{itemize}
+
+Damit bildet das Testkonzept die Grundlage für die abschließende
+Bewertung des entwickelten Prototyps und den Nachweis der im Lastenheft
+definierten Anforderungen.
+
+\section{8 Zusammenfassung, Bewertung und
+Ausblick}\label{zusammenfassung-bewertung-und-ausblick}
+
+\subsection{8.1 Zusammenfassung des
+Pflichtenhefts}\label{zusammenfassung-des-pflichtenhefts}
+
+Dieses Pflichtenheft beschreibt die technische Umsetzung des
+Coasterbot-Prototyps im Rahmen der Master-Projektarbeit im Bereich Cyber
+Security mit Schwerpunkt allgemeine Informatik.
+
+Ausgehend von den Anforderungen des Lastenhefts wurde ein technisches
+Konzept entwickelt, welches die Umsetzung eines autonomen,
+handtellergroßen Roboters ermöglicht. Der Fokus liegt dabei auf der
+Entwicklung eines Prototyps, der Getränkeuntersetzer selbstständig auf
+einer Tischoberfläche transportieren, positionieren und wieder aufnehmen
+kann.
+
+Die wesentlichen Entwicklungsziele sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Entwicklung einer modularen Hardwarearchitektur.
+\item
+  Entwicklung einer komponentenbasierten Softwarearchitektur.
+\item
+  Umsetzung autonomer Navigation und Lokalisierung.
+\item
+  Entwicklung eines Mechanismus zur Handhabung von Getränkeuntersetzern.
+\item
+  Implementierung sicherheitsrelevanter Funktionen.
+\item
+  Aufbau einer Simulationsumgebung zur Validierung.
+\item
+  Definition automatisierter Testverfahren.
+\end{itemize}
+
+Durch die gewählte Systemstruktur wird eine klare Trennung zwischen
+Hardware, Software und Simulation erreicht. Dadurch können einzelne
+Systembestandteile unabhängig entwickelt, getestet und erweitert werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.2 Bewertung der technischen
+Umsetzung}\label{bewertung-der-technischen-umsetzung}
+
+Die Architektur des Coasterbots wurde so ausgelegt, dass die
+Anforderungen des Maturity Level 1 vollständig berücksichtigt werden.
+Die Umsetzung konzentriert sich dabei auf die Kernfunktionalität eines
+autonomen Tischroboters.
+
+Besonders berücksichtigt wurden folgende technische Aspekte:
+
+\subsection{8.2.1 Modularität}\label{modularituxe4t}
+
+Die Unterteilung des Systems in einzelne Komponenten ermöglicht eine
+unabhängige Entwicklung und Wartung.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Austauschbare Sensorik.
+\item
+  Austauschbare Aktorik.
+\item
+  Unabhängige Navigationslogik.
+\item
+  Separate Sicherheitskomponente.
+\end{itemize}
+
+Dadurch kann das System an zukünftige Anforderungen angepasst werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8.2.2 Erweiterbarkeit}\label{erweiterbarkeit}
+
+Die Architektur wurde so gestaltet, dass zukünftige Ausbaustufen
+integriert werden können.
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Mensch-Roboter-Interaktion.
+\item
+  Digitale Bestellaufnahme.
+\item
+  Bezahlvorgänge.
+\item
+  Automatisierte Reinigung.
+\item
+  Getränketransport.
+\end{itemize}
+
+Die Erweiterungen können durch zusätzliche Softwarekomponenten umgesetzt
+werden, ohne die grundlegende Architektur verändern zu müssen.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8.2.3 Simulationsfähigkeit}\label{simulationsfuxe4higkeit}
+
+Die Integration einer Simulationsumgebung stellt einen zentralen
+Bestandteil der Entwicklung dar.
+
+Durch die Simulation können:
+
+\begin{itemize}
+\tightlist
+\item
+  Softwarefunktionen unabhängig von Hardware getestet werden.
+\item
+  Fehlerzustände reproduzierbar erzeugt werden.
+\item
+  Navigationsalgorithmen validiert werden.
+\item
+  Sicherheitsfunktionen überprüft werden.
+\end{itemize}
+
+Die Verwendung identischer Schnittstellen zwischen Simulation und realem
+System ermöglicht eine effiziente Übertragung der Software auf den
+Prototyp.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8.2.4 Testbarkeit}\label{testbarkeit}
+
+Die Softwarearchitektur unterstützt automatisierte Tests durch:
+
+\begin{itemize}
+\tightlist
+\item
+  klare Schnittstellen,
+\item
+  geringe Kopplung zwischen Komponenten,
+\item
+  austauschbare Hardwaremodelle,
+\item
+  definierte Zustände und Ereignisse.
+\end{itemize}
+
+Dadurch können Fehler frühzeitig erkannt und Änderungen sicher
+integriert werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.3 Bewertung der Definition of
+Done}\label{bewertung-der-definition-of-done}
+
+Die im Lastenheft definierte Definition of Done wird durch die folgenden
+Ergebnisse erfüllt:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4254}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5746}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Definition of Done
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+STL-Dateien und Schaltpläne zur Fertigung eines Prototyps & Erstellung
+einer dokumentierten mechanischen Konstruktion und Hardwareplanung \\
+Softwarearchitektur und Softwarekomponenten ausgearbeitet & Beschreibung
+der Architektur und Definition der Systemkomponenten \\
+Simulation des Programmablaufs erstellt und validiert & Aufbau einer
+Simulationsumgebung mit definierten Testszenarien \\
+Tests aus Anforderungen identifiziert und definiert & Erstellung eines
+Test- und Verifikationskonzepts \\
+\end{longtable}
+
+Die vollständige Erfüllung der Definition of Done erfolgt durch die
+Umsetzung und Dokumentation der einzelnen Entwicklungsartefakte.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.4 Einschränkungen des
+Prototyps}\label{einschruxe4nkungen-des-prototyps}
+
+Der entwickelte Prototyp stellt keine vollständige Produktlösung dar.
+Verschiedene Aspekte bleiben aufgrund des Projektumfangs
+unberücksichtigt.
+
+Nicht betrachtete Bereiche:
+
+\begin{itemize}
+\tightlist
+\item
+  Elektromagnetische Verträglichkeit (EMV).
+\item
+  Dauerhafte Kartierung der Umgebung.
+\item
+  Netzwerkkommunikation.
+\item
+  Produktzertifizierung.
+\item
+  Serienfertigung.
+\item
+  Schwarmverhalten mehrerer Roboter.
+\end{itemize}
+
+Diese Aspekte müssen bei einer späteren Produktentwicklung separat
+betrachtet werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.5 Risiken und mögliche
+Verbesserungen}\label{risiken-und-muxf6gliche-verbesserungen}
+
+Während der Entwicklung können verschiedene technische Herausforderungen
+auftreten.
+
+\subsection{8.5.1 Navigation auf unterschiedlichen
+Tischumgebungen}\label{navigation-auf-unterschiedlichen-tischumgebungen}
+
+Die Navigation kann durch unterschiedliche Oberflächen, Beleuchtung oder
+Hindernisanordnungen beeinflusst werden.
+
+Mögliche Verbesserungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Erweiterte Sensorfusion.
+\item
+  Verbesserte Lokalisierungsverfahren.
+\item
+  Adaptive Navigationsalgorithmen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8.5.2 Präzision des
+Untersetzerhandlings}\label{pruxe4zision-des-untersetzerhandlings}
+
+Die genaue Positionierung eines Untersetzers unter einem Getränk stellt
+eine mechanische und softwaretechnische Herausforderung dar.
+
+Mögliche Verbesserungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Genauere Positionserfassung.
+\item
+  Verbesserte Greifmechanismen.
+\item
+  Kamerabasierte Objekterkennung.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{8.5.3 Sicherheit im Betrieb}\label{sicherheit-im-betrieb}
+
+Ein autonomer Roboter in einer Umgebung mit Menschen benötigt
+zuverlässige Sicherheitsmechanismen.
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Erweiterte Personenerkennung.
+\item
+  Dynamische Geschwindigkeitsanpassung.
+\item
+  Verbesserte Kollisionsvermeidung.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.6 Ausblick}\label{ausblick}
+
+Der entwickelte Coasterbot-Prototyp bildet die Grundlage für weitere
+Entwicklungsstufen eines autonomen Assistenzroboters für gastronomische
+Anwendungen.
+
+Aufbauend auf der vorhandenen Architektur können zukünftige Funktionen
+ergänzt werden:
+
+\subsection{Maturity Level 2 -- MVP zur
+Markteinführung}\label{maturity-level-2-mvp-zur-markteinfuxfchrung}
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Stabilisierung der Hardware.
+\item
+  Verbesserung der Zuverlässigkeit.
+\item
+  Optimierung der Benutzerinteraktion.
+\item
+  Erweiterte Sicherheitsfunktionen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Maturity Level 3 --
+Komfortfunktionen}\label{maturity-level-3-komfortfunktionen}
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Digitale Bestellaufnahme.
+\item
+  Integration eines Bestellsystems.
+\item
+  Automatisierte Kommunikation mit Kunden.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Maturity Level 4 --
+HMI-Individualisierung}\label{maturity-level-4-hmi-individualisierung}
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Personalisierte Benutzerinteraktion.
+\item
+  Sprachsteuerung.
+\item
+  Individuelle Kundenansprache.
+\item
+  Erweiterte Mensch-Roboter-Kommunikation.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Maturity Level 5 --
+Getränketransport}\label{maturity-level-5-getruxe4nketransport}
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  Sicherer Transport von Getränken.
+\item
+  Schwerpunktüberwachung.
+\item
+  Anpassung der Fahrparameter.
+\item
+  Erkennung von verschütteten Flüssigkeiten.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{8.7 Fazit}\label{fazit}
+
+Das Pflichtenheft beschreibt eine technische Grundlage für die
+Entwicklung eines autonomen Coasterbot-Prototyps. Die gewählte
+Architektur ermöglicht eine strukturierte Umsetzung der Kernfunktionen
+und schafft gleichzeitig eine Basis für zukünftige Erweiterungen.
+
+Durch die Kombination aus modularer Hardware, komponentenbasierter
+Software, Simulation und systematischer Verifikation wird ein
+Entwicklungsansatz geschaffen, der sowohl die Anforderungen des
+aktuellen Prototyps erfüllt als auch eine spätere Weiterentwicklung zu
+einem marktfähigen Produkt unterstützt.
+
+\section{Anhang}\label{anhang}
+
+\section{Anhang A:
+Komponentenübersicht}\label{anhang-a-komponentenuxfcbersicht}
+
+\subsection{A.1 Zweck der
+Komponentenübersicht}\label{a.1-zweck-der-komponentenuxfcbersicht}
+
+Die Komponentenübersicht beschreibt die wesentlichen Hardware- und
+Softwarebestandteile des Coasterbot-Prototyps sowie deren Aufgaben und
+Schnittstellen.
+
+Ziel ist es, die Systemstruktur des entwickelten Roboters transparent
+darzustellen und eine Grundlage für die Umsetzung, Integration und
+spätere Erweiterung des Systems zu schaffen.
+
+Die Komponentenübersicht orientiert sich an der im Pflichtenheft
+beschriebenen modularen Systemarchitektur. Durch die Trennung in
+einzelne Komponenten wird eine Austauschbarkeit von Hardwareelementen
+sowie eine unabhängige Weiterentwicklung einzelner Softwaremodule
+ermöglicht.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.2 Gesamtübersicht des
+Systems}\label{a.2-gesamtuxfcbersicht-des-systems}
+
+Der Coasterbot besteht aus folgenden Hauptkomponenten:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1087}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2391}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6522}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Bereich
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Aufgabe
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Mechanik & Chassis & Aufnahme aller Hardwarekomponenten und Schutz der
+Elektronik \\
+Mechanik & Antriebssystem & Bewegung des Roboters auf der Tischfläche \\
+Mechanik & Untersetzermechanismus & Aufnahme und Ausgabe von
+Getränkeuntersetzern \\
+Energie & Akkusystem & Versorgung aller elektrischen Komponenten \\
+Steuerung & Recheneinheit & Ausführung der Steuerungssoftware \\
+Sensorik & Abstandssensoren & Erkennung von Hindernissen und
+Tischgrenzen \\
+Sensorik & Positionssensorik & Bestimmung der Roboterposition und
+Orientierung \\
+Aktorik & Motorcontroller & Ansteuerung der Antriebsmotoren \\
+Software & Navigationsmodul & Planung und Steuerung der Bewegung \\
+Software & Lokalisierungsmodul & Bestimmung der aktuellen Position \\
+Software & Sicherheitsmodul & Überwachung kritischer Zustände \\
+Software & Systemüberwachung & Fehlererkennung und Statusverwaltung \\
+Simulation & Simulationsumgebung & Virtuelle Nachbildung des Roboters \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.3 Hardwarekomponenten}\label{a.3-hardwarekomponenten}
+
+\subsection{A.3.1 Mechanische
+Struktur}\label{a.3.1-mechanische-struktur}
+
+\subsubsection{Aufgabe}\label{aufgabe}
+
+Das mechanische Grundgerüst bildet die Plattform des Coasterbots. Es
+nimmt die elektronischen Komponenten auf und stellt die erforderliche
+Stabilität während der Bewegung sicher.
+
+\subsubsection{Anforderungen}\label{anforderungen}
+
+Die mechanische Struktur muss:
+
+\begin{itemize}
+\tightlist
+\item
+  ausreichend stabil für den mobilen Betrieb sein,
+\item
+  alle Komponenten sicher aufnehmen,
+\item
+  eine kompakte Bauform ermöglichen,
+\item
+  den Transport von Getränkeuntersetzern ermöglichen.
+\end{itemize}
+
+\subsubsection{Bestandteile}\label{bestandteile}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Grundplatte & Trägerstruktur für Elektronik und Mechanik \\
+Gehäuse & Schutz der internen Komponenten \\
+Halterungen & Befestigung von Sensoren und Aktoren \\
+Untersetzeraufnahme & Mechanischer Greif- oder Transportmechanismus \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.3.2 Antriebssystem}\label{a.3.2-antriebssystem}
+
+\subsubsection{Aufgabe}\label{aufgabe-1}
+
+Das Antriebssystem ermöglicht die autonome Bewegung des Coasterbots auf
+der Tischfläche.
+
+\subsubsection{Komponenten}\label{komponenten}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Elektromotoren & Erzeugung der Fahrbewegung \\
+Getriebe & Anpassung von Drehmoment und Geschwindigkeit \\
+Räder & Übertragung der Kraft auf die Tischfläche \\
+Motorcontroller & Regelung der Motorbewegung \\
+\end{longtable}
+
+\subsubsection{Anforderungen}\label{anforderungen-1}
+
+Das Antriebssystem muss:
+
+\begin{itemize}
+\tightlist
+\item
+  präzise Bewegungen ermöglichen,
+\item
+  kontrolliertes Beschleunigen und Bremsen unterstützen,
+\item
+  sichere Fahrgeschwindigkeiten gewährleisten.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.3.3 Energieversorgung}\label{a.3.3-energieversorgung}
+
+\subsubsection{Aufgabe}\label{aufgabe-2}
+
+Die Energieversorgung stellt die elektrische Versorgung aller
+Komponenten sicher.
+
+\subsubsection{Komponenten}\label{komponenten-1}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Akku & Energiespeicher \\
+Spannungswandler & Anpassung der Versorgungsspannungen \\
+Ladeelektronik & Überwachung und Laden des Akkus \\
+Energieüberwachung & Erfassung des Ladezustands \\
+\end{longtable}
+
+\subsubsection{Anforderungen}\label{anforderungen-2}
+
+Das Energiesystem muss:
+
+\begin{itemize}
+\tightlist
+\item
+  den Betriebszustand überwachen,
+\item
+  niedrigen Akkustand erkennen,
+\item
+  einen sicheren Systemzustand ermöglichen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.3.4 Sensorik}\label{a.3.4-sensorik}
+
+Die Sensorik stellt Informationen über die Umgebung und den Zustand des
+Roboters bereit.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Abstandssensorik}\label{abstandssensorik}
+
+\subsubsection{Aufgabe}\label{aufgabe-3}
+
+Erkennung von Hindernissen und Objekten auf der Tischfläche.
+
+\subsubsection{Verwendung}\label{verwendung}
+
+\begin{itemize}
+\tightlist
+\item
+  Kollisionsvermeidung,
+\item
+  Routenanpassung,
+\item
+  Sicherheitsüberwachung.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Kantenerkennung}\label{kantenerkennung}
+
+\subsubsection{Aufgabe}\label{aufgabe-4}
+
+Erkennung der Tischgrenzen zur Vermeidung eines Absturzes.
+
+\subsubsection{Verwendung}\label{verwendung-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Sicherheitsabschaltung,
+\item
+  Begrenzung des Bewegungsbereichs.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Positionssensorik}\label{positionssensorik-1}
+
+\subsubsection{Aufgabe}\label{aufgabe-5}
+
+Bestimmung der aktuellen Position und Orientierung des Roboters.
+
+\subsubsection{Verwendung}\label{verwendung-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation,
+\item
+  Zielanfahrt,
+\item
+  Bewegungsplanung.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.3.5 Aktorik}\label{a.3.5-aktorik}
+
+Die Aktorik setzt Steuerbefehle der Software in physische Aktionen um.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Aktor & Aufgabe \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Fahrmotoren & Bewegung des Roboters \\
+Untersetzermechanismus & Aufnahme und Ausgabe von Untersetzern \\
+Statusanzeige & Ausgabe von Systeminformationen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4 Softwarekomponenten}\label{a.4-softwarekomponenten}
+
+\subsection{A.4.1 Systemarchitektur}\label{a.4.1-systemarchitektur}
+
+Die Software wird komponentenbasiert aufgebaut.
+
+Die grundlegende Struktur besteht aus:
+
+\begin{verbatim}
++--------------------------------+
+|          Anwendung             |
++--------------------------------+
+| Navigation | Auftragsteuerung  |
++--------------------------------+
+| Lokalisierung | Sicherheit     |
++--------------------------------+
+| Hardwareabstraktion            |
++--------------------------------+
+| Sensoren | Aktoren | Simulation|
++--------------------------------+
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.2
+Hardwareabstraktionsschicht}\label{a.4.2-hardwareabstraktionsschicht}
+
+\subsection{Aufgabe}\label{aufgabe-6}
+
+Die Hardwareabstraktionsschicht trennt die Steuerungslogik von den
+konkreten Hardwarekomponenten.
+
+\subsection{Funktionen}\label{funktionen}
+
+\begin{itemize}
+\tightlist
+\item
+  Bereitstellung einheitlicher Schnittstellen,
+\item
+  Austausch realer Hardware durch Simulationsmodelle,
+\item
+  Vereinfachung automatisierter Tests.
+\end{itemize}
+
+\subsection{Schnittstellen}\label{schnittstellen}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Schnittstelle & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensor API & Zugriff auf Sensordaten \\
+Motor API & Steuerung der Bewegung \\
+Aktor API & Steuerung mechanischer Funktionen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.3 Navigationsmodul}\label{a.4.3-navigationsmodul}
+
+\subsection{Aufgabe}\label{aufgabe-7}
+
+Das Navigationsmodul plant und steuert die Bewegung des Roboters.
+
+\subsection{Funktionen}\label{funktionen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Berechnung von Fahrwegen,
+\item
+  Hindernisvermeidung,
+\item
+  Zielanfahrt,
+\item
+  Anpassung der Route.
+\end{itemize}
+
+\subsection{Eingaben}\label{eingaben}
+
+\begin{itemize}
+\tightlist
+\item
+  aktuelle Position,
+\item
+  Zielposition,
+\item
+  Sensordaten.
+\end{itemize}
+
+\subsection{Ausgaben}\label{ausgaben}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsbefehle,
+\item
+  Fahrtrichtung,
+\item
+  Geschwindigkeit.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.4 Lokalisierungsmodul}\label{a.4.4-lokalisierungsmodul}
+
+\subsection{Aufgabe}\label{aufgabe-8}
+
+Das Lokalisierungsmodul bestimmt die aktuelle Position und Orientierung
+des Roboters.
+
+\subsection{Funktionen}\label{funktionen-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Verarbeitung von Sensordaten,
+\item
+  Positionsaktualisierung,
+\item
+  Berechnung der Orientierung.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.5 Sicherheitsmodul}\label{a.4.5-sicherheitsmodul}
+
+\subsection{Aufgabe}\label{aufgabe-9}
+
+Das Sicherheitsmodul überwacht kritische Zustände und verhindert
+gefährliche Situationen.
+
+\subsection{Funktionen}\label{funktionen-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Not-Aus-Verarbeitung,
+\item
+  Erkennung gefährlicher Zustände,
+\item
+  Wechsel in sicheren Zustand,
+\item
+  Begrenzung kritischer Bewegungen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.6 Systemüberwachung}\label{a.4.6-systemuxfcberwachung}
+
+\subsection{Aufgabe}\label{aufgabe-10}
+
+Die Systemüberwachung stellt die Diagnosefähigkeit des Roboters sicher.
+
+\subsection{Funktionen}\label{funktionen-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehlererkennung,
+\item
+  Fehlerprotokollierung,
+\item
+  Statusanzeige,
+\item
+  Überwachung von Aufgabenabläufen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.4.7
+Simulationskomponenten}\label{a.4.7-simulationskomponenten}
+
+\subsection{Aufgabe}\label{aufgabe-11}
+
+Die Simulationskomponenten ermöglichen die Entwicklung und Prüfung ohne
+vollständige Hardware.
+
+\subsection{Komponenten}\label{komponenten-2}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Aufgabe \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Robotermodell & Virtuelle Abbildung des Coasterbots \\
+Sensormodelle & Simulation von Sensordaten \\
+Aktormodelle & Simulation von Bewegungen \\
+Umgebungsmodell & Darstellung der Tischumgebung \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.5
+Kommunikationsschnittstellen}\label{a.5-kommunikationsschnittstellen}
+
+Die Kommunikation zwischen Komponenten erfolgt über definierte
+Schnittstellen.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.1857}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.2286}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 6\tabcolsep) * \real{0.3571}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Schnittstelle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Quelle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ziel
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Daten
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensordaten & Sensorik & Verarbeitung & Messwerte \\
+Positionsdaten & Lokalisierung & Navigation & Position, Orientierung \\
+Bewegungsbefehle & Navigation & Motorsteuerung & Geschwindigkeit,
+Richtung \\
+Statusdaten & Komponenten & Monitoring & Betriebszustand \\
+Fehlermeldungen & Module & Sicherheitsmodul & Fehlerstatus \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.6 Erweiterbarkeit}\label{a.6-erweiterbarkeit}
+
+Die Architektur berücksichtigt zukünftige Erweiterungen.
+
+Mögliche zusätzliche Komponenten:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Erweiterung & Neue Komponente \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Getränketransport & Transportmodul \\
+Bestellung & Bestellmodul \\
+Bezahlung & Zahlungsmodul \\
+Reinigung & Reinigungsmodul \\
+Mensch-Roboter-Interaktion & HMI-Modul \\
+\end{longtable}
+
+Durch die modulare Struktur können diese Erweiterungen integriert
+werden, ohne bestehende Kernkomponenten wesentlich zu verändern.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{A.7 Zusammenfassung}\label{a.7-zusammenfassung}
+
+Die Komponentenübersicht beschreibt die technische Struktur des
+Coasterbot-Prototyps.
+
+Die Aufteilung in Hardware-, Software- und Simulationskomponenten
+ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  eine klare Systemstruktur,
+\item
+  einfache Austauschbarkeit von Komponenten,
+\item
+  bessere Testbarkeit,
+\item
+  zukünftige Erweiterbarkeit.
+\end{itemize}
+
+Die definierte Architektur bildet die Grundlage für die Umsetzung des
+Prototyps und unterstützt die systematische Entwicklung entsprechend der
+Anforderungen des Pflichtenhefts.
+
+\subsection{Anhang B --
+Anforderungstraceability-Matrix}\label{anhang-b-anforderungstraceability-matrix}
+
+\subsubsection{B.1 Ziel der
+Traceability-Matrix}\label{b.1-ziel-der-traceability-matrix}
+
+Die Anforderungstraceability-Matrix stellt die Verbindung zwischen den
+Anforderungen des Lastenhefts, deren technischer Umsetzung im
+Pflichtenheft sowie den zugehörigen Testfällen her.
+
+Ziel dieser Matrix ist es, die vollständige Nachverfolgbarkeit aller
+relevanten Anforderungen sicherzustellen. Dadurch kann überprüft werden,
+ob jede Anforderung:
+
+\begin{itemize}
+\tightlist
+\item
+  technisch umgesetzt wurde,
+\item
+  einer Software- oder Hardwarekomponente zugeordnet ist,
+\item
+  durch mindestens einen Testfall verifiziert werden kann.
+\end{itemize}
+
+Die Traceability-Matrix unterstützt somit die Qualitätssicherung und
+ermöglicht eine systematische Bewertung des Entwicklungsstands.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.2 Struktur der
+Traceability-Matrix}\label{b.2-struktur-der-traceability-matrix}
+
+Die Matrix enthält folgende Informationen:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3467}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6533}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Spalte
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bedeutung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Anforderungs-ID & Eindeutige Identifikation der Anforderung \\
+Lastenheft-Anforderung & Beschreibung der ursprünglichen
+Systemanforderung \\
+Umsetzung im Pflichtenheft & Technische Realisierung \\
+Zugeordnete Komponente & Verantwortliche Systemkomponente \\
+Testfall & Nachweis der Funktion \\
+Status & Bearbeitungsstand \\
+\end{longtable}
+
+Der Status wird wie folgt bewertet:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Status & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Offen & Umsetzung wurde noch nicht begonnen \\
+In Umsetzung & Funktion befindet sich in Entwicklung \\
+Verifiziert & Umsetzung wurde erfolgreich getestet \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.3 Funktionale Anforderungen -- Navigation und
+Lokalisierung}\label{b.3-funktionale-anforderungen-navigation-und-lokalisierung}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0443}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3228}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3481}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1962}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0506}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0380}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung im Pflichtenheft
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testfall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NAV-001 & Der Bot muss Hindernisse auf dem Tisch erkennen. &
+Verarbeitung von Sensordaten durch Hinderniserkennung. &
+Sensorabstraktion, Navigation & SIM-002 & Offen \\
+NAV-002 & Der Bot muss Hindernissen selbstständig ausweichen. &
+Dynamische Routenanpassung durch Navigationskomponente. & Navigation &
+SIM-002 & Offen \\
+NAV-003 & Der Bot muss das Tischende erkennen. & Modellierung der
+Tischkante und Sicherheitsauswertung. & Sensorik, Sicherheitskomponente
+& SIM-003 & Offen \\
+NAV-004 & Der Bot muss auf dem Tisch bleiben. & Sicherheitsstopp bei
+erkannter Tischkante. & Sicherheitskomponente & SIM-003 & Offen \\
+NAV-005 & Der Bot muss seine Fahrroute dynamisch anpassen. &
+Implementierung einer adaptiven Routenplanung. & Navigation & SIM-002 &
+Offen \\
+NAV-006 & Der Bot muss seine Position bestimmen können. & Lokalisierung
+über Sensordaten und Zustandsmodell. & Lokalisierung & SIM-001 &
+Offen \\
+NAV-007 & Der Bot muss seine Orientierung bestimmen können. & Berechnung
+der Roboterpose. & Lokalisierung & SIM-001 & Offen \\
+NAV-008 & Der Bot muss einen Zielpunkt erreichen. & Zielnavigation mit
+Positionsprüfung. & Navigation & SIM-001 & Offen \\
+NAV-009 & Der Bot muss sich kontrolliert bewegen. & Bewegungssteuerung
+mit Geschwindigkeitsbegrenzung. & Bewegungssteuerung & SYS-002 &
+Offen \\
+NAV-010 & Der Bot muss selbstständig zum Kunden fahren. &
+Zielpunktbasierte Navigation. & Anwendungsebene & SYS-002 & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.4 Funktionale Anforderungen --
+Getränkeuntersetzer}\label{b.4-funktionale-anforderungen-getruxe4nkeuntersetzer}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0412}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3588}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3353}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1824}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0471}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0353}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung im Pflichtenheft
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testfall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CST-001 & Der Bot muss einen Getränkeuntersetzer aufnehmen können. &
+Steuerung des Aufnahmemechanismus über Zustandsautomaten. &
+Untersetzerhandling & SIM-004 & Offen \\
+CST-002 & Der Bot muss einen Getränkeuntersetzer transportieren können.
+& Kombination aus Navigation und Manipulation. & Navigation,
+Untersetzerhandling & SYS-004 & Offen \\
+CST-003 & Der Bot muss einen Untersetzer präzise platzieren können. &
+Positionssteuerung und Ablagefunktion. & Untersetzerhandling & SIM-004 &
+Offen \\
+CST-004 & Der Bot muss einen Untersetzer wieder aufnehmen können. &
+Aufnahmeprozess mit Zustandsprüfung. & Untersetzerhandling & SIM-004 &
+Offen \\
+CST-005 & Der Bot muss erfolgreiche Aufnahme erkennen. & Sensorbasierte
+Zustandsprüfung. & Untersetzerhandling & SIM-004 & Offen \\
+CST-006 & Der Bot muss erfolgreiche Platzierung erkennen. & Validierung
+des Ablagevorgangs. & Untersetzerhandling & SIM-004 & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.5 Funktionale Anforderungen --
+Sicherheit}\label{b.5-funktionale-anforderungen-sicherheit}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0470}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3826}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3356}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1409}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0537}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0403}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung im Pflichtenheft
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testfall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SAF-001 & Der Bot muss bei Gefahr sofort anhalten. & Priorisierte
+Sicherheitslogik mit Stoppsignal. & Sicherheitskomponente & SYS-005 &
+Offen \\
+SAF-002 & Der Bot muss bei Sensorfehler sicheren Zustand einnehmen. &
+Fehlererkennung und Zustandswechsel. & Sicherheitskomponente & SIM-005 &
+Offen \\
+SAF-003 & Der Bot darf den Tisch nicht verlassen. & Tischkantenerkennung
+und Notstopp. & Sicherheitskomponente & SIM-003 & Offen \\
+SAF-004 & Der Bot darf nicht mit hoher Geschwindigkeit kollidieren. &
+Geschwindigkeitsbegrenzung und Hinderniserkennung. & Bewegungssteuerung
+& SYS-003 & Offen \\
+SAF-005 & Der Bot muss Kollisionen vermeiden. & Hinderniserkennung und
+Navigation. & Navigation & SIM-002 & Offen \\
+SAF-006 & Der Bot muss einen Not-Aus unterstützen. & Implementierung
+eines sicheren Stopps. & Sicherheitskomponente & SYS-005 & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.6 Funktionale Anforderungen --
+Systemüberwachung}\label{b.6-funktionale-anforderungen-systemuxfcberwachung}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0547}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3516}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3516}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1328}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0625}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0469}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung im Pflichtenheft
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testfall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+MON-001 & Der Bot muss Fehler erkennen. & Diagnose- und
+Überwachungssystem. & Systemüberwachung & SIM-005 & Offen \\
+MON-002 & Der Bot muss Fehler protokollieren. & Ereignisverwaltung mit
+Fehlerprotokollierung. & Diagnosedienst & SYS-006 & Offen \\
+MON-003 & Der Bot muss Betriebszustand anzeigen. & Statusverwaltung. &
+Systemüberwachung & SYS-006 & Offen \\
+MON-004 & Der Bot muss erfolgreiche Aufgaben erkennen. &
+Zustandsauswertung nach Aktionen. & Anwendungsebene & SYS-004 & Offen \\
+MON-005 & Der Bot muss fehlgeschlagene Aufgaben melden. & Fehler- und
+Ereignisverwaltung. & Diagnosedienst & SYS-006 & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.7 Nichtfunktionale
+Anforderungen}\label{b.7-nichtfunktionale-anforderungen}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3835}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3835}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1353}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0451}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung im Pflichtenheft
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Prüfverfahren
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NFR-001 & Der Bot muss modular aufgebaut sein. & Komponentenbasierte
+Architektur. & Architekturprüfung & Offen \\
+NFR-002 & Software muss komponentenbasiert entwickelt werden. & Trennung
+der Softwaremodule. & Codeanalyse & Offen \\
+NFR-003 & Softwarearchitektur muss erweiterbar sein. & Schichtenmodell
+und Schnittstellenkonzept. & Architekturprüfung & Offen \\
+NFR-004 & Software muss simuliert werden können. & Hardwareabstraktion
+und Simulationsmodelle. & Simulationstest & Offen \\
+NFR-005 & Software muss testbar sein. & Automatisierte Tests und
+definierte Schnittstellen. & Testausführung & Offen \\
+NFR-006 & Kernfunktionen müssen automatisiert testbar sein. & Unit- und
+Integrationstests. & Testberichte & Offen \\
+NFR-007 & Sensoren und Aktoren müssen austauschbar sein. &
+Hardwareabstraktionsebene. & Austauschtest & Offen \\
+NFR-008 & Software muss Hardwareabstraktion unterstützen. & Einheitliche
+Hardwareinterfaces. & Simulationstest & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.8 Anforderungen an die
+Simulation}\label{b.8-anforderungen-an-die-simulation}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0551}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.4646}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3071}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1260}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0472}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Simulationsanforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testfall
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SIM-001 & Fahrmanöver müssen reproduzierbar sein. & Parametrisierte
+Simulationsszenarien. & Simulationstest & Offen \\
+SIM-002 & Sensoren müssen modelliert werden können. & Sensormodelle
+innerhalb der Simulation. & Sensorprüfung & Offen \\
+SIM-003 & Aktoren müssen modelliert werden können. & Virtuelle
+Aktormodelle. & Aktorprüfung & Offen \\
+SIM-004 & Hindernisse müssen berücksichtigt werden. & Umgebungsmodell
+mit Objekten. & SIM-002 & Offen \\
+SIM-005 & Fehlersituationen müssen simulierbar sein. & Fehlerinjektion
+in Simulation. & SIM-005 & Offen \\
+SIM-006 & Simulation muss Testfälle unterstützen. & Teststeuerung und
+Szenariomanagement. & Testdurchführung & Offen \\
+SIM-007 & Simulationsverhalten muss erwartetem Verhalten entsprechen. &
+Vergleich Simulation und Prototyp. & Validierungstest & Offen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{B.9 Zusammenfassung}\label{b.9-zusammenfassung}
+
+Die Traceability-Matrix stellt sicher, dass alle relevanten
+Anforderungen des Lastenhefts im Pflichtenheft berücksichtigt und durch
+geeignete Prüfverfahren überprüft werden können.
+
+Durch die eindeutige Zuordnung von:
+
+\begin{itemize}
+\tightlist
+\item
+  Anforderungen,
+\item
+  technischen Komponenten,
+\item
+  Implementierungsmaßnahmen,
+\item
+  Testfällen,
+\end{itemize}
+
+wird eine vollständige Nachvollziehbarkeit des Entwicklungsprozesses
+erreicht.
+
+Die Matrix dient während der gesamten Projektlaufzeit als zentrales
+Werkzeug zur Fortschrittskontrolle und Qualitätssicherung.
+
+\section{Anhang C: Hardware- und
+Software-Schnittstellen}\label{anhang-c-hardware--und-software-schnittstellen}
+
+\subsection{C.1 Zweck der
+Schnittstellenbeschreibung}\label{c.1-zweck-der-schnittstellenbeschreibung}
+
+Die Schnittstellenbeschreibung definiert die Kommunikations- und
+Interaktionspunkte zwischen den Hardware- und Softwarekomponenten des
+Coasterbot-Prototyps.
+
+Ziel ist eine klare Trennung zwischen einzelnen Systembestandteilen und
+eine strukturierte Grundlage für die Implementierung, Integration und
+spätere Erweiterung des Systems.
+
+Durch definierte Schnittstellen wird sichergestellt, dass:
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwarekomponenten unabhängig ausgetauscht werden können,
+\item
+  Softwaremodule voneinander entkoppelt bleiben,
+\item
+  Simulation und reale Hardware dieselben Schnittstellen verwenden
+  können,
+\item
+  automatisierte Tests einzelner Komponenten möglich sind.
+\end{itemize}
+
+Die Schnittstellen orientieren sich an der modularen Systemarchitektur
+des Pflichtenhefts.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.2 Übersicht der
+Systemarchitektur}\label{c.2-uxfcbersicht-der-systemarchitektur}
+
+Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
+
+\begin{verbatim}
++------------------------------------------------+
+|              Anwendungslogik                   |
+|  Aufgabensteuerung | Navigation | HMI           |
++------------------------------------------------+
+|              Systemdienste                     |
+| Lokalisierung | Sicherheit | Monitoring        |
++------------------------------------------------+
+|          Hardwareabstraktionsschicht           |
+| Sensor API | Aktor API | Energie API           |
++------------------------------------------------+
+|              Hardwareebene                     |
+| Sensoren | Motoren | Akku | Mechanik           |
++------------------------------------------------+
+\end{verbatim}
+
+Die Hardwareabstraktionsschicht stellt die zentrale Schnittstelle
+zwischen Software und physischer Hardware dar.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.3 Hardware-Schnittstellen}\label{c.3-hardware-schnittstellen}
+
+\subsection{C.3.1 Recheneinheit}\label{c.3.1-recheneinheit}
+
+\subsubsection{Aufgabe}\label{aufgabe-12}
+
+Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet
+Sensordaten sowie Steuerbefehle.
+
+\subsubsection{Schnittstellen}\label{schnittstellen-1}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1940}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1791}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6269}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Schnittstelle
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Richtung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Beschreibung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Versorgung & Eingang & Energieversorgung durch Akkusystem \\
+GPIO & Ein-/Ausgang & Digitale Ein- und Ausgangssignale \\
+I²C & Ein-/Ausgang & Kommunikation mit Sensoren \\
+SPI & Ein-/Ausgang & Schnelle Kommunikation mit Hardwaremodulen \\
+UART & Ein-/Ausgang & Serielle Kommunikation \\
+USB & Ein-/Ausgang & Programmierung und Diagnose \\
+\end{longtable}
+
+\subsubsection{Anforderungen}\label{anforderungen-3}
+
+Die Recheneinheit muss:
+
+\begin{itemize}
+\tightlist
+\item
+  Echtzeitverarbeitung der Sensordaten ermöglichen,
+\item
+  ausreichend Rechenleistung für Navigation bereitstellen,
+\item
+  Kommunikationsschnittstellen für Erweiterungen besitzen.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.3.2 Sensorschnittstellen}\label{c.3.2-sensorschnittstellen}
+
+Sensoren stellen Informationen über die Umgebung und den Systemzustand
+bereit.
+
+Die Sensoren werden über eine einheitliche
+Hardwareabstraktionsschnittstelle eingebunden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Abstandssensoren}\label{abstandssensoren-1}
+
+\subsubsection{Zweck}\label{zweck}
+
+Erkennung von Hindernissen und Objekten.
+
+\subsubsection{Schnittstelle}\label{schnittstelle}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Parameter & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Eingang & Versorgungsspannung \\
+Ausgang & Messwert Entfernung \\
+Aktualisierungsrate & zyklische Sensordaten \\
+\end{longtable}
+
+\subsubsection{Softwaredarstellung}\label{softwaredarstellung}
+
+Beispiel:
+
+\begin{verbatim}
+DistanceSensor.read()
+        |
+        v
+Entfernung in Millimeter
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Kantensensoren}\label{kantensensoren}
+
+\subsubsection{Zweck}\label{zweck-1}
+
+Erkennung der Tischgrenze.
+
+\subsubsection{Schnittstelle}\label{schnittstelle-1}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Parameter & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Eingang & Versorgung \\
+Ausgang & Abstand oder Grenzwertsignal \\
+\end{longtable}
+
+\subsubsection{Verarbeitung}\label{verarbeitung}
+
+Die Sensordaten werden durch das Sicherheitsmodul bewertet.
+
+Beispiel:
+
+\begin{verbatim}
+Kante erkannt
+      |
+      v
+Sicherheitsmodul
+      |
+      v
+Bewegungsstopp
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Positionssensorik}\label{positionssensorik-2}
+
+\subsubsection{Zweck}\label{zweck-2}
+
+Bereitstellung von Positions- und Orientierungsinformationen.
+
+\subsubsection{Schnittstelle}\label{schnittstelle-2}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+$x$ & Position in X-Richtung \\
+$y$ & Position in Y-Richtung \\
+$\theta$ & Orientierung des Roboters \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.3.3 Aktorschnittstellen}\label{c.3.3-aktorschnittstellen}
+
+\subsection{Motorsteuerung}\label{motorsteuerung}
+
+\subsubsection{Zweck}\label{zweck-3}
+
+Ansteuerung der Antriebsmotoren.
+
+\subsubsection{Schnittstelle}\label{schnittstelle-3}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Eingang & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Geschwindigkeit & Sollgeschwindigkeit \\
+Richtung & Bewegungsrichtung \\
+Beschleunigung & Dynamikparameter \\
+\end{longtable}
+
+\subsubsection{Ausgang}\label{ausgang}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Signal & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Motorstatus & Betriebszustand \\
+Fehlerstatus & Diagnoseinformationen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Untersetzermechanismus}\label{untersetzermechanismus-1}
+
+\subsubsection{Zweck}\label{zweck-4}
+
+Aufnahme und Ausgabe von Getränkeuntersetzern.
+
+\subsubsection{Schnittstelle}\label{schnittstelle-4}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Befehl & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+OPEN & Mechanismus öffnen \\
+CLOSE & Mechanismus schließen \\
+PICKUP & Untersetzer aufnehmen \\
+RELEASE & Untersetzer ablegen \\
+\end{longtable}
+
+\subsubsection{Rückmeldungen}\label{ruxfcckmeldungen}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Status & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+READY & Mechanismus bereit \\
+ACTIVE & Bewegung läuft \\
+SUCCESS & Vorgang erfolgreich \\
+ERROR & Fehler aufgetreten \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.3.4 Energieschnittstelle}\label{c.3.4-energieschnittstelle}
+
+\subsection{Zweck}\label{zweck-5}
+
+Überwachung und Verwaltung der Energieversorgung.
+
+\subsubsection{Eingangsdaten}\label{eingangsdaten}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Akkuspannung & aktuelle Spannung \\
+Ladezustand & verbleibende Kapazität \\
+Stromaufnahme & aktueller Verbrauch \\
+\end{longtable}
+
+\subsubsection{Ausgangssignale}\label{ausgangssignale}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Signal & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+LOW\_BATTERY & niedriger Akkustand \\
+SHUTDOWN & kontrolliertes Abschalten \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.4 Software-Schnittstellen}\label{c.4-software-schnittstellen}
+
+\subsection{C.4.1
+Hardwareabstraktionsschnittstelle}\label{c.4.1-hardwareabstraktionsschnittstelle}
+
+Die Hardwareabstraktionsschicht stellt standardisierte Funktionen für
+den Zugriff auf Hardwarekomponenten bereit.
+
+Ziel ist, dass die darüberliegenden Softwaremodule keine direkten
+Abhängigkeiten zu konkreten Hardwareimplementierungen besitzen.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Sensor API}\label{sensor-api}
+
+\subsubsection{Funktionen}\label{funktionen-5}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Funktion & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+getDistance() & Liefert Abstandsdaten \\
+getEdgeState() & Liefert Tischkantenzustand \\
+getPosition() & Liefert aktuelle Position \\
+getBatteryState() & Liefert Energiezustand \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Motor API}\label{motor-api}
+
+\subsubsection{Funktionen}\label{funktionen-6}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Funktion & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+setVelocity() & Setzt Geschwindigkeit \\
+stop() & Stoppt Bewegung \\
+getMotorState() & Liest Motorstatus \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{Aktor API}\label{aktor-api}
+
+\subsubsection{Funktionen}\label{funktionen-7}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Funktion & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+pickupCoaster() & Startet Aufnahme \\
+releaseCoaster() & Startet Ablage \\
+getActuatorState() & Liefert Aktorzustand \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.4.2
+Navigationsschnittstelle}\label{c.4.2-navigationsschnittstelle}
+
+\subsection{Zweck}\label{zweck-6}
+
+Die Navigation verarbeitet Positionsinformationen und erzeugt
+Bewegungsbefehle.
+
+\subsubsection{Eingaben}\label{eingaben-1}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Quelle \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Aktuelle Position & Lokalisierung \\
+Zielposition & Aufgabensteuerung \\
+Hindernisdaten & Sensorverarbeitung \\
+\end{longtable}
+
+\subsubsection{Ausgaben}\label{ausgaben-1}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Ziel \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Bewegungsvektor & Motorsteuerung \\
+Status & Monitoring \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.4.3
+Lokalisierungsschnittstelle}\label{c.4.3-lokalisierungsschnittstelle}
+
+\subsection{Zweck}\label{zweck-7}
+
+Berechnung und Bereitstellung der aktuellen Roboterposition.
+
+\subsubsection{Eingaben}\label{eingaben-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensordaten,
+\item
+  Bewegungsdaten,
+\item
+  Simulationsdaten.
+\end{itemize}
+
+\subsubsection{Ausgaben}\label{ausgaben-2}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Position & Aktuelle Koordinaten \\
+Orientierung & Ausrichtung \\
+Genauigkeit & Vertrauenswert \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.4.4
+Sicherheitsschnittstelle}\label{c.4.4-sicherheitsschnittstelle}
+
+\subsection{Zweck}\label{zweck-8}
+
+Überwachung sicherheitskritischer Zustände.
+
+\subsubsection{Eingaben}\label{eingaben-3}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Quelle & Daten \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensorik & Hindernisse, Tischkante \\
+Monitoring & Fehlerzustände \\
+Benutzer & Not-Aus \\
+\end{longtable}
+
+\subsubsection{Ausgaben}\label{ausgaben-3}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Signal & Funktion \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+STOP & Sofortiger Bewegungsstopp \\
+SAFE\_MODE & Wechsel in sicheren Zustand \\
+ERROR & Fehlermeldung \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.4.5
+Monitoring-Schnittstelle}\label{c.4.5-monitoring-schnittstelle}
+
+\subsection{Zweck}\label{zweck-9}
+
+Bereitstellung von Diagnoseinformationen.
+
+\subsubsection{Eingaben}\label{eingaben-4}
+
+Alle Systemkomponenten liefern Statusinformationen.
+
+\subsubsection{Ausgaben}\label{ausgaben-4}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Daten & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Betriebszustand & aktueller Systemmodus \\
+Fehlerliste & erkannte Fehler \\
+Aufgabenstatus & Fortschritt aktueller Aufgabe \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.5 Schnittstelle zwischen Simulation und realer
+Hardware}\label{c.5-schnittstelle-zwischen-simulation-und-realer-hardware}
+
+Ein wesentliches Architekturziel ist die Austauschbarkeit zwischen
+realer Hardware und Simulation.
+
+Dazu verwenden beide Varianten dieselben Softwareschnittstellen.
+
+\begin{verbatim}
+                Navigation
+                    |
+                    |
+          Hardwareabstraktion
+                    |
+        +-----------+-----------+
+        |                       |
+ reale Sensoren          Simulationssensoren
+ reale Motoren           Simulationsaktoren
+\end{verbatim}
+
+Dadurch können:
+
+\begin{itemize}
+\tightlist
+\item
+  Algorithmen ohne Hardware getestet werden,
+\item
+  Fehlerfälle reproduzierbar simuliert werden,
+\item
+  Hardwareänderungen ohne Anpassung der Kernsoftware durchgeführt
+  werden.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.6
+Kommunikationsprotokolle}\label{c.6-kommunikationsprotokolle}
+
+Für die Kommunikation zwischen Komponenten werden standardisierte
+Protokolle verwendet.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Protokoll & Verwendung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+I²C & Sensoranbindung \\
+SPI & schnelle Hardwarekommunikation \\
+UART & Diagnose und Konfiguration \\
+GPIO & einfache Statussignale \\
+Software-Message-Bus & Kommunikation zwischen Softwaremodulen \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.7 Fehlerbehandlung an
+Schnittstellen}\label{c.7-fehlerbehandlung-an-schnittstellen}
+
+Alle Schnittstellen müssen definierte Fehlerzustände unterstützen.
+
+Mögliche Fehler:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.3433}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.6567}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Fehler
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Reaktion
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Sensor nicht erreichbar & Fehler melden und sicheren Zustand
+einnehmen \\
+Ungültige Sensordaten & Daten verwerfen und Diagnose auslösen \\
+Aktor reagiert nicht & Bewegung stoppen \\
+Kommunikationsabbruch & Fehler protokollieren \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.8 Erweiterbarkeit der
+Schnittstellen}\label{c.8-erweiterbarkeit-der-schnittstellen}
+
+Die Schnittstellenstruktur ermöglicht die spätere Integration
+zusätzlicher Funktionen.
+
+Beispiele:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Erweiterung & Benötigte Schnittstelle \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Getränketransport & Transport API \\
+Bestellsystem & Auftragsschnittstelle \\
+Bezahlsystem & Zahlungsmodul \\
+Reinigung & Reinigungsaktor \\
+Mensch-Roboter-Interaktion & HMI-Schnittstelle \\
+\end{longtable}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{C.9 Zusammenfassung}\label{c.9-zusammenfassung}
+
+Die definierten Hardware- und Software-Schnittstellen bilden die
+Grundlage für eine modulare und erweiterbare Architektur des
+Coasterbot-Prototyps.
+
+Durch die Trennung von Hardware, Abstraktionsschicht und Anwendungslogik
+werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Austauschbarkeit,
+\item
+  Testbarkeit,
+\item
+  Simulationsfähigkeit,
+\item
+  Erweiterbarkeit
+\end{itemize}
+
+des Systems gewährleistet.
+
+Die Schnittstellenbeschreibung stellt damit eine zentrale Grundlage für
+die Implementierung und Integration der einzelnen Systemkomponenten dar.
+
+\section{Anhang D: Abbildungen der Architektur und
+Systemmodelle}\label{anhang-d-abbildungen-der-architektur-und-systemmodelle}
+
+\subsection{D.1 Zweck der
+Architekturabbildungen}\label{d.1-zweck-der-architekturabbildungen}
+
+Die Architekturabbildungen und Systemmodelle dienen der grafischen
+Darstellung des technischen Aufbaus des Coasterbot-Prototyps.
+
+Sie ergänzen die textuelle Beschreibung des Pflichtenhefts und
+ermöglichen ein besseres Verständnis der Beziehungen zwischen:
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwarekomponenten,
+\item
+  Softwaremodulen,
+\item
+  Schnittstellen,
+\item
+  Simulationsumgebung,
+\item
+  externen Systembestandteilen.
+\end{itemize}
+
+Die dargestellten Modelle unterstützen insbesondere:
+
+\begin{itemize}
+\tightlist
+\item
+  die Entwicklung der Softwarearchitektur,
+\item
+  die Planung der Integration,
+\item
+  die Kommunikation innerhalb des Projektteams,
+\item
+  die spätere Erweiterung des Systems.
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.2 Systemübersicht des
+Coasterbots}\label{d.2-systemuxfcbersicht-des-coasterbots}
+
+Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                         |       Benutzer       |}
+% \NormalTok{                         |  Kunde / Bediener    |}
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                                    |}
+% \NormalTok{                                    v}
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                         |  Aufgabensteuerung   |}
+% \NormalTok{                         | Auftrag / Navigation |}
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                                    |}
+% \NormalTok{                                    v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|                    Coasterbot Software                        |}
+% \NormalTok{|                                                               |}
+% \NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+% \NormalTok{| | Navigation    |  | Lokalisierung  |  | Sicherheitsmodul  | |}
+% \NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+% \NormalTok{|                                                               |}
+% \NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+% \NormalTok{| | Monitoring    |  | Energie{-}      |  | Untersetzer{-}      | |}
+% \NormalTok{| |               |  | management    |  | steuerung         | |}
+% \NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                             |}
+% \NormalTok{                             v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|              Hardwareabstraktionsschicht                     |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                             |}
+% \NormalTok{                             v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|                       Hardware                                |}
+% \NormalTok{|                                                               |}
+% \NormalTok{| Sensoren | Motoren | Akku | Aktoren | Mechanik                |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \end{Highlighting}
+% \end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.3 Schichtenmodell der
+Softwarearchitektur}\label{d.3-schichtenmodell-der-softwarearchitektur}
+
+Die Software des Coasterbots wird in mehrere logische Ebenen unterteilt.
+
+Die Schichtenarchitektur ermöglicht eine klare Trennung von Aufgaben und
+reduziert Abhängigkeiten zwischen Komponenten.
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|                Anwendungsebene                 |}
+% \NormalTok{|                                                |}
+% \NormalTok{|  Arbeitsabläufe | Benutzerinteraktion | HMI     |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                     |}
+% \NormalTok{                     v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|              Steuerungsebene                   |}
+% \NormalTok{|                                                |}
+% \NormalTok{| Navigation | Lokalisierung | Sicherheit        |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                     |}
+% \NormalTok{                     v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|             Systemdienste                      |}
+% \NormalTok{|                                                |}
+% \NormalTok{| Monitoring | Logging | Energieverwaltung       |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                     |}
+% \NormalTok{                     v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|        Hardwareabstraktionsschicht             |}
+% \NormalTok{|                                                |}
+% \NormalTok{| Sensor API | Aktor API | Motor API             |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                     |}
+% \NormalTok{                     v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|                Hardwareebene                   |}
+% \NormalTok{|                                                |}
+% \NormalTok{| Sensoren | Motoren | Akku | Mechanik           |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \end{Highlighting}
+% \end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.4 Komponentenmodell}\label{d.4-komponentenmodell}
+
+Das Komponentenmodell beschreibt die logische Zerlegung der Software.
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                         |  Main Control  |}
+% \NormalTok{                         +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                                 |}
+% \NormalTok{          +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{          |                      |                      |}
+% \NormalTok{          v                      v                      v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+    +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+    +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Navigation     |    | Safety Manager |    | Task Manager   |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+    +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+    +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |                     |                     |}
+% \NormalTok{        v                     v                     v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{|              Hardware Abstraction Layer                    |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |                     |                     |}
+% \NormalTok{        v                     v                     v}
+
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Sensor API  |       | Motor API   |       | Actuator API|}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+
+% \NormalTok{        |                     |                     |}
+% \NormalTok{        v                     v                     v}
+
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Sensoren    |       | Antrieb     |       | Mechanik    |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+       +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \end{Highlighting}
+% \end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.5 Datenflussmodell}\label{d.5-datenflussmodell}
+
+Das Datenflussmodell beschreibt die Verarbeitung von Sensordaten und
+Steuerinformationen.
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{Sensoren}
+% \NormalTok{   |}
+% \NormalTok{   |}
+% \NormalTok{   v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Datenerfassung |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Verarbeitung   |}
+% \NormalTok{| Sensordaten    |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |                |}
+% \NormalTok{        v                v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Lokalisierung |  | Hindernis{-}    |}
+% \NormalTok{|               |  | erkennung     |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Navigation    |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Motorsteuerung|}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{     Aktoren}
+% \end{Highlighting}
+% \end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.6 Zustandsmodell des
+Coasterbots}\label{d.6-zustandsmodell-des-coasterbots}
+
+Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
+
+% \begin{Shaded}
+% \begin{Highlighting}[]
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                | AUS         |}
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                       |}
+% \NormalTok{                       v}
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                | Initialisierung |}
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                       |}
+% \NormalTok{                       v}
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                | Bereitschaft|}
+% \NormalTok{                +{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{                       |}
+% \NormalTok{          +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{          |                         |}
+% \NormalTok{          v                         v}
+
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+        +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Aufgabe aktiv  |        | Fehlerzustand  |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+        +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Navigation     |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Untersetzer{-}   |}
+% \NormalTok{| vorgang        |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{        |}
+% \NormalTok{        v}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \NormalTok{| Aufgabe        |}
+% \NormalTok{| abgeschlossen  |}
+% \NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+% \end{Highlighting}
+% \end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.7 Sicherheitsmodell}\label{d.7-sicherheitsmodell}
+
+Das Sicherheitsmodell beschreibt die Reaktion des Systems auf kritische
+Situationen.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{                 Sensordaten}
+\NormalTok{                      |}
+\NormalTok{                      v}
+\NormalTok{              +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{              | Sicherheits{-}  |}
+\NormalTok{              | überprüfung   |}
+\NormalTok{              +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{                      |}
+\NormalTok{        +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{        |                           |}
+\NormalTok{        v                           v}
+
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+          +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{| Zustand OK    |          | Gefahr erkannt |}
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}+          +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{        |                         |}
+\NormalTok{        v                         v}
+
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+          +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{| Normalbetrieb |          | Sicherheits{-}  |}
+\NormalTok{|               |          | stopp         |}
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+          +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{                                      |}
+\NormalTok{                                      v}
+\NormalTok{                              +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{                              | Fehlerstatus |}
+\NormalTok{                              +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.8 Simulationsarchitektur}\label{d.8-simulationsarchitektur}
+
+Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{                 Testsoftware}
+\NormalTok{                      |}
+\NormalTok{                      v}
+
+\NormalTok{             +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{             | Simulation     |}
+\NormalTok{             | Steuerung      |}
+\NormalTok{             +{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{                     |}
+\NormalTok{                     v}
+
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{|              Simulationsmodell                |}
+\NormalTok{|                                               |}
+\NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+\NormalTok{| | Roboter     | | Umgebung    | | Sensoren  | |}
+\NormalTok{| | Modell      | | Tisch       | | Modelle   | |}
+\NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ |}
+\NormalTok{|                                               |}
+\NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+               |}
+\NormalTok{| | Aktoren     | | Fehler{-}     |               |}
+\NormalTok{| | Modelle     | | simulation |               |}
+\NormalTok{| +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+ +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+               |}
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{                     |}
+\NormalTok{                     v}
+
+\NormalTok{          Gleiche Schnittstellen wie Hardware}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.9 Systemmodell für
+Erweiterungen}\label{d.9-systemmodell-fuxfcr-erweiterungen}
+
+Die Architektur berücksichtigt zukünftige Erweiterungen außerhalb des
+aktuellen Projektumfangs.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{                    Coasterbot Kernsystem}
+
+\NormalTok{                           |}
+\NormalTok{        +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{        |                  |                  |}
+\NormalTok{        v                  v                  v}
+
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{| Getränketrans{-}|  | Bestell{-}      |  | Reinigungs{-}   |}
+\NormalTok{| port          |  | system        |  | system        |}
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+  +{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+
+\NormalTok{        |}
+\NormalTok{        v}
+
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\NormalTok{| Mensch{-}Roboter{-}Interaktion    |}
+\NormalTok{| HMI / Sprachsteuerung         |}
+\NormalTok{+{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}{-}+}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.10 Architekturprinzipien}\label{d.10-architekturprinzipien}
+
+Die Architektur des Coasterbot-Prototyps basiert auf folgenden
+Grundprinzipien:
+
+\subsection{Modularität}\label{modularituxe4t-1}
+
+Komponenten werden unabhängig voneinander entwickelt und getestet.
+
+\subsection{Hardwareabstraktion}\label{hardwareabstraktion-1}
+
+Die Kernsoftware ist unabhängig von konkreten Hardwarekomponenten.
+
+\subsection{Erweiterbarkeit}\label{erweiterbarkeit-1}
+
+Neue Funktionen können durch zusätzliche Module integriert werden.
+
+\subsection{Testbarkeit}\label{testbarkeit-1}
+
+Jede Komponente besitzt definierte Schnittstellen und kann automatisiert
+geprüft werden.
+
+\subsection{Simulationsfähigkeit}\label{simulationsfuxe4higkeit-1}
+
+Die Software kann mit virtuellen Komponenten betrieben werden.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\section{D.11 Zusammenfassung}\label{d.11-zusammenfassung}
+
+Die dargestellten Architektur- und Systemmodelle geben einen Überblick
+über den technischen Aufbau des Coasterbot-Prototyps.
+
+Die Modelle zeigen:
+
+\begin{itemize}
+\tightlist
+\item
+  die Struktur der Hardware,
+\item
+  die Softwarekomponenten,
+\item
+  die Kommunikation zwischen Modulen,
+\item
+  die Sicherheitsmechanismen,
+\item
+  die Simulationsumgebung.
+\end{itemize}
+
+Sie bilden damit eine zentrale Grundlage für die Umsetzung des
+Pflichtenhefts und unterstützen die nachvollziehbare Entwicklung eines
+modularen und erweiterbaren Robotersystems.
+
+\end{document}

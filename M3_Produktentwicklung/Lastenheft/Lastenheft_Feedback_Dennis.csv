@@ -1,7 +1,7 @@
 Kapitel;Seite;Bemerkung;Kategorie
 1.4;6;Sollten wir in die Projektabgrenzung noch den Akkubetrieb und User Interface mit aufnehmen?;Allgemein
 1.2;5;Wollen wir die Simulation im Lastenheft rausnehmen? Die nutzen wir ja eher für unsere eigene Zwecke und ist eher nichts, was ich aus Auftraggebersicht benötige. Im Grunde will ich doch nur den Roboter. Dann könnte 2.4.3,  4.4,  5.6, 6.5 entfallen. (Ggf. müssen wir hier schärfen wer Kunde und wer wir sind. Entwickeln wir für einen möglichen produzenten oder wollen wir Vertreiber sein);Allgemein
-2.1;7;diese präzise unter Getränken zu platzieren und nach Gebrauch wieder aufzunehmen -> sollten wir rausnehmen. Sehe ich als nicht umsetzbar im Prototypen. Erfordert komplexere Getränkeerkennung und Mechanik. Klingt nach Glas aufnehmen und Untersetzer drunter legen.";Allgemein
+2.1;7;diese präzise unter Getränken zu platzieren und nach Gebrauch wieder aufzunehmen -> sollten wir rausnehmen. Sehe ich als nicht umsetzbar im Prototypen. Erfordert komplexere Getränkeerkennung und Mechanik. Klingt nach Glas aufnehmen und Untersetzer drunter legen.;Allgemein
 2.4.2;8;Meinen wir Servicepersonal im Sinne von Angestellten beim Auftraggeber? Wenn ja, würde ich Wartungs und Fehlermeldungen raus lassen. Das sind Punkte, die ein technischer Service durchführen sollte. Ggf. als eigener Anwender;Allgemein
 2.5;9;Würde in eine Betriebsanleitung gehören, oder?;Allgemein
 2.6;9;Sehe ich als Teil des Pflichtenhefts. Dublette zu 1.4 + 2.2 + 2.3;Allgemein

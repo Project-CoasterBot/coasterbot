@@ -1,0 +1,30 @@
+Kapitel;Seite;Bemerkung;Kategorie
+1.4;6;Sollten wir in die Projektabgrenzung noch den Akkubetrieb und User Interface mit aufnehmen?;Allgemein
+1.2;5;Wollen wir die Simulation im Lastenheft rausnehmen? Die nutzen wir ja eher für unsere eigene Zwecke und ist eher nichts, was ich aus Auftraggebersicht benötige. Im Grunde will ich doch nur den Roboter. Dann könnte 2.4.3,  4.4,  5.6, 6.5 entfallen. (Ggf. müssen wir hier schärfen wer Kunde und wer wir sind. Entwickeln wir für einen möglichen produzenten oder wollen wir Vertreiber sein);Allgemein
+2.1;7;"""diese präzise unter Getränken zu platzieren und nach Gebrauch
+wieder aufzunehmen"" -> sollten wir rausnehmen. Sehe ich als nicht umsetzbar im Prototypen. Erfordert komplexere Getränkeerkennung und Mechanik. Klingt nach Glas aufnehmen und Untersetzer drunter legen.";Allgemein
+2.4.2;8;Meinen wir Servicepersonal im Sinne von Angestellten beim Auftraggeber? Wenn ja, würde ich Wartungs und Fehlermeldungen raus lassen. Das sind Punkte, die ein technischer Service durchführen sollte. Ggf. als eigener Anwender;Allgemein
+2.5;9;Würde in eine Betriebsanleitung gehören, oder?;Allgemein
+2.6;9;Sehe ich als Teil des Pflichtenhefts. Dublette zu 1.4 + 2.2 + 2.3;Allgemein
+2.7;9;Lokalisierung vielleicht in Level 2 aufnehmen? Ansonsten müssen wir uns überlegen, wie der Roboter den Untersetzer erkennt -> Kamera oder ähnliches wird nötig;Allgemein
+3.1;10;NAV-006: Ergänzung: Muss seine akutelle Position im Arbeitsbereich bestimmen können, solange er nicht manuell umgesetzt wurde;Allgemein
+3.1;11;NAV-008: Ergänzung: Der Zielpunkt darf nach einem festen Schema vorgegeben sein.;Allgemein
+3.1;11;NAV-011 finde ich zu streng würde ich rauswerfenen;Allgemein
+3.2;11;CST-003, 005 und 006 sollten wir rausnehmen. Wird mechanisch komplexer/für einen Prototypen vielleicht nicht nötig;Mechanik
+3.2;11;CST-neu: Der Coasterbot kann spezielalisierte Getränkeuntersetzer benötigen.;Mechanik
+3.3;11;SAF 001 und 005 können raus denke ich. Es wird kein Marktreifesprodukt und eine Gefahr wird vom Coasterbot nicht ausgehen. (Weder Schwer noch besonders Leistungsstark);Mechanik
+3.5;12/13;Dublette. Bereits in 2.7 abgehandelt;Allgemein
+4.2;14;"NFA-MAI-001 und 002 zusammenlegen als ""Der Prototyp muss modular konzipiert sein, so dass Sensoren, Aktoren und Softwarebausteine austauschbar sind"". Intention finde ich gut.";Mechanik
+4.5;15;"NFA-REL-neu: Der Coasterbot muss stabil stehen können und darf nicht von selbst kippen können.
+Hintergedanke: Kann ein guter Grund sein für einen Vierrad Antrieb anstelle von drei Rädern.";Mechanik
+4.7;16;Ist das nicht durch die vorherigen Kapitel abgedeckt? Braucht man das erneut?;Allgemein
+5.2;17;Dublette. Bereits in 2.4 abgehandelt.;Allgemein
+5.3.2;18;Ich würde positionieren gerne rausnehmen. Das würden den Mechanismus komplexer gestaltet, da wir den Untersetzer nicht einfach fallen lassen dürften;Mechanik
+5.3.3;18;Sollten wir rausnehmen. Erhöht Komplexität immens;Mechanik
+5.4;18;"letzter Bulletpoint müsste raus. Wir wollten im ersten Step ohne Akku arbeiten.
+Abschließen könnte man den Absatz mit einem Liefergegenstand. Zum Beispiel: mit dem Prototypen ist eine vollständige Stückliste zu liefern. (falls wir für einen Auftraggeber entwickeln, der die Dinger perspektivisch vertreiben will)";Allgemein
+5.7;19;Können wir raus lassen. Ist bereits im 1.4 abgehandelt.;Allgemein
+6.2/6.3;20/21;Wollen wir die ins Pflichtenheft führen oder ganz weglassen. Für mich klingt es so, als müssten wir jedes Ergebnis dann dokumentieren. Können wir machen, aber wenn wir uns jetzt festlegen, müssen wir genau wie beschrieben protokollieren, oder?;Allgemein
+6.6;22;"Eher als Anforderung formulieren. Nach letztem Satz vielleicht noch: ""Daher ist diese Kennung wieder erkennbar im Pflichtenheft und Dokumenten zu verwenden.""";Allgemein
+7;23;Doppel 7 im Titel :);Allgemein
+8-A;25;Braucht ein Lastenheft Referenzen?;Allgemein

@@ -6,11 +6,11 @@ Die Gastronomie steht seit mehreren Jahren vor erheblichen personellen Herausfor
 
 Parallel dazu gewinnen autonome mobile Robotersysteme zunehmend an Bedeutung. Fortschritte in den Bereichen Sensorik, eingebettete Systeme und Machine Learning ermöglichen den Einsatz kleiner autonomer Roboter auch in dynamischen Umgebungen. Während bereits Serviceroboter für den Transport von Speisen oder Getränken existieren, existieren bislang nur wenige spezialisierte Systeme für kleinere Serviceaufgaben auf dem Tisch.
 
-Vor diesem Hintergrund soll ein kompakter autonomer Roboter entwickelt werden, der Getränkeuntersetzer selbstständig zu Gästen bringt, unter Getränken platziert und nach Gebrauch wieder aufnimmt. Der entwickelte Prototyp dient als Machbarkeitsnachweis für dieses Konzept.
+Vor diesem Hintergrund soll ein kompakter autonomer Roboter entwickelt werden, der Getränkeuntersetzer selbstständig zu Gästen bringt, auf dem Tisch platziert und nach Gebrauch wieder aufnimmt. Der entwickelte Prototyp dient als Machbarkeitsnachweis für dieses Konzept.
 
 ## Projektziel
 
-Ziel dieses Projekts ist die Entwicklung eines Prototyp, nämlich des *Coasterbots*. Dabei handelt es sich um einen ca. handtellergroßen autonomen mobilen Roboter, der sich auf einer Tischoberfläche selbstständig bewegt und Getränkeuntersetzer automatisiert verteilt sowie wieder einsammelt.
+Ziel dieses Projekts ist die Entwicklung eines Prototyps, nämlich des *Coasterbots*. Dabei handelt es sich um einen ca. handtellergroßen autonomen mobilen Roboter, der sich auf einer Tischoberfläche selbstständig bewegt und Getränkeuntersetzer automatisiert verteilt sowie wieder einsammelt.
 
 Im Rahmen der Projektarbeit liegt der Schwerpunkt auf der Entwicklung einer geeigneten Systemarchitektur sowie der Konzeption der erforderlichen Softwarekomponenten. Zusätzlich werden die mechanischen und elektronischen Komponenten des Prototyps so ausgearbeitet, dass eine Fertigung grundsätzlich möglich ist. Zur Absicherung des Systementwurfs wird eine Simulation entwickelt, mit der die wesentlichen Funktionen des Roboters reproduzierbar getestet und validiert werden können.
 
@@ -21,7 +21,7 @@ Der Fokus der Arbeit liegt nicht auf der Entwicklung eines serienreifen Produkts
 Der Projektumfang umfasst die Entwicklung eines Prototyps mit den für den Funktionsnachweis erforderlichen Eigenschaften. Hierzu gehören insbesondere:
 
 * Konzeption der Sensorik und Aktorik.
-* Erstellung der mechanischen Konstruktion einschließlich der erforderlichen STL-Dateien.
+* Erstellung der mechanischen Konstruktion, einschließlich der erforderlichen STL-Dateien.
 * Konzeption der Navigations- und Lokalisierungsfunktionen.
 * Entwicklung einer modularen Softwarearchitektur.
 * Entwicklung der Softwarekomponenten zur Steuerung des Roboters.
@@ -45,6 +45,7 @@ Nicht Bestandteil dieses Projekts sind Funktionen, die über den Nachweis der gr
 * Getränketransport als Primärfunktion des Systems.
 * Automatisierter Austausch gegen einen weitere Coaster
 * Betrieb mit aufladbarem Akku
+* Entwicklung einer Nutzeroberfläche
 
 Die genannten Funktionen stellen mögliche Erweiterungen zukünftiger Entwicklungsstufen dar und werden im Rahmen dieser Projektarbeit nicht umgesetzt.
 
@@ -56,7 +57,7 @@ Dieses Lastenheft beschreibt die Anforderungen an den zu entwickelnden Coasterbo
 
 ## Systembeschreibung
 
-Der Coasterbot ist ein autonomes, mobiles Robotersystem, das auf Tischoberflächen eingesetzt wird. Seine Hauptaufgabe besteht darin, Getränkeuntersetzer selbstständig zu Gästen zu transportieren, diese präzise unter Getränken zu platzieren und nach Gebrauch wieder aufzunehmen. Der Bot bewegt sich dabei eigenständig innerhalb des ihm zur Verfügung stehenden Arbeitsbereichs und erkennt Hindernisse sowie die Begrenzungen der Tischoberfläche.
+Der Coasterbot ist ein autonomes, mobiles Robotersystem, das auf Tischoberflächen eingesetzt wird. Seine Hauptaufgabe besteht darin, Getränkeuntersetzer selbstständig zu Gästen zu transportieren, diese auf dem Tisch zu platzieren und nach Gebrauch wieder aufzunehmen. Der Bot bewegt sich dabei eigenständig innerhalb des ihm zur Verfügung stehenden Arbeitsbereichs und erkennt Hindernisse sowie die Begrenzungen der Tischoberfläche.
 
 Der Coasterbot ist als kompakter Prototyp konzipiert und dient dem Nachweis der technischen Machbarkeit des beschriebenen Anwendungsfalls. Die Entwicklung umfasst sowohl die mechanische Konstruktion als auch die Elektronik sowie die Softwarearchitektur einschließlich einer Simulationsumgebung zur Validierung des Systemverhaltens.
 
@@ -161,24 +162,24 @@ Da Gegenstand dieser Projektarbeit die Entwicklung eines Prototyps ist, beziehen
 | NAV-003 | Der Coasterbot muss die Begrenzung der Tischoberfläche erkennen.                                             | Muss                    |
 | NAV-004 | Der Coasterbot darf die Tischoberfläche nicht verlassen.                                                     | Muss                    |
 | NAV-005 | Der Coasterbot muss seine Fahrtroute während der Bewegung an erkannte Hindernisse anpassen können.           | Muss                    |
-| NAV-006 | Der Coasterbot muss seine aktuelle Position innerhalb des Arbeitsbereichs bestimmen können.                  | Muss                    |
+| NAV-006 | Der Coasterbot muss seine aktuelle Position innerhalb des Arbeitsbereichs bestimmen können, solange er nicht manuell umgesetzt wurde                  | Muss                    |
 | NAV-007 | Der Coasterbot muss seine Orientierung bestimmen können.                                                     | Muss                    |
-| NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen. | Muss                    |
+| NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen. Der Zielpunkt darf nach einem festen Schema vorgegeben sein. | Muss                    |
 | NAV-009 | Der Coasterbot muss sich autonom auf der Tischoberfläche bewegen können.                                     | Muss                    |
 | NAV-010 | Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht unbeabsichtigt verschieben.                    | Muss                    |
-| NAV-011 | Der Coasterbot darf Personen während des Betriebs nicht berühren.                                            | Muss                    |
-| NAV-012 | Der Coasterbot soll Getränke auf der Tischoberfläche erkennen können.                                        | Soll                    |
+| NAV-011 | Der Coasterbot soll Getränke auf der Tischoberfläche erkennen können.                                        | Soll                    |
 
 ## Handhabung von Getränkeuntersetzern
 
 | ID      | Anforderung                                                                                                  | Priorität               |
 | ------- |:------------------------------------------------------------------------------------------------------------ |:------------------------|
-| CST-001 | Der Coasterbot muss einen Getränkeuntersetzer aufnehmen können.                                              | Muss                    |
-| CST-002 | Der Coasterbot muss einen Getränkeuntersetzer transportieren können.                                         | Muss                    |
-| CST-003 | Der Coasterbot muss einen Getränkeuntersetzer präzise unter einem Getränk platzieren können.                 | Muss                    |
-| CST-004 | Der Coasterbot muss einen Getränkeuntersetzer wieder aufnehmen können.                                       | Muss                    |
-| CST-005 | Der Coasterbot muss erkennen können, ob sich ein Getränkeuntersetzer erfolgreich unter dem Getränk befindet. | Muss                    |
-| CST-006 | Der Coasterbot muss erkennen können, ob ein Getränkeuntersetzer erfolgreich aufgenommen wurde.               | Muss                    |
+| CST-001 | Der Coasterbot muss einen Getränkeuntersetzer aufnehmen.                                              | Muss                    |
+| CST-002 | Der Coasterbot muss einen Getränkeuntersetzer transportieren.                                         | Muss                    |
+| CST-003 | Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch platzieren.                 | Muss                    |
+| CST-004 | Der Coasterbot muss einen ausgelegten Getränkeuntersetzer wieder aufnehmen können.                                       | Muss                    |
+| CST-005 | Der Coasterbot muss erkennen, ob sich ein Getränkeuntersetzer erfolgreich abgesetzt wurde. | Muss                    |
+| CST-006 | Der Coasterbot muss erkennen, ob ein Getränkeuntersetzer erfolgreich aufgenommen wurde.               | Muss                    |
+| CST-007 | Der Coasterbot kann spezielalisierte Getränkeuntersetzer benötigen. | Kann          |
 
 ## Sicherheit
 
@@ -288,6 +289,7 @@ Der Coasterbot muss auch bei Fehlern einen sicheren und kontrollierten Betrieb g
 | NFA-REL-001 | Das System muss Fehler erkennen und protokollieren können.                                                         | Muss      |
 | NFA-REL-002 | Das System muss nach erkannten Fehlern in einen sicheren Betriebszustand wechseln.                                 | Muss      |
 | NFA-REL-003 | Ein Ausfall einzelner Softwarekomponenten darf nicht zu einem unkontrollierten Verhalten des Gesamtsystems führen. | Muss      |
+| NFA-REL-004 | Das System muss stabil stehen können und darf nicht von selbst kippen können. | Muss |
 
 ## Dokumentation
 
@@ -356,11 +358,11 @@ Die Tischoberfläche bildet den Arbeitsbereich des Roboters. Das System muss der
 
 ### Getränkeuntersetzer
 
-Getränkeuntersetzer stellen das primäre Transportobjekt des Systems dar. Der Coasterbot muss diese aufnehmen, transportieren, positionieren und wieder aufnehmen können.
+Getränkeuntersetzer stellen das primäre Transportobjekt des Systems dar. Der Coasterbot muss diese aufnehmen, transportieren, ablegen und wieder aufnehmen können.
 
 ### Getränke
 
-Getränke befinden sich auf der Tischoberfläche und dienen als Referenz für die Positionierung der Getränkeuntersetzer. Sie stellen gleichzeitig Hindernisse dar, die während der Navigation berücksichtigt werden müssen.
+Getränke befinden sich auf der Tischoberfläche. Sie stellen Hindernisse dar, die während der Navigation berücksichtigt werden müssen.
 
 ### Hindernisse
 
@@ -443,31 +445,32 @@ Zur Überprüfung der Anforderungen werden die folgenden Verifikationsverfahren 
 
 Je nach Anforderung können mehrere Verifikationsverfahren kombiniert werden.
 
-## Verifikation der funktionalen Anforderungen
+<!-- Ins Pflichtenheft überbehmen  -->
+<!-- ## Verifikation der funktionalen Anforderungen -->
 
-Die funktionalen Anforderungen werden entsprechend ihrer Eigenschaften mit geeigneten Verfahren überprüft.
+<!-- Die funktionalen Anforderungen werden entsprechend ihrer Eigenschaften mit geeigneten Verfahren überprüft. -->
 
-| Anforderungsbereich                 | Verifikation              |
-| ----------------------------------- | ------------------------- |
-| Navigation und Lokalisierung        | Simulation, Test          |
-| Handhabung von Getränkeuntersetzern | Simulation, Test          |
-| Sicherheit                          | Analyse, Simulation, Test |
-| Systemüberwachung                   | Test                      |
+<!-- | Anforderungsbereich                 | Verifikation              | -->
+<!-- | ----------------------------------- | ------------------------- | -->
+<!-- | Navigation und Lokalisierung        | Simulation, Test          | -->
+<!-- | Handhabung von Getränkeuntersetzern | Simulation, Test          | -->
+<!-- | Sicherheit                          | Analyse, Simulation, Test | -->
+<!-- | Systemüberwachung                   | Test                      | -->
 
-Die einzelnen Testfälle werden im Pflichtenheft bzw. im Testkonzept eindeutig den jeweiligen Anforderungen zugeordnet.
+<!-- Die einzelnen Testfälle werden im Pflichtenheft bzw. im Testkonzept eindeutig den jeweiligen Anforderungen zugeordnet. -->
 
-## Verifikation der nichtfunktionalen Anforderungen
+<!-- ## Verifikation der nichtfunktionalen Anforderungen -->
 
-Die nichtfunktionalen Anforderungen werden überwiegend durch Inspektion, Analyse sowie Tests nachgewiesen.
+<!-- Die nichtfunktionalen Anforderungen werden überwiegend durch Inspektion, Analyse sowie Tests nachgewiesen. -->
 
-| Anforderungsbereich  | Verifikation        |
-| -------------------- | ------------------- |
-| Softwarearchitektur  | Inspektion          |
-| Modularität          | Inspektion          |
-| Erweiterbarkeit      | Analyse, Inspektion |
-| Testbarkeit          | Test                |
-| Simulationsfähigkeit | Simulation          |
-| Dokumentation        | Inspektion          |
+<!-- | Anforderungsbereich  | Verifikation        | -->
+<!-- | -------------------- | ------------------- | -->
+<!-- | Softwarearchitektur  | Inspektion          | -->
+<!-- | Modularität          | Inspektion          | -->
+<!-- | Erweiterbarkeit      | Analyse, Inspektion | -->
+<!-- | Testbarkeit          | Test                | -->
+<!-- | Simulationsfähigkeit | Simulation          | -->
+<!-- | Dokumentation        | Inspektion          | -->
 
 ## Abnahmekriterien
 
@@ -510,13 +513,15 @@ Die Rückverfolgbarkeit umfasst mindestens folgende Beziehungen:
 * Anforderung → Simulation
 * Anforderung → Verifikationsergebnis
 
-Durch diese Zuordnung kann jederzeit nachvollzogen werden, wie eine Anforderung umgesetzt und überprüft wurde.
+Durch diese Zuordnung kann jederzeit nachvollzogen werden, wie eine Anforderung
+umgesetzt und überprüft wurde. Die Kennung ist ebenfalls in den nachfolgenden
+Dokumenten zu verwendet.
 
 ## Abnahmeentscheidung
 
 Die Abnahme des Projekts erfolgt auf Grundlage der im Lastenheft definierten Anforderungen sowie der in der Definition of Done beschriebenen Ergebnisse. Als erfüll gilt das Projekt, wenn die verpflichtenden Anforderungen des **Maturity Level 1** erfüllt und durch geeignete Verifikationsverfahren nachgewiesen wurden. Anforderungen höherer Maturity Levels sind nicht Bestandteil der Abnahme und dienen ausschließlich als Grundlage für zukünftige Erweiterungen des Systems.
 
-# 7 Glossar
+# Glossar
 
 Dieses Glossar definiert die im Lastenheft verwendeten Fachbegriffe. Ziel ist es, ein einheitliches Verständnis der verwendeten Terminologie sicherzustellen und Mehrdeutigkeiten zu vermeiden.
 

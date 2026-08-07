@@ -382,6 +382,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 05.08.2026 & Etringer & Erstfassung des Lastenhefts\\
+2 & 08.08.2026 & Borutta, Such, Etringer & Anpassungen nach Absprache \\
 \bottomrule
 \end{tabularx}
 
@@ -414,13 +415,13 @@ wenige spezialisierte Systeme für kleinere Serviceaufgaben auf dem
 Tisch.
 
 Vor diesem Hintergrund soll ein kompakter autonomer Roboter entwickelt
-werden, der Getränkeuntersetzer selbstständig zu Gästen bringt, unter
-Getränken platziert und nach Gebrauch wieder aufnimmt. Der entwickelte
+werden, der Getränkeuntersetzer selbstständig zu Gästen bringt, auf dem
+Tisch platziert und nach Gebrauch wieder aufnimmt. Der entwickelte
 Prototyp dient als Machbarkeitsnachweis für dieses Konzept.
 
 \subsection{Projektziel}\label{projektziel}
 
-Ziel dieses Projekts ist die Entwicklung eines Prototyp, nämlich des
+Ziel dieses Projekts ist die Entwicklung eines Prototyps, nämlich des
 \emph{Coasterbots}. Dabei handelt es sich um einen ca. handtellergroßen
 autonomen mobilen Roboter, der sich auf einer Tischoberfläche
 selbstständig bewegt und Getränkeuntersetzer automatisiert verteilt
@@ -449,7 +450,7 @@ insbesondere:
 \item
   Konzeption der Sensorik und Aktorik.
 \item
-  Erstellung der mechanischen Konstruktion einschließlich der
+  Erstellung der mechanischen Konstruktion, einschließlich der
   erforderlichen STL-Dateien.
 \item
   Konzeption der Navigations- und Lokalisierungsfunktionen.
@@ -495,6 +496,12 @@ folgende Themen nicht Gegenstand der Projektarbeit:
   Automatisierte Tischreinigung.
 \item
   Getränketransport als Primärfunktion des Systems.
+\item
+  Automatisierter Austausch gegen einen weitere Coaster
+\item
+  Betrieb mit aufladbarem Akku
+\item
+  Entwicklung einer Nutzeroberfläche
 \end{itemize}
 
 Die genannten Funktionen stellen mögliche Erweiterungen zukünftiger
@@ -517,11 +524,11 @@ während des gesamten Entwicklungsprozesses.
 
 Der Coasterbot ist ein autonomes, mobiles Robotersystem, das auf
 Tischoberflächen eingesetzt wird. Seine Hauptaufgabe besteht darin,
-Getränkeuntersetzer selbstständig zu Gästen zu transportieren, diese
-präzise unter Getränken zu platzieren und nach Gebrauch wieder
-aufzunehmen. Der Bot bewegt sich dabei eigenständig innerhalb des ihm
-zur Verfügung stehenden Arbeitsbereichs und erkennt Hindernisse sowie
-die Begrenzungen der Tischoberfläche.
+Getränkeuntersetzer selbstständig zu Gästen zu transportieren, diese auf
+dem Tisch zu platzieren und nach Gebrauch wieder aufzunehmen. Der Bot
+bewegt sich dabei eigenständig innerhalb des ihm zur Verfügung stehenden
+Arbeitsbereichs und erkennt Hindernisse sowie die Begrenzungen der
+Tischoberfläche.
 
 Der Coasterbot ist als kompakter Prototyp konzipiert und dient dem
 Nachweis der technischen Machbarkeit des beschriebenen Anwendungsfalls.
@@ -728,18 +735,18 @@ Muss \\
 NAV-005 & Der Coasterbot muss seine Fahrtroute während der Bewegung an
 erkannte Hindernisse anpassen können. & Muss \\
 NAV-006 & Der Coasterbot muss seine aktuelle Position innerhalb des
-Arbeitsbereichs bestimmen können. & Muss \\
+Arbeitsbereichs bestimmen können, solange er nicht manuell umgesetzt
+wurde & Muss \\
 NAV-007 & Der Coasterbot muss seine Orientierung bestimmen können. &
 Muss \\
 NAV-008 & Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb
-einer definierten Positionsgenauigkeit erreichen. & Muss \\
+einer definierten Positionsgenauigkeit erreichen. Der Zielpunkt darf
+nach einem festen Schema vorgegeben sein. & Muss \\
 NAV-009 & Der Coasterbot muss sich autonom auf der Tischoberfläche
 bewegen können. & Muss \\
 NAV-010 & Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht
 unbeabsichtigt verschieben. & Muss \\
-NAV-011 & Der Coasterbot darf Personen während des Betriebs nicht
-berühren. & Muss \\
-NAV-012 & Der Coasterbot soll Getränke auf der Tischoberfläche erkennen
+NAV-011 & Der Coasterbot soll Getränke auf der Tischoberfläche erkennen
 können. & Soll \\
 \end{longtable}
 
@@ -762,18 +769,20 @@ Priorität
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-CST-001 & Der Coasterbot muss einen Getränkeuntersetzer aufnehmen
-können. & Muss \\
-CST-002 & Der Coasterbot muss einen Getränkeuntersetzer transportieren
-können. & Muss \\
-CST-003 & Der Coasterbot muss einen Getränkeuntersetzer präzise unter
-einem Getränk platzieren können. & Muss \\
-CST-004 & Der Coasterbot muss einen Getränkeuntersetzer wieder aufnehmen
-können. & Muss \\
-CST-005 & Der Coasterbot muss erkennen können, ob sich ein
-Getränkeuntersetzer erfolgreich unter dem Getränk befindet. & Muss \\
-CST-006 & Der Coasterbot muss erkennen können, ob ein
-Getränkeuntersetzer erfolgreich aufgenommen wurde. & Muss \\
+CST-001 & Der Coasterbot muss einen Getränkeuntersetzer aufnehmen. &
+Muss \\
+CST-002 & Der Coasterbot muss einen Getränkeuntersetzer transportieren.
+& Muss \\
+CST-003 & Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch
+platzieren. & Muss \\
+CST-004 & Der Coasterbot muss einen ausgelegten Getränkeuntersetzer
+wieder aufnehmen können. & Muss \\
+CST-005 & Der Coasterbot muss erkennen, ob sich ein Getränkeuntersetzer
+erfolgreich abgesetzt wurde. & Muss \\
+CST-006 & Der Coasterbot muss erkennen, ob ein Getränkeuntersetzer
+erfolgreich aufgenommen wurde. & Muss \\
+CST-007 & Der Coasterbot kann spezielalisierte Getränkeuntersetzer
+benötigen. & Kann \\
 \end{longtable}
 
 \subsection{Sicherheit}\label{sicherheit}
@@ -1060,6 +1069,8 @@ NFA-REL-002 & Das System muss nach erkannten Fehlern in einen sicheren
 Betriebszustand wechseln. & Muss \\
 NFA-REL-003 & Ein Ausfall einzelner Softwarekomponenten darf nicht zu
 einem unkontrollierten Verhalten des Gesamtsystems führen. & Muss \\
+NFA-REL-004 & Das System muss stabil stehen können und darf nicht von
+selbst kippen können. & Muss \\
 \end{longtable}
 
 \subsection{Dokumentation}\label{dokumentation}
@@ -1197,15 +1208,13 @@ muss deren Begrenzungen erkennen und darf diese nicht überschreiten.
 \subsubsection{Getränkeuntersetzer}\label{getruxe4nkeuntersetzer}
 
 Getränkeuntersetzer stellen das primäre Transportobjekt des Systems dar.
-Der Coasterbot muss diese aufnehmen, transportieren, positionieren und
-wieder aufnehmen können.
+Der Coasterbot muss diese aufnehmen, transportieren, ablegen und wieder
+aufnehmen können.
 
 \subsubsection{Getränke}\label{getruxe4nke}
 
-Getränke befinden sich auf der Tischoberfläche und dienen als Referenz
-für die Positionierung der Getränkeuntersetzer. Sie stellen gleichzeitig
-Hindernisse dar, die während der Navigation berücksichtigt werden
-müssen.
+Getränke befinden sich auf der Tischoberfläche. Sie stellen Hindernisse
+dar, die während der Navigation berücksichtigt werden müssen.
 
 \subsubsection{Hindernisse}\label{hindernisse}
 
@@ -1368,49 +1377,6 @@ Simulation. \\
 Je nach Anforderung können mehrere Verifikationsverfahren kombiniert
 werden.
 
-\subsection{Verifikation der funktionalen
-Anforderungen}\label{verifikation-der-funktionalen-anforderungen}
-
-Die funktionalen Anforderungen werden entsprechend ihrer Eigenschaften
-mit geeigneten Verfahren überprüft.
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-Anforderungsbereich & Verifikation \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Navigation und Lokalisierung & Simulation, Test \\
-Handhabung von Getränkeuntersetzern & Simulation, Test \\
-Sicherheit & Analyse, Simulation, Test \\
-Systemüberwachung & Test \\
-\end{longtable}
-
-Die einzelnen Testfälle werden im Pflichtenheft bzw. im Testkonzept
-eindeutig den jeweiligen Anforderungen zugeordnet.
-
-\subsection{Verifikation der nichtfunktionalen
-Anforderungen}\label{verifikation-der-nichtfunktionalen-anforderungen}
-
-Die nichtfunktionalen Anforderungen werden überwiegend durch Inspektion,
-Analyse sowie Tests nachgewiesen.
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule\noalign{}
-Anforderungsbereich & Verifikation \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Softwarearchitektur & Inspektion \\
-Modularität & Inspektion \\
-Erweiterbarkeit & Analyse, Inspektion \\
-Testbarkeit & Test \\
-Simulationsfähigkeit & Simulation \\
-Dokumentation & Inspektion \\
-\end{longtable}
-
 \subsection{Abnahmekriterien}\label{abnahmekriterien}
 
 Die Entwicklung des Coasterbots gilt als erfolgreich abgeschlossen, wenn
@@ -1498,7 +1464,8 @@ Die Rückverfolgbarkeit umfasst mindestens folgende Beziehungen:
 \end{itemize}
 
 Durch diese Zuordnung kann jederzeit nachvollzogen werden, wie eine
-Anforderung umgesetzt und überprüft wurde.
+Anforderung umgesetzt und überprüft wurde. Die Kennung ist ebenfalls in
+den nachfolgenden Dokumenten zu verwendet.
 
 \subsection{Abnahmeentscheidung}\label{abnahmeentscheidung}
 
@@ -1511,7 +1478,7 @@ Anforderungen höherer Maturity Levels sind nicht Bestandteil der Abnahme
 und dienen ausschließlich als Grundlage für zukünftige Erweiterungen des
 Systems.
 
-\section{7 Glossar}\label{glossar}
+\section{Glossar}\label{glossar}
 
 Dieses Glossar definiert die im Lastenheft verwendeten Fachbegriffe.
 Ziel ist es, ein einheitliches Verständnis der verwendeten Terminologie
@@ -1610,7 +1577,7 @@ Coasterbots. Sie umfassen Normen, Fachliteratur und wissenschaftliche
 Veröffentlichungen aus den Bereichen Requirements Engineering,
 Softwarearchitektur, Robotik und Qualitätssicherung.
 
-\subsection{A.1 Normen}\label{a.1-normen}
+\subsection{Normen}\label{normen}
 
 \textbf{ISO/IEC/IEEE 29148:2018} \emph{Systems and software engineering
 -- Life cycle processes -- Requirements engineering.} International
@@ -1655,7 +1622,7 @@ ISO/IEC/IEEE 29148 ersetzt.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.2 Nationale Richtlinien}\label{a.2-nationale-richtlinien}
+\subsection{Nationale Richtlinien}\label{nationale-richtlinien}
 
 \textbf{V-Modell XT}
 
@@ -1669,7 +1636,7 @@ Engineering, Systementwurf und Test.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.3 Fachliteratur}\label{a.3-fachliteratur}
+\subsection{Fachliteratur}\label{fachliteratur}
 
 Pohl, K. (2022)
 
@@ -1724,7 +1691,7 @@ Konzepte für lose gekoppelte und wartbare Softwaresysteme.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.4 Robotik}\label{a.4-robotik}
+\subsection{Robotik}\label{robotik}
 
 Siciliano, B.; Khatib, O. (Hrsg.) (2016)
 
@@ -1765,7 +1732,7 @@ Roboter.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.5 Softwarearchitektur}\label{a.5-softwarearchitektur}
+\subsection{Softwarearchitektur}\label{softwarearchitektur-1}
 
 Richards, M.; Ford, N. (2020)
 
@@ -1791,8 +1758,8 @@ Architekturmethoden für komplexe Softwaresysteme.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.6 Test und
-Qualitätssicherung}\label{a.6-test-und-qualituxe4tssicherung}
+\subsection{Test und
+Qualitätssicherung}\label{test-und-qualituxe4tssicherung}
 
 Myers, G. J.; Sandler, C.; Badgett, T. (2011)
 
@@ -1818,8 +1785,8 @@ Methoden zur Planung und Durchführung von Softwaretests.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.7 Wissenschaftliche Quellen des
-Projekts}\label{a.7-wissenschaftliche-quellen-des-projekts}
+\subsection{Wissenschaftliche Quellen des
+Projekts}\label{wissenschaftliche-quellen-des-projekts}
 
 Deutsche Industrie- und Handelskammer (DIHK)
 
@@ -1852,8 +1819,8 @@ gastronomischer Betriebe.
 
 \begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
-\subsection{A.8 Projektspezifische
-Dokumente}\label{a.8-projektspezifische-dokumente}
+\subsection{Projektspezifische
+Dokumente}\label{projektspezifische-dokumente}
 
 Die folgenden Dokumente entstehen im Verlauf des Projekts und ergänzen
 das Lastenheft:
@@ -1883,6 +1850,5 @@ das Lastenheft:
 \item
   Projektdokumentation
 \end{itemize}
-
 
 \end{document}

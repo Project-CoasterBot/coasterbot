@@ -2354,16 +2354,16 @@ Der Status wird wie folgt bewertet:
 
 | ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                              | Komponente                      | Testfall | Status |
 | ------- | --------------------------------------------------- | ------------------------------------------------------- | ------------------------------- | -------- | ------ |
-| NAV-001 | Der Bot muss Hindernisse auf dem Tisch erkennen.    | Verarbeitung von Sensordaten durch Hinderniserkennung.  | Sensorabstraktion, Navigation   | SIM-002  | Offen  |
-| NAV-002 | Der Bot muss Hindernissen selbstständig ausweichen. | Dynamische Routenanpassung durch Navigationskomponente. | Navigation                      | SIM-002  | Offen  |
-| NAV-003 | Der Bot muss das Tischende erkennen.                | Modellierung der Tischkante und Sicherheitsauswertung.  | Sensorik, Sicherheitskomponente | SIM-003  | Offen  |
-| NAV-004 | Der Bot muss auf dem Tisch bleiben.                 | Sicherheitsstopp bei erkannter Tischkante.              | Sicherheitskomponente           | SIM-003  | Offen  |
-| NAV-005 | Der Bot muss seine Fahrroute dynamisch anpassen.    | Implementierung einer adaptiven Routenplanung.          | Navigation                      | SIM-002  | Offen  |
-| NAV-006 | Der Bot muss seine Position bestimmen können.       | Lokalisierung über Sensordaten und Zustandsmodell.      | Lokalisierung                   | SIM-001  | Offen  |
-| NAV-007 | Der Bot muss seine Orientierung bestimmen können.   | Berechnung der Roboterpose.                             | Lokalisierung                   | SIM-001  | Offen  |
-| NAV-008 | Der Bot muss einen Zielpunkt erreichen.             | Zielnavigation mit Positionsprüfung.                    | Navigation                      | SIM-001  | Offen  |
-| NAV-009 | Der Bot muss sich kontrolliert bewegen.             | Bewegungssteuerung mit Geschwindigkeitsbegrenzung.      | Bewegungssteuerung              | SYS-002  | Offen  |
-| NAV-010 | Der Bot muss selbstständig zum Kunden fahren.       | Zielpunktbasierte Navigation.                           | Anwendungsebene                 | SYS-002  | Offen  |
+| NAV-001 | Der Coasterbot muss Hindernisse auf dem Tisch erkennen.    | Verarbeitung von Sensordaten durch Hinderniserkennung.  | Sensorabstraktion, Navigation   | SIM-002  | Offen  |
+| NAV-002 | Der Coasterbot muss Hindernissen selbstständig ausweichen. | Dynamische Routenanpassung durch Navigationskomponente. | Navigation                      | SIM-002  | Offen  |
+| NAV-003 | Der Coasterbot muss die Begrenzung der Tischoberfläche erkennen.                | Modellierung der Tischkante und Sicherheitsauswertung.  | Sensorik, Sicherheitskomponente | SIM-003  | Offen  |
+| NAV-004 | Der Coasterbot darf die Tischoberfläche nicht verlassen.                 | Sicherheitsstopp bei erkannter Tischkante.              | Sicherheitskomponente           | SIM-003  | Offen  |
+| NAV-005 | Der Coasterbot muss seine Fahrroute während der Bewegung an erkannte Hindernisse anpassen können.    | Implementierung einer adaptiven Routenplanung.          | Navigation                      | SIM-002  | Offen  |
+| NAV-006 | Der Coasterbot muss seine aktuelle Position innerhalb des Arbeitsbereichs bestimmen können, solange er nitch manuell umgesetzt wurde.       | Lokalisierung über Sensordaten und Zustandsmodell.      | Lokalisierung                   | SIM-001  | Offen  |
+| NAV-007 | Der Coasterbot muss seine Orientierung bestimmen können.   | Berechnung der Roboterpose.                             | Lokalisierung                   | SIM-001  | Offen  |
+| NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen.             | Zielnavigation mit Positionsprüfung.                    | Navigation                      | SIM-001  | Offen  |
+| NAV-009 | Der Coasterbot muss sich autonom auf der Tischoberfläche bewegen können.             | Bewegungssteuerung mit Geschwindigkeitsbegrenzung.      | Bewegungssteuerung              | SYS-002  | Offen  |
+| NAV-010 | Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht unbeabsichtigt verschieben.       | Zielpunktbasierte Navigation.                           | Anwendungsebene                 | SYS-002  | Offen  |
 
 ---
 

@@ -1,6 +1,6 @@
-# 1 Einleitung
+# Einleitung
 
-## 1.1 Zweck des Pflichtenhefts
+## Zweck des Pflichtenhefts
 
 Dieses Pflichtenheft beschreibt die technische Umsetzung des im Lastenheft definierten Coasterbot-Prototyps. Es dient als verbindliche Grundlage für die Entwicklung der Systemarchitektur, der Hardwarekomponenten, der Softwarekomponenten sowie der Simulationsumgebung.
 
@@ -8,15 +8,15 @@ Während das Lastenheft die Anforderungen und Ziele des Auftraggebers beschreibt
 
 Das Pflichtenheft dient allen an der Entwicklung beteiligten Personen als technische Referenz und ermöglicht eine nachvollziehbare Verbindung zwischen Anforderungen, Implementierung und Tests.
 
-## 1.2 Projektbeschreibung
+## Projektbeschreibung
 
-Im Rahmen der Projektarbeit wird ein Prototyp eines autonomen mobilen Roboters entwickelt, der als Coasterbot bezeichnet wird. Der Roboter soll in gastronomischen Umgebungen eingesetzt werden und die Aufgabe übernehmen, Getränkeuntersetzer selbstständig auf einer Tischoberfläche zu transportieren, unter Getränken zu platzieren und wieder aufzunehmen.
+Im Rahmen der Projektarbeit wird ein Prototyp eines autonomen mobilen Roboters entwickelt, der als Coasterbot bezeichnet wird. Der Roboter soll in gastronomischen Umgebungen eingesetzt werden und die Aufgabe übernehmen, Getränkeuntersetzer selbstständig zu transportieren. Dieser platziert die Untersetzer auf dem Tisch und nimmt sie erneut auf.
 
 Der Fokus der Entwicklung liegt auf der Realisierung eines funktionsfähigen Prototyps mit einer modularen Softwarearchitektur und einer validierbaren Simulationsumgebung. Dabei werden insbesondere die Bereiche autonome Navigation, Lokalisierung, Objekthandhabung, Systemüberwachung und Sicherheit betrachtet.
 
 Die Entwicklung erfolgt nach einem komponentenbasierten Ansatz, bei dem Hardware- und Softwarekomponenten über definierte Schnittstellen miteinander verbunden werden. Dadurch soll eine spätere Erweiterung des Systems um zusätzliche Funktionen wie Bestellaufnahme, Reinigung oder Getränketransport ermöglicht werden.
 
-## 1.3 Zielsetzung
+## Zielsetzung
 
 Ziel der technischen Umsetzung ist die Entwicklung eines prototypischen Robotersystems, welches die im Lastenheft definierten Anforderungen des Maturity Level 1 erfüllt.
 
@@ -32,7 +32,7 @@ Hierzu werden folgende Ergebnisse angestrebt:
 
 Der Schwerpunkt liegt auf dem Nachweis der technischen Machbarkeit und nicht auf der Entwicklung eines serienreifen Produkts.
 
-## 1.4 Technische Zielarchitektur
+##Technische Zielarchitektur
 
 Der Coasterbot wird als eingebettetes, autonomes Robotersystem umgesetzt. Die geplante Architektur besteht aus mehreren logisch getrennten Ebenen:
 
@@ -43,7 +43,7 @@ Die Hardwareebene umfasst alle physischen Komponenten des Roboters:
 * Recheneinheit zur Ausführung der Steuerungssoftware.
 * Sensorik zur Erfassung der Umgebung und des Systemzustands.
 * Aktorik zur Bewegung und Manipulation von Getränkeuntersetzern.
-* Energieversorgung einschließlich Akkumanagement.
+* Energieversorgung, inklusive Akkumanagement.
 
 ### Abstraktionsebene
 
@@ -64,7 +64,7 @@ Die Anwendungsebene beinhaltet die eigentliche Systemlogik:
 
 Die Simulationsebene ermöglicht die Ausführung und Validierung der Software ohne physische Hardware. Dabei werden Sensoren, Aktoren und Umgebungsbedingungen modelliert.
 
-## 1.5 Abgrenzung
+## Abgrenzung
 
 Die folgenden Funktionen werden im Rahmen dieser Projektarbeit nicht umgesetzt:
 
@@ -75,10 +75,11 @@ Die folgenden Funktionen werden im Rahmen dieser Projektarbeit nicht umgesetzt:
 * Kommunikation über externe Netzwerke.
 * Kartierung und dauerhafte Speicherung der Umgebung.
 * Koordination mehrerer Coasterbots.
+* Steuerung von Komponenten über eine Nutzeroberfläche
 
 Diese Funktionen werden ausschließlich als mögliche Erweiterungen berücksichtigt und beeinflussen die Architektur nur hinsichtlich einer zukünftigen Erweiterbarkeit.
 
-## 1.6 Dokumentstruktur
+## Dokumentstruktur
 
 Das Pflichtenheft ist wie folgt aufgebaut:
 
@@ -106,9 +107,9 @@ Beschreibung der Teststrategie und Zuordnung von Tests zu Anforderungen.
 **Kapitel 8 – Zusammenfassung und Ausblick**
 Bewertung der Umsetzung sowie mögliche zukünftige Erweiterungen.
 
-# 2 Systemarchitektur
+# Systemarchitektur
 
-## 2.1 Ziel der Systemarchitektur
+## Ziel der Systemarchitektur
 
 Die Systemarchitektur beschreibt den grundlegenden Aufbau des Coasterbot-Prototyps sowie die Aufteilung des Gesamtsystems in einzelne technische Komponenten. Ziel der Architektur ist es, eine robuste, modulare und erweiterbare Struktur zu schaffen, welche die Umsetzung der im Lastenheft definierten Anforderungen ermöglicht.
 
@@ -116,7 +117,7 @@ Die Architektur folgt einem komponentenbasierten Ansatz mit klar definierten Sch
 
 Besondere Bedeutung haben dabei die Trennung von Hardware und Software sowie die Möglichkeit, das System vollständig oder teilweise in einer Simulationsumgebung auszuführen.
 
-## 2.2 Systemaufbau
+## Systemaufbau
 
 Der Coasterbot wird als eingebettetes autonomes Robotersystem entwickelt. Das Gesamtsystem wird in mehrere Ebenen unterteilt:
 
@@ -128,9 +129,9 @@ Der Coasterbot wird als eingebettetes autonomes Robotersystem entwickelt. Das Ge
 
 Die Ebenen sind hierarchisch aufgebaut und kommunizieren ausschließlich über definierte Schnittstellen.
 
-## 2.3 Architekturmodell
+## Architekturmodell
 
-### 2.3.1 Hardwareebene
+### Hardwareebene
 
 Die Hardwareebene bildet die physische Grundlage des Roboters. Sie umfasst alle Komponenten, die zur Wahrnehmung der Umgebung, zur Bewegung und zur Energieversorgung erforderlich sind.
 
@@ -157,7 +158,7 @@ Die Aktorik setzt die berechneten Steuerbefehle in physische Aktionen um. Dazu g
 * Aufnahme eines Getränkeuntersetzers
 * Positionierung eines Getränkeuntersetzers
 
-## 2.3.2 Hardwareabstraktionsebene
+## Hardwareabstraktionsebene
 
 Die Hardwareabstraktionsebene stellt eine Trennung zwischen der physischen Hardware und der darüberliegenden Softwarelogik her.
 
@@ -172,7 +173,7 @@ Die Hardwareabstraktion umfasst:
 
 Durch diese Struktur können reale Hardwarekomponenten durch Simulationsmodelle ersetzt werden.
 
-## 2.3.3 Systemlogikebene
+## Systemlogikebene
 
 Die Systemlogikebene beinhaltet die zentralen Funktionen zur Steuerung des Roboters. Sie verarbeitet Informationen aus der Hardwareabstraktion und erzeugt entsprechende Steuerbefehle.
 
@@ -220,8 +221,8 @@ Aufgaben:
 * Erkennen eines verfügbaren Untersetzers
 * Aktivieren des Aufnahmemechanismus
 * Transport des Untersetzers
-* Positionierung unter einem Getränk
-* Überprüfung der erfolgreichen Platzierung
+* Positionieren des Untersetzers
+* Überprüfung der erfolgreichen Ausgabe
 
 ### Sicherheitskomponente
 
@@ -245,7 +246,7 @@ Aufgaben:
 * Überwachung von Systemzuständen
 * Meldung fehlgeschlagener Aufgaben
 
-## 2.3.4 Anwendungsebene
+## Anwendungsebene
 
 Die Anwendungsebene beschreibt die übergeordnete Ablaufsteuerung des Coasterbots.
 
@@ -265,7 +266,7 @@ Beispielhafter Ablauf:
 
 Die Anwendungsebene enthält keine hardwareabhängigen Funktionen und kommuniziert ausschließlich über definierte Schnittstellen mit den darunterliegenden Komponenten.
 
-## 2.4 Simulationsarchitektur
+## Simulationsarchitektur
 
 Die Simulation stellt eine parallele Umgebung zur realen Hardware dar. Ziel ist es, die Softwarekomponenten unabhängig vom physischen Prototyp entwickeln und testen zu können.
 
@@ -313,7 +314,7 @@ Sie ermöglicht:
 * Simulation von Fehlerzuständen
 * Vergleich erwarteter und tatsächlicher Ergebnisse
 
-## 2.5 Kommunikationsprinzipien
+## Kommunikationsprinzipien
 
 Die Kommunikation zwischen Komponenten erfolgt über klar definierte Schnittstellen.
 
@@ -325,13 +326,14 @@ Folgende Prinzipien werden berücksichtigt:
 * Simulations- und Hardwarekomponenten verwenden identische Schnittstellen.
 * Datenformate werden einheitlich definiert.
 
-## 2.6 Erweiterbarkeit der Architektur
+## Erweiterbarkeit der Architektur
 
 Die Architektur wird so ausgelegt, dass zukünftige Entwicklungsstufen integriert werden können.
 
 Mögliche Erweiterungen:
 
 * Bestellaufnahme
+* Bezahlung
 * Mensch-Roboter-Interaktion
 * Getränketransport
 * Automatische Reinigung
@@ -339,15 +341,15 @@ Mögliche Erweiterungen:
 
 Die Erweiterungen sollen durch Ergänzung neuer Komponenten erfolgen können, ohne die Kernfunktionen des Systems grundlegend zu verändern.
 
-## 2.7 Zusammenfassung
+## Zusammenfassung
 
 Die entwickelte Systemarchitektur bildet die Grundlage für die Umsetzung des Coasterbot-Prototyps. Durch die Trennung in Hardware-, Abstraktions-, Logik-, Anwendungs- und Simulationsebene wird eine modulare und erweiterbare Struktur geschaffen.
 
 Die Architektur ermöglicht eine unabhängige Entwicklung und Prüfung einzelner Komponenten und erfüllt damit die im Lastenheft definierten Anforderungen hinsichtlich Modularität, Testbarkeit und Simulationsfähigkeit.
 
-# 3 Hardwarekonzept
+# Hardwarekonzept
 
-## 3.1 Ziel des Hardwarekonzepts
+## Ziel des Hardwarekonzepts
 
 Dieses Kapitel beschreibt die technische Auslegung der Hardware des Coasterbot-Prototyps. Das Hardwarekonzept definiert die benötigten Komponenten zur Realisierung der autonomen Navigation, der sicheren Bewegung sowie der Aufnahme und Ausgabe von Getränkeuntersetzern.
 
@@ -355,7 +357,7 @@ Die Auswahl und Anordnung der Hardwarekomponenten erfolgt unter Berücksichtigun
 
 Der Prototyp wird als kompakter, handtellergroßer mobiler Roboter ausgelegt. Die Hardware muss daher eine geringe Baugröße, ein niedriges Gewicht sowie einen energieeffizienten Betrieb ermöglichen.
 
-## 3.2 Hardwarearchitektur
+## Hardwarearchitektur
 
 Die Hardware des Coasterbots wird in folgende Hauptbereiche unterteilt:
 
@@ -368,7 +370,7 @@ Die Hardware des Coasterbots wird in folgende Hauptbereiche unterteilt:
 
 Die einzelnen Komponenten werden modular aufgebaut und über definierte Schnittstellen miteinander verbunden.
 
-## 3.3 Recheneinheit
+## Recheneinheit
 
 Die Recheneinheit bildet die zentrale Verarbeitungseinheit des Roboters. Sie übernimmt die Verarbeitung der Sensordaten, die Ausführung der Steuerungssoftware sowie die Berechnung der Bewegungsbefehle.
 
@@ -383,11 +385,11 @@ Die Anforderungen an die Recheneinheit sind:
 
 Für den Prototyp wird eine Trennung zwischen leistungsintensiver Verarbeitung und hardwarenaher Steuerung vorgesehen. Dadurch können zeitkritische Aufgaben wie Motorregelung oder Sensorauswertung unabhängig von komplexeren Berechnungen ausgeführt werden.
 
-## 3.4 Sensorik
+## Sensorik
 
 Die Sensorik ermöglicht die Wahrnehmung der Umgebung sowie die Erfassung des Systemzustands. Die Auswahl der Sensoren orientiert sich an den Anforderungen der Navigation, Sicherheit und Objektbehandlung.
 
-### 3.4.1 Hinderniserkennung
+### Hinderniserkennung
 
 Zur sicheren Navigation muss der Coasterbot Hindernisse innerhalb seines Arbeitsbereichs erkennen können.
 
@@ -401,7 +403,7 @@ Die Sensorik muss folgende Anforderungen erfüllen:
 
 Mögliche technische Lösungen sind Abstandssensoren, Kameras oder Kombinationen verschiedener Sensorprinzipien.
 
-### 3.4.2 Tischkantenerkennung
+### Tischkantenerkennung
 
 Da der Roboter ausschließlich auf einer Tischoberfläche betrieben wird, ist eine zuverlässige Erkennung der Tischbegrenzung erforderlich.
 
@@ -414,7 +416,7 @@ Anforderungen:
 
 Die Erkennung der Tischkante stellt eine zentrale Sicherheitsfunktion dar und wird unabhängig von der normalen Hinderniserkennung betrachtet.
 
-### 3.4.3 Positions- und Orientierungserfassung
+### Positions- und Orientierungserfassung
 
 Für die autonome Navigation benötigt der Roboter Informationen über seine Position und Orientierung.
 
@@ -427,7 +429,7 @@ Anforderungen:
 
 Die Positionsbestimmung kann durch eine Kombination verschiedener Sensorquellen erfolgen.
 
-## 3.5 Aktorik
+## Aktorik
 
 Die Aktorik setzt die berechneten Steuerbefehle in physische Aktionen um.
 
@@ -436,7 +438,7 @@ Die Aktorik wird in zwei Bereiche unterteilt:
 * Bewegungsaktorik
 * Manipulationsaktorik
 
-## 3.5.1 Bewegungsaktorik
+## Bewegungsaktorik
 
 Die Bewegungsaktorik ermöglicht die autonome Fortbewegung des Coasterbots auf der Tischoberfläche.
 
@@ -451,7 +453,7 @@ Anforderungen:
 
 Für den Prototyp wird ein Antriebssystem vorgesehen, das eine präzise Steuerung der Fahrbewegung ermöglicht.
 
-## 3.5.2 Manipulationsaktorik
+## Manipulationsaktorik
 
 Die Manipulationsaktorik ermöglicht die Aufnahme und Ausgabe von Getränkeuntersetzern.
 
@@ -465,7 +467,7 @@ Anforderungen:
 
 Der Mechanismus muss so ausgelegt werden, dass Getränkeuntersetzer sicher bewegt werden können, ohne diese oder andere Gegenstände auf dem Tisch zu beschädigen.
 
-## 3.6 Energieversorgung
+## Energieversorgung
 
 Die Energieversorgung stellt die elektrische Versorgung aller Systemkomponenten sicher.
 
@@ -487,7 +489,7 @@ Anforderungen:
 
 Die Energieversorgung wird so ausgelegt, dass ein ausreichender Betriebszeitraum für Tests und Demonstrationen ermöglicht wird.
 
-## 3.7 Mechanische Konstruktion
+## Mechanische Konstruktion
 
 Die mechanische Konstruktion bildet die physische Struktur des Coasterbots.
 
@@ -509,7 +511,7 @@ Bei der Konstruktion werden insbesondere folgende Eigenschaften berücksichtigt:
 * Austauschbarkeit einzelner Komponenten,
 * Erweiterbarkeit für zukünftige Funktionen.
 
-## 3.8 Hardwareabstraktion
+## Hardwareabstraktion
 
 Alle Hardwarekomponenten werden so integriert, dass sie über definierte Schnittstellen angesprochen werden können.
 
@@ -522,7 +524,7 @@ Die Hardwareabstraktion ermöglicht:
 
 Dadurch wird sichergestellt, dass Änderungen an der Hardware keine grundlegenden Anpassungen der Systemlogik erfordern.
 
-## 3.9 Zusammenfassung
+## Zusammenfassung
 
 Das Hardwarekonzept definiert die technische Grundlage des Coasterbot-Prototyps. Durch die modulare Struktur können Sensorik, Aktorik und Energieversorgung unabhängig voneinander entwickelt und erweitert werden.
 
@@ -534,9 +536,9 @@ Die Hardwarearchitektur unterstützt damit die zentralen Entwicklungsziele des P
 * Simulation und Testbarkeit,
 * Erweiterbarkeit zukünftiger Systemfunktionen.
 
-# 4 Softwarekonzept
+# Softwarekonzept
 
-## 4.1 Ziel des Softwarekonzepts
+## Ziel des Softwarekonzepts
 
 Dieses Kapitel beschreibt die technische Umsetzung der Softwarearchitektur des Coasterbot-Prototyps. Das Softwarekonzept definiert die Struktur der Softwarekomponenten, deren Verantwortlichkeiten sowie die Kommunikationsschnittstellen zwischen den einzelnen Modulen.
 
@@ -544,7 +546,7 @@ Die Software wird entsprechend den Anforderungen des Lastenhefts komponentenbasi
 
 Ein zentraler Bestandteil des Softwarekonzepts ist die Trennung zwischen hardwareabhängigen Funktionen und der eigentlichen Systemlogik. Dadurch kann die Software sowohl auf der realen Hardware als auch innerhalb der Simulationsumgebung ausgeführt werden.
 
-## 4.2 Softwarearchitektur
+## Softwarearchitektur
 
 Die Softwarearchitektur orientiert sich an einem geschichteten Architekturmodell. Die einzelnen Schichten besitzen klar definierte Aufgaben und kommunizieren ausschließlich über festgelegte Schnittstellen.
 
@@ -556,7 +558,7 @@ Die Software wird in folgende Ebenen unterteilt:
 4. Funktionskomponenten
 5. Anwendungsebene
 
-## 4.3 Hardwaretreiberebene
+## Hardwaretreiberebene
 
 Die Hardwaretreiberebene stellt die direkte Verbindung zwischen Software und physischer Hardware her.
 
@@ -577,7 +579,7 @@ Die Aufgaben dieser Ebene sind:
 
 Die Hardwaretreiberebene wird so gestaltet, dass Änderungen an der verwendeten Hardware möglichst keine Auswirkungen auf die darüberliegenden Softwarekomponenten haben.
 
-## 4.4 Hardwareabstraktionsebene
+## Hardwareabstraktionsebene
 
 Die Hardwareabstraktionsebene bildet die Schnittstelle zwischen Hardware und Systemlogik.
 
@@ -599,11 +601,11 @@ Die Hardwareabstraktion ermöglicht:
 * Vereinfachte Tests einzelner Komponenten.
 * Entkopplung von Hardware und Anwendungslogik.
 
-## 4.5 Systemdienste
+## Systemdienste
 
 Die Systemdienste stellen grundlegende Funktionen bereit, die von mehreren Komponenten verwendet werden.
 
-### 4.5.1 Kommunikationsdienst
+### Kommunikationsdienst
 
 Der Kommunikationsdienst übernimmt den Austausch von Daten zwischen Softwarekomponenten.
 
@@ -613,7 +615,7 @@ Aufgaben:
 * Weiterleitung von Steuerbefehlen.
 * Verwaltung definierter Kommunikationsschnittstellen.
 
-### 4.5.2 Konfigurationsdienst
+### Konfigurationsdienst
 
 Der Konfigurationsdienst verwaltet systemrelevante Parameter.
 
@@ -626,7 +628,7 @@ Beispiele:
 
 Durch die zentrale Verwaltung können Parameter angepasst werden, ohne die Softwarestruktur verändern zu müssen.
 
-### 4.5.3 Diagnosedienst
+### Diagnosedienst
 
 Der Diagnosedienst überwacht den Systemzustand und stellt Informationen für Fehleranalyse und Wartung bereit.
 
@@ -636,11 +638,11 @@ Aufgaben:
 * Speicherung von Diagnoseinformationen.
 * Bereitstellung von Statusinformationen.
 
-## 4.6 Funktionskomponenten
+## Funktionskomponenten
 
 Die Funktionskomponenten enthalten die eigentliche Systemlogik des Coasterbots.
 
-## 4.6.1 Navigationskomponente
+## Navigationskomponente
 
 Die Navigationskomponente ist für die autonome Bewegung des Roboters verantwortlich.
 
@@ -661,7 +663,7 @@ Die Navigationskomponente erhält Informationen über:
 
 Als Ergebnis erzeugt sie Bewegungsbefehle für die Bewegungssteuerung.
 
-## 4.6.2 Lokalisierungskomponente
+## Lokalisierungskomponente
 
 Die Lokalisierungskomponente bestimmt die aktuelle Position und Orientierung des Roboters.
 
@@ -674,7 +676,7 @@ Aufgaben:
 
 Die Lokalisierung ist notwendig, damit der Roboter definierte Zielpunkte zuverlässig erreichen kann.
 
-## 4.6.3 Bewegungssteuerung
+## Bewegungssteuerung
 
 Die Bewegungssteuerung übersetzt Navigationsbefehle in konkrete Aktorbefehle.
 
@@ -687,7 +689,7 @@ Aufgaben:
 
 Die Bewegungssteuerung stellt sicher, dass Bewegungen kontrolliert und reproduzierbar erfolgen.
 
-## 4.6.4 Untersetzerhandling
+## Untersetzerhandling
 
 Die Komponente für das Untersetzerhandling steuert alle Funktionen zur Aufnahme und Ausgabe von Getränkeuntersetzern.
 
@@ -702,7 +704,7 @@ Aufgaben:
 
 Die Komponente arbeitet mit der Navigation und Sensorik zusammen, um eine präzise Positionierung zu ermöglichen.
 
-## 4.6.5 Sicherheitskomponente
+## Sicherheitskomponente
 
 Die Sicherheitskomponente überwacht alle sicherheitsrelevanten Zustände.
 
@@ -722,7 +724,7 @@ Beispiele:
 * Annäherung an ein Hindernis.
 * Fehlfunktion eines Aktors.
 
-## 4.6.6 Systemüberwachung
+## Systemüberwachung
 
 Die Systemüberwachung stellt Informationen über den Betriebszustand bereit.
 
@@ -734,7 +736,7 @@ Aufgaben:
 * Anzeige des aktuellen Systemstatus.
 * Erkennung erfolgreicher oder fehlgeschlagener Aufgaben.
 
-## 4.7 Zustandsmodell des Coasterbots
+## Zustandsmodell des Coasterbots
 
 Die Ablaufsteuerung des Systems wird durch ein Zustandsmodell umgesetzt.
 
@@ -753,7 +755,7 @@ Der Coasterbot besitzt folgende Hauptzustände:
 
 Der Wechsel zwischen Zuständen erfolgt ausschließlich durch definierte Ereignisse und Bedingungen.
 
-## 4.8 Fehlerbehandlung
+## Fehlerbehandlung
 
 Die Software muss Fehlerzustände kontrolliert behandeln.
 
@@ -772,7 +774,7 @@ Bei einem Fehler führt das System abhängig von der Fehlerart eine geeignete Re
 * Abbruch einer Aufgabe.
 * Ausgabe einer Fehlermeldung.
 
-## 4.9 Schnittstellenkonzept
+## Schnittstellenkonzept
 
 Die Softwarekomponenten kommunizieren über klar definierte Schnittstellen.
 
@@ -788,7 +790,7 @@ Beispiele:
 
 Die Schnittstellen werden so gestaltet, dass einzelne Komponenten unabhängig ausgetauscht werden können.
 
-## 4.10 Zusammenfassung
+## Zusammenfassung
 
 Das Softwarekonzept definiert eine modulare und erweiterbare Architektur für den Coasterbot-Prototyp. Durch die Trennung von Hardware, Abstraktion und Systemlogik wird eine flexible Entwicklungsumgebung geschaffen.
 
@@ -802,9 +804,9 @@ Die Architektur ermöglicht:
 
 Damit erfüllt das Softwarekonzept die im Lastenheft definierten Anforderungen hinsichtlich Modularität, Testbarkeit und Erweiterbarkeit.
 
-# 5 Implementierungskonzept
+# Implementierungskonzept
 
-## 5.1 Ziel des Implementierungskonzepts
+## Ziel des Implementierungskonzepts
 
 Dieses Kapitel beschreibt die geplante technische Umsetzung der im Softwarekonzept definierten Architektur. Das Implementierungskonzept legt fest, wie die einzelnen Softwarekomponenten realisiert werden und welche Methoden, Schnittstellen und Entwicklungsprinzipien dabei eingesetzt werden.
 
@@ -818,7 +820,7 @@ Die Umsetzung orientiert sich an den Anforderungen des Lastenhefts hinsichtlich:
 * automatisierter Testbarkeit,
 * Simulationsfähigkeit.
 
-## 5.2 Entwicklungsumgebung
+## Entwicklungsumgebung
 
 Die Entwicklung der Software erfolgt in einer Umgebung, die eine strukturierte Entwicklung und Validierung der einzelnen Komponenten ermöglicht.
 
@@ -832,7 +834,7 @@ Die Entwicklungsumgebung umfasst:
 
 Die verwendeten Werkzeuge und Frameworks werden so ausgewählt, dass sie eine komponentenbasierte Entwicklung unterstützen.
 
-## 5.3 Programmiersprache und Softwarestruktur
+## Programmiersprache und Softwarestruktur
 
 Die Software wird objektorientiert und modular entwickelt. Die Wahl der Programmiersprache erfolgt anhand folgender Kriterien:
 
@@ -884,7 +886,7 @@ Coasterbot
 
 Diese Struktur ermöglicht eine klare Trennung der einzelnen Verantwortlichkeiten.
 
-## 5.4 Umsetzung der Hardwareabstraktion
+## Umsetzung der Hardwareabstraktion
 
 Die Hardwareabstraktion wird über Schnittstellen umgesetzt. Jede Hardwarekomponente erhält eine standardisierte Softwarebeschreibung.
 
@@ -909,7 +911,7 @@ Die Vorteile dieser Struktur sind:
 * Reduzierung von Abhängigkeiten.
 * Wiederverwendbarkeit der Software.
 
-## 5.5 Implementierung der Navigation
+## Implementierung der Navigation
 
 Die Navigationskomponente wird in mehrere Teilfunktionen aufgeteilt:
 
@@ -918,7 +920,7 @@ Die Navigationskomponente wird in mehrere Teilfunktionen aufgeteilt:
 * Routenplanung.
 * Bewegungssteuerung.
 
-### 5.5.1 Lokalisierung
+### Lokalisierung
 
 Die Lokalisierung bestimmt die aktuelle Position und Orientierung des Roboters.
 
@@ -931,7 +933,7 @@ Die Verarbeitung erfolgt über:
 Das Ergebnis ist eine aktuelle Roboterpose:
 
 \[
-Pose = (x, y, \theta)
+Pose = (x, y, $\theta$)
 \]
 
 mit:
@@ -942,7 +944,7 @@ mit:
 
 Die Pose wird kontinuierlich aktualisiert und anderen Komponenten bereitgestellt.
 
-### 5.5.2 Hinderniserkennung
+### Hinderniserkennung
 
 Die Hinderniserkennung verarbeitet Sensordaten und erstellt eine lokale Beschreibung der Umgebung.
 
@@ -954,7 +956,7 @@ Aufgaben:
 
 Die Informationen werden an die Routenplanung weitergegeben.
 
-### 5.5.3 Routenplanung
+### Routenplanung
 
 Die Routenplanung bestimmt einen geeigneten Weg zwischen Start- und Zielposition.
 
@@ -967,7 +969,7 @@ Dabei werden folgende Kriterien berücksichtigt:
 
 Die berechnete Route wird anschließend an die Bewegungssteuerung übergeben.
 
-## 5.6 Implementierung der Bewegungssteuerung
+## Implementierung der Bewegungssteuerung
 
 Die Bewegungssteuerung übersetzt Bewegungsziele in konkrete Aktorbefehle.
 
@@ -987,7 +989,7 @@ Daher werden folgende Funktionen implementiert:
 * Sofortiger Stopp bei Sicherheitsereignissen.
 * Anpassung der Geschwindigkeit in engen Bereichen.
 
-## 5.7 Implementierung des Untersetzerhandlings
+## Implementierung des Untersetzerhandlings
 
 Die Funktion zur Handhabung von Getränkeuntersetzern wird als eigenständige Softwarekomponente umgesetzt.
 
@@ -1012,7 +1014,7 @@ IDLE --> SEARCH_COASTER --> PICK_UP --> TRANSPORT --> PLACE --> VERIFY --> DONE
 
 Fehler während des Vorgangs führen zu einem definierten Fehlerzustand.
 
-## 5.8 Implementierung der Sicherheitslogik
+## Implementierung der Sicherheitslogik
 
 Die Sicherheitslogik wird unabhängig von den normalen Betriebsfunktionen implementiert.
 
@@ -1028,7 +1030,7 @@ Sie besitzt eine übergeordnete Priorität und kann andere Systemfunktionen jede
 
 Bei Eintritt eines kritischen Ereignisses wird der Roboter in einen sicheren Zustand überführt.
 
-## 5.9 Fehler- und Ereignisverwaltung
+## Fehler- und Ereignisverwaltung
 
 Alle relevanten Systemereignisse werden über eine zentrale Ereignisverwaltung verarbeitet.
 
@@ -1049,7 +1051,7 @@ Jedes Ereignis enthält mindestens:
 
 Dadurch wird eine spätere Analyse von Fehlerzuständen ermöglicht.
 
-## 5.10 Testkonzept der Implementierung
+## Testkonzept der Implementierung
 
 Die Software wird während der Entwicklung kontinuierlich getestet.
 
@@ -1084,7 +1086,7 @@ Beispiele:
 * Erkennen und Umfahren eines Hindernisses.
 * Aufnahme und Platzierung eines Getränkeuntersetzers.
 
-## 5.11 Zusammenfassung
+## Zusammenfassung
 
 Das Implementierungskonzept beschreibt die technische Realisierung der Softwarearchitektur des Coasterbots. Durch die konsequente Trennung von Hardware, Abstraktion und Systemlogik entsteht eine flexible Entwicklungsstruktur.
 
@@ -1097,9 +1099,9 @@ Die geplante Umsetzung ermöglicht:
 
 Damit bildet das Implementierungskonzept die Grundlage für die anschließende Entwicklung der Simulationsumgebung und der Testfälle.
 
-# 6 Simulationskonzept
+# Simulationskonzept
 
-## 6.1 Ziel des Simulationskonzepts
+## Ziel des Simulationskonzepts
 
 Dieses Kapitel beschreibt den Aufbau und die Funktion der Simulationsumgebung für den Coasterbot-Prototyp. Die Simulation dient der Entwicklung, Validierung und Verifikation der Softwarekomponenten, bevor diese auf der realen Hardware eingesetzt werden.
 
@@ -1118,7 +1120,7 @@ Die Simulation bildet dabei nicht ausschließlich die physische Umgebung nach, s
 
 ---
 
-# 6.2 Simulationsarchitektur
+## Simulationsarchitektur
 
 Die Simulationsumgebung basiert auf derselben Softwarearchitektur wie der reale Prototyp. Dabei werden reale Hardwarekomponenten durch simulierte Komponenten ersetzt.
 
@@ -1136,7 +1138,7 @@ Dadurch kann die gleiche Software sowohl in der Simulation als auch auf dem real
 
 ---
 
-# 6.3 Simulationsumgebung
+## Simulationsumgebung
 
 Die Simulationsumgebung stellt die virtuelle Welt bereit, in der sich der Coasterbot bewegt.
 
@@ -1162,7 +1164,7 @@ Beispiele für Parameter:
 
 ---
 
-# 6.4 Modellierung der Roboterphysik
+## Modellierung der Roboterphysik
 
 Die Simulation muss die relevanten Eigenschaften des realen Roboters abbilden.
 
@@ -1179,17 +1181,17 @@ Das Bewegungsmodell beschreibt die Änderung der Roboterposition über die Zeit.
 
 Für einen mobilen Roboter kann die Bewegung beispielsweise durch ein kinematisches Modell beschrieben werden:
 
-\[
-x_{t+1}=x_t+v \cdot cos(\theta)\cdot \Delta t
-\]
+$$
+x_{t+1}=x_t+v \cdot \cos(\theta)\cdot \Delta t
+$$
 
-\[
-y_{t+1}=y_t+v \cdot sin(\theta)\cdot \Delta t
-\]
+$$
+y_{t+1}=y_t+v \cdot \sin(\theta)\cdot \Delta t
+$$
 
-\[
-\theta_{t+1}=\theta_t+\omega \cdot \Delta t
-\]
+$$
+\theta_{t+1}=\theta_{t} + \omega \cdot \Delta t
+$$
 
 mit:
 
@@ -1203,11 +1205,11 @@ Das Modell muss ausreichend genau sein, um das Verhalten des realen Systems abzu
 
 ---
 
-# 6.5 Simulation der Sensorik
+## Simulation der Sensorik
 
 Die Simulation muss die für den Betrieb erforderlichen Sensoren modellieren.
 
-## 6.5.1 Abstandssensoren
+### Abstandssensoren
 
 Abstandssensoren werden genutzt, um Hindernisse zu erkennen.
 
@@ -1223,7 +1225,7 @@ Ein simuliertes Hindernis befindet sich innerhalb des Messbereichs eines Sensors
 
 ---
 
-## 6.5.2 Tischkantenerkennung
+### Tischkantenerkennung
 
 Die Simulation muss die Erkennung der Tischbegrenzung ermöglichen.
 
@@ -1239,7 +1241,7 @@ Die Software muss auf simulierte Tischkantenerkennung genauso reagieren wie auf 
 
 ---
 
-## 6.5.3 Positionssensorik
+### Positionssensorik
 
 Die Simulation stellt Positionsinformationen für die Lokalisierung bereit.
 
@@ -1253,13 +1255,13 @@ Dadurch kann das Verhalten der Lokalisierungskomponente überprüft werden.
 
 ---
 
-# 6.6 Simulation der Aktorik
+## Simulation der Aktorik
 
 Die Aktoren des realen Roboters werden durch Simulationsmodelle ersetzt.
 
 Die Simulation umfasst:
 
-## 6.6.1 Fahrantrieb
+### Fahrantrieb
 
 Der Fahrantrieb simuliert:
 
@@ -1272,7 +1274,7 @@ Die Bewegungsbefehle der Software werden in eine virtuelle Bewegung umgesetzt.
 
 ---
 
-## 6.6.2 Untersetzermechanismus
+### Untersetzermechanismus
 
 Der Aufnahmemechanismus wird virtuell abgebildet.
 
@@ -1287,11 +1289,11 @@ Dadurch kann die Logik des Untersetzerhandlings unabhängig von der physischen M
 
 ---
 
-# 6.7 Testszenarien der Simulation
+## Testszenarien der Simulation
 
 Die Simulation muss alle relevanten Testfälle des Systems unterstützen.
 
-## 6.7.1 Navigationstest
+### Navigationstest
 
 Ziel:
 
@@ -1310,7 +1312,7 @@ Der Roboter erreicht den Zielpunkt innerhalb der definierten Genauigkeit.
 
 ---
 
-## 6.7.2 Hindernisvermeidung
+### Hindernisvermeidung
 
 Ziel:
 
@@ -1329,7 +1331,7 @@ Der Roboter umgeht das Hindernis ohne Kollision.
 
 ---
 
-## 6.7.3 Tischkantentest
+### Tischkantentest
 
 Ziel:
 
@@ -1347,7 +1349,7 @@ Der Roboter stoppt rechtzeitig und verlässt die Tischfläche nicht.
 
 ---
 
-## 6.7.4 Untersetzerhandling
+### Untersetzerhandling
 
 Ziel:
 
@@ -1366,7 +1368,7 @@ Der Untersetzer wird erfolgreich aufgenommen und korrekt positioniert.
 
 ---
 
-## 6.7.5 Fehlersimulation
+### Fehlersimulation
 
 Ziel:
 
@@ -1385,7 +1387,7 @@ Das System erkennt den Fehler und wechselt in einen definierten sicheren Zustand
 
 ---
 
-# 6.8 Reproduzierbarkeit der Simulation
+## Reproduzierbarkeit der Simulation
 
 Eine zentrale Anforderung der Simulation ist die Reproduzierbarkeit.
 
@@ -1400,7 +1402,7 @@ Dadurch können Änderungen an der Software bewertet und Regressionstests durchg
 
 ---
 
-# 6.9 Simulation und reale Hardware
+## Simulation und reale Hardware
 
 Die Simulation und der reale Prototyp verwenden dieselben Software-Schnittstellen.
 
@@ -1413,7 +1415,7 @@ Dadurch wird eine möglichst hohe Übertragbarkeit zwischen Simulation und reale
 
 ---
 
-# 6.10 Zusammenfassung
+## Zusammenfassung
 
 Das Simulationskonzept definiert eine virtuelle Entwicklungs- und Testumgebung für den Coasterbot-Prototyp.
 
@@ -1429,9 +1431,9 @@ Die Simulation ermöglicht:
 
 Damit stellt die Simulationsumgebung einen zentralen Bestandteil der Entwicklung des Coasterbot-Prototyps dar.
 
-# 7 Test- und Verifikationskonzept
+# Test- und Verifikationskonzept
 
-## 7.1 Ziel des Test- und Verifikationskonzepts
+## Ziel des Test- und Verifikationskonzepts
 
 Dieses Kapitel beschreibt die Vorgehensweise zur Überprüfung der im Lastenheft definierten Anforderungen sowie der im Pflichtenheft beschriebenen technischen Umsetzung.
 
@@ -1449,7 +1451,7 @@ Die Tests werden so gestaltet, dass jede wesentliche Anforderung aus dem Lastenh
 
 ---
 
-# 7.2 Teststrategie
+## Teststrategie
 
 Die Teststrategie basiert auf einem mehrstufigen Vorgehen. Die einzelnen Testebenen prüfen unterschiedliche Aspekte des Systems.
 
@@ -1465,9 +1467,9 @@ Durch die schrittweise Erhöhung der Testebene können Fehler frühzeitig erkann
 
 ---
 
-# 7.3 Unit- oder Komponententests
+## Unit- oder Komponententests
 
-## 7.3.1 Ziel
+### Ziel
 
 Komponententests überprüfen einzelne Softwaremodule unabhängig von anderen Systembestandteilen.
 
@@ -1477,7 +1479,7 @@ Die Tests werden automatisiert ausgeführt und bilden die Grundlage für eine ko
 
 ---
 
-## 7.3.2 Zu testende Komponenten
+### Zu testende Komponenten
 
 Folgende Softwarekomponenten werden einzeln getestet:
 
@@ -1491,7 +1493,7 @@ Folgende Softwarekomponenten werden einzeln getestet:
 
 ---
 
-## 7.3.3 Beispiele für Komponententests
+### Beispiele für Komponententests
 
 | Komponente            | Test                            | Erwartetes Ergebnis                 |
 | --------------------- | ------------------------------- | ----------------------------------- |
@@ -1503,9 +1505,9 @@ Folgende Softwarekomponenten werden einzeln getestet:
 
 ---
 
-# 7.4 Integrationstests
+## Integrationstests
 
-## 7.4.1 Ziel
+### Ziel
 
 Integrationstests überprüfen das Zusammenspiel mehrerer Softwarekomponenten.
 
@@ -1513,7 +1515,7 @@ Dabei wird festgestellt, ob Daten korrekt zwischen den Komponenten übertragen w
 
 ---
 
-## 7.4.2 Zu prüfende Schnittstellen
+### Zu prüfende Schnittstellen
 
 Die wichtigsten Integrationspunkte sind:
 
@@ -1527,9 +1529,9 @@ Die wichtigsten Integrationspunkte sind:
 
 ---
 
-# 7.5 Simulationstests
+## Simulationstests
 
-## 7.5.1 Ziel
+### Ziel
 
 Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb der virtuellen Umgebung.
 
@@ -1537,9 +1539,9 @@ Sie ermöglichen die Prüfung von Funktionen, die aufgrund von Sicherheits- oder
 
 ---
 
-## 7.5.2 Testszenarien
+### Testszenarien
 
-### Testfall SIM-001: Erreichen eines Zielpunkts
+#### Testfall SIM-001: Erreichen eines Zielpunkts
 
 **Ziel:**
 
@@ -1563,7 +1565,7 @@ Der Roboter erreicht den Zielpunkt innerhalb der definierten Genauigkeit.
 
 ---
 
-### Testfall SIM-002: Hinderniserkennung und Ausweichen
+#### Testfall SIM-002: Hinderniserkennung und Ausweichen
 
 **Ziel:**
 
@@ -1585,7 +1587,7 @@ Der Roboter umfährt das Hindernis ohne Kollision.
 
 ---
 
-### Testfall SIM-003: Erkennung der Tischkante
+#### Testfall SIM-003: Erkennung der Tischkante
 
 **Ziel:**
 
@@ -1603,7 +1605,7 @@ Der Roboter stoppt vor dem Verlassen der Tischoberfläche.
 
 ---
 
-### Testfall SIM-004: Aufnahme eines Getränkeuntersetzers
+#### Testfall SIM-004: Aufnahme eines Getränkeuntersetzers
 
 **Ziel:**
 
@@ -1622,7 +1624,7 @@ Der Untersetzer wird erkannt und erfolgreich aufgenommen.
 
 ---
 
-### Testfall SIM-005: Fehlerreaktion
+#### Testfall SIM-005: Fehlerreaktion
 
 **Ziel:**
 
@@ -1639,9 +1641,9 @@ Der Roboter erkennt den Fehler und wechselt in einen sicheren Zustand.
 
 ---
 
-# 7.6 Systemtests
+## Systemtests
 
-## 7.6.1 Ziel
+### Ziel
 
 Systemtests überprüfen das Verhalten des vollständigen Coasterbot-Prototyps.
 
@@ -1649,7 +1651,7 @@ Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet
 
 ---
 
-## 7.6.2 Systemtestszenarien
+### Systemtestszenarien
 
 | ID      | Test                       | Erwartetes Ergebnis                                    |
 | ------- | -------------------------- | ------------------------------------------------------ |
@@ -1662,7 +1664,7 @@ Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet
 
 ---
 
-# 7.7 Verifikation der nichtfunktionalen Anforderungen
+## Verifikation der nichtfunktionalen Anforderungen
 
 Die nichtfunktionalen Anforderungen werden durch geeignete Prüfverfahren bewertet.
 
@@ -1677,7 +1679,7 @@ Die nichtfunktionalen Anforderungen werden durch geeignete Prüfverfahren bewert
 
 ---
 
-# 7.8 Testumgebung
+## Testumgebung
 
 Die Testumgebung besteht aus:
 
@@ -1691,7 +1693,7 @@ Die Testumgebung muss reproduzierbare Ergebnisse ermöglichen und eine eindeutig
 
 ---
 
-# 7.9 Testdokumentation
+## Testdokumentation
 
 Alle durchgeführten Tests werden dokumentiert.
 
@@ -1711,7 +1713,7 @@ Ein Test gilt als erfolgreich abgeschlossen, wenn das tatsächliche Ergebnis mit
 
 ---
 
-# 7.10 Rückverfolgbarkeit
+## Rückverfolgbarkeit
 
 Zur Sicherstellung der Qualität wird eine Rückverfolgbarkeit zwischen Anforderungen und Tests hergestellt.
 
@@ -1729,7 +1731,7 @@ Dadurch kann jederzeit nachvollzogen werden, wie eine Anforderung umgesetzt und 
 
 ---
 
-# 7.11 Zusammenfassung
+## Zusammenfassung
 
 Das Test- und Verifikationskonzept stellt sicher, dass die Entwicklung des Coasterbot-Prototyps systematisch überprüft werden kann.
 
@@ -1744,9 +1746,9 @@ Das Konzept gewährleistet:
 
 Damit bildet das Testkonzept die Grundlage für die abschließende Bewertung des entwickelten Prototyps und den Nachweis der im Lastenheft definierten Anforderungen.
 
-# 8 Zusammenfassung, Bewertung und Ausblick
+# Zusammenfassung, Bewertung und Ausblick
 
-## 8.1 Zusammenfassung des Pflichtenhefts
+## Zusammenfassung des Pflichtenhefts
 
 Dieses Pflichtenheft beschreibt die technische Umsetzung des Coasterbot-Prototyps im Rahmen der Master-Projektarbeit im Bereich Cyber Security mit Schwerpunkt allgemeine Informatik.
 
@@ -1766,13 +1768,13 @@ Durch die gewählte Systemstruktur wird eine klare Trennung zwischen Hardware, S
 
 ---
 
-# 8.2 Bewertung der technischen Umsetzung
+# Bewertung der technischen Umsetzung
 
 Die Architektur des Coasterbots wurde so ausgelegt, dass die Anforderungen des Maturity Level 1 vollständig berücksichtigt werden. Die Umsetzung konzentriert sich dabei auf die Kernfunktionalität eines autonomen Tischroboters.
 
 Besonders berücksichtigt wurden folgende technische Aspekte:
 
-## 8.2.1 Modularität
+## Modularität
 
 Die Unterteilung des Systems in einzelne Komponenten ermöglicht eine unabhängige Entwicklung und Wartung.
 
@@ -1787,7 +1789,7 @@ Dadurch kann das System an zukünftige Anforderungen angepasst werden.
 
 ---
 
-## 8.2.2 Erweiterbarkeit
+## Erweiterbarkeit
 
 Die Architektur wurde so gestaltet, dass zukünftige Ausbaustufen integriert werden können.
 
@@ -1803,7 +1805,7 @@ Die Erweiterungen können durch zusätzliche Softwarekomponenten umgesetzt werde
 
 ---
 
-## 8.2.3 Simulationsfähigkeit
+## Simulationsfähigkeit
 
 Die Integration einer Simulationsumgebung stellt einen zentralen Bestandteil der Entwicklung dar.
 
@@ -1818,7 +1820,7 @@ Die Verwendung identischer Schnittstellen zwischen Simulation und realem System 
 
 ---
 
-## 8.2.4 Testbarkeit
+## Testbarkeit
 
 Die Softwarearchitektur unterstützt automatisierte Tests durch:
 
@@ -1831,7 +1833,7 @@ Dadurch können Fehler frühzeitig erkannt und Änderungen sicher integriert wer
 
 ---
 
-# 8.3 Bewertung der Definition of Done
+# Bewertung der Definition of Done
 
 Die im Lastenheft definierte Definition of Done wird durch die folgenden Ergebnisse erfüllt:
 
@@ -1846,7 +1848,7 @@ Die vollständige Erfüllung der Definition of Done erfolgt durch die Umsetzung 
 
 ---
 
-# 8.4 Einschränkungen des Prototyps
+# Einschränkungen des Prototyps
 
 Der entwickelte Prototyp stellt keine vollständige Produktlösung dar. Verschiedene Aspekte bleiben aufgrund des Projektumfangs unberücksichtigt.
 
@@ -1863,11 +1865,11 @@ Diese Aspekte müssen bei einer späteren Produktentwicklung separat betrachtet 
 
 ---
 
-# 8.5 Risiken und mögliche Verbesserungen
+## Risiken und mögliche Verbesserungen
 
 Während der Entwicklung können verschiedene technische Herausforderungen auftreten.
 
-## 8.5.1 Navigation auf unterschiedlichen Tischumgebungen
+## Navigation auf unterschiedlichen Tischumgebungen
 
 Die Navigation kann durch unterschiedliche Oberflächen, Beleuchtung oder Hindernisanordnungen beeinflusst werden.
 
@@ -1879,9 +1881,9 @@ Mögliche Verbesserungen:
 
 ---
 
-## 8.5.2 Präzision des Untersetzerhandlings
+## Präzision des Untersetzerhandlings
 
-Die genaue Positionierung eines Untersetzers unter einem Getränk stellt eine mechanische und softwaretechnische Herausforderung dar.
+Die genaue Positionierung eines Untersetzers stellt eine mechanische und softwaretechnische Herausforderung dar.
 
 Mögliche Verbesserungen:
 
@@ -1891,7 +1893,7 @@ Mögliche Verbesserungen:
 
 ---
 
-## 8.5.3 Sicherheit im Betrieb
+## Sicherheit im Betrieb
 
 Ein autonomer Roboter in einer Umgebung mit Menschen benötigt zuverlässige Sicherheitsmechanismen.
 
@@ -1903,7 +1905,7 @@ Mögliche Erweiterungen:
 
 ---
 
-# 8.6 Ausblick
+# Ausblick
 
 Der entwickelte Coasterbot-Prototyp bildet die Grundlage für weitere Entwicklungsstufen eines autonomen Assistenzroboters für gastronomische Anwendungen.
 
@@ -1952,7 +1954,7 @@ Mögliche Erweiterungen:
 
 ---
 
-# 8.7 Fazit
+# Fazit
 
 Das Pflichtenheft beschreibt eine technische Grundlage für die Entwicklung eines autonomen Coasterbot-Prototyps. Die gewählte Architektur ermöglicht eine strukturierte Umsetzung der Kernfunktionen und schafft gleichzeitig eine Basis für zukünftige Erweiterungen.
 
@@ -1960,9 +1962,9 @@ Durch die Kombination aus modularer Hardware, komponentenbasierter Software, Sim
 
 # Anhang
 
-# Anhang A: Komponentenübersicht
+# Komponentenübersicht
 
-## A.1 Zweck der Komponentenübersicht
+## Zweck der Komponentenübersicht
 
 Die Komponentenübersicht beschreibt die wesentlichen Hardware- und Softwarebestandteile des Coasterbot-Prototyps sowie deren Aufgaben und Schnittstellen.
 
@@ -1972,7 +1974,7 @@ Die Komponentenübersicht orientiert sich an der im Pflichtenheft beschriebenen 
 
 ---
 
-# A.2 Gesamtübersicht des Systems
+## Gesamtübersicht des Systems
 
 Der Coasterbot besteht aus folgenden Hauptkomponenten:
 
@@ -1994,15 +1996,15 @@ Der Coasterbot besteht aus folgenden Hauptkomponenten:
 
 ---
 
-# A.3 Hardwarekomponenten
+## Hardwarekomponenten
 
-## A.3.1 Mechanische Struktur
+### Mechanische Struktur
 
-### Aufgabe
+#### Aufgabe
 
 Das mechanische Grundgerüst bildet die Plattform des Coasterbots. Es nimmt die elektronischen Komponenten auf und stellt die erforderliche Stabilität während der Bewegung sicher.
 
-### Anforderungen
+#### Anforderungen
 
 Die mechanische Struktur muss:
 
@@ -2011,7 +2013,7 @@ Die mechanische Struktur muss:
 * eine kompakte Bauform ermöglichen,
 * den Transport von Getränkeuntersetzern ermöglichen.
 
-### Bestandteile
+#### Bestandteile
 
 | Komponente          | Beschreibung                                  |
 | ------------------- | --------------------------------------------- |
@@ -2022,13 +2024,13 @@ Die mechanische Struktur muss:
 
 ---
 
-# A.3.2 Antriebssystem
+### Antriebssystem
 
-### Aufgabe
+#### Aufgabe
 
 Das Antriebssystem ermöglicht die autonome Bewegung des Coasterbots auf der Tischfläche.
 
-### Komponenten
+#### Komponenten
 
 | Komponente      | Funktion                                     |
 | --------------- | -------------------------------------------- |
@@ -2037,7 +2039,7 @@ Das Antriebssystem ermöglicht die autonome Bewegung des Coasterbots auf der Tis
 | Räder           | Übertragung der Kraft auf die Tischfläche    |
 | Motorcontroller | Regelung der Motorbewegung                   |
 
-### Anforderungen
+#### Anforderungen
 
 Das Antriebssystem muss:
 
@@ -2047,13 +2049,13 @@ Das Antriebssystem muss:
 
 ---
 
-# A.3.3 Energieversorgung
+### Energieversorgung
 
-### Aufgabe
+#### Aufgabe
 
 Die Energieversorgung stellt die elektrische Versorgung aller Komponenten sicher.
 
-### Komponenten
+#### Komponenten
 
 | Komponente         | Funktion                            |
 | ------------------ | ----------------------------------- |
@@ -2062,7 +2064,7 @@ Die Energieversorgung stellt die elektrische Versorgung aller Komponenten sicher
 | Ladeelektronik     | Überwachung und Laden des Akkus     |
 | Energieüberwachung | Erfassung des Ladezustands          |
 
-### Anforderungen
+#### Anforderungen
 
 Das Energiesystem muss:
 
@@ -2072,19 +2074,19 @@ Das Energiesystem muss:
 
 ---
 
-# A.3.4 Sensorik
+### Sensorik
 
 Die Sensorik stellt Informationen über die Umgebung und den Zustand des Roboters bereit.
 
 ---
 
-## Abstandssensorik
+#### Abstandssensorik
 
-### Aufgabe
+##### Aufgabe
 
 Erkennung von Hindernissen und Objekten auf der Tischfläche.
 
-### Verwendung
+##### Verwendung
 
 * Kollisionsvermeidung,
 * Routenanpassung,
@@ -2092,26 +2094,26 @@ Erkennung von Hindernissen und Objekten auf der Tischfläche.
 
 ---
 
-## Kantenerkennung
+#### Kantenerkennung
 
-### Aufgabe
+##### Aufgabe
 
 Erkennung der Tischgrenzen zur Vermeidung eines Absturzes.
 
-### Verwendung
+##### Verwendung
 
 * Sicherheitsabschaltung,
 * Begrenzung des Bewegungsbereichs.
 
 ---
 
-## Positionssensorik
+#### Positionssensorik
 
-### Aufgabe
+##### Aufgabe
 
 Bestimmung der aktuellen Position und Orientierung des Roboters.
 
-### Verwendung
+##### Verwendung
 
 * Navigation,
 * Zielanfahrt,
@@ -2119,7 +2121,7 @@ Bestimmung der aktuellen Position und Orientierung des Roboters.
 
 ---
 
-# A.3.5 Aktorik
+### Aktorik
 
 Die Aktorik setzt Steuerbefehle der Software in physische Aktionen um.
 
@@ -2131,9 +2133,9 @@ Die Aktorik setzt Steuerbefehle der Software in physische Aktionen um.
 
 ---
 
-# A.4 Softwarekomponenten
+## Softwarekomponenten
 
-## A.4.1 Systemarchitektur
+### Systemarchitektur
 
 Die Software wird komponentenbasiert aufgebaut.
 
@@ -2155,19 +2157,19 @@ Die grundlegende Struktur besteht aus:
 
 ---
 
-# A.4.2 Hardwareabstraktionsschicht
+### Hardwareabstraktionsschicht
 
-## Aufgabe
+#### Aufgabe
 
 Die Hardwareabstraktionsschicht trennt die Steuerungslogik von den konkreten Hardwarekomponenten.
 
-## Funktionen
+#### Funktionen
 
 * Bereitstellung einheitlicher Schnittstellen,
 * Austausch realer Hardware durch Simulationsmodelle,
 * Vereinfachung automatisierter Tests.
 
-## Schnittstellen
+#### Schnittstellen
 
 | Schnittstelle | Funktion                          |
 | ------------- | --------------------------------- |
@@ -2177,26 +2179,26 @@ Die Hardwareabstraktionsschicht trennt die Steuerungslogik von den konkreten Har
 
 ---
 
-# A.4.3 Navigationsmodul
+#### Navigationsmodul
 
-## Aufgabe
+##### Aufgabe
 
 Das Navigationsmodul plant und steuert die Bewegung des Roboters.
 
-## Funktionen
+##### Funktionen
 
 * Berechnung von Fahrwegen,
 * Hindernisvermeidung,
 * Zielanfahrt,
 * Anpassung der Route.
 
-## Eingaben
+##### Eingaben
 
 * aktuelle Position,
 * Zielposition,
 * Sensordaten.
 
-## Ausgaben
+##### Ausgaben
 
 * Bewegungsbefehle,
 * Fahrtrichtung,
@@ -2204,13 +2206,13 @@ Das Navigationsmodul plant und steuert die Bewegung des Roboters.
 
 ---
 
-# A.4.4 Lokalisierungsmodul
+#### Lokalisierungsmodul
 
-## Aufgabe
+##### Aufgabe
 
 Das Lokalisierungsmodul bestimmt die aktuelle Position und Orientierung des Roboters.
 
-## Funktionen
+##### Funktionen
 
 * Verarbeitung von Sensordaten,
 * Positionsaktualisierung,
@@ -2218,13 +2220,13 @@ Das Lokalisierungsmodul bestimmt die aktuelle Position und Orientierung des Robo
 
 ---
 
-# A.4.5 Sicherheitsmodul
+### Sicherheitsmodul
 
-## Aufgabe
+#### Aufgabe
 
 Das Sicherheitsmodul überwacht kritische Zustände und verhindert gefährliche Situationen.
 
-## Funktionen
+#### Funktionen
 
 * Not-Aus-Verarbeitung,
 * Erkennung gefährlicher Zustände,
@@ -2233,13 +2235,13 @@ Das Sicherheitsmodul überwacht kritische Zustände und verhindert gefährliche 
 
 ---
 
-# A.4.6 Systemüberwachung
+### Systemüberwachung
 
-## Aufgabe
+#### Aufgabe
 
 Die Systemüberwachung stellt die Diagnosefähigkeit des Roboters sicher.
 
-## Funktionen
+#### Funktionen
 
 * Fehlererkennung,
 * Fehlerprotokollierung,
@@ -2248,13 +2250,13 @@ Die Systemüberwachung stellt die Diagnosefähigkeit des Roboters sicher.
 
 ---
 
-# A.4.7 Simulationskomponenten
+## Simulationskomponenten
 
-## Aufgabe
+### Aufgabe
 
 Die Simulationskomponenten ermöglichen die Entwicklung und Prüfung ohne vollständige Hardware.
 
-## Komponenten
+### Komponenten
 
 | Komponente      | Aufgabe                             |
 | --------------- | ----------------------------------- |
@@ -2265,7 +2267,7 @@ Die Simulationskomponenten ermöglichen die Entwicklung und Prüfung ohne vollst
 
 ---
 
-# A.5 Kommunikationsschnittstellen
+## Kommunikationsschnittstellen
 
 Die Kommunikation zwischen Komponenten erfolgt über definierte Schnittstellen.
 
@@ -2279,7 +2281,7 @@ Die Kommunikation zwischen Komponenten erfolgt über definierte Schnittstellen.
 
 ---
 
-# A.6 Erweiterbarkeit
+## Erweiterbarkeit
 
 Die Architektur berücksichtigt zukünftige Erweiterungen.
 
@@ -2297,7 +2299,7 @@ Durch die modulare Struktur können diese Erweiterungen integriert werden, ohne 
 
 ---
 
-# A.7 Zusammenfassung
+## Zusammenfassung
 
 Die Komponentenübersicht beschreibt die technische Struktur des Coasterbot-Prototyps.
 
@@ -2311,9 +2313,9 @@ Die Aufteilung in Hardware-, Software- und Simulationskomponenten ermöglicht:
 Die definierte Architektur bildet die Grundlage für die Umsetzung des Prototyps und unterstützt die systematische Entwicklung entsprechend der Anforderungen des Pflichtenhefts.
 
 
-## Anhang B – Anforderungstraceability-Matrix
+# Anforderungstraceability-Matrix
 
-### B.1 Ziel der Traceability-Matrix
+## Ziel der Traceability-Matrix
 
 Die Anforderungstraceability-Matrix stellt die Verbindung zwischen den Anforderungen des Lastenhefts, deren technischer Umsetzung im Pflichtenheft sowie den zugehörigen Testfällen her.
 
@@ -2327,7 +2329,7 @@ Die Traceability-Matrix unterstützt somit die Qualitätssicherung und ermöglic
 
 ---
 
-# B.2 Struktur der Traceability-Matrix
+## Struktur der Traceability-Matrix
 
 Die Matrix enthält folgende Informationen:
 
@@ -2350,7 +2352,7 @@ Der Status wird wie folgt bewertet:
 
 ---
 
-# B.3 Funktionale Anforderungen – Navigation und Lokalisierung
+## Funktionale Anforderungen – Navigation und Lokalisierung
 
 | ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                              | Komponente                      | Testfall | Status |
 | ------- | --------------------------------------------------- | ------------------------------------------------------- | ------------------------------- | -------- | ------ |
@@ -2364,48 +2366,53 @@ Der Status wird wie folgt bewertet:
 | NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen.             | Zielnavigation mit Positionsprüfung.                    | Navigation                      | SIM-001  | Offen  |
 | NAV-009 | Der Coasterbot muss sich autonom auf der Tischoberfläche bewegen können.             | Bewegungssteuerung mit Geschwindigkeitsbegrenzung.      | Bewegungssteuerung              | SYS-002  | Offen  |
 | NAV-010 | Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht unbeabsichtigt verschieben.       | Zielpunktbasierte Navigation.                           | Anwendungsebene                 | SYS-002  | Offen  |
+| NAV-011 | Der Coasterbot soll Getränke auf der Tischoberfläche erkennen können.      | Sensorabstraktion, Navigation.                           |  Sensorabstraktion, Navigation                | SYS-002  | Offen  |
+
 
 ---
 
-# B.4 Funktionale Anforderungen – Getränkeuntersetzer
+## Funktionale Anforderungen – Getränkeuntersetzer
 
 | ID      | Lastenheft-Anforderung                                        | Umsetzung im Pflichtenheft                                | Komponente                      | Testfall | Status |
 | ------- | ------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------- | -------- | ------ |
-| CST-001 | Der Bot muss einen Getränkeuntersetzer aufnehmen können.      | Steuerung des Aufnahmemechanismus über Zustandsautomaten. | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-002 | Der Bot muss einen Getränkeuntersetzer transportieren können. | Kombination aus Navigation und Manipulation.              | Navigation, Untersetzerhandling | SYS-004  | Offen  |
-| CST-003 | Der Bot muss einen Untersetzer präzise platzieren können.     | Positionssteuerung und Ablagefunktion.                    | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-004 | Der Bot muss einen Untersetzer wieder aufnehmen können.       | Aufnahmeprozess mit Zustandsprüfung.                      | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-005 | Der Bot muss erfolgreiche Aufnahme erkennen.                  | Sensorbasierte Zustandsprüfung.                           | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-006 | Der Bot muss erfolgreiche Platzierung erkennen.               | Validierung des Ablagevorgangs.                           | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-001 | Der Coasterbot muss einen Getränkeuntersetzer aufnehmen.      | Steuerung des Aufnahmemechanismus über Zustandsautomaten. | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-002 | Der Coasterbor muss einen Getränkeuntersetzer transportieren. | Kombination aus Navigation und Manipulation.              | Navigation, Untersetzerhandling | SYS-004  | Offen  |
+| CST-003 | Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch platzieren.     | Positionssteuerung und Ablagefunktion.                    | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-004 | Der Coasterbot muss einen ausgelegten Getränkeuntersetzer wieder aufnehmen können.       | Aufnahmeprozess mit Zustandsprüfung.                      | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-005 | Der Coasterbot muss erkennen, ob sich ein Getränkeuntersetzer erfolgreich abgesetzt wurde.                  | Sensorbasierte Zustandsprüfung.                           | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-006 | Der Coasterbot muss erkennen, ob ein Getränkeuntersetzer erfolgreich aufgenommen wurde.               | Validierung des Ablagevorgangs.                           | Untersetzerhandling             | SIM-004  | Offen  |
+| CST-007 | Der Coasterbot kann spezielalisierte Getränkeuntersetzer benötigen. | Validierung des Ablagevorgangs.                 | Untersetzerhandling.  | SIM-004 | Offen |
 
 ---
 
-# B.5 Funktionale Anforderungen – Sicherheit
+## Funktionale Anforderungen – Sicherheit
 
 | ID      | Lastenheft-Anforderung                                    | Umsetzung im Pflichtenheft                         | Komponente            | Testfall | Status |
 | ------- | --------------------------------------------------------- | -------------------------------------------------- | --------------------- | -------- | ------ |
-| SAF-001 | Der Bot muss bei Gefahr sofort anhalten.                  | Priorisierte Sicherheitslogik mit Stoppsignal.     | Sicherheitskomponente | SYS-005  | Offen  |
-| SAF-002 | Der Bot muss bei Sensorfehler sicheren Zustand einnehmen. | Fehlererkennung und Zustandswechsel.               | Sicherheitskomponente | SIM-005  | Offen  |
-| SAF-003 | Der Bot darf den Tisch nicht verlassen.                   | Tischkantenerkennung und Notstopp.                 | Sicherheitskomponente | SIM-003  | Offen  |
-| SAF-004 | Der Bot darf nicht mit hoher Geschwindigkeit kollidieren. | Geschwindigkeitsbegrenzung und Hinderniserkennung. | Bewegungssteuerung    | SYS-003  | Offen  |
-| SAF-005 | Der Bot muss Kollisionen vermeiden.                       | Hinderniserkennung und Navigation.                 | Navigation            | SIM-002  | Offen  |
-| SAF-006 | Der Bot muss einen Not-Aus unterstützen.                  | Implementierung eines sicheren Stopps.             | Sicherheitskomponente | SYS-005  | Offen  |
+| SAF-001 | Der Coasterbot muss bei Gefahr unverzüglich anhalten können.         | Priorisierte Sicherheitslogik mit Stoppsignal.     | Sicherheitskomponente | SYS-005  | Offen  |
+| SAF-002 | Der Coasterbot muss bei einem Ausfall sicherheitsrelevanter Sensoren in einen sicheren Betriebszustand wechseln. | Fehlererkennung und Zustandswechsel.               | Sicherheitskomponente | SIM-005  | Offen  |
+| SAF-003 | Der Coasterbot muss Kollisionen mit Hindernissen vermeiden.                   | Notstopp.                 | Sicherheitskomponente | SIM-003  | Offen  |
+| SAF-004 | Der Coasterbot darf Hindernisse nicht mit einer Geschwindigkeit anfahren, die Schäden verursachen kann. | Geschwindigkeitsbegrenzung und Hinderniserkennung. | Bewegungssteuerung    | SYS-003  | Offen  |
+| SAF-005 | Der Coasterbot muss einen Not-Aus unterstützen.                  | Implementierung eines sicheren Stopps.             | Sicherheitskomponente | SYS-005  | Offen  |
 
 ---
 
-# B.6 Funktionale Anforderungen – Systemüberwachung
+## Funktionale Anforderungen – Systemüberwachung
 
 | ID      | Lastenheft-Anforderung                        | Umsetzung im Pflichtenheft                    | Komponente        | Testfall | Status |
 | ------- | --------------------------------------------- | --------------------------------------------- | ----------------- | -------- | ------ |
-| MON-001 | Der Bot muss Fehler erkennen.                 | Diagnose- und Überwachungssystem.             | Systemüberwachung | SIM-005  | Offen  |
-| MON-002 | Der Bot muss Fehler protokollieren.           | Ereignisverwaltung mit Fehlerprotokollierung. | Diagnosedienst    | SYS-006  | Offen  |
-| MON-003 | Der Bot muss Betriebszustand anzeigen.        | Statusverwaltung.                             | Systemüberwachung | SYS-006  | Offen  |
-| MON-004 | Der Bot muss erfolgreiche Aufgaben erkennen.  | Zustandsauswertung nach Aktionen.             | Anwendungsebene   | SYS-004  | Offen  |
-| MON-005 | Der Bot muss fehlgeschlagene Aufgaben melden. | Fehler- und Ereignisverwaltung.               | Diagnosedienst    | SYS-006  | Offen  |
+| MON-001 | Der Coasterbot muss auftretende Fehler erkennen.                 | Diagnose- und Überwachungssystem.             | Systemüberwachung | SIM-005  | Offen  |
+| MON-002 | Der Coasterbot muss Fehler protokollieren.           | Ereignisverwaltung mit Fehlerprotokollierung. | Diagnosedienst    | SYS-006  | Offen  |
+| MON-003 | Der Coasterbot muss seinen aktuellen Betriebszustand anzeigen.        | Statusverwaltung.                             | Systemüberwachung | SYS-006  | Offen  |
+| MON-004 | Der Coasterbot muss den erfolgreichen Abschluss einer Aufgabe erkennen.  | Zustandsauswertung nach Aktionen.             | Anwendungsebene   | SYS-004  | Offen  |
+| MON-005 | Der Coasterbot muss fehlgeschlagene Aufgaben erkennen und melden. | Fehler- und Ereignisverwaltung.               | Diagnosedienst    | SYS-006  | Offen  |
 
 ---
 
-# B.7 Nichtfunktionale Anforderungen
+## Zusätzliche nichtfunktionale Anforderungen
+
+Nichtfunktionale Testfälle haben keinen direkten Testfall als Komponente.
+Folgende zusätzliche Anforderungen werden aus den nichtfunktionalen Anforderungen des Lastenhefts abgeleitet, nämlich NFA-ARC, NFA-MAI, NFA-TST und NFA-SIM. Deren Umsetzung und Prüfverfahren sind im Pflichtenheft beschrieben.
 
 | ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                          | Prüfverfahren      | Status |
 | ------- | --------------------------------------------------- | --------------------------------------------------- | ------------------ | ------ |
@@ -2420,7 +2427,11 @@ Der Status wird wie folgt bewertet:
 
 ---
 
-# B.8 Anforderungen an die Simulation
+## Anforderungen an die Simulation
+
+Folgende Umsetung ergibs sich aus den nichtfunktionalen Anforderungen der
+Simulationsfähigkeit (NFA-SIM) des Lastenhefts. Es werden Testfall und geplante
+Umsetzung beschrieben.
 
 | ID      | Simulationsanforderung                                      | Umsetzung                               | Testfall         | Status |
 | ------- | ----------------------------------------------------------- | --------------------------------------- | ---------------- | ------ |
@@ -2434,7 +2445,7 @@ Der Status wird wie folgt bewertet:
 
 ---
 
-# B.9 Zusammenfassung
+## Zusammenfassung
 
 Die Traceability-Matrix stellt sicher, dass alle relevanten Anforderungen des Lastenhefts im Pflichtenheft berücksichtigt und durch geeignete Prüfverfahren überprüft werden können.
 
@@ -2449,9 +2460,9 @@ wird eine vollständige Nachvollziehbarkeit des Entwicklungsprozesses erreicht.
 
 Die Matrix dient während der gesamten Projektlaufzeit als zentrales Werkzeug zur Fortschrittskontrolle und Qualitätssicherung.
 
-# Anhang C: Hardware- und Software-Schnittstellen
+# Hardware- und Software-Schnittstellen
 
-## C.1 Zweck der Schnittstellenbeschreibung
+## Zweck der Schnittstellenbeschreibung
 
 Die Schnittstellenbeschreibung definiert die Kommunikations- und Interaktionspunkte zwischen den Hardware- und Softwarekomponenten des Coasterbot-Prototyps.
 
@@ -2468,7 +2479,7 @@ Die Schnittstellen orientieren sich an der modularen Systemarchitektur des Pflic
 
 ---
 
-# C.2 Übersicht der Systemarchitektur
+## Übersicht der Systemarchitektur
 
 Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
 
@@ -2492,11 +2503,11 @@ Die Hardwareabstraktionsschicht stellt die zentrale Schnittstelle zwischen Softw
 
 ---
 
-# C.3 Hardware-Schnittstellen
+## Hardware-Schnittstellen
 
-## C.3.1 Recheneinheit
+### Recheneinheit
 
-### Aufgabe
+#### Aufgabe
 
 Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet Sensordaten sowie Steuerbefehle.
 
@@ -2511,7 +2522,7 @@ Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet Sensordaten 
 | UART          | Ein-/Ausgang | Serielle Kommunikation                     |
 | USB           | Ein-/Ausgang | Programmierung und Diagnose                |
 
-### Anforderungen
+#### Anforderungen
 
 Die Recheneinheit muss:
 
@@ -2521,7 +2532,7 @@ Die Recheneinheit muss:
 
 ---
 
-# C.3.2 Sensorschnittstellen
+### Sensorschnittstellen
 
 Sensoren stellen Informationen über die Umgebung und den Systemzustand bereit.
 
@@ -2529,13 +2540,13 @@ Die Sensoren werden über eine einheitliche Hardwareabstraktionsschnittstelle ei
 
 ---
 
-## Abstandssensoren
+#### Abstandssensoren
 
-### Zweck
+##### Zweck
 
 Erkennung von Hindernissen und Objekten.
 
-### Schnittstelle
+##### Schnittstelle
 
 | Parameter           | Beschreibung          |
 | ------------------- | --------------------- |
@@ -2543,7 +2554,7 @@ Erkennung von Hindernissen und Objekten.
 | Ausgang             | Messwert Entfernung   |
 | Aktualisierungsrate | zyklische Sensordaten |
 
-### Softwaredarstellung
+##### Softwaredarstellung
 
 Beispiel:
 
@@ -2556,20 +2567,20 @@ Entfernung in Millimeter
 
 ---
 
-## Kantensensoren
+#### Kantensensoren
 
-### Zweck
+##### Zweck
 
 Erkennung der Tischgrenze.
 
-### Schnittstelle
+##### Schnittstelle
 
 | Parameter | Beschreibung                 |
 | --------- | ---------------------------- |
 | Eingang   | Versorgung                   |
 | Ausgang   | Abstand oder Grenzwertsignal |
 
-### Verarbeitung
+##### Verarbeitung
 
 Die Sensordaten werden durch das Sicherheitsmodul bewertet.
 
@@ -2587,13 +2598,13 @@ Bewegungsstopp
 
 ---
 
-## Positionssensorik
+#### Positionssensorik
 
-### Zweck
+##### Zweck
 
 Bereitstellung von Positions- und Orientierungsinformationen.
 
-### Schnittstelle
+##### Schnittstelle
 
 | Daten | Beschreibung              |
 | ----- | ------------------------- |
@@ -2603,15 +2614,15 @@ Bereitstellung von Positions- und Orientierungsinformationen.
 
 ---
 
-# C.3.3 Aktorschnittstellen
+### Aktorschnittstellen
 
-## Motorsteuerung
+#### Motorsteuerung
 
-### Zweck
+##### Zweck
 
 Ansteuerung der Antriebsmotoren.
 
-### Schnittstelle
+#### Schnittstelle
 
 | Eingang         | Beschreibung        |
 | --------------- | ------------------- |
@@ -2619,7 +2630,7 @@ Ansteuerung der Antriebsmotoren.
 | Richtung        | Bewegungsrichtung   |
 | Beschleunigung  | Dynamikparameter    |
 
-### Ausgang
+#### Ausgang
 
 | Signal       | Beschreibung          |
 | ------------ | --------------------- |
@@ -2628,13 +2639,13 @@ Ansteuerung der Antriebsmotoren.
 
 ---
 
-## Untersetzermechanismus
+#### Untersetzermechanismus
 
-### Zweck
+##### Zweck
 
 Aufnahme und Ausgabe von Getränkeuntersetzern.
 
-### Schnittstelle
+##### Schnittstelle
 
 | Befehl  | Funktion              |
 | ------- | --------------------- |
@@ -2643,7 +2654,7 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 | PICKUP  | Untersetzer aufnehmen |
 | RELEASE | Untersetzer ablegen   |
 
-### Rückmeldungen
+##### Rückmeldungen
 
 | Status  | Bedeutung           |
 | ------- | ------------------- |
@@ -2654,13 +2665,13 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 
 ---
 
-# C.3.4 Energieschnittstelle
+### Energieschnittstelle
 
-## Zweck
+#### Zweck
 
 Überwachung und Verwaltung der Energieversorgung.
 
-### Eingangsdaten
+##### Eingangsdaten
 
 | Daten         | Beschreibung           |
 | ------------- | ---------------------- |
@@ -2668,7 +2679,7 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 | Ladezustand   | verbleibende Kapazität |
 | Stromaufnahme | aktueller Verbrauch    |
 
-### Ausgangssignale
+##### Ausgangssignale
 
 | Signal      | Funktion                  |
 | ----------- | ------------------------- |
@@ -2677,9 +2688,9 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 
 ---
 
-# C.4 Software-Schnittstellen
+## Software-Schnittstellen
 
-## C.4.1 Hardwareabstraktionsschnittstelle
+### Hardwareabstraktionsschnittstelle
 
 Die Hardwareabstraktionsschicht stellt standardisierte Funktionen für den Zugriff auf Hardwarekomponenten bereit.
 
@@ -2687,9 +2698,9 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 
 ---
 
-## Sensor API
+#### Sensor API
 
-### Funktionen
+##### Funktionen
 
 | Funktion          | Beschreibung               |
 | ----------------- | -------------------------- |
@@ -2700,9 +2711,9 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 
 ---
 
-## Motor API
+#### Motor API
 
-### Funktionen
+##### Funktionen
 
 | Funktion        | Beschreibung          |
 | --------------- | --------------------- |
@@ -2712,9 +2723,9 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 
 ---
 
-## Aktor API
+#### Aktor API
 
-### Funktionen
+##### Funktionen
 
 | Funktion           | Beschreibung         |
 | ------------------ | -------------------- |
@@ -2724,13 +2735,13 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 
 ---
 
-# C.4.2 Navigationsschnittstelle
+### Navigationsschnittstelle
 
-## Zweck
+#### Zweck
 
 Die Navigation verarbeitet Positionsinformationen und erzeugt Bewegungsbefehle.
 
-### Eingaben
+##### Eingaben
 
 | Daten             | Quelle             |
 | ----------------- | ------------------ |
@@ -2738,7 +2749,7 @@ Die Navigation verarbeitet Positionsinformationen und erzeugt Bewegungsbefehle.
 | Zielposition      | Aufgabensteuerung  |
 | Hindernisdaten    | Sensorverarbeitung |
 
-### Ausgaben
+##### Ausgaben
 
 | Daten           | Ziel           |
 | --------------- | -------------- |
@@ -2747,19 +2758,19 @@ Die Navigation verarbeitet Positionsinformationen und erzeugt Bewegungsbefehle.
 
 ---
 
-# C.4.3 Lokalisierungsschnittstelle
+### Lokalisierungsschnittstelle
 
-## Zweck
+#### Zweck
 
 Berechnung und Bereitstellung der aktuellen Roboterposition.
 
-### Eingaben
+#### Eingaben
 
 * Sensordaten,
 * Bewegungsdaten,
 * Simulationsdaten.
 
-### Ausgaben
+#### Ausgaben
 
 | Daten        | Beschreibung         |
 | ------------ | -------------------- |
@@ -2769,13 +2780,13 @@ Berechnung und Bereitstellung der aktuellen Roboterposition.
 
 ---
 
-# C.4.4 Sicherheitsschnittstelle
+### Sicherheitsschnittstelle
 
-## Zweck
+#### Zweck
 
 Überwachung sicherheitskritischer Zustände.
 
-### Eingaben
+#### Eingaben
 
 | Quelle     | Daten                   |
 | ---------- | ----------------------- |
@@ -2783,7 +2794,7 @@ Berechnung und Bereitstellung der aktuellen Roboterposition.
 | Monitoring | Fehlerzustände          |
 | Benutzer   | Not-Aus                 |
 
-### Ausgaben
+#### Ausgaben
 
 | Signal    | Funktion                    |
 | --------- | --------------------------- |
@@ -2793,17 +2804,17 @@ Berechnung und Bereitstellung der aktuellen Roboterposition.
 
 ---
 
-# C.4.5 Monitoring-Schnittstelle
+### Monitoring-Schnittstelle
 
-## Zweck
+#### Zweck
 
 Bereitstellung von Diagnoseinformationen.
 
-### Eingaben
+#### Eingaben
 
 Alle Systemkomponenten liefern Statusinformationen.
 
-### Ausgaben
+#### Ausgaben
 
 | Daten           | Beschreibung                  |
 | --------------- | ----------------------------- |
@@ -2813,7 +2824,7 @@ Alle Systemkomponenten liefern Statusinformationen.
 
 ---
 
-# C.5 Schnittstelle zwischen Simulation und realer Hardware
+## Schnittstelle zwischen Simulation und realer Hardware
 
 Ein wesentliches Architekturziel ist die Austauschbarkeit zwischen realer Hardware und Simulation.
 
@@ -2839,7 +2850,7 @@ Dadurch können:
 
 ---
 
-# C.6 Kommunikationsprotokolle
+## Kommunikationsprotokolle
 
 Für die Kommunikation zwischen Komponenten werden standardisierte Protokolle verwendet.
 
@@ -2853,7 +2864,7 @@ Für die Kommunikation zwischen Komponenten werden standardisierte Protokolle ve
 
 ---
 
-# C.7 Fehlerbehandlung an Schnittstellen
+## Fehlerbehandlung an Schnittstellen
 
 Alle Schnittstellen müssen definierte Fehlerzustände unterstützen.
 
@@ -2868,7 +2879,7 @@ Mögliche Fehler:
 
 ---
 
-# C.8 Erweiterbarkeit der Schnittstellen
+## Erweiterbarkeit der Schnittstellen
 
 Die Schnittstellenstruktur ermöglicht die spätere Integration zusätzlicher Funktionen.
 
@@ -2884,7 +2895,7 @@ Beispiele:
 
 ---
 
-# C.9 Zusammenfassung
+## Zusammenfassung
 
 Die definierten Hardware- und Software-Schnittstellen bilden die Grundlage für eine modulare und erweiterbare Architektur des Coasterbot-Prototyps.
 
@@ -2900,9 +2911,9 @@ des Systems gewährleistet.
 Die Schnittstellenbeschreibung stellt damit eine zentrale Grundlage für die Implementierung und Integration der einzelnen Systemkomponenten dar.
 
 
-# Anhang D: Abbildungen der Architektur und Systemmodelle
+# Abbildungen der Architektur und Systemmodelle
 
-## D.1 Zweck der Architekturabbildungen
+## Zweck der Architekturabbildungen
 
 Die Architekturabbildungen und Systemmodelle dienen der grafischen Darstellung des technischen Aufbaus des Coasterbot-Prototyps.
 
@@ -2923,7 +2934,7 @@ Die dargestellten Modelle unterstützen insbesondere:
 
 ---
 
-# D.2 Systemübersicht des Coasterbots
+## Systemübersicht des Coasterbots
 
 Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
 
@@ -2943,19 +2954,19 @@ Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
 +---------------------------------------------------------------+
 |                    Coasterbot Software                        |
 |                                                               |
-| +---------------+  +---------------+  +-------------------+ |
-| | Navigation    |  | Lokalisierung  |  | Sicherheitsmodul  | |
-| +---------------+  +---------------+  +-------------------+ |
+| +---------------+  +---------------+  +-------------------+   |
+| | Navigation    |  | Lokalisierung |  | Sicherheitsmodul  |   |
+| +---------------+  +---------------+  +-------------------+   |
 |                                                               |
-| +---------------+  +---------------+  +-------------------+ |
-| | Monitoring    |  | Energie-      |  | Untersetzer-      | |
-| |               |  | management    |  | steuerung         | |
-| +---------------+  +---------------+  +-------------------+ |
+| +---------------+  +---------------+  +-------------------+   |
+| | Monitoring    |  | Energie-      |  | Untersetzer-      |   |
+| |               |  | management    |  | steuerung         |   |
+| +---------------+  +---------------+  +-------------------+   |
 +----------------------------+----------------------------------+
                              |
                              v
 +---------------------------------------------------------------+
-|              Hardwareabstraktionsschicht                     |
+|              Hardwareabstraktionsschicht                      |
 +---------------------------------------------------------------+
                              |
                              v
@@ -2968,7 +2979,7 @@ Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
 
 ---
 
-# D.3 Schichtenmodell der Softwarearchitektur
+## Schichtenmodell der Softwarearchitektur
 
 Die Software des Coasterbots wird in mehrere logische Ebenen unterteilt.
 
@@ -2978,7 +2989,7 @@ Die Schichtenarchitektur ermöglicht eine klare Trennung von Aufgaben und reduzi
 +------------------------------------------------+
 |                Anwendungsebene                 |
 |                                                |
-|  Arbeitsabläufe | Benutzerinteraktion | HMI     |
+|  Arbeitsabläufe | Benutzerinteraktion | HMI    |
 +------------------------------------------------+
                      |
                      v
@@ -3012,7 +3023,7 @@ Die Schichtenarchitektur ermöglicht eine klare Trennung von Aufgaben und reduzi
 
 ---
 
-# D.4 Komponentenmodell
+## Komponentenmodell
 
 Das Komponentenmodell beschreibt die logische Zerlegung der Software.
 
@@ -3049,7 +3060,7 @@ Das Komponentenmodell beschreibt die logische Zerlegung der Software.
 
 ---
 
-# D.5 Datenflussmodell
+## Datenflussmodell
 
 Das Datenflussmodell beschreibt die Verarbeitung von Sensordaten und Steuerinformationen.
 
@@ -3092,7 +3103,7 @@ Sensoren
 
 ---
 
-# D.6 Zustandsmodell des Coasterbots
+## Zustandsmodell des Coasterbots
 
 Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
 
@@ -3102,9 +3113,9 @@ Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
                 +------+------+
                        |
                        v
-                +-------------+
+                +-----------------+
                 | Initialisierung |
-                +------+------+
+                +------+----------+
                        |
                        v
                 +-------------+
@@ -3139,7 +3150,7 @@ Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
 
 ---
 
-# D.7 Sicherheitsmodell
+## Sicherheitsmodell
 
 Das Sicherheitsmodell beschreibt die Reaktion des Systems auf kritische Situationen.
 
@@ -3163,19 +3174,19 @@ Das Sicherheitsmodell beschreibt die Reaktion des Systems auf kritische Situatio
         v                         v
 
 +---------------+          +----------------+
-| Normalbetrieb |          | Sicherheits-  |
-|               |          | stopp         |
+| Normalbetrieb |          | Sicherheits-   |
+|               |          | stopp          |
 +---------------+          +----------------+
                                       |
                                       v
                               +---------------+
-                              | Fehlerstatus |
+                              | Fehlerstatus  |
                               +---------------+
 ```
 
 ---
 
-# D.8 Simulationsarchitektur
+## Simulationsarchitektur
 
 Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
 
@@ -3201,7 +3212,7 @@ Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
 |                                               |
 | +-------------+ +-------------+               |
 | | Aktoren     | | Fehler-     |               |
-| | Modelle     | | simulation |               |
+| | Modelle     | | simulation  |               |
 | +-------------+ +-------------+               |
 +-----------------------------------------------+
                      |
@@ -3212,7 +3223,7 @@ Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
 
 ---
 
-# D.9 Systemmodell für Erweiterungen
+## Systemmodell für Erweiterungen
 
 Die Architektur berücksichtigt zukünftige Erweiterungen außerhalb des aktuellen Projektumfangs.
 
@@ -3240,33 +3251,33 @@ Die Architektur berücksichtigt zukünftige Erweiterungen außerhalb des aktuell
 
 ---
 
-# D.10 Architekturprinzipien
+## Architekturprinzipien
 
 Die Architektur des Coasterbot-Prototyps basiert auf folgenden Grundprinzipien:
 
-## Modularität
+### Modularität
 
 Komponenten werden unabhängig voneinander entwickelt und getestet.
 
-## Hardwareabstraktion
+### Hardwareabstraktion
 
 Die Kernsoftware ist unabhängig von konkreten Hardwarekomponenten.
 
-## Erweiterbarkeit
+### Erweiterbarkeit
 
 Neue Funktionen können durch zusätzliche Module integriert werden.
 
-## Testbarkeit
+### Testbarkeit
 
 Jede Komponente besitzt definierte Schnittstellen und kann automatisiert geprüft werden.
 
-## Simulationsfähigkeit
+### Simulationsfähigkeit
 
 Die Software kann mit virtuellen Komponenten betrieben werden.
 
 ---
 
-# D.11 Zusammenfassung
+## Zusammenfassung
 
 Die dargestellten Architektur- und Systemmodelle geben einen Überblick über den technischen Aufbau des Coasterbot-Prototyps.
 

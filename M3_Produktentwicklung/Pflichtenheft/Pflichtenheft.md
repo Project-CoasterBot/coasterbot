@@ -1768,13 +1768,13 @@ Durch die gewählte Systemstruktur wird eine klare Trennung zwischen Hardware, S
 
 ---
 
-# Bewertung der technischen Umsetzung
+## Bewertung der technischen Umsetzung
 
 Die Architektur des Coasterbots wurde so ausgelegt, dass die Anforderungen des Maturity Level 1 vollständig berücksichtigt werden. Die Umsetzung konzentriert sich dabei auf die Kernfunktionalität eines autonomen Tischroboters.
 
 Besonders berücksichtigt wurden folgende technische Aspekte:
 
-## Modularität
+### Modularität
 
 Die Unterteilung des Systems in einzelne Komponenten ermöglicht eine unabhängige Entwicklung und Wartung.
 
@@ -1789,7 +1789,7 @@ Dadurch kann das System an zukünftige Anforderungen angepasst werden.
 
 ---
 
-## Erweiterbarkeit
+### Erweiterbarkeit
 
 Die Architektur wurde so gestaltet, dass zukünftige Ausbaustufen integriert werden können.
 
@@ -1805,7 +1805,7 @@ Die Erweiterungen können durch zusätzliche Softwarekomponenten umgesetzt werde
 
 ---
 
-## Simulationsfähigkeit
+### Simulationsfähigkeit
 
 Die Integration einer Simulationsumgebung stellt einen zentralen Bestandteil der Entwicklung dar.
 
@@ -1820,7 +1820,7 @@ Die Verwendung identischer Schnittstellen zwischen Simulation und realem System 
 
 ---
 
-## Testbarkeit
+### Testbarkeit
 
 Die Softwarearchitektur unterstützt automatisierte Tests durch:
 
@@ -1833,7 +1833,7 @@ Dadurch können Fehler frühzeitig erkannt und Änderungen sicher integriert wer
 
 ---
 
-# Bewertung der Definition of Done
+## Bewertung der Definition of Done
 
 Die im Lastenheft definierte Definition of Done wird durch die folgenden Ergebnisse erfüllt:
 
@@ -1848,7 +1848,7 @@ Die vollständige Erfüllung der Definition of Done erfolgt durch die Umsetzung 
 
 ---
 
-# Einschränkungen des Prototyps
+## Einschränkungen des Prototyps
 
 Der entwickelte Prototyp stellt keine vollständige Produktlösung dar. Verschiedene Aspekte bleiben aufgrund des Projektumfangs unberücksichtigt.
 
@@ -1865,11 +1865,11 @@ Diese Aspekte müssen bei einer späteren Produktentwicklung separat betrachtet 
 
 ---
 
-## Risiken und mögliche Verbesserungen
+### Risiken und mögliche Verbesserungen
 
 Während der Entwicklung können verschiedene technische Herausforderungen auftreten.
 
-## Navigation auf unterschiedlichen Tischumgebungen
+### Navigation auf unterschiedlichen Tischumgebungen
 
 Die Navigation kann durch unterschiedliche Oberflächen, Beleuchtung oder Hindernisanordnungen beeinflusst werden.
 
@@ -1881,7 +1881,7 @@ Mögliche Verbesserungen:
 
 ---
 
-## Präzision des Untersetzerhandlings
+### Präzision des Untersetzerhandlings
 
 Die genaue Positionierung eines Untersetzers stellt eine mechanische und softwaretechnische Herausforderung dar.
 
@@ -1893,7 +1893,7 @@ Mögliche Verbesserungen:
 
 ---
 
-## Sicherheit im Betrieb
+### Sicherheit im Betrieb
 
 Ein autonomer Roboter in einer Umgebung mit Menschen benötigt zuverlässige Sicherheitsmechanismen.
 
@@ -1905,13 +1905,13 @@ Mögliche Erweiterungen:
 
 ---
 
-# Ausblick
+## Ausblick
 
 Der entwickelte Coasterbot-Prototyp bildet die Grundlage für weitere Entwicklungsstufen eines autonomen Assistenzroboters für gastronomische Anwendungen.
 
 Aufbauend auf der vorhandenen Architektur können zukünftige Funktionen ergänzt werden:
 
-## Maturity Level 2 – MVP zur Markteinführung
+### Maturity Level 2 – MVP zur Markteinführung
 
 Mögliche Erweiterungen:
 
@@ -1922,7 +1922,7 @@ Mögliche Erweiterungen:
 
 ---
 
-## Maturity Level 3 – Komfortfunktionen
+### Maturity Level 3 – Komfortfunktionen
 
 Mögliche Erweiterungen:
 
@@ -1932,7 +1932,7 @@ Mögliche Erweiterungen:
 
 ---
 
-## Maturity Level 4 – HMI-Individualisierung
+### Maturity Level 4 – HMI-Individualisierung
 
 Mögliche Erweiterungen:
 
@@ -1943,7 +1943,7 @@ Mögliche Erweiterungen:
 
 ---
 
-## Maturity Level 5 – Getränketransport
+### Maturity Level 5 – Getränketransport
 
 Mögliche Erweiterungen:
 
@@ -1954,7 +1954,7 @@ Mögliche Erweiterungen:
 
 ---
 
-# Fazit
+## Fazit
 
 Das Pflichtenheft beschreibt eine technische Grundlage für die Entwicklung eines autonomen Coasterbot-Prototyps. Die gewählte Architektur ermöglicht eine strukturierte Umsetzung der Kernfunktionen und schafft gleichzeitig eine Basis für zukünftige Erweiterungen.
 

@@ -2524,6 +2524,8 @@ Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet Sensordaten 
 | UART          | Ein-/Ausgang | Serielle Kommunikation                     |
 | USB           | Ein-/Ausgang | Programmierung und Diagnose                |
 
+Die Schnittstelllen und insbesondere I²C und SPI sind abhängig von den notwendigen und geplanten Peripheriegeräten und Sensoren. Falls ausgeschlossen werden kann, dass diese Schnittstellen auch in zukünftigen Iterationsstufen des Projekts notwendig sein werden kann die Recheneinheit auch ohne diese ausgewählt werden. 
+
 #### Anforderungen
 
 Die Recheneinheit muss:

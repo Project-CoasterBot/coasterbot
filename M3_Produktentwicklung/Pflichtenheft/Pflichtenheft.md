@@ -1118,7 +1118,7 @@ Die Simulationsumgebung unterstützt insbesondere folgende Ziele:
 
 Die Simulation bildet dabei nicht ausschließlich die physische Umgebung nach, sondern stellt eine virtuelle Ausführungsumgebung für die Software des Coasterbots bereit.
 
----
+
 
 ## Simulationsarchitektur
 
@@ -1136,7 +1136,7 @@ Die Robotersoftware selbst bleibt unverändert und verwendet ausschließlich die
 
 Dadurch kann die gleiche Software sowohl in der Simulation als auch auf dem realen Prototyp ausgeführt werden.
 
----
+
 
 ## Simulationsumgebung
 
@@ -1162,7 +1162,7 @@ Beispiele für Parameter:
 * Startposition des Roboters.
 * Zielposition des Roboters.
 
----
+
 
 ## Modellierung der Roboterphysik
 
@@ -1203,7 +1203,7 @@ mit:
 
 Das Modell muss ausreichend genau sein, um das Verhalten des realen Systems abzubilden.
 
----
+
 
 ## Simulation der Sensorik
 
@@ -1223,7 +1223,7 @@ Beispiel:
 
 Ein simuliertes Hindernis befindet sich innerhalb des Messbereichs eines Sensors. Die Simulation erzeugt daraus einen virtuellen Messwert, der von der Navigationssoftware verarbeitet wird.
 
----
+
 
 ### Tischkantenerkennung
 
@@ -1239,7 +1239,7 @@ modelliert.
 
 Die Software muss auf simulierte Tischkantenerkennung genauso reagieren wie auf reale Sensordaten.
 
----
+
 
 ### Positionssensorik
 
@@ -1253,7 +1253,7 @@ Dabei können folgende Situationen simuliert werden:
 
 Dadurch kann das Verhalten der Lokalisierungskomponente überprüft werden.
 
----
+
 
 ## Simulation der Aktorik
 
@@ -1272,7 +1272,7 @@ Der Fahrantrieb simuliert:
 
 Die Bewegungsbefehle der Software werden in eine virtuelle Bewegung umgesetzt.
 
----
+
 
 ### Untersetzermechanismus
 
@@ -1287,7 +1287,7 @@ Simuliert werden:
 
 Dadurch kann die Logik des Untersetzerhandlings unabhängig von der physischen Mechanik getestet werden.
 
----
+
 
 ## Testszenarien der Simulation
 
@@ -1310,7 +1310,7 @@ Erwartetes Ergebnis:
 
 Der Roboter erreicht den Zielpunkt innerhalb der definierten Genauigkeit.
 
----
+
 
 ### Hindernisvermeidung
 
@@ -1329,7 +1329,7 @@ Erwartetes Ergebnis:
 
 Der Roboter umgeht das Hindernis ohne Kollision.
 
----
+
 
 ### Tischkantentest
 
@@ -1347,7 +1347,7 @@ Erwartetes Ergebnis:
 
 Der Roboter stoppt rechtzeitig und verlässt die Tischfläche nicht.
 
----
+
 
 ### Untersetzerhandling
 
@@ -1366,7 +1366,7 @@ Erwartetes Ergebnis:
 
 Der Untersetzer wird erfolgreich aufgenommen und korrekt positioniert.
 
----
+
 
 ### Fehlersimulation
 
@@ -1385,7 +1385,7 @@ Erwartetes Ergebnis:
 
 Das System erkennt den Fehler und wechselt in einen definierten sicheren Zustand.
 
----
+
 
 ## Reproduzierbarkeit der Simulation
 
@@ -1400,7 +1400,7 @@ Daher müssen:
 
 Dadurch können Änderungen an der Software bewertet und Regressionstests durchgeführt werden.
 
----
+
 
 ## Simulation und reale Hardware
 
@@ -1413,7 +1413,7 @@ Die Unterschiede zwischen beiden Systemen beschränken sich auf:
 
 Dadurch wird eine möglichst hohe Übertragbarkeit zwischen Simulation und realem System erreicht.
 
----
+
 
 ## Zusammenfassung
 
@@ -1449,7 +1449,7 @@ Die Verifikation erfolgt durch eine Kombination aus:
 
 Die Tests werden so gestaltet, dass jede wesentliche Anforderung aus dem Lastenheft eindeutig einem oder mehreren Prüfverfahren zugeordnet werden kann.
 
----
+
 
 ## Teststrategie
 
@@ -1465,7 +1465,7 @@ Die Testebenen sind:
 
 Durch die schrittweise Erhöhung der Testebene können Fehler frühzeitig erkannt und isoliert werden.
 
----
+
 
 ## Unit- oder Komponententests
 
@@ -1477,7 +1477,7 @@ Dabei wird geprüft, ob einzelne Funktionen entsprechend ihrer Spezifikation arb
 
 Die Tests werden automatisiert ausgeführt und bilden die Grundlage für eine kontinuierliche Qualitätssicherung.
 
----
+
 
 ### Zu testende Komponenten
 
@@ -1491,7 +1491,7 @@ Folgende Softwarekomponenten werden einzeln getestet:
 * Systemüberwachung.
 * Hardwareabstraktionsschicht.
 
----
+
 
 ### Beispiele für Komponententests
 
@@ -1503,7 +1503,7 @@ Folgende Softwarekomponenten werden einzeln getestet:
 | Untersetzerhandling   | Aufnahmevorgang                 | Erfolgreiche Aufnahme wird erkannt  |
 | Systemüberwachung     | Erzeugen eines Fehlers          | Fehler wird protokolliert           |
 
----
+
 
 ## Integrationstests
 
@@ -1513,7 +1513,7 @@ Integrationstests überprüfen das Zusammenspiel mehrerer Softwarekomponenten.
 
 Dabei wird festgestellt, ob Daten korrekt zwischen den Komponenten übertragen werden und die erwarteten Systemreaktionen auftreten.
 
----
+
 
 ### Zu prüfende Schnittstellen
 
@@ -1527,7 +1527,7 @@ Die wichtigsten Integrationspunkte sind:
 | Sicherheitskomponente → Bewegungssteuerung | Unterbrechung kritischer Bewegungen |
 | Untersetzerhandling → Aktorik              | Steuerung des Aufnahmeprozesses     |
 
----
+
 
 ## Simulationstests
 
@@ -1537,7 +1537,7 @@ Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb der virt
 
 Sie ermöglichen die Prüfung von Funktionen, die aufgrund von Sicherheits- oder Entwicklungsgründen nicht ausschließlich auf der realen Hardware getestet werden können.
 
----
+
 
 ### Testszenarien
 
@@ -1563,7 +1563,7 @@ Sie ermöglichen die Prüfung von Funktionen, die aufgrund von Sicherheits- oder
 
 Der Roboter erreicht den Zielpunkt innerhalb der definierten Genauigkeit.
 
----
+
 
 #### Testfall SIM-002: Hinderniserkennung und Ausweichen
 
@@ -1585,7 +1585,7 @@ Der Roboter erreicht den Zielpunkt innerhalb der definierten Genauigkeit.
 
 Der Roboter umfährt das Hindernis ohne Kollision.
 
----
+
 
 #### Testfall SIM-003: Erkennung der Tischkante
 
@@ -1603,7 +1603,7 @@ Der Roboter umfährt das Hindernis ohne Kollision.
 
 Der Roboter stoppt vor dem Verlassen der Tischoberfläche.
 
----
+
 
 #### Testfall SIM-004: Aufnahme eines Getränkeuntersetzers
 
@@ -1622,7 +1622,7 @@ Der Roboter stoppt vor dem Verlassen der Tischoberfläche.
 
 Der Untersetzer wird erkannt und erfolgreich aufgenommen.
 
----
+
 
 #### Testfall SIM-005: Fehlerreaktion
 
@@ -1639,7 +1639,7 @@ Der Untersetzer wird erkannt und erfolgreich aufgenommen.
 
 Der Roboter erkennt den Fehler und wechselt in einen sicheren Zustand.
 
----
+
 
 ## Systemtests
 
@@ -1649,7 +1649,7 @@ Systemtests überprüfen das Verhalten des vollständigen Coasterbot-Prototyps.
 
 Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet.
 
----
+
 
 ### Systemtestszenarien
 
@@ -1662,7 +1662,7 @@ Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet
 | SYS-005 | Sicherheitsstopp           | Roboter stoppt bei Gefahr                              |
 | SYS-006 | Fehleranzeige              | Fehler wird erkannt und gemeldet                       |
 
----
+
 
 ## Verifikation der nichtfunktionalen Anforderungen
 
@@ -1677,7 +1677,7 @@ Die nichtfunktionalen Anforderungen werden durch geeignete Prüfverfahren bewert
 | Simulationsfähigkeit | Ausführung der Software in der Simulation       |
 | Dokumentation        | Prüfung der Entwicklungsdokumente               |
 
----
+
 
 ## Testumgebung
 
@@ -1691,7 +1691,7 @@ Die Testumgebung besteht aus:
 
 Die Testumgebung muss reproduzierbare Ergebnisse ermöglichen und eine eindeutige Zuordnung zwischen Testfällen und Anforderungen gewährleisten.
 
----
+
 
 ## Testdokumentation
 
@@ -1711,7 +1711,7 @@ Die Testdokumentation enthält:
 
 Ein Test gilt als erfolgreich abgeschlossen, wenn das tatsächliche Ergebnis mit dem erwarteten Ergebnis übereinstimmt.
 
----
+
 
 ## Rückverfolgbarkeit
 
@@ -1729,7 +1729,7 @@ Die Zuordnung erfolgt nach folgendem Schema:
 
 Dadurch kann jederzeit nachvollzogen werden, wie eine Anforderung umgesetzt und geprüft wurde.
 
----
+
 
 ## Zusammenfassung
 
@@ -1766,7 +1766,7 @@ Die wesentlichen Entwicklungsziele sind:
 
 Durch die gewählte Systemstruktur wird eine klare Trennung zwischen Hardware, Software und Simulation erreicht. Dadurch können einzelne Systembestandteile unabhängig entwickelt, getestet und erweitert werden.
 
----
+
 
 ## Bewertung der technischen Umsetzung
 
@@ -1787,7 +1787,7 @@ Beispiele:
 
 Dadurch kann das System an zukünftige Anforderungen angepasst werden.
 
----
+
 
 ### Erweiterbarkeit
 
@@ -1803,7 +1803,7 @@ Mögliche Erweiterungen:
 
 Die Erweiterungen können durch zusätzliche Softwarekomponenten umgesetzt werden, ohne die grundlegende Architektur verändern zu müssen.
 
----
+
 
 ### Simulationsfähigkeit
 
@@ -1818,7 +1818,7 @@ Durch die Simulation können:
 
 Die Verwendung identischer Schnittstellen zwischen Simulation und realem System ermöglicht eine effiziente Übertragung der Software auf den Prototyp.
 
----
+
 
 ### Testbarkeit
 
@@ -1831,7 +1831,7 @@ Die Softwarearchitektur unterstützt automatisierte Tests durch:
 
 Dadurch können Fehler frühzeitig erkannt und Änderungen sicher integriert werden.
 
----
+
 
 ## Bewertung der Definition of Done
 
@@ -1846,7 +1846,7 @@ Die im Lastenheft definierte Definition of Done wird durch die folgenden Ergebni
 
 Die vollständige Erfüllung der Definition of Done erfolgt durch die Umsetzung und Dokumentation der einzelnen Entwicklungsartefakte.
 
----
+
 
 ## Einschränkungen des Prototyps
 
@@ -1863,7 +1863,7 @@ Nicht betrachtete Bereiche:
 
 Diese Aspekte müssen bei einer späteren Produktentwicklung separat betrachtet werden.
 
----
+
 
 ### Risiken und mögliche Verbesserungen
 
@@ -1879,7 +1879,7 @@ Mögliche Verbesserungen:
 * Verbesserte Lokalisierungsverfahren.
 * Adaptive Navigationsalgorithmen.
 
----
+
 
 ### Präzision des Untersetzerhandlings
 
@@ -1891,7 +1891,7 @@ Mögliche Verbesserungen:
 * Verbesserte Greifmechanismen.
 * Kamerabasierte Objekterkennung.
 
----
+
 
 ### Sicherheit im Betrieb
 
@@ -1903,7 +1903,7 @@ Mögliche Erweiterungen:
 * Dynamische Geschwindigkeitsanpassung.
 * Verbesserte Kollisionsvermeidung.
 
----
+
 
 ## Ausblick
 
@@ -1920,7 +1920,7 @@ Mögliche Erweiterungen:
 * Optimierung der Benutzerinteraktion.
 * Erweiterte Sicherheitsfunktionen.
 
----
+
 
 ### Maturity Level 3 – Komfortfunktionen
 
@@ -1930,7 +1930,7 @@ Mögliche Erweiterungen:
 * Integration eines Bestellsystems.
 * Automatisierte Kommunikation mit Kunden.
 
----
+
 
 ### Maturity Level 4 – HMI-Individualisierung
 
@@ -1941,7 +1941,7 @@ Mögliche Erweiterungen:
 * Individuelle Kundenansprache.
 * Erweiterte Mensch-Roboter-Kommunikation.
 
----
+
 
 ### Maturity Level 5 – Getränketransport
 
@@ -1952,7 +1952,7 @@ Mögliche Erweiterungen:
 * Anpassung der Fahrparameter.
 * Erkennung von verschütteten Flüssigkeiten.
 
----
+
 
 ## Fazit
 
@@ -1972,29 +1972,29 @@ Ziel ist es, die Systemstruktur des entwickelten Roboters transparent darzustell
 
 Die Komponentenübersicht orientiert sich an der im Pflichtenheft beschriebenen modularen Systemarchitektur. Durch die Trennung in einzelne Komponenten wird eine Austauschbarkeit von Hardwareelementen sowie eine unabhängige Weiterentwicklung einzelner Softwaremodule ermöglicht.
 
----
+
 
 ## Gesamtübersicht des Systems
 
 Der Coasterbot besteht aus folgenden Hauptkomponenten:
 
-| Bereich    | Komponente             | Aufgabe                                                      |
-| ---------- | ---------------------- | ------------------------------------------------------------ |
-| Mechanik   | Chassis                | Aufnahme aller Hardwarekomponenten und Schutz der Elektronik |
-| Mechanik   | Antriebssystem         | Bewegung des Roboters auf der Tischfläche                    |
-| Mechanik   | Untersetzermechanismus | Aufnahme und Ausgabe von Getränkeuntersetzern                |
-| Energie    | Akkusystem             | Versorgung aller elektrischen Komponenten                    |
-| Steuerung  | Recheneinheit          | Ausführung der Steuerungssoftware                            |
-| Sensorik   | Abstandssensoren       | Erkennung von Hindernissen und Tischgrenzen                  |
-| Sensorik   | Positionssensorik      | Bestimmung der Roboterposition und Orientierung              |
-| Aktorik    | Motorcontroller        | Ansteuerung der Antriebsmotoren                              |
-| Software   | Navigationsmodul       | Planung und Steuerung der Bewegung                           |
-| Software   | Lokalisierungsmodul    | Bestimmung der aktuellen Position                            |
-| Software   | Sicherheitsmodul       | Überwachung kritischer Zustände                              |
-| Software   | Systemüberwachung      | Fehlererkennung und Statusverwaltung                         |
-| Simulation | Simulationsumgebung    | Virtuelle Nachbildung des Roboters                           |
+| Bereich    | Komponente                       | Aufgabe                                                      |
+| ---------- |----------------------------------| ------------------------------------------------------------ |
+| Mechanik   | Chassis                          | Aufnahme aller Hardwarekomponenten und Schutz der Elektronik |
+| Mechanik   | Antriebssystem                   | Bewegung des Roboters auf der Tischfläche                    |
+| Mechanik   | Untersetzermechanismus           | Aufnahme und Ausgabe von Getränkeuntersetzern                |
+| Energie    | Akkusystem                       | Versorgung aller elektrischen Komponenten                    |
+| Steuerung  | Recheneinheit                    | Ausführung der Steuerungssoftware                            |
+| Sensorik   | Abstandssensoren                 | Erkennung von Hindernissen und Tischgrenzen                  |
+| Sensorik   | Positionssensorik                | Bestimmung der Roboterposition und Orientierung              |
+| Aktorik    | Motorcontroller                  | Ansteuerung der Antriebsmotoren                              |
+| Software   | Navigationsmodul                 | Planung und Steuerung der Bewegung                           |
+| Software   | Lokalisierungsmodul              | Bestimmung der aktuellen Position                            |
+| Software   | Sicherheitsmodul                 | Überwachung kritischer Zustände                              |
+| Software   | Systemüberwachung                | Fehlererkennung und Statusverwaltung                         |
+| Simulation | Simulationsumgebung              | Virtuelle Nachbildung des Roboters                           |
 
----
+
 
 ## Hardwarekomponenten
 
@@ -2022,7 +2022,7 @@ Die mechanische Struktur muss:
 | Halterungen         | Befestigung von Sensoren und Aktoren          |
 | Untersetzeraufnahme | Mechanischer Greif- oder Transportmechanismus |
 
----
+
 
 ### Antriebssystem
 
@@ -2047,7 +2047,7 @@ Das Antriebssystem muss:
 * kontrolliertes Beschleunigen und Bremsen unterstützen,
 * sichere Fahrgeschwindigkeiten gewährleisten.
 
----
+
 
 ### Energieversorgung
 
@@ -2072,13 +2072,13 @@ Das Energiesystem muss:
 * niedrigen Akkustand erkennen,
 * einen sicheren Systemzustand ermöglichen.
 
----
+
 
 ### Sensorik
 
 Die Sensorik stellt Informationen über die Umgebung und den Zustand des Roboters bereit.
 
----
+
 
 #### Abstandssensorik
 
@@ -2092,7 +2092,7 @@ Erkennung von Hindernissen und Objekten auf der Tischfläche.
 * Routenanpassung,
 * Sicherheitsüberwachung.
 
----
+
 
 #### Kantenerkennung
 
@@ -2105,7 +2105,7 @@ Erkennung der Tischgrenzen zur Vermeidung eines Absturzes.
 * Sicherheitsabschaltung,
 * Begrenzung des Bewegungsbereichs.
 
----
+
 
 #### Positionssensorik
 
@@ -2119,7 +2119,7 @@ Bestimmung der aktuellen Position und Orientierung des Roboters.
 * Zielanfahrt,
 * Bewegungsplanung.
 
----
+
 
 ### Aktorik
 
@@ -2131,7 +2131,7 @@ Die Aktorik setzt Steuerbefehle der Software in physische Aktionen um.
 | Untersetzermechanismus | Aufnahme und Ausgabe von Untersetzern |
 | Statusanzeige          | Ausgabe von Systeminformationen       |
 
----
+
 
 ## Softwarekomponenten
 
@@ -2155,7 +2155,7 @@ Die grundlegende Struktur besteht aus:
 +--------------------------------+
 ```
 
----
+
 
 ### Hardwareabstraktionsschicht
 
@@ -2177,7 +2177,7 @@ Die Hardwareabstraktionsschicht trennt die Steuerungslogik von den konkreten Har
 | Motor API     | Steuerung der Bewegung            |
 | Aktor API     | Steuerung mechanischer Funktionen |
 
----
+
 
 #### Navigationsmodul
 
@@ -2204,7 +2204,7 @@ Das Navigationsmodul plant und steuert die Bewegung des Roboters.
 * Fahrtrichtung,
 * Geschwindigkeit.
 
----
+
 
 #### Lokalisierungsmodul
 
@@ -2218,7 +2218,7 @@ Das Lokalisierungsmodul bestimmt die aktuelle Position und Orientierung des Robo
 * Positionsaktualisierung,
 * Berechnung der Orientierung.
 
----
+
 
 ### Sicherheitsmodul
 
@@ -2233,7 +2233,7 @@ Das Sicherheitsmodul überwacht kritische Zustände und verhindert gefährliche 
 * Wechsel in sicheren Zustand,
 * Begrenzung kritischer Bewegungen.
 
----
+
 
 ### Systemüberwachung
 
@@ -2248,7 +2248,7 @@ Die Systemüberwachung stellt die Diagnosefähigkeit des Roboters sicher.
 * Statusanzeige,
 * Überwachung von Aufgabenabläufen.
 
----
+
 
 ## Simulationskomponenten
 
@@ -2265,7 +2265,7 @@ Die Simulationskomponenten ermöglichen die Entwicklung und Prüfung ohne vollst
 | Aktormodelle    | Simulation von Bewegungen           |
 | Umgebungsmodell | Darstellung der Tischumgebung       |
 
----
+
 
 ## Kommunikationsschnittstellen
 
@@ -2279,7 +2279,7 @@ Die Kommunikation zwischen Komponenten erfolgt über definierte Schnittstellen.
 | Statusdaten      | Komponenten   | Monitoring       | Betriebszustand           |
 | Fehlermeldungen  | Module        | Sicherheitsmodul | Fehlerstatus              |
 
----
+
 
 ## Erweiterbarkeit
 
@@ -2297,7 +2297,7 @@ Mögliche zusätzliche Komponenten:
 
 Durch die modulare Struktur können diese Erweiterungen integriert werden, ohne bestehende Kernkomponenten wesentlich zu verändern.
 
----
+
 
 ## Zusammenfassung
 
@@ -2327,7 +2327,7 @@ Ziel dieser Matrix ist es, die vollständige Nachverfolgbarkeit aller relevanten
 
 Die Traceability-Matrix unterstützt somit die Qualitätssicherung und ermöglicht eine systematische Bewertung des Entwicklungsstands.
 
----
+
 
 ## Struktur der Traceability-Matrix
 
@@ -2350,82 +2350,82 @@ Der Status wird wie folgt bewertet:
 | In Umsetzung | Funktion befindet sich in Entwicklung |
 | Verifiziert  | Umsetzung wurde erfolgreich getestet  |
 
----
+
 
 ## Funktionale Anforderungen – Navigation und Lokalisierung
 
-| ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                              | Komponente                      | Testfall | Status |
-| ------- | --------------------------------------------------- | ------------------------------------------------------- | ------------------------------- | -------- | ------ |
-| NAV-001 | Der Coasterbot muss Hindernisse auf dem Tisch erkennen.    | Verarbeitung von Sensordaten durch Hinderniserkennung.  | Sensorabstraktion, Navigation   | SIM-002  | Offen  |
-| NAV-002 | Der Coasterbot muss Hindernissen selbstständig ausweichen. | Dynamische Routenanpassung durch Navigationskomponente. | Navigation                      | SIM-002  | Offen  |
-| NAV-003 | Der Coasterbot muss die Begrenzung der Tischoberfläche erkennen.                | Modellierung der Tischkante und Sicherheitsauswertung.  | Sensorik, Sicherheitskomponente | SIM-003  | Offen  |
-| NAV-004 | Der Coasterbot darf die Tischoberfläche nicht verlassen.                 | Sicherheitsstopp bei erkannter Tischkante.              | Sicherheitskomponente           | SIM-003  | Offen  |
-| NAV-005 | Der Coasterbot muss seine Fahrroute während der Bewegung an erkannte Hindernisse anpassen können.    | Implementierung einer adaptiven Routenplanung.          | Navigation                      | SIM-002  | Offen  |
-| NAV-006 | Der Coasterbot muss seine aktuelle Position innerhalb des Arbeitsbereichs bestimmen können, solange er nitch manuell umgesetzt wurde.       | Lokalisierung über Sensordaten und Zustandsmodell.      | Lokalisierung                   | SIM-001  | Offen  |
-| NAV-007 | Der Coasterbot muss seine Orientierung bestimmen können.   | Berechnung der Roboterpose.                             | Lokalisierung                   | SIM-001  | Offen  |
-| NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen.             | Zielnavigation mit Positionsprüfung.                    | Navigation                      | SIM-001  | Offen  |
-| NAV-009 | Der Coasterbot muss sich autonom auf der Tischoberfläche bewegen können.             | Bewegungssteuerung mit Geschwindigkeitsbegrenzung.      | Bewegungssteuerung              | SYS-002  | Offen  |
-| NAV-010 | Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht unbeabsichtigt verschieben.       | Zielpunktbasierte Navigation.                           | Anwendungsebene                 | SYS-002  | Offen  |
-| NAV-011 | Der Coasterbot soll Getränke auf der Tischoberfläche erkennen können.      | Sensorabstraktion, Navigation.                           |  Sensorabstraktion, Navigation                | SYS-002  | Offen  |
+| ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                    | Komponente                      | Testfall            | Status             |
+|:------- | --------------------------------------------------- | ----------------------------------------------| ------------------------------- |--------------------:|:-------------------|
+| NAV-001 | Der Coasterbot muss Hindernisse auf dem Tisch erkennen.    | Verarbeitung von Sensordaten durch Hinderniserkennung.  | Sensorab-straktion, Navigation   | SIM-002                    | Offen           |
+| NAV-002 | Der Coasterbot muss Hindernissen selbstständig ausweichen. | Dynamische Routenanpassung durch Navigationskomponente. | Navigation                      | SIM-002                    | Offen           |
+| NAV-003 | Der Coasterbot muss die Begrenzung der Tischoberfläche erkennen.                | Modellierung der Tischkante und Sicherheitsauswertung.  | Sensorik, Sicherheitskomponente | SIM-003                   | Offen              |
+| NAV-004 | Der Coasterbot darf die Tischoberfläche nicht verlassen.                 | Sicherheitsstopp bei erkannter Tischkante.              | Sicherheits-komponente           | SIM-003                  | Offen             |
+| NAV-005 | Der Coasterbot muss seine Fahrroute während der Bewegung an erkannte Hindernisse anpassen können.    | Implementierung einer adaptiven Routenplanung.          | Navigation                      | SIM-002              | Offen             |
+| NAV-006 | Der Coasterbot muss seine aktuelle Position innerhalb des Arbeitsbereichs bestimmen können, solange er nitch manuell umgesetzt wurde.       | Lokalisierung über Sensordaten und Zustandsmodell.      | Lokalisierung                   | SIM-001                               | Offen              |
+| NAV-007 | Der Coasterbot muss seine Orientierung bestimmen können.   | Berechnung der Roboterpose.                             | Lokalisierung                   | SIM-001                                    | Offen  |
+| NAV-008 | Der Coasterbot muss einen vorgegebenen Zielpunkt innerhalb einer definierten Positionsgenauigkeit erreichen.             | Zielnavigation mit Positionsprüfung.                    | Navigation                      | SIM-001                          | Offen             |
+| NAV-009 | Der Coasterbot muss sich autonom auf der Tischoberfläche bewegen können.             | Bewegungssteuerung mit Geschwindigkeitsbegrenzung.      | Bewegungs-steuerung              | SYS-002                          | Offen             |
+| NAV-010 | Der Coasterbot darf Gegenstände auf der Tischoberfläche nicht unbeabsichtigt verschieben.       | Zielpunktbasierte Navigation.                           | Anwendungs-ebene                 | SYS-002                       | Offen           |
+| NAV-011 | Der Coasterbot soll Getränke auf der Tischoberfläche erkennen können.      | Sensorabstraktion, Navigation.                           |  Sensor-abstraktion, Navigation                | SYS-002                     | Offen            |
 
 
----
+
 
 ## Funktionale Anforderungen – Getränkeuntersetzer
 
-| ID      | Lastenheft-Anforderung                                        | Umsetzung im Pflichtenheft                                | Komponente                      | Testfall | Status |
-| ------- | ------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------- | -------- | ------ |
-| CST-001 | Der Coasterbot muss einen Getränkeuntersetzer aufnehmen.      | Steuerung des Aufnahmemechanismus über Zustandsautomaten. | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-002 | Der Coasterbor muss einen Getränkeuntersetzer transportieren. | Kombination aus Navigation und Manipulation.              | Navigation, Untersetzerhandling | SYS-004  | Offen  |
-| CST-003 | Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch platzieren.     | Positionssteuerung und Ablagefunktion.                    | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-004 | Der Coasterbot muss einen ausgelegten Getränkeuntersetzer wieder aufnehmen können.       | Aufnahmeprozess mit Zustandsprüfung.                      | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-005 | Der Coasterbot muss erkennen, ob sich ein Getränkeuntersetzer erfolgreich abgesetzt wurde.                  | Sensorbasierte Zustandsprüfung.                           | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-006 | Der Coasterbot muss erkennen, ob ein Getränkeuntersetzer erfolgreich aufgenommen wurde.               | Validierung des Ablagevorgangs.                           | Untersetzerhandling             | SIM-004  | Offen  |
-| CST-007 | Der Coasterbot kann spezielalisierte Getränkeuntersetzer benötigen. | Validierung des Ablagevorgangs.                 | Untersetzerhandling.  | SIM-004 | Offen |
+| ID      | Lastenheft-Anforderung                                        | Umsetzung im Pflichtenheft                                | Komponente                      | Testfall          | Status             |
+| ------- | ------------------------------------------------------------- | --------------------------------------------------------- | ------------------------------- |------------------:|:-------------------|
+| CST-001 | Der Coasterbot muss einen Getränkeuntersetzer aufnehmen.      | Steuerung des Aufnahmemechanismus über Zustandsautomaten. | Untersetzer-handling             | SIM-004              | Offen              |
+| CST-002 | Der Coasterbor muss einen Getränkeuntersetzer transportieren. | Kombination aus Navigation und Manipulation.              | Navigation, Untersetzer-handling | SYS-004              | Offen              |
+| CST-003 | Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch platzieren.     | Positionssteuerung und Ablagefunktion.                    | Untersetzer-handling             | SIM-004                | Offen            |
+| CST-004 | Der Coasterbot muss einen ausgelegten Getränkeuntersetzer wieder aufnehmen können.       | Aufnahmeprozess mit Zustandsprüfung.                      | Untersetzer-handling             | SIM-004           | Offen           |
+| CST-005 | Der Coasterbot muss erkennen, ob sich ein Getränkeuntersetzer erfolgreich abgesetzt wurde.                  | Sensorbasierte Zustandsprüfung.                           | Untersetzer-handling             | SIM-004                | Offen            |
+| CST-006 | Der Coasterbot muss erkennen, ob ein Getränkeuntersetzer erfolgreich aufgenommen wurde.               | Validierung des Ablagevorgangs.                           | Untersetzer-handling             | SIM-004              | Offen              |
+| CST-007 | Der Coasterbot kann spezielalisierte Getränkeuntersetzer benötigen. | Validierung des Ablagevorgangs.                 | Untersetzer-handling.  | SIM-004 | Offen             |
 
----
+
 
 ## Funktionale Anforderungen – Sicherheit
 
-| ID      | Lastenheft-Anforderung                                    | Umsetzung im Pflichtenheft                         | Komponente            | Testfall | Status |
-| ------- | --------------------------------------------------------- | -------------------------------------------------- | --------------------- | -------- | ------ |
-| SAF-001 | Der Coasterbot muss bei Gefahr unverzüglich anhalten können.         | Priorisierte Sicherheitslogik mit Stoppsignal.     | Sicherheitskomponente | SYS-005  | Offen  |
-| SAF-002 | Der Coasterbot muss bei einem Ausfall sicherheitsrelevanter Sensoren in einen sicheren Betriebszustand wechseln. | Fehlererkennung und Zustandswechsel.               | Sicherheitskomponente | SIM-005  | Offen  |
-| SAF-003 | Der Coasterbot muss Kollisionen mit Hindernissen vermeiden.                   | Notstopp.                 | Sicherheitskomponente | SIM-003  | Offen  |
-| SAF-004 | Der Coasterbot darf Hindernisse nicht mit einer Geschwindigkeit anfahren, die Schäden verursachen kann. | Geschwindigkeitsbegrenzung und Hinderniserkennung. | Bewegungssteuerung    | SYS-003  | Offen  |
-| SAF-005 | Der Coasterbot muss einen Not-Aus unterstützen.                  | Implementierung eines sicheren Stopps.             | Sicherheitskomponente | SYS-005  | Offen  |
+| ID      | Lastenheft-Anforderung                                    | Umsetzung im Pflichtenheft                         | Komponente            | Testfall               | Status              |
+| ------- | --------------------------------------------------------- | -------------------------------------------------- | --------------------- |-----------------------:|:--------------------|
+| SAF-001 | Der Coasterbot muss bei Gefahr unverzüglich anhalten können.         | Priorisierte Sicherheitslogik mit Stoppsignal.     | Sicherheits-komponente | SYS-005                | Offen    |
+| SAF-002 | Der Coasterbot muss bei einem Ausfall sicherheitsrelevanter Sensoren in einen sicheren Betriebszustand wechseln. | Fehlererkennung und Zustandswechsel.               | Sicherheits-komponente | SIM-005                | Offen        |
+| SAF-003 | Der Coasterbot muss Kollisionen mit Hindernissen vermeiden.                   | Notstopp.                 | Sicherheits-komponente | SIM-003                | Offen        |
+| SAF-004 | Der Coasterbot darf Hindernisse nicht mit einer Geschwindigkeit anfahren, die Schäden verursachen kann. | Geschwindigkeits-begrenzung und Hinderniserkennung. | Bewegungs-steuerung    | SYS-003             | Offen  |
+| SAF-005 | Der Coasterbot muss einen Not-Aus unterstützen.                  | Implementierung eines sicheren Stopps.             | Sicherheits-komponente | SYS-005            | Offen            |
 
----
+
 
 ## Funktionale Anforderungen – Systemüberwachung
 
-| ID      | Lastenheft-Anforderung                        | Umsetzung im Pflichtenheft                    | Komponente        | Testfall | Status |
-| ------- | --------------------------------------------- | --------------------------------------------- | ----------------- | -------- | ------ |
-| MON-001 | Der Coasterbot muss auftretende Fehler erkennen.                 | Diagnose- und Überwachungssystem.             | Systemüberwachung | SIM-005  | Offen  |
-| MON-002 | Der Coasterbot muss Fehler protokollieren.           | Ereignisverwaltung mit Fehlerprotokollierung. | Diagnosedienst    | SYS-006  | Offen  |
-| MON-003 | Der Coasterbot muss seinen aktuellen Betriebszustand anzeigen.        | Statusverwaltung.                             | Systemüberwachung | SYS-006  | Offen  |
-| MON-004 | Der Coasterbot muss den erfolgreichen Abschluss einer Aufgabe erkennen.  | Zustandsauswertung nach Aktionen.             | Anwendungsebene   | SYS-004  | Offen  |
-| MON-005 | Der Coasterbot muss fehlgeschlagene Aufgaben erkennen und melden. | Fehler- und Ereignisverwaltung.               | Diagnosedienst    | SYS-006  | Offen  |
+| ID      | Lastenheft-Anforderung                        | Umsetzung im Pflichtenheft      | Komponente | Testfall         | Status        |
+| ------- | --------------------------------------------- | ------------------------------- |:---------- |-----------------:|:--------------|
+| MON-001 | Der Coasterbot muss auftretende Fehler erkennen.                 | Diagnose- und Überwachungssystem. | System-überwach-ung | SIM-005    | Offen         |
+| MON-002 | Der Coasterbot muss Fehler protokollieren.           | Ereignisverwaltung mit Fehlerprotokollierung. | Diagnose-dienst    | SYS-006     | Offen         |
+| MON-003 | Der Coasterbot muss seinen aktuellen Betriebszustand anzeigen.        | Statusverwaltung.            | System-überwach-ung | SYS-006    | Offen         |
+| MON-004 | Der Coasterbot muss den erfolgreichen Abschluss einer Aufgabe erkennen.  | Zustandsauswertung nach Aktionen. | Anwen-dungsebene   | SYS-004    | Offen      |
+| MON-005 | Der Coasterbot muss fehlgeschlagene Aufgaben erkennen und melden. | Fehler- und Ereignisverwaltung. | Diagnose-dienst    | SYS-006    | Offen       |
 
----
+
 
 ## Zusätzliche nichtfunktionale Anforderungen
 
 Nichtfunktionale Testfälle haben keinen direkten Testfall als Komponente.
 Folgende zusätzliche Anforderungen werden aus den nichtfunktionalen Anforderungen des Lastenhefts abgeleitet, nämlich NFA-ARC, NFA-MAI, NFA-TST und NFA-SIM. Deren Umsetzung und Prüfverfahren sind im Pflichtenheft beschrieben.
 
-| ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                          | Prüfverfahren      | Status |
-| ------- | --------------------------------------------------- | --------------------------------------------------- | ------------------ | ------ |
-| NFR-001 | Der Bot muss modular aufgebaut sein.                | Komponentenbasierte Architektur.                    | Architekturprüfung | Offen  |
-| NFR-002 | Software muss komponentenbasiert entwickelt werden. | Trennung der Softwaremodule.                        | Codeanalyse        | Offen  |
-| NFR-003 | Softwarearchitektur muss erweiterbar sein.          | Schichtenmodell und Schnittstellenkonzept.          | Architekturprüfung | Offen  |
-| NFR-004 | Software muss simuliert werden können.              | Hardwareabstraktion und Simulationsmodelle.         | Simulationstest    | Offen  |
-| NFR-005 | Software muss testbar sein.                         | Automatisierte Tests und definierte Schnittstellen. | Testausführung     | Offen  |
-| NFR-006 | Kernfunktionen müssen automatisiert testbar sein.   | Unit- und Integrationstests.                        | Testberichte       | Offen  |
-| NFR-007 | Sensoren und Aktoren müssen austauschbar sein.      | Hardwareabstraktionsebene.                          | Austauschtest      | Offen  |
-| NFR-008 | Software muss Hardwareabstraktion unterstützen.     | Einheitliche Hardwareinterfaces.                    | Simulationstest    | Offen  |
+| ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                          | Prüfverfahren      | Status         |
+| ------- | --------------------------------------------------- | --------------------------------------------------- | ------------------ |---------------:|
+| NFR-001 | Der Bot muss modular aufgebaut sein.                | Komponentenbasierte Architektur.                    | Architektur-prüfung | Offen          |
+| NFR-002 | Software muss komponentenbasiert entwickelt werden. | Trennung der Softwaremodule.                        | Code-analyse        | Offen          |
+| NFR-003 | Softwarearchitektur muss erweiterbar sein.          | Schichtenmodell und Schnittstellenkonzept.          | Architektur-prüfung | Offen          |
+| NFR-004 | Software muss simuliert werden können.              | Hardwareabstraktion und Simulationsmodelle.         | Simulations-test    | Offen          |
+| NFR-005 | Software muss testbar sein.                         | Automatisierte Tests und definierte Schnittstellen. | Test-ausführung     | Offen          |
+| NFR-006 | Kernfunktionen müssen automatisiert testbar sein.   | Unit- und Integrationstests.                        | Test-berichte       | Offen          |
+| NFR-007 | Sensoren und Aktoren müssen austauschbar sein.      | Hardwareabstraktionsebene.                          | Austausch-test      | Offen          |
+| NFR-008 | Software muss Hardwareabstraktion unterstützen.     | Einheitliche Hardwareinterfaces.                    | Simulations-test    | Offen          |
 
----
+
 
 ## Anforderungen an die Simulation
 
@@ -2433,17 +2433,17 @@ Folgende Umsetung ergibs sich aus den nichtfunktionalen Anforderungen der
 Simulationsfähigkeit (NFA-SIM) des Lastenhefts. Es werden Testfall und geplante
 Umsetzung beschrieben.
 
-| ID      | Simulationsanforderung                                      | Umsetzung                               | Testfall         | Status |
-| ------- | ----------------------------------------------------------- | --------------------------------------- | ---------------- | ------ |
-| SIM-001 | Fahrmanöver müssen reproduzierbar sein.                     | Parametrisierte Simulationsszenarien.   | Simulationstest  | Offen  |
-| SIM-002 | Sensoren müssen modelliert werden können.                   | Sensormodelle innerhalb der Simulation. | Sensorprüfung    | Offen  |
-| SIM-003 | Aktoren müssen modelliert werden können.                    | Virtuelle Aktormodelle.                 | Aktorprüfung     | Offen  |
-| SIM-004 | Hindernisse müssen berücksichtigt werden.                   | Umgebungsmodell mit Objekten.           | SIM-002          | Offen  |
-| SIM-005 | Fehlersituationen müssen simulierbar sein.                  | Fehlerinjektion in Simulation.          | SIM-005          | Offen  |
-| SIM-006 | Simulation muss Testfälle unterstützen.                     | Teststeuerung und Szenariomanagement.   | Testdurchführung | Offen  |
-| SIM-007 | Simulationsverhalten muss erwartetem Verhalten entsprechen. | Vergleich Simulation und Prototyp.      | Validierungstest | Offen  |
+| ID      | Simulationsanforderung                                      | Umsetzung                               | Testfall         | Status       |
+| ------- | ----------------------------------------------------------- | --------------------------------------- | ---------------- |-------------:|
+| SIM-001 | Fahrmanöver müssen reproduzierbar sein.                     | Parametrisierte Simulationsszenarien.   | Simulations-test  | Offen        |
+| SIM-002 | Sensoren müssen modelliert werden können.                   | Sensormodelle innerhalb der Simulation. | Sensor-prüfung    | Offen        |
+| SIM-003 | Aktoren müssen modelliert werden können.                    | Virtuelle Aktormodelle.                 | Aktor-prüfung     | Offen        |
+| SIM-004 | Hindernisse müssen berücksichtigt werden.                   | Umgebungsmodell mit Objekten.           | SIM-002          | Offen        |
+| SIM-005 | Fehlersituationen müssen simulierbar sein.                  | Fehlerinjektion in Simulation.          | SIM-005          | Offen        |
+| SIM-006 | Simulation muss Testfälle unterstützen.                     | Teststeuerung und Szenariomanagement.   | Test-durchführung | Offen        |
+| SIM-007 | Simulationsverhalten muss erwartetem Verhalten entsprechen. | Vergleich Simulation und Prototyp.      | Validierungs-test | Offen        |
 
----
+
 
 ## Zusammenfassung
 
@@ -2477,7 +2477,7 @@ Durch definierte Schnittstellen wird sichergestellt, dass:
 
 Die Schnittstellen orientieren sich an der modularen Systemarchitektur des Pflichtenhefts.
 
----
+
 
 ## Übersicht der Systemarchitektur
 
@@ -2486,7 +2486,7 @@ Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
 ```
 +------------------------------------------------+
 |              Anwendungslogik                   |
-|  Aufgabensteuerung | Navigation | HMI           |
+|  Aufgabensteuerung | Navigation | HMI          |
 +------------------------------------------------+
 |              Systemdienste                     |
 | Lokalisierung | Sicherheit | Monitoring        |
@@ -2501,7 +2501,7 @@ Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
 
 Die Hardwareabstraktionsschicht stellt die zentrale Schnittstelle zwischen Software und physischer Hardware dar.
 
----
+
 
 ## Hardware-Schnittstellen
 
@@ -2530,7 +2530,7 @@ Die Recheneinheit muss:
 * ausreichend Rechenleistung für Navigation bereitstellen,
 * Kommunikationsschnittstellen für Erweiterungen besitzen.
 
----
+
 
 ### Sensorschnittstellen
 
@@ -2538,7 +2538,7 @@ Sensoren stellen Informationen über die Umgebung und den Systemzustand bereit.
 
 Die Sensoren werden über eine einheitliche Hardwareabstraktionsschnittstelle eingebunden.
 
----
+
 
 #### Abstandssensoren
 
@@ -2565,7 +2565,7 @@ DistanceSensor.read()
 Entfernung in Millimeter
 ```
 
----
+
 
 #### Kantensensoren
 
@@ -2596,7 +2596,7 @@ Sicherheitsmodul
 Bewegungsstopp
 ```
 
----
+
 
 #### Positionssensorik
 
@@ -2612,7 +2612,7 @@ Bereitstellung von Positions- und Orientierungsinformationen.
 | y     | Position in Y-Richtung    |
 | θ     | Orientierung des Roboters |
 
----
+
 
 ### Aktorschnittstellen
 
@@ -2637,7 +2637,7 @@ Ansteuerung der Antriebsmotoren.
 | Motorstatus  | Betriebszustand       |
 | Fehlerstatus | Diagnoseinformationen |
 
----
+
 
 #### Untersetzermechanismus
 
@@ -2663,7 +2663,7 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 | SUCCESS | Vorgang erfolgreich |
 | ERROR   | Fehler aufgetreten  |
 
----
+
 
 ### Energieschnittstelle
 
@@ -2686,7 +2686,7 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 | LOW_BATTERY | niedriger Akkustand       |
 | SHUTDOWN    | kontrolliertes Abschalten |
 
----
+
 
 ## Software-Schnittstellen
 
@@ -2696,7 +2696,7 @@ Die Hardwareabstraktionsschicht stellt standardisierte Funktionen für den Zugri
 
 Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeiten zu konkreten Hardwareimplementierungen besitzen.
 
----
+
 
 #### Sensor API
 
@@ -2709,7 +2709,7 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 | getPosition()     | Liefert aktuelle Position  |
 | getBatteryState() | Liefert Energiezustand     |
 
----
+
 
 #### Motor API
 
@@ -2721,7 +2721,7 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 | stop()          | Stoppt Bewegung       |
 | getMotorState() | Liest Motorstatus     |
 
----
+
 
 #### Aktor API
 
@@ -2733,7 +2733,7 @@ Ziel ist, dass die darüberliegenden Softwaremodule keine direkten Abhängigkeit
 | releaseCoaster()   | Startet Ablage       |
 | getActuatorState() | Liefert Aktorzustand |
 
----
+
 
 ### Navigationsschnittstelle
 
@@ -2756,7 +2756,7 @@ Die Navigation verarbeitet Positionsinformationen und erzeugt Bewegungsbefehle.
 | Bewegungsvektor | Motorsteuerung |
 | Status          | Monitoring     |
 
----
+
 
 ### Lokalisierungsschnittstelle
 
@@ -2778,7 +2778,7 @@ Berechnung und Bereitstellung der aktuellen Roboterposition.
 | Orientierung | Ausrichtung          |
 | Genauigkeit  | Vertrauenswert       |
 
----
+
 
 ### Sicherheitsschnittstelle
 
@@ -2802,7 +2802,7 @@ Berechnung und Bereitstellung der aktuellen Roboterposition.
 | SAFE_MODE | Wechsel in sicheren Zustand |
 | ERROR     | Fehlermeldung               |
 
----
+
 
 ### Monitoring-Schnittstelle
 
@@ -2822,7 +2822,7 @@ Alle Systemkomponenten liefern Statusinformationen.
 | Fehlerliste     | erkannte Fehler               |
 | Aufgabenstatus  | Fortschritt aktueller Aufgabe |
 
----
+
 
 ## Schnittstelle zwischen Simulation und realer Hardware
 
@@ -2848,7 +2848,7 @@ Dadurch können:
 * Fehlerfälle reproduzierbar simuliert werden,
 * Hardwareänderungen ohne Anpassung der Kernsoftware durchgeführt werden.
 
----
+
 
 ## Kommunikationsprotokolle
 
@@ -2862,7 +2862,7 @@ Für die Kommunikation zwischen Komponenten werden standardisierte Protokolle ve
 | GPIO                 | einfache Statussignale                 |
 | Software-Message-Bus | Kommunikation zwischen Softwaremodulen |
 
----
+
 
 ## Fehlerbehandlung an Schnittstellen
 
@@ -2877,7 +2877,7 @@ Mögliche Fehler:
 | Aktor reagiert nicht    | Bewegung stoppen                             |
 | Kommunikationsabbruch   | Fehler protokollieren                        |
 
----
+
 
 ## Erweiterbarkeit der Schnittstellen
 
@@ -2893,7 +2893,7 @@ Beispiele:
 | Reinigung                  | Reinigungsaktor         |
 | Mensch-Roboter-Interaktion | HMI-Schnittstelle       |
 
----
+
 
 ## Zusammenfassung
 
@@ -2932,7 +2932,7 @@ Die dargestellten Modelle unterstützen insbesondere:
 * die Kommunikation innerhalb des Projektteams,
 * die spätere Erweiterung des Systems.
 
----
+
 
 ## Systemübersicht des Coasterbots
 
@@ -2977,7 +2977,7 @@ Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
 +---------------------------------------------------------------+
 ```
 
----
+
 
 ## Schichtenmodell der Softwarearchitektur
 
@@ -3021,7 +3021,7 @@ Die Schichtenarchitektur ermöglicht eine klare Trennung von Aufgaben und reduzi
 +------------------------------------------------+
 ```
 
----
+
 
 ## Komponentenmodell
 
@@ -3058,7 +3058,7 @@ Das Komponentenmodell beschreibt die logische Zerlegung der Software.
 +-------------+       +-------------+       +-------------+
 ```
 
----
+
 
 ## Datenflussmodell
 
@@ -3101,7 +3101,7 @@ Sensoren
      Aktoren
 ```
 
----
+
 
 ## Zustandsmodell des Coasterbots
 
@@ -3148,7 +3148,7 @@ Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
 +----------------+
 ```
 
----
+
 
 ## Sicherheitsmodell
 
@@ -3184,7 +3184,7 @@ Das Sicherheitsmodell beschreibt die Reaktion des Systems auf kritische Situatio
                               +---------------+
 ```
 
----
+
 
 ## Simulationsarchitektur
 
@@ -3221,7 +3221,7 @@ Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
           Gleiche Schnittstellen wie Hardware
 ```
 
----
+
 
 ## Systemmodell für Erweiterungen
 
@@ -3249,7 +3249,7 @@ Die Architektur berücksichtigt zukünftige Erweiterungen außerhalb des aktuell
 +-------------------------------+
 ```
 
----
+
 
 ## Architekturprinzipien
 
@@ -3275,7 +3275,7 @@ Jede Komponente besitzt definierte Schnittstellen und kann automatisiert geprüf
 
 Die Software kann mit virtuellen Komponenten betrieben werden.
 
----
+
 
 ## Zusammenfassung
 

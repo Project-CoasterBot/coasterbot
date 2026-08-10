@@ -1000,7 +1000,7 @@ Der Ablauf wird durch folgende Schritte beschrieben:
 3. Aktivierung des Aufnahmemechanismus.
 4. Überprüfung der erfolgreichen Aufnahme.
 5. Transport zum Zielpunkt.
-6. Positionierung unter dem Getränk.
+6. Ablegen des Getränkeuntersetzers.
 7. Überprüfung der korrekten Platzierung.
 
 Der Prozess wird durch einen Zustandsautomaten umgesetzt.
@@ -1750,7 +1750,7 @@ Damit bildet das Testkonzept die Grundlage für die abschließende Bewertung des
 
 ## Zusammenfassung des Pflichtenhefts
 
-Dieses Pflichtenheft beschreibt die technische Umsetzung des Coasterbot-Prototyps im Rahmen der Master-Projektarbeit im Bereich Cyber Security mit Schwerpunkt allgemeine Informatik.
+Dieses Pflichtenheft beschreibt die technische Umsetzung des Coasterbot-Prototyps im Rahmen der interdisziplinären und studienfachübergreifenden Master-Projektarbeit der Wilhelm Büchner Hochschule.
 
 Ausgehend von den Anforderungen des Lastenhefts wurde ein technisches Konzept entwickelt, welches die Umsetzung eines autonomen, handtellergroßen Roboters ermöglicht. Der Fokus liegt dabei auf der Entwicklung eines Prototyps, der Getränkeuntersetzer selbstständig auf einer Tischoberfläche transportieren, positionieren und wieder aufnehmen kann.
 

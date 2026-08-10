@@ -511,6 +511,26 @@ Bei der Konstruktion werden insbesondere folgende Eigenschaften berücksichtigt:
 * Austauschbarkeit einzelner Komponenten,
 * Erweiterbarkeit für zukünftige Funktionen.
 
+## Bedienelemente
+
+Für die direkte Bedienung durch das Servicepersonal oder Gäste besitzt der Coasterbot einige wenige physische Bedienelemente. 
+
+Vorgesehen sind drei Bedienelemente:
+
+* **Ein/Aus-Schalter:** Schaltet die Energieversorgung und damit das Gesamtsystem ein und aus. Er löst den Übergang zwischen den Zuständen *AUS* und *Initialisierung* bzw. *Bereitschaft* aus.
+* **Aktionsknopf (Untersetzer-Ereignis):** Zentraler Multifunktionsknopf zum Auslösen eines Untersetzer-Vorgangs ohne weitere Eingabegeräte. Als plausibles Bedienschema ist vorgesehen: ein kurzer Tastendruck löst die Ausgabe eines Getränkeuntersetzers aus, ein längeres Halten (ca. zwei Sekunden) startet das Einsammeln bereits ausgelegter Untersetzer bzw. bricht einen laufenden Vorgang ab.
+* **Not-Aus-Taster:** Überführt den Roboter unmittelbar in einen sicheren Zustand und erfüllt damit die Anforderung SAF-005 aus dem Lastenheft.
+
+Die Anforderungen an die Bedienelemente sind:
+
+| ID         | Anforderung                                                                                                                            |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| HW-BTN-001 | Ein Ein/Aus-Schalter muss das System kontrolliert ein- und ausschalten können.                                                         |
+| HW-BTN-002 | Ein zentraler Aktionsknopf muss Untersetzer-Ereignisse auslösen können und dabei zwischen kurzem und langem Tastendruck unterscheiden. |
+| HW-BTN-003 | Ein Not-Aus-Taster muss den Roboter jederzeit in einen sicheren Zustand überführen können (siehe SAF-005).                             |
+
+Die Bedienelemente werden über die Hardwareabstraktionsschicht als Ereignisse an die Anwendungs- bzw. Sicherheitslogik weitergereicht und können in der Simulation über dieselbe Schnittstelle nachgebildet werden.
+
 ## Hardwareabstraktion
 
 Alle Hardwarekomponenten werden so integriert, dass sie über definierte Schnittstellen angesprochen werden können.
@@ -1990,6 +2010,7 @@ Der Coasterbot besteht aus folgenden Hauptkomponenten:
 | Sensorik   | Abstandssensoren                 | Erkennung von Hindernissen und Tischgrenzen                  |
 | Sensorik   | Positionssensorik                | Bestimmung der Roboterposition und Orientierung              |
 | Aktorik    | Motorcontroller                  | Ansteuerung der Antriebsmotoren                              |
+| Bedienung  | Bedienelemente                   | Ein/Aus, Auslösen von Untersetzer-Ereignissen, Not-Aus       |
 | Software   | Navigationsmodul                 | Planung und Steuerung der Bewegung                           |
 | Software   | Lokalisierungsmodul              | Bestimmung der aktuellen Position                            |
 | Software   | Sicherheitsmodul                 | Überwachung kritischer Zustände                              |
@@ -2690,6 +2711,21 @@ Aufnahme und Ausgabe von Getränkeuntersetzern.
 | LOW_BATTERY | niedriger Akkustand       |
 | SHUTDOWN    | kontrolliertes Abschalten |
 
+### Bedienelemente
+
+#### Zweck
+
+Direkte Bedienung durch das Servicepersonal oder Gäste ohne grafische Nutzeroberfläche.
+
+##### Schnittstelle
+
+| Element          | Richtung | Signal / Ereignis                                |
+| ---------------- | -------- | ------------------------------------------------ |
+| Ein/Aus-Schalter | Eingang  | POWER_ON / POWER_OFF                             |
+| Aktionsknopf     | Eingang  | COASTER_EVENT (kurz: Ausgabe, lang: Einsammeln)  |
+| Not-Aus-Taster   | Eingang  | EMERGENCY_STOP                                   |
+
+Die Ereignisse werden über die Hardwareabstraktion an die Anwendungs- und Sicherheitslogik weitergeleitet.
 
 
 ## Software-Schnittstellen

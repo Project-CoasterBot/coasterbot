@@ -32,7 +32,7 @@ Hierzu werden folgende Ergebnisse angestrebt:
 
 Der Schwerpunkt liegt auf dem Nachweis der technischen Machbarkeit und nicht auf der Entwicklung eines serienreifen Produkts.
 
-##Technische Zielarchitektur
+## Technische Zielarchitektur
 
 Der Coasterbot wird als eingebettetes, autonomes Robotersystem umgesetzt. Die geplante Architektur besteht aus mehreren logisch getrennten Ebenen:
 

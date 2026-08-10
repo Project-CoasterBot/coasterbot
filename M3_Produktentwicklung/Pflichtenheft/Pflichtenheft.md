@@ -1182,15 +1182,15 @@ Das Bewegungsmodell beschreibt die Änderung der Roboterposition über die Zeit.
 Für einen mobilen Roboter kann die Bewegung beispielsweise durch ein kinematisches Modell beschrieben werden:
 
 $$
-x_{t+1}=x_t+v \cdot \cos(\theta)\cdot \Delta t
+x_{t+1}=x_t+\left( v + a \cdot t \right) \cdot \cos(\theta)\cdot \Delta t
 $$
 
 $$
-y_{t+1}=y_t+v \cdot \sin(\theta)\cdot \Delta t
+y_{t+1}=y_t+\left( v + a \cdot t \right) \cdot \sin(\theta)\cdot \Delta t
 $$
 
 $$
-\theta_{t+1}=\theta_{t} + \omega \cdot \Delta t
+\theta_{t+1}=\theta_{t} + \left( \omega + \alpha \cdot t \right) \cdot \Delta t
 $$
 
 mit:
@@ -1198,7 +1198,9 @@ mit:
 * $x,y$: Position des Roboters.
 * $\theta$: Orientierung.
 * $v$: Geschwindigkeit.
+* $a$: Beschleunigung, Änderung der Geschwindigkeit.
 * $\omega$: Winkelgeschwindigkeit.
+* $\alpha$: Winkelbeschleunigung, Änderung der Winkelgeschwindigkeit.
 * $\Delta t$: Zeitschritt der Simulation.
 
 Das Modell muss ausreichend genau sein, um das Verhalten des realen Systems abzubilden.

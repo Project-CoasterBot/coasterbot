@@ -2411,7 +2411,7 @@ Der Status wird wie folgt bewertet:
 
 ## Zusätzliche nichtfunktionale Anforderungen
 
-Nichtfunktionale Testfälle haben keinen direkten Testfall als Komponente.
+Nichtfunktionale Anforderungen haben keinen direkten Testfall als Komponente.
 Folgende zusätzliche Anforderungen werden aus den nichtfunktionalen Anforderungen des Lastenhefts abgeleitet, nämlich NFA-ARC, NFA-MAI, NFA-TST und NFA-SIM. Deren Umsetzung und Prüfverfahren sind im Pflichtenheft beschrieben.
 
 | ID      | Lastenheft-Anforderung                              | Umsetzung im Pflichtenheft                          | Prüfverfahren      | Status         |

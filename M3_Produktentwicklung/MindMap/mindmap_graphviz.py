@@ -22,11 +22,18 @@ Voraussetzungen
     pip install graphviz
     + Graphviz-Binary installiert (dot):  apt install graphviz  /  choco install graphviz
 
+Layout
+------
+Standard ist eine radiale Anordnung ("rundherum") um den Wurzelknoten
+mit der Graphviz-Engine twopi. Mit --engine dot erhält man stattdessen
+den klassischen Baum von links nach rechts.
+
 Beispiele
 ---------
-    python3 mindmap_graphviz.py Coasterbot_Elektrik_Mindmap.md
-    python3 mindmap_graphviz.py quelle.md -o mindmap --engine twopi --format svg
-    python3 mindmap_graphviz.py quelle.md --rankdir TB --format png
+    python3 mindmap_graphviz.py Coasterbot_Elektrik_Mindmap.md          # radial (twopi)
+    python3 mindmap_graphviz.py quelle.md --engine circo                # alternative Kreisform
+    python3 mindmap_graphviz.py quelle.md --ranksep 1.6,2.4,3.4         # Ringe weiter außen
+    python3 mindmap_graphviz.py quelle.md --engine dot --rankdir LR     # klassischer Baum
 """
 
 import argparse
@@ -134,19 +141,33 @@ def wrap(label, width):
     return "\n".join(textwrap.wrap(label, width=width)) or label
 
 
-def build_graph(root, engine="dot", rankdir="LR", wrap_width=26):
-    g = graphviz.Graph(
-        "mindmap",
-        engine=engine,
-        graph_attr={
+def build_graph(root, engine="twopi", rankdir="LR", wrap_width=22, ranksep=None):
+    # twopi/circo/neato ordnen die Knoten radial ("rundherum") an,
+    # dot erzeugt den klassischen Baum von links nach rechts.
+    radial = engine in ("twopi", "circo", "neato", "fdp", "sfdp")
+    if radial:
+        graph_attr = {
+            "bgcolor": "white",
+            "overlap": "false",                    # Überlappungen auflösen
+            "splines": "true",                     # gebogene Kanten
+            "sep": "+12",                          # Mindestabstand zwischen Knoten
+            "ranksep": ranksep or "1.4,2.1,3.0",   # Radien der konzentrischen Ringe
+            "pad": "0.4",
+        }
+    else:
+        graph_attr = {
             "rankdir": rankdir,
             "bgcolor": "white",
             "splines": "spline",
             "overlap": "false",
-            "ranksep": "0.55",
+            "ranksep": ranksep or "0.55",
             "nodesep": "0.22",
             "pad": "0.3",
-        },
+        }
+    g = graphviz.Graph(
+        "mindmap",
+        engine=engine,
+        graph_attr=graph_attr,
         node_attr={"fontname": "Helvetica", "fontsize": "12"},
         edge_attr={"penwidth": "1.4"},
     )
@@ -166,6 +187,8 @@ def build_graph(root, engine="dot", rankdir="LR", wrap_width=26):
         fillcolor=ROOT_FILL, fontcolor="white",
         color=ROOT_FILL, penwidth="1.5", margin="0.18,0.12",
     )
+    if radial:
+        g.attr(root=root_id)          # Zentrum der radialen Anordnung
 
     def add_leaves(node, parent_id, solid, tint, dark):
         for child in node.children:
@@ -218,14 +241,16 @@ def main():
                     help="Eingabe-Markdown (markmap-Struktur)")
     ap.add_argument("-o", "--output", default=None,
                     help="Ausgabe-Basisname ohne Endung (Standard: wie Eingabe)")
-    ap.add_argument("--engine", default="dot",
-                    choices=["dot", "twopi", "circo", "neato", "fdp", "sfdp"],
-                    help="Graphviz-Layout: dot=Baum, twopi/circo=radial")
+    ap.add_argument("--engine", default="twopi",
+                    choices=["twopi", "circo", "dot", "neato", "fdp", "sfdp"],
+                    help="Graphviz-Layout: twopi/circo=radial (rundherum), dot=Baum")
     ap.add_argument("--rankdir", default="LR", choices=["LR", "TB", "RL", "BT"],
-                    help="Flussrichtung bei engine=dot")
+                    help="Flussrichtung nur bei engine=dot")
+    ap.add_argument("--ranksep", default=None,
+                    help="Ringradien (twopi), z.B. '1.4,2.1,3.0', oder Rangabstand (dot), z.B. '0.6'")
     ap.add_argument("--format", default="svg",
                     choices=["svg", "png", "pdf"], help="Ausgabeformat")
-    ap.add_argument("--wrap", type=int, default=26,
+    ap.add_argument("--wrap", type=int, default=22,
                     help="Zeichen pro Zeile im Label (Umbruch)")
     args = ap.parse_args()
 
@@ -234,7 +259,8 @@ def main():
         sys.exit(f"Datei nicht gefunden: {src}")
 
     root = parse_markdown(src.read_text(encoding="utf-8"))
-    g = build_graph(root, engine=args.engine, rankdir=args.rankdir, wrap_width=args.wrap)
+    g = build_graph(root, engine=args.engine, rankdir=args.rankdir,
+                    wrap_width=args.wrap, ranksep=args.ranksep)
 
     base = args.output or str(src.with_suffix(""))
     out = g.render(filename=base, format=args.format, cleanup=True)

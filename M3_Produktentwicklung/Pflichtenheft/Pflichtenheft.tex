@@ -513,7 +513,8 @@ Hierzu werden folgende Ergebnisse angestrebt:
 Der Schwerpunkt liegt auf dem Nachweis der technischen Machbarkeit und
 nicht auf der Entwicklung eines serienreifen Produkts.
 
-\#\#Technische Zielarchitektur
+\subsection{Technische
+Zielarchitektur}\label{technische-zielarchitektur}
 
 Der Coasterbot wird als eingebettetes, autonomes Robotersystem
 umgesetzt. Die geplante Architektur besteht aus mehreren logisch
@@ -1104,8 +1105,8 @@ Steuerungssoftware sowie die Berechnung der Bewegungsbefehle.
 Die Anforderungen an die Recheneinheit sind:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.0752}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.9248}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1788}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8212}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1145,8 +1146,8 @@ Arbeitsbereichs erkennen können.
 Die Sensorik muss folgende Anforderungen erfüllen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1759}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8241}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1176,8 +1177,8 @@ ist eine zuverlässige Erkennung der Tischbegrenzung erforderlich.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1075}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8925}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1863}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8137}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1206,8 +1207,8 @@ seine Position und Orientierung.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1163}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8837}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1648}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8352}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1282,8 +1283,8 @@ Getränkeuntersetzern.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8750}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8235}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1327,8 +1328,8 @@ Sie umfasst:
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1759}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8241}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1358,8 +1359,8 @@ Coasterbots.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1053}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8947}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1827}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8173}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -1398,6 +1399,62 @@ berücksichtigt:
 \item
   Erweiterbarkeit für zukünftige Funktionen.
 \end{itemize}
+
+\subsection{Bedienelemente}\label{bedienelemente}
+
+Für die direkte Bedienung durch das Servicepersonal oder Gäste besitzt
+der Coasterbot einige wenige physische Bedienelemente.
+
+Vorgesehen sind drei Bedienelemente:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ein/Aus-Schalter:} Schaltet die Energieversorgung und damit
+  das Gesamtsystem ein und aus. Er löst den Übergang zwischen den
+  Zuständen \emph{AUS} und \emph{Initialisierung} bzw.
+  \emph{Bereitschaft} aus.
+\item
+  \textbf{Aktionsknopf (Untersetzer-Ereignis):} Zentraler
+  Multifunktionsknopf zum Auslösen eines Untersetzer-Vorgangs ohne
+  weitere Eingabegeräte. Als plausibles Bedienschema ist vorgesehen: ein
+  kurzer Tastendruck löst die Ausgabe eines Getränkeuntersetzers aus,
+  ein längeres Halten (ca. zwei Sekunden) startet das Einsammeln bereits
+  ausgelegter Untersetzer bzw. bricht einen laufenden Vorgang ab.
+\item
+  \textbf{Not-Aus-Taster:} Überführt den Roboter unmittelbar in einen
+  sicheren Zustand und erfüllt damit die Anforderung SAF-005 aus dem
+  Lastenheft.
+\end{itemize}
+
+Die Anforderungen an die Bedienelemente sind:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1242}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8758}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-BTN-001 & Ein Ein/Aus-Schalter muss das System kontrolliert ein- und
+ausschalten können. \\
+HW-BTN-002 & Ein zentraler Aktionsknopf muss Untersetzer-Ereignisse
+auslösen können und dabei zwischen kurzem und langem Tastendruck
+unterscheiden. \\
+HW-BTN-003 & Ein Not-Aus-Taster muss den Roboter jederzeit in einen
+sicheren Zustand überführen können (siehe SAF-005). \\
+\end{longtable}
+
+Die Bedienelemente werden über die Hardwareabstraktionsschicht als
+Ereignisse an die Anwendungs- bzw. Sicherheitslogik weitergereicht und
+können in der Simulation über dieselbe Schnittstelle nachgebildet
+werden.
 
 \subsection{Hardwareabstraktion}\label{hardwareabstraktion}
 
@@ -2099,7 +2156,9 @@ Die Verarbeitung erfolgt über:
 
 Das Ergebnis ist eine aktuelle Roboterpose:
 
-{[} Pose = (x, y, \(\theta\)) {]}
+\[
+Pose = (x, y, \theta)
+\]
 
 mit:
 
@@ -2216,7 +2275,7 @@ Der Ablauf wird durch folgende Schritte beschrieben:
 \item
   Transport zum Zielpunkt.
 \item
-  Positionierung unter dem Getränk.
+  Ablegen des Getränkeuntersetzers.
 \item
   Überprüfung der korrekten Platzierung.
 \end{enumerate}
@@ -2518,15 +2577,15 @@ Für einen mobilen Roboter kann die Bewegung beispielsweise durch ein
 kinematisches Modell beschrieben werden:
 
 \[
-x_{t+1}=x_t+v \cdot \cos(\theta)\cdot \Delta t
+x_{t+1}=x_t+\left( v + a \cdot t \right) \cdot \cos(\theta)\cdot \Delta t
 \]
 
 \[
-y_{t+1}=y_t+v \cdot \sin(\theta)\cdot \Delta t
+y_{t+1}=y_t+\left( v + a \cdot t \right) \cdot \sin(\theta)\cdot \Delta t
 \]
 
 \[
-\theta_{t+1}=\theta_{t} + \omega \cdot \Delta t
+\theta_{t+1}=\theta_{t} + \left( \omega + \alpha \cdot t \right) \cdot \Delta t
 \]
 
 mit:
@@ -2540,7 +2599,11 @@ mit:
 \item
   \(v\): Geschwindigkeit.
 \item
+  \(a\): Beschleunigung, Änderung der Geschwindigkeit.
+\item
   \(\omega\): Winkelgeschwindigkeit.
+\item
+  \(\alpha\): Winkelbeschleunigung, Änderung der Winkelgeschwindigkeit.
 \item
   \(\Delta t\): Zeitschritt der Simulation.
 \end{itemize}
@@ -2977,7 +3040,7 @@ Erwartetes Ergebnis
 Lokalisierung & Verarbeitung von Positionsdaten & Position wird korrekt
 berechnet \\
 Navigation & Berechnung einer Route & Gültige Route wird erzeugt \\
-Sicherheitskomponente & Auslösen eines Notstopps & System wechselt in
+Sicherheits-komponente & Auslösen eines Notstopps & System wechselt in
 sicheren Zustand \\
 Untersetzerhandling & Aufnahmevorgang & Erfolgreiche Aufnahme wird
 erkannt \\
@@ -3188,9 +3251,9 @@ betrachtet.
 \subsubsection{Systemtestszenarien}\label{systemtestszenarien}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0805}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2989}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6207}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1579}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2737}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5684}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -3352,8 +3415,9 @@ Ausblick}\label{zusammenfassung-bewertung-und-ausblick}
 Pflichtenhefts}\label{zusammenfassung-des-pflichtenhefts}
 
 Dieses Pflichtenheft beschreibt die technische Umsetzung des
-Coasterbot-Prototyps im Rahmen der Master-Projektarbeit im Bereich Cyber
-Security mit Schwerpunkt allgemeine Informatik.
+Coasterbot-Prototyps im Rahmen der interdisziplinären und
+studienfachübergreifenden Master-Projektarbeit der Wilhelm Büchner
+Hochschule.
 
 Ausgehend von den Anforderungen des Lastenhefts wurde ein technisches
 Konzept entwickelt, welches die Umsetzung eines autonomen,
@@ -3692,9 +3756,9 @@ einem marktfähigen Produkt unterstützt.
 
 \section{Anhang}\label{anhang}
 
-\section*{Komponentenübersicht}\label{komponentenuxfcbersicht}
+\section{Komponentenübersicht}\label{komponentenuxfcbersicht}
 
-\subsection*{Zweck der
+\subsection{Zweck der
 Komponentenübersicht}\label{zweck-der-komponentenuxfcbersicht}
 
 Die Komponentenübersicht beschreibt die wesentlichen Hardware- und
@@ -3711,7 +3775,7 @@ einzelne Komponenten wird eine Austauschbarkeit von Hardwareelementen
 sowie eine unabhängige Weiterentwicklung einzelner Softwaremodule
 ermöglicht.
 
-\subsection*{Gesamtübersicht des
+\subsection{Gesamtübersicht des
 Systems}\label{gesamtuxfcbersicht-des-systems}
 
 Der Coasterbot besteht aus folgenden Hauptkomponenten:
@@ -3744,6 +3808,8 @@ Tischgrenzen \\
 Sensorik & Positionssensorik & Bestimmung der Roboterposition und
 Orientierung \\
 Aktorik & Motorcontroller & Ansteuerung der Antriebsmotoren \\
+Bedienung & Bedienelemente & Ein/Aus, Auslösen von
+Untersetzer-Ereignissen, Not-Aus \\
 Software & Navigationsmodul & Planung und Steuerung der Bewegung \\
 Software & Lokalisierungsmodul & Bestimmung der aktuellen Position \\
 Software & Sicherheitsmodul & Überwachung kritischer Zustände \\
@@ -3751,9 +3817,9 @@ Software & Systemüberwachung & Fehlererkennung und Statusverwaltung \\
 Simulation & Simulationsumgebung & Virtuelle Nachbildung des Roboters \\
 \end{longtable}
 
-\subsection*{Hardwarekomponenten}\label{hardwarekomponenten}
+\subsection{Hardwarekomponenten}\label{hardwarekomponenten}
 
-\subsubsection*{Mechanische Struktur}\label{mechanische-struktur}
+\subsubsection{Mechanische Struktur}\label{mechanische-struktur}
 
 \paragraph{Aufgabe}\label{aufgabe}
 
@@ -3792,7 +3858,7 @@ Halterungen & Befestigung von Sensoren und Aktoren \\
 Untersetzeraufnahme & Mechanischer Greif- oder Transportmechanismus \\
 \end{longtable}
 
-\subsubsection*{Antriebssystem}\label{antriebssystem}
+\subsubsection{Antriebssystem}\label{antriebssystem}
 
 \paragraph{Aufgabe}\label{aufgabe-1}
 
@@ -3828,7 +3894,7 @@ Das Antriebssystem muss:
   sichere Fahrgeschwindigkeiten gewährleisten.
 \end{itemize}
 
-\subsubsection*{Energieversorgung}\label{energieversorgung-1}
+\subsubsection{Energieversorgung}\label{energieversorgung-1}
 
 \paragraph{Aufgabe}\label{aufgabe-2}
 
@@ -3864,7 +3930,7 @@ Das Energiesystem muss:
   einen sicheren Systemzustand ermöglichen.
 \end{itemize}
 
-\subsubsection*{Sensorik}\label{sensorik-1}
+\subsubsection{Sensorik}\label{sensorik-1}
 
 Die Sensorik stellt Informationen über die Umgebung und den Zustand des
 Roboters bereit.
@@ -3921,7 +3987,7 @@ Bestimmung der aktuellen Position und Orientierung des Roboters.
   Bewegungsplanung.
 \end{itemize}
 
-\subsubsection*{Aktorik}\label{aktorik-1}
+\subsubsection{Aktorik}\label{aktorik-1}
 
 Die Aktorik setzt Steuerbefehle der Software in physische Aktionen um.
 
@@ -3937,9 +4003,9 @@ Untersetzermechanismus & Aufnahme und Ausgabe von Untersetzern \\
 Statusanzeige & Ausgabe von Systeminformationen \\
 \end{longtable}
 
-\subsection*{Softwarekomponenten}\label{softwarekomponenten}
+\subsection{Softwarekomponenten}\label{softwarekomponenten}
 
-\subsubsection*{Systemarchitektur}\label{systemarchitektur-1}
+\subsubsection{Systemarchitektur}\label{systemarchitektur-1}
 
 Die Software wird komponentenbasiert aufgebaut.
 
@@ -3959,7 +4025,7 @@ Die grundlegende Struktur besteht aus:
 +--------------------------------+
 \end{verbatim}
 
-\subsubsection*{Hardwareabstraktionsschicht}\label{hardwareabstraktionsschicht}
+\subsubsection{Hardwareabstraktionsschicht}\label{hardwareabstraktionsschicht}
 
 \paragraph{Aufgabe}\label{aufgabe-6}
 
@@ -4055,7 +4121,7 @@ des Roboters.
   Berechnung der Orientierung.
 \end{itemize}
 
-\subsubsection*{Sicherheitsmodul}\label{sicherheitsmodul}
+\subsubsection{Sicherheitsmodul}\label{sicherheitsmodul}
 
 \paragraph{Aufgabe}\label{aufgabe-9}
 
@@ -4076,7 +4142,7 @@ gefährliche Situationen.
   Begrenzung kritischer Bewegungen.
 \end{itemize}
 
-\subsubsection*{Systemüberwachung}\label{systemuxfcberwachung-2}
+\subsubsection{Systemüberwachung}\label{systemuxfcberwachung-2}
 
 \paragraph{Aufgabe}\label{aufgabe-10}
 
@@ -4096,14 +4162,14 @@ Die Systemüberwachung stellt die Diagnosefähigkeit des Roboters sicher.
   Überwachung von Aufgabenabläufen.
 \end{itemize}
 
-\subsection*{Simulationskomponenten}\label{simulationskomponenten}
+\subsection{Simulationskomponenten}\label{simulationskomponenten}
 
-\subsubsection*{Aufgabe}\label{aufgabe-11}
+\subsubsection{Aufgabe}\label{aufgabe-11}
 
 Die Simulationskomponenten ermöglichen die Entwicklung und Prüfung ohne
 vollständige Hardware.
 
-\subsubsection*{Komponenten}\label{komponenten-2}
+\subsubsection{Komponenten}\label{komponenten-2}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -4118,7 +4184,7 @@ Aktormodelle & Simulation von Bewegungen \\
 Umgebungsmodell & Darstellung der Tischumgebung \\
 \end{longtable}
 
-\subsection*{Kommunikationsschnittstellen}\label{kommunikationsschnittstellen}
+\subsection{Kommunikationsschnittstellen}\label{kommunikationsschnittstellen}
 
 Die Kommunikation zwischen Komponenten erfolgt über definierte
 Schnittstellen.
@@ -4150,7 +4216,7 @@ Statusdaten & Komponenten & Monitoring & Betriebszustand \\
 Fehlermeldungen & Module & Sicherheitsmodul & Fehlerstatus \\
 \end{longtable}
 
-\subsection*{Erweiterbarkeit}\label{erweiterbarkeit-1}
+\subsection{Erweiterbarkeit}\label{erweiterbarkeit-1}
 
 Die Architektur berücksichtigt zukünftige Erweiterungen.
 
@@ -4173,7 +4239,7 @@ Mensch-Roboter-Interaktion & HMI-Modul \\
 Durch die modulare Struktur können diese Erweiterungen integriert
 werden, ohne bestehende Kernkomponenten wesentlich zu verändern.
 
-\subsection*{Zusammenfassung}\label{zusammenfassung-6}
+\subsection{Zusammenfassung}\label{zusammenfassung-6}
 
 Die Komponentenübersicht beschreibt die technische Struktur des
 Coasterbot-Prototyps.
@@ -4197,9 +4263,9 @@ Die definierte Architektur bildet die Grundlage für die Umsetzung des
 Prototyps und unterstützt die systematische Entwicklung entsprechend der
 Anforderungen des Pflichtenhefts.
 
-\section*{Anforderungstraceability-Matrix}\label{anforderungstraceability-matrix}
+\section{Anforderungstraceability-Matrix}\label{anforderungstraceability-matrix}
 
-\subsection*{Ziel der
+\subsection{Ziel der
 Traceability-Matrix}\label{ziel-der-traceability-matrix}
 
 Die Anforderungstraceability-Matrix stellt die Verbindung zwischen den
@@ -4223,7 +4289,7 @@ ob jede Anforderung:
 Die Traceability-Matrix unterstützt somit die Qualitätssicherung und
 ermöglicht eine systematische Bewertung des Entwicklungsstands.
 
-\subsection*{Struktur der
+\subsection{Struktur der
 Traceability-Matrix}\label{struktur-der-traceability-matrix}
 
 Die Matrix enthält folgende Informationen:
@@ -4264,7 +4330,7 @@ In Umsetzung & Funktion befindet sich in Entwicklung \\
 Verifiziert & Umsetzung wurde erfolgreich getestet \\
 \end{longtable}
 
-\subsection*{Funktionale Anforderungen -- Navigation und
+\subsection{Funktionale Anforderungen -- Navigation und
 Lokalisierung}\label{funktionale-anforderungen-navigation-und-lokalisierung}
 
 \begin{longtable}[]{@{}
@@ -4327,7 +4393,7 @@ können. & Sensorabstraktion, Navigation. & Sensor-abstraktion,
 Navigation & SYS-002 & Offen \\
 \end{longtable}
 
-\subsection*{Funktionale Anforderungen --
+\subsection{Funktionale Anforderungen --
 Getränkeuntersetzer}\label{funktionale-anforderungen-getruxe4nkeuntersetzer}
 
 \begin{longtable}[]{@{}
@@ -4358,7 +4424,7 @@ Status
 CST-001 & Der Coasterbot muss einen Getränkeuntersetzer aufnehmen. &
 Steuerung des Aufnahmemechanismus über Zustandsautomaten. &
 Untersetzer-handling & SIM-004 & Offen \\
-CST-002 & Der Coasterbor muss einen Getränkeuntersetzer transportieren.
+CST-002 & Der Coasterbot muss einen Getränkeuntersetzer transportieren.
 & Kombination aus Navigation und Manipulation. & Navigation,
 Untersetzer-handling & SYS-004 & Offen \\
 CST-003 & Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch
@@ -4378,7 +4444,7 @@ benötigen. & Validierung des Ablagevorgangs. & Untersetzer-handling. &
 SIM-004 & Offen \\
 \end{longtable}
 
-\subsection*{Funktionale Anforderungen --
+\subsection{Funktionale Anforderungen --
 Sicherheit}\label{funktionale-anforderungen-sicherheit}
 
 \begin{longtable}[]{@{}
@@ -4423,7 +4489,7 @@ Implementierung eines sicheren Stopps. & Sicherheits-komponente &
 SYS-005 & Offen \\
 \end{longtable}
 
-\subsection*{Funktionale Anforderungen --
+\subsection{Funktionale Anforderungen --
 Systemüberwachung}\label{funktionale-anforderungen-systemuxfcberwachung}
 
 \begin{longtable}[]{@{}
@@ -4466,10 +4532,10 @@ melden. & Fehler- und Ereignisverwaltung. & Diagnose-dienst & SYS-006 &
 Offen \\
 \end{longtable}
 
-\subsection*{Zusätzliche nichtfunktionale
+\subsection{Zusätzliche nichtfunktionale
 Anforderungen}\label{zusuxe4tzliche-nichtfunktionale-anforderungen}
 
-Nichtfunktionale Testfälle haben keinen direkten Testfall als
+Nichtfunktionale Anforderungen haben keinen direkten Testfall als
 Komponente. Folgende zusätzliche Anforderungen werden aus den
 nichtfunktionalen Anforderungen des Lastenhefts abgeleitet, nämlich
 NFA-ARC, NFA-MAI, NFA-TST und NFA-SIM. Deren Umsetzung und Prüfverfahren
@@ -4515,7 +4581,7 @@ NFR-008 & Software muss Hardwareabstraktion unterstützen. & Einheitliche
 Hardwareinterfaces. & Simulations-test & Offen \\
 \end{longtable}
 
-\subsection*{Anforderungen an die
+\subsection{Anforderungen an die
 Simulation}\label{anforderungen-an-die-simulation}
 
 Folgende Umsetung ergibs sich aus den nichtfunktionalen Anforderungen
@@ -4560,7 +4626,7 @@ SIM-007 & Simulationsverhalten muss erwartetem Verhalten entsprechen. &
 Vergleich Simulation und Prototyp. & Validierungs-test & Offen \\
 \end{longtable}
 
-\subsection*{Zusammenfassung}\label{zusammenfassung-7}
+\subsection{Zusammenfassung}\label{zusammenfassung-7}
 
 Die Traceability-Matrix stellt sicher, dass alle relevanten
 Anforderungen des Lastenhefts im Pflichtenheft berücksichtigt und durch
@@ -4586,10 +4652,10 @@ erreicht.
 Die Matrix dient während der gesamten Projektlaufzeit als zentrales
 Werkzeug zur Fortschrittskontrolle und Qualitätssicherung.
 
-\section*{Hardware- und
+\section{Hardware- und
 Software-Schnittstellen}\label{hardware--und-software-schnittstellen}
 
-\subsection*{Zweck der
+\subsection{Zweck der
 Schnittstellenbeschreibung}\label{zweck-der-schnittstellenbeschreibung}
 
 Die Schnittstellenbeschreibung definiert die Kommunikations- und
@@ -4618,7 +4684,7 @@ Durch definierte Schnittstellen wird sichergestellt, dass:
 Die Schnittstellen orientieren sich an der modularen Systemarchitektur
 des Pflichtenhefts.
 
-\subsection*{Übersicht der
+\subsection{Übersicht der
 Systemarchitektur}\label{uxfcbersicht-der-systemarchitektur}
 
 Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
@@ -4642,16 +4708,16 @@ Der Informationsfluss des Coasterbots erfolgt über mehrere Ebenen:
 Die Hardwareabstraktionsschicht stellt die zentrale Schnittstelle
 zwischen Software und physischer Hardware dar.
 
-\subsection*{Hardware-Schnittstellen}\label{hardware-schnittstellen}
+\subsection{Hardware-Schnittstellen}\label{hardware-schnittstellen}
 
-\subsubsection*{Recheneinheit}\label{recheneinheit-1}
+\subsubsection{Recheneinheit}\label{recheneinheit-1}
 
 \paragraph{Aufgabe}\label{aufgabe-12}
 
 Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet
 Sensordaten sowie Steuerbefehle.
 
-\subsubsection*{Schnittstellen}\label{schnittstellen-1}
+\subsubsection{Schnittstellen}\label{schnittstellen-1}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1940}}
@@ -4677,6 +4743,12 @@ UART & Ein-/Ausgang & Serielle Kommunikation \\
 USB & Ein-/Ausgang & Programmierung und Diagnose \\
 \end{longtable}
 
+Die Schnittstelllen und insbesondere I²C und SPI sind abhängig von den
+notwendigen und geplanten Peripheriegeräten und Sensoren. Falls
+ausgeschlossen werden kann, dass diese Schnittstellen auch in
+zukünftigen Iterationsstufen des Projekts notwendig sein werden kann die
+Recheneinheit auch ohne diese ausgewählt werden.
+
 \paragraph{Anforderungen}\label{anforderungen-3}
 
 Die Recheneinheit muss:
@@ -4691,7 +4763,7 @@ Die Recheneinheit muss:
   Kommunikationsschnittstellen für Erweiterungen besitzen.
 \end{itemize}
 
-\subsubsection*{Sensorschnittstellen}\label{sensorschnittstellen}
+\subsubsection{Sensorschnittstellen}\label{sensorschnittstellen}
 
 Sensoren stellen Informationen über die Umgebung und den Systemzustand
 bereit.
@@ -4785,7 +4857,7 @@ y & Position in Y-Richtung \\
 θ & Orientierung des Roboters \\
 \end{longtable}
 
-\subsubsection*{Aktorschnittstellen}\label{aktorschnittstellen}
+\subsubsection{Aktorschnittstellen}\label{aktorschnittstellen}
 
 \paragraph{Motorsteuerung}\label{motorsteuerung}
 
@@ -4856,7 +4928,7 @@ SUCCESS & Vorgang erfolgreich \\
 ERROR & Fehler aufgetreten \\
 \end{longtable}
 
-\subsubsection*{Energieschnittstelle}\label{energieschnittstelle}
+\subsubsection{Energieschnittstelle}\label{energieschnittstelle}
 
 \paragraph{Zweck}\label{zweck-5}
 
@@ -4889,9 +4961,43 @@ LOW\_BATTERY & niedriger Akkustand \\
 SHUTDOWN & kontrolliertes Abschalten \\
 \end{longtable}
 
-\subsection*{Software-Schnittstellen}\label{software-schnittstellen}
+\subsubsection{Bedienelemente}\label{bedienelemente-1}
 
-\subsubsection*{Hardwareabstraktionsschnittstelle}\label{hardwareabstraktionsschnittstelle}
+\paragraph{Zweck}\label{zweck-6}
+
+Direkte Bedienung durch das Servicepersonal oder Gäste ohne grafische
+Nutzeroberfläche.
+
+\subparagraph{Schnittstelle}\label{schnittstelle-5}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Element
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Richtung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signal / Ereignis
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ein/Aus-Schalter & Eingang & POWER\_ON / POWER\_OFF \\
+Aktionsknopf & Eingang & COASTER\_EVENT (kurz: Ausgabe, lang:
+Einsammeln) \\
+Not-Aus-Taster & Eingang & EMERGENCY\_STOP \\
+\end{longtable}
+
+Die Ereignisse werden über die Hardwareabstraktion an die Anwendungs-
+und Sicherheitslogik weitergeleitet.
+
+\subsection{Software-Schnittstellen}\label{software-schnittstellen}
+
+\subsubsection{Hardwareabstraktionsschnittstelle}\label{hardwareabstraktionsschnittstelle}
 
 Die Hardwareabstraktionsschicht stellt standardisierte Funktionen für
 den Zugriff auf Hardwarekomponenten bereit.
@@ -4948,9 +5054,9 @@ releaseCoaster() & Startet Ablage \\
 getActuatorState() & Liefert Aktorzustand \\
 \end{longtable}
 
-\subsubsection*{Navigationsschnittstelle}\label{navigationsschnittstelle}
+\subsubsection{Navigationsschnittstelle}\label{navigationsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-6}
+\paragraph{Zweck}\label{zweck-7}
 
 Die Navigation verarbeitet Positionsinformationen und erzeugt
 Bewegungsbefehle.
@@ -4982,9 +5088,9 @@ Bewegungsvektor & Motorsteuerung \\
 Status & Monitoring \\
 \end{longtable}
 
-\subsubsection*{Lokalisierungsschnittstelle}\label{lokalisierungsschnittstelle}
+\subsubsection{Lokalisierungsschnittstelle}\label{lokalisierungsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-7}
+\paragraph{Zweck}\label{zweck-8}
 
 Berechnung und Bereitstellung der aktuellen Roboterposition.
 
@@ -5014,9 +5120,9 @@ Orientierung & Ausrichtung \\
 Genauigkeit & Vertrauenswert \\
 \end{longtable}
 
-\subsubsection*{Sicherheitsschnittstelle}\label{sicherheitsschnittstelle}
+\subsubsection{Sicherheitsschnittstelle}\label{sicherheitsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-8}
+\paragraph{Zweck}\label{zweck-9}
 
 Überwachung sicherheitskritischer Zustände.
 
@@ -5048,9 +5154,9 @@ SAFE\_MODE & Wechsel in sicheren Zustand \\
 ERROR & Fehlermeldung \\
 \end{longtable}
 
-\subsubsection*{Monitoring-Schnittstelle}\label{monitoring-schnittstelle}
+\subsubsection{Monitoring-Schnittstelle}\label{monitoring-schnittstelle}
 
-\paragraph{Zweck}\label{zweck-9}
+\paragraph{Zweck}\label{zweck-10}
 
 Bereitstellung von Diagnoseinformationen.
 
@@ -5072,7 +5178,7 @@ Fehlerliste & erkannte Fehler \\
 Aufgabenstatus & Fortschritt aktueller Aufgabe \\
 \end{longtable}
 
-\subsection*{Schnittstelle zwischen Simulation und realer
+\subsection{Schnittstelle zwischen Simulation und realer
 Hardware}\label{schnittstelle-zwischen-simulation-und-realer-hardware}
 
 Ein wesentliches Architekturziel ist die Austauschbarkeit zwischen
@@ -5105,7 +5211,7 @@ Dadurch können:
   werden.
 \end{itemize}
 
-\subsection*{Kommunikationsprotokolle}\label{kommunikationsprotokolle}
+\subsection{Kommunikationsprotokolle}\label{kommunikationsprotokolle}
 
 Für die Kommunikation zwischen Komponenten werden standardisierte
 Protokolle verwendet.
@@ -5124,7 +5230,7 @@ GPIO & einfache Statussignale \\
 Software-Message-Bus & Kommunikation zwischen Softwaremodulen \\
 \end{longtable}
 
-\subsection*{Fehlerbehandlung an
+\subsection{Fehlerbehandlung an
 Schnittstellen}\label{fehlerbehandlung-an-schnittstellen}
 
 Alle Schnittstellen müssen definierte Fehlerzustände unterstützen.
@@ -5151,7 +5257,7 @@ Aktor reagiert nicht & Bewegung stoppen \\
 Kommunikationsabbruch & Fehler protokollieren \\
 \end{longtable}
 
-\subsection*{Erweiterbarkeit der
+\subsection{Erweiterbarkeit der
 Schnittstellen}\label{erweiterbarkeit-der-schnittstellen}
 
 Die Schnittstellenstruktur ermöglicht die spätere Integration
@@ -5173,7 +5279,7 @@ Reinigung & Reinigungsaktor \\
 Mensch-Roboter-Interaktion & HMI-Schnittstelle \\
 \end{longtable}
 
-\subsection*{Zusammenfassung}\label{zusammenfassung-8}
+\subsection{Zusammenfassung}\label{zusammenfassung-8}
 
 Die definierten Hardware- und Software-Schnittstellen bilden die
 Grundlage für eine modulare und erweiterbare Architektur des
@@ -5199,10 +5305,10 @@ des Systems gewährleistet.
 Die Schnittstellenbeschreibung stellt damit eine zentrale Grundlage für
 die Implementierung und Integration der einzelnen Systemkomponenten dar.
 
-\section*{Abbildungen der Architektur und
+\section{Abbildungen der Architektur und
 Systemmodelle}\label{abbildungen-der-architektur-und-systemmodelle}
 
-\subsection*{Zweck der
+\subsection{Zweck der
 Architekturabbildungen}\label{zweck-der-architekturabbildungen}
 
 Die Architekturabbildungen und Systemmodelle dienen der grafischen
@@ -5239,7 +5345,7 @@ Die dargestellten Modelle unterstützen insbesondere:
   die spätere Erweiterung des Systems.
 \end{itemize}
 
-\subsection*{Systemübersicht des
+\subsection{Systemübersicht des
 Coasterbots}\label{systemuxfcbersicht-des-coasterbots}
 
 Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
@@ -5285,7 +5391,7 @@ Die folgende Darstellung zeigt die Hauptbestandteile des Gesamtsystems.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Schichtenmodell der
+\subsection{Schichtenmodell der
 Softwarearchitektur}\label{schichtenmodell-der-softwarearchitektur}
 
 Die Software des Coasterbots wird in mehrere logische Ebenen unterteilt.
@@ -5331,7 +5437,7 @@ reduziert Abhängigkeiten zwischen Komponenten.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Komponentenmodell}\label{komponentenmodell}
+\subsection{Komponentenmodell}\label{komponentenmodell}
 
 Das Komponentenmodell beschreibt die logische Zerlegung der Software.
 
@@ -5368,7 +5474,7 @@ Das Komponentenmodell beschreibt die logische Zerlegung der Software.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Datenflussmodell}\label{datenflussmodell}
+\subsection{Datenflussmodell}\label{datenflussmodell}
 
 Das Datenflussmodell beschreibt die Verarbeitung von Sensordaten und
 Steuerinformationen.
@@ -5412,7 +5518,7 @@ Steuerinformationen.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Zustandsmodell des
+\subsection{Zustandsmodell des
 Coasterbots}\label{zustandsmodell-des-coasterbots-1}
 
 Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
@@ -5460,7 +5566,7 @@ Das Zustandsmodell beschreibt die Betriebszustände des Roboters.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Sicherheitsmodell}\label{sicherheitsmodell}
+\subsection{Sicherheitsmodell}\label{sicherheitsmodell}
 
 Das Sicherheitsmodell beschreibt die Reaktion des Systems auf kritische
 Situationen.
@@ -5497,7 +5603,7 @@ Situationen.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Simulationsarchitektur}\label{simulationsarchitektur-2}
+\subsection{Simulationsarchitektur}\label{simulationsarchitektur-2}
 
 Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
 
@@ -5534,7 +5640,7 @@ Die Simulation bildet die reale Hardware durch virtuelle Komponenten ab.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Systemmodell für
+\subsection{Systemmodell für
 Erweiterungen}\label{systemmodell-fuxfcr-erweiterungen}
 
 Die Architektur berücksichtigt zukünftige Erweiterungen außerhalb des
@@ -5564,33 +5670,33 @@ aktuellen Projektumfangs.
 \end{Highlighting}
 \end{Shaded}
 
-\subsection*{Architekturprinzipien}\label{architekturprinzipien}
+\subsection{Architekturprinzipien}\label{architekturprinzipien}
 
 Die Architektur des Coasterbot-Prototyps basiert auf folgenden
 Grundprinzipien:
 
-\subsubsection*{Modularität}\label{modularituxe4t-1}
+\subsubsection{Modularität}\label{modularituxe4t-1}
 
 Komponenten werden unabhängig voneinander entwickelt und getestet.
 
-\subsubsection*{Hardwareabstraktion}\label{hardwareabstraktion-1}
+\subsubsection{Hardwareabstraktion}\label{hardwareabstraktion-1}
 
 Die Kernsoftware ist unabhängig von konkreten Hardwarekomponenten.
 
-\subsubsection*{Erweiterbarkeit}\label{erweiterbarkeit-2}
+\subsubsection{Erweiterbarkeit}\label{erweiterbarkeit-2}
 
 Neue Funktionen können durch zusätzliche Module integriert werden.
 
-\subsubsection*{Testbarkeit}\label{testbarkeit-1}
+\subsubsection{Testbarkeit}\label{testbarkeit-1}
 
 Jede Komponente besitzt definierte Schnittstellen und kann automatisiert
 geprüft werden.
 
-\subsubsection*{Simulationsfähigkeit}\label{simulationsfuxe4higkeit-1}
+\subsubsection{Simulationsfähigkeit}\label{simulationsfuxe4higkeit-1}
 
 Die Software kann mit virtuellen Komponenten betrieben werden.
 
-\subsection*{Zusammenfassung}\label{zusammenfassung-9}
+\subsection{Zusammenfassung}\label{zusammenfassung-9}
 
 Die dargestellten Architektur- und Systemmodelle geben einen Überblick
 über den technischen Aufbau des Coasterbot-Prototyps.

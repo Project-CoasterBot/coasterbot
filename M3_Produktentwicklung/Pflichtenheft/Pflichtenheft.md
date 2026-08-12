@@ -376,12 +376,12 @@ Die Recheneinheit bildet die zentrale Verarbeitungseinheit des Roboters. Sie üb
 
 Die Anforderungen an die Recheneinheit sind:
 
-| ID         | Anforderung                                                                                                                 |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------- |
-| HW-CPU-001 | Die Recheneinheit muss ausreichend Rechenleistung für die Verarbeitung von Sensordaten und Steueralgorithmen bereitstellen. |
-| HW-CPU-002 | Die Recheneinheit muss die Ausführung der modularen Softwarearchitektur ermöglichen.                                        |
-| HW-CPU-003 | Die Recheneinheit muss eine Kommunikation mit Sensoren und Aktoren ermöglichen.                                             |
-| HW-CPU-004 | Die Recheneinheit muss eine Ausführung der Software in der Simulationsumgebung unterstützen.                                |
+| ID                        | Anforderung                                                                                                                 |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------- |
+| HW-CPU-001                | Die Recheneinheit muss ausreichend Rechenleistung für die Verarbeitung von Sensordaten und Steueralgorithmen bereitstellen. |
+| HW-CPU-002                | Die Recheneinheit muss die Ausführung der modularen Softwarearchitektur ermöglichen.                                        |
+| HW-CPU-003                | Die Recheneinheit muss eine Kommunikation mit Sensoren und Aktoren ermöglichen.                                             |
+| HW-CPU-004                | Die Recheneinheit muss eine Ausführung der Software in der Simulationsumgebung unterstützen.                                |
 
 Für den Prototyp wird eine Trennung zwischen leistungsintensiver Verarbeitung und hardwarenaher Steuerung vorgesehen. Dadurch können zeitkritische Aufgaben wie Motorregelung oder Sensorauswertung unabhängig von komplexeren Berechnungen ausgeführt werden.
 
@@ -395,11 +395,11 @@ Zur sicheren Navigation muss der Coasterbot Hindernisse innerhalb seines Arbeits
 
 Die Sensorik muss folgende Anforderungen erfüllen:
 
-| ID         | Anforderung                                                                               |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| HW-SEN-001 | Die Sensorik muss Objekte im Fahrbereich erkennen können.                                 |
-| HW-SEN-002 | Die Sensorik muss Informationen zur Kollisionsvermeidung bereitstellen.                   |
-| HW-SEN-003 | Die erfassten Sensordaten müssen von der Navigationskomponente verarbeitet werden können. |
+| ID                | Anforderung                                                                               |
+|-------------------| ----------------------------------------------------------------------------------------- |
+| HW-SEN-001        | Die Sensorik muss Objekte im Fahrbereich erkennen können.                                 |
+| HW-SEN-002        | Die Sensorik muss Informationen zur Kollisionsvermeidung bereitstellen.                   |
+| HW-SEN-003        | Die erfassten Sensordaten müssen von der Navigationskomponente verarbeitet werden können. |
 
 Mögliche technische Lösungen sind Abstandssensoren, Kameras oder Kombinationen verschiedener Sensorprinzipien.
 
@@ -409,10 +409,10 @@ Da der Roboter ausschließlich auf einer Tischoberfläche betrieben wird, ist ei
 
 Anforderungen:
 
-| ID         | Anforderung                                                                         |
-| ---------- | ----------------------------------------------------------------------------------- |
-| HW-SEN-004 | Sensoren müssen die Annäherung an eine Tischkante erkennen können.                  |
-| HW-SEN-005 | Die Tischkantenerkennung muss eine rechtzeitige Reaktion der Steuerung ermöglichen. |
+| ID                | Anforderung                                                                         |
+|-------------------| ----------------------------------------------------------------------------------- |
+| HW-SEN-004        | Sensoren müssen die Annäherung an eine Tischkante erkennen können.                  |
+| HW-SEN-005        | Die Tischkantenerkennung muss eine rechtzeitige Reaktion der Steuerung ermöglichen. |
 
 Die Erkennung der Tischkante stellt eine zentrale Sicherheitsfunktion dar und wird unabhängig von der normalen Hinderniserkennung betrachtet.
 
@@ -422,10 +422,10 @@ Für die autonome Navigation benötigt der Roboter Informationen über seine Pos
 
 Anforderungen:
 
-| ID         | Anforderung                                                                  |
-| ---------- | ---------------------------------------------------------------------------- |
-| HW-SEN-006 | Das System muss Informationen zur Positionsbestimmung bereitstellen.         |
-| HW-SEN-007 | Das System muss Informationen zur Bestimmung der Orientierung bereitstellen. |
+| ID            | Anforderung                                                                  |
+|---------------| ---------------------------------------------------------------------------- |
+| HW-SEN-006    | Das System muss Informationen zur Positionsbestimmung bereitstellen.         |
+| HW-SEN-007    | Das System muss Informationen zur Bestimmung der Orientierung bereitstellen. |
 
 Die Positionsbestimmung kann durch eine Kombination verschiedener Sensorquellen erfolgen.
 
@@ -459,11 +459,11 @@ Die Manipulationsaktorik ermöglicht die Aufnahme und Ausgabe von Getränkeunter
 
 Anforderungen:
 
-| ID         | Anforderung                                                            |
-| ---------- | ---------------------------------------------------------------------- |
-| HW-ACT-005 | Der Aufnahmemechanismus muss einen Getränkeuntersetzer greifen können. |
-| HW-ACT-006 | Der Mechanismus muss eine kontrollierte Positionierung ermöglichen.    |
-| HW-ACT-007 | Der Zustand des Aufnahmevorgangs muss überprüfbar sein.                |
+| ID            | Anforderung                                                            |
+|---------------| ---------------------------------------------------------------------- |
+| HW-ACT-005    | Der Aufnahmemechanismus muss einen Getränkeuntersetzer greifen können. |
+| HW-ACT-006    | Der Mechanismus muss eine kontrollierte Positionierung ermöglichen.    |
+| HW-ACT-007    | Der Zustand des Aufnahmevorgangs muss überprüfbar sein.                |
 
 Der Mechanismus muss so ausgelegt werden, dass Getränkeuntersetzer sicher bewegt werden können, ohne diese oder andere Gegenstände auf dem Tisch zu beschädigen.
 
@@ -480,12 +480,12 @@ Sie umfasst:
 
 Anforderungen:
 
-| ID         | Anforderung                                                                               |
-| ---------- | ----------------------------------------------------------------------------------------- |
-| HW-PWR-001 | Die Energieversorgung muss alle Hardwarekomponenten mit ausreichender Leistung versorgen. |
-| HW-PWR-002 | Der Akkuzustand muss überwacht werden können.                                             |
-| HW-PWR-003 | Das System muss bei unzureichender Energieversorgung kontrolliert beendet werden können.  |
-| HW-PWR-004 | Die Energieversorgung muss austauschbar aufgebaut sein.                                   |
+| ID                | Anforderung                                                                               |
+|-------------------| ----------------------------------------------------------------------------------------- |
+| HW-PWR-001        | Die Energieversorgung muss alle Hardwarekomponenten mit ausreichender Leistung versorgen. |
+| HW-PWR-002        | Der Akkuzustand muss überwacht werden können.                                             |
+| HW-PWR-003        | Das System muss bei unzureichender Energieversorgung kontrolliert beendet werden können.  |
+| HW-PWR-004        | Die Energieversorgung muss austauschbar aufgebaut sein.                                   |
 
 Die Energieversorgung wird so ausgelegt, dass ein ausreichender Betriebszeitraum für Tests und Demonstrationen ermöglicht wird.
 
@@ -495,13 +495,13 @@ Die mechanische Konstruktion bildet die physische Struktur des Coasterbots.
 
 Anforderungen:
 
-| ID         | Anforderung                                                                           |
-| ---------- | ------------------------------------------------------------------------------------- |
-| HW-MEC-001 | Die Konstruktion muss die Integration aller Hardwarekomponenten ermöglichen.          |
-| HW-MEC-002 | Die Abmessungen müssen den Anforderungen eines handtellergroßen Roboters entsprechen. |
-| HW-MEC-003 | Die Konstruktion muss ausreichend stabil für den vorgesehenen Betrieb sein.           |
-| HW-MEC-004 | Die Konstruktion muss als digitale CAD-Datei dokumentiert werden.                     |
-| HW-MEC-005 | Fertigungsrelevante Bauteile müssen als STL-Dateien bereitgestellt werden.            |
+| ID                | Anforderung                                                                           |
+|-------------------| ------------------------------------------------------------------------------------- |
+| HW-MEC-001        | Die Konstruktion muss die Integration aller Hardwarekomponenten ermöglichen.          |
+| HW-MEC-002        | Die Abmessungen müssen den Anforderungen eines handtellergroßen Roboters entsprechen. |
+| HW-MEC-003        | Die Konstruktion muss ausreichend stabil für den vorgesehenen Betrieb sein.           |
+| HW-MEC-004        | Die Konstruktion muss als digitale CAD-Datei dokumentiert werden.                     |
+| HW-MEC-005        | Fertigungsrelevante Bauteile müssen als STL-Dateien bereitgestellt werden.            |
 
 Bei der Konstruktion werden insbesondere folgende Eigenschaften berücksichtigt:
 
@@ -513,7 +513,7 @@ Bei der Konstruktion werden insbesondere folgende Eigenschaften berücksichtigt:
 
 ## Bedienelemente
 
-Für die direkte Bedienung durch das Servicepersonal oder Gäste besitzt der Coasterbot einige wenige physische Bedienelemente. 
+Für die direkte Bedienung durch das Servicepersonal oder Gäste besitzt der Coasterbot einige wenige physische Bedienelemente.
 
 Vorgesehen sind drei Bedienelemente:
 
@@ -523,11 +523,11 @@ Vorgesehen sind drei Bedienelemente:
 
 Die Anforderungen an die Bedienelemente sind:
 
-| ID         | Anforderung                                                                                                                            |
-| ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| HW-BTN-001 | Ein Ein/Aus-Schalter muss das System kontrolliert ein- und ausschalten können.                                                         |
-| HW-BTN-002 | Ein zentraler Aktionsknopf muss Untersetzer-Ereignisse auslösen können und dabei zwischen kurzem und langem Tastendruck unterscheiden. |
-| HW-BTN-003 | Ein Not-Aus-Taster muss den Roboter jederzeit in einen sicheren Zustand überführen können (siehe SAF-005).                             |
+| ID                | Anforderung                                                                                                                            |
+|-------------------| -------------------------------------------------------------------------------------------------------------------------------------- |
+| HW-BTN-001        | Ein Ein/Aus-Schalter muss das System kontrolliert ein- und ausschalten können.                                                         |
+| HW-BTN-002        | Ein zentraler Aktionsknopf muss Untersetzer-Ereignisse auslösen können und dabei zwischen kurzem und langem Tastendruck unterscheiden. |
+| HW-BTN-003        | Ein Not-Aus-Taster muss den Roboter jederzeit in einen sicheren Zustand überführen können (siehe SAF-005).                             |
 
 Die Bedienelemente werden über die Hardwareabstraktionsschicht als Ereignisse an die Anwendungs- bzw. Sicherheitslogik weitergereicht und können in der Simulation über dieselbe Schnittstelle nachgebildet werden.
 
@@ -952,9 +952,9 @@ Die Verarbeitung erfolgt über:
 
 Das Ergebnis ist eine aktuelle Roboterpose:
 
-\[
-Pose = (x, y, $\theta$)
-\]
+$$
+Pose = (x, y, \theta)
+$$
 
 mit:
 
@@ -1521,7 +1521,7 @@ Folgende Softwarekomponenten werden einzeln getestet:
 | --------------------- | ------------------------------- | ----------------------------------- |
 | Lokalisierung         | Verarbeitung von Positionsdaten | Position wird korrekt berechnet     |
 | Navigation            | Berechnung einer Route          | Gültige Route wird erzeugt          |
-| Sicherheitskomponente | Auslösen eines Notstopps        | System wechselt in sicheren Zustand |
+| Sicherheits-komponente | Auslösen eines Notstopps        | System wechselt in sicheren Zustand |
 | Untersetzerhandling   | Aufnahmevorgang                 | Erfolgreiche Aufnahme wird erkannt  |
 | Systemüberwachung     | Erzeugen eines Fehlers          | Fehler wird protokolliert           |
 
@@ -1675,14 +1675,14 @@ Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet
 
 ### Systemtestszenarien
 
-| ID      | Test                       | Erwartetes Ergebnis                                    |
-| ------- | -------------------------- | ------------------------------------------------------ |
-| SYS-001 | Systemstart                | Roboter initialisiert alle Komponenten erfolgreich     |
-| SYS-002 | Navigation auf Tischfläche | Roboter bewegt sich kontrolliert innerhalb der Grenzen |
-| SYS-003 | Hindernisvermeidung        | Keine Kollision mit Hindernissen                       |
-| SYS-004 | Untersetzertransport       | Untersetzer wird sicher transportiert                  |
-| SYS-005 | Sicherheitsstopp           | Roboter stoppt bei Gefahr                              |
-| SYS-006 | Fehleranzeige              | Fehler wird erkannt und gemeldet                       |
+| ID            | Test                       | Erwartetes Ergebnis                                    |
+|---------------| -------------------------- | ------------------------------------------------------ |
+| SYS-001       | Systemstart                | Roboter initialisiert alle Komponenten erfolgreich     |
+| SYS-002       | Navigation auf Tischfläche | Roboter bewegt sich kontrolliert innerhalb der Grenzen |
+| SYS-003       | Hindernisvermeidung        | Keine Kollision mit Hindernissen                       |
+| SYS-004       | Untersetzertransport       | Untersetzer wird sicher transportiert                  |
+| SYS-005       | Sicherheitsstopp           | Roboter stoppt bei Gefahr                              |
+| SYS-006       | Fehleranzeige              | Fehler wird erkannt und gemeldet                       |
 
 
 
@@ -2545,7 +2545,7 @@ Die Recheneinheit führt die Steuerungssoftware aus und verarbeitet Sensordaten 
 | UART          | Ein-/Ausgang | Serielle Kommunikation                     |
 | USB           | Ein-/Ausgang | Programmierung und Diagnose                |
 
-Die Schnittstelllen und insbesondere I²C und SPI sind abhängig von den notwendigen und geplanten Peripheriegeräten und Sensoren. Falls ausgeschlossen werden kann, dass diese Schnittstellen auch in zukünftigen Iterationsstufen des Projekts notwendig sein werden kann die Recheneinheit auch ohne diese ausgewählt werden. 
+Die Schnittstelllen und insbesondere I²C und SPI sind abhängig von den notwendigen und geplanten Peripheriegeräten und Sensoren. Falls ausgeschlossen werden kann, dass diese Schnittstellen auch in zukünftigen Iterationsstufen des Projekts notwendig sein werden kann die Recheneinheit auch ohne diese ausgewählt werden.
 
 #### Anforderungen
 

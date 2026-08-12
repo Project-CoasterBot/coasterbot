@@ -74,7 +74,8 @@ Hierzu werden folgende Ergebnisse angestrebt:
 Der Schwerpunkt liegt auf dem Nachweis der technischen Machbarkeit und
 nicht auf der Entwicklung eines serienreifen Produkts.
 
-\#\#Technische Zielarchitektur
+\subsection{Technische
+Zielarchitektur}\label{technische-zielarchitektur}
 
 Der Coasterbot wird als eingebettetes, autonomes Robotersystem
 umgesetzt. Die geplante Architektur besteht aus mehreren logisch
@@ -665,8 +666,8 @@ Steuerungssoftware sowie die Berechnung der Bewegungsbefehle.
 Die Anforderungen an die Recheneinheit sind:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.0752}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.9248}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1788}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8212}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -706,8 +707,8 @@ Arbeitsbereichs erkennen können.
 Die Sensorik muss folgende Anforderungen erfüllen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1759}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8241}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -737,8 +738,8 @@ ist eine zuverlässige Erkennung der Tischbegrenzung erforderlich.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1075}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8925}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1863}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8137}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -767,8 +768,8 @@ seine Position und Orientierung.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1163}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8837}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1648}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8352}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -843,8 +844,8 @@ Getränkeuntersetzern.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1250}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8750}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1765}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8235}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -888,8 +889,8 @@ Sie umfasst:
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1010}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8990}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1759}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8241}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -919,8 +920,8 @@ Coasterbots.
 Anforderungen:
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1053}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8947}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1827}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8173}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -959,6 +960,62 @@ berücksichtigt:
 \item
   Erweiterbarkeit für zukünftige Funktionen.
 \end{itemize}
+
+\subsection{Bedienelemente}\label{bedienelemente}
+
+Für die direkte Bedienung durch das Servicepersonal oder Gäste besitzt
+der Coasterbot einige wenige physische Bedienelemente.
+
+Vorgesehen sind drei Bedienelemente:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ein/Aus-Schalter:} Schaltet die Energieversorgung und damit
+  das Gesamtsystem ein und aus. Er löst den Übergang zwischen den
+  Zuständen \emph{AUS} und \emph{Initialisierung} bzw.
+  \emph{Bereitschaft} aus.
+\item
+  \textbf{Aktionsknopf (Untersetzer-Ereignis):} Zentraler
+  Multifunktionsknopf zum Auslösen eines Untersetzer-Vorgangs ohne
+  weitere Eingabegeräte. Als plausibles Bedienschema ist vorgesehen: ein
+  kurzer Tastendruck löst die Ausgabe eines Getränkeuntersetzers aus,
+  ein längeres Halten (ca. zwei Sekunden) startet das Einsammeln bereits
+  ausgelegter Untersetzer bzw. bricht einen laufenden Vorgang ab.
+\item
+  \textbf{Not-Aus-Taster:} Überführt den Roboter unmittelbar in einen
+  sicheren Zustand und erfüllt damit die Anforderung SAF-005 aus dem
+  Lastenheft.
+\end{itemize}
+
+Die Anforderungen an die Bedienelemente sind:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.1242}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.8758}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+HW-BTN-001 & Ein Ein/Aus-Schalter muss das System kontrolliert ein- und
+ausschalten können. \\
+HW-BTN-002 & Ein zentraler Aktionsknopf muss Untersetzer-Ereignisse
+auslösen können und dabei zwischen kurzem und langem Tastendruck
+unterscheiden. \\
+HW-BTN-003 & Ein Not-Aus-Taster muss den Roboter jederzeit in einen
+sicheren Zustand überführen können (siehe SAF-005). \\
+\end{longtable}
+
+Die Bedienelemente werden über die Hardwareabstraktionsschicht als
+Ereignisse an die Anwendungs- bzw. Sicherheitslogik weitergereicht und
+können in der Simulation über dieselbe Schnittstelle nachgebildet
+werden.
 
 \subsection{Hardwareabstraktion}\label{hardwareabstraktion}
 
@@ -1660,7 +1717,9 @@ Die Verarbeitung erfolgt über:
 
 Das Ergebnis ist eine aktuelle Roboterpose:
 
-{[} Pose = (x, y, \(\theta\)) {]}
+\[
+Pose = (x, y, \theta)
+\]
 
 mit:
 
@@ -1777,7 +1836,7 @@ Der Ablauf wird durch folgende Schritte beschrieben:
 \item
   Transport zum Zielpunkt.
 \item
-  Positionierung unter dem Getränk.
+  Ablegen des Getränkeuntersetzers.
 \item
   Überprüfung der korrekten Platzierung.
 \end{enumerate}
@@ -2079,15 +2138,15 @@ Für einen mobilen Roboter kann die Bewegung beispielsweise durch ein
 kinematisches Modell beschrieben werden:
 
 \[
-x_{t+1}=x_t+v \cdot \cos(\theta)\cdot \Delta t
+x_{t+1}=x_t+\left( v + a \cdot t \right) \cdot \cos(\theta)\cdot \Delta t
 \]
 
 \[
-y_{t+1}=y_t+v \cdot \sin(\theta)\cdot \Delta t
+y_{t+1}=y_t+\left( v + a \cdot t \right) \cdot \sin(\theta)\cdot \Delta t
 \]
 
 \[
-\theta_{t+1}=\theta_{t} + \omega \cdot \Delta t
+\theta_{t+1}=\theta_{t} + \left( \omega + \alpha \cdot t \right) \cdot \Delta t
 \]
 
 mit:
@@ -2101,7 +2160,11 @@ mit:
 \item
   \(v\): Geschwindigkeit.
 \item
+  \(a\): Beschleunigung, Änderung der Geschwindigkeit.
+\item
   \(\omega\): Winkelgeschwindigkeit.
+\item
+  \(\alpha\): Winkelbeschleunigung, Änderung der Winkelgeschwindigkeit.
 \item
   \(\Delta t\): Zeitschritt der Simulation.
 \end{itemize}
@@ -2538,7 +2601,7 @@ Erwartetes Ergebnis
 Lokalisierung & Verarbeitung von Positionsdaten & Position wird korrekt
 berechnet \\
 Navigation & Berechnung einer Route & Gültige Route wird erzeugt \\
-Sicherheitskomponente & Auslösen eines Notstopps & System wechselt in
+Sicherheits-komponente & Auslösen eines Notstopps & System wechselt in
 sicheren Zustand \\
 Untersetzerhandling & Aufnahmevorgang & Erfolgreiche Aufnahme wird
 erkannt \\
@@ -2749,9 +2812,9 @@ betrachtet.
 \subsubsection{Systemtestszenarien}\label{systemtestszenarien}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.0805}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2989}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6207}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1579}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2737}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.5684}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -2913,8 +2976,9 @@ Ausblick}\label{zusammenfassung-bewertung-und-ausblick}
 Pflichtenhefts}\label{zusammenfassung-des-pflichtenhefts}
 
 Dieses Pflichtenheft beschreibt die technische Umsetzung des
-Coasterbot-Prototyps im Rahmen der Master-Projektarbeit im Bereich Cyber
-Security mit Schwerpunkt allgemeine Informatik.
+Coasterbot-Prototyps im Rahmen der interdisziplinären und
+studienfachübergreifenden Master-Projektarbeit der Wilhelm Büchner
+Hochschule.
 
 Ausgehend von den Anforderungen des Lastenhefts wurde ein technisches
 Konzept entwickelt, welches die Umsetzung eines autonomen,
@@ -3305,6 +3369,8 @@ Tischgrenzen \\
 Sensorik & Positionssensorik & Bestimmung der Roboterposition und
 Orientierung \\
 Aktorik & Motorcontroller & Ansteuerung der Antriebsmotoren \\
+Bedienung & Bedienelemente & Ein/Aus, Auslösen von
+Untersetzer-Ereignissen, Not-Aus \\
 Software & Navigationsmodul & Planung und Steuerung der Bewegung \\
 Software & Lokalisierungsmodul & Bestimmung der aktuellen Position \\
 Software & Sicherheitsmodul & Überwachung kritischer Zustände \\
@@ -3919,7 +3985,7 @@ Status
 CST-001 & Der Coasterbot muss einen Getränkeuntersetzer aufnehmen. &
 Steuerung des Aufnahmemechanismus über Zustandsautomaten. &
 Untersetzer-handling & SIM-004 & Offen \\
-CST-002 & Der Coasterbor muss einen Getränkeuntersetzer transportieren.
+CST-002 & Der Coasterbot muss einen Getränkeuntersetzer transportieren.
 & Kombination aus Navigation und Manipulation. & Navigation,
 Untersetzer-handling & SYS-004 & Offen \\
 CST-003 & Der Coasterbot muss einen Getränkeuntersetzer auf dem Tisch
@@ -4030,7 +4096,7 @@ Offen \\
 \subsection{Zusätzliche nichtfunktionale
 Anforderungen}\label{zusuxe4tzliche-nichtfunktionale-anforderungen}
 
-Nichtfunktionale Testfälle haben keinen direkten Testfall als
+Nichtfunktionale Anforderungen haben keinen direkten Testfall als
 Komponente. Folgende zusätzliche Anforderungen werden aus den
 nichtfunktionalen Anforderungen des Lastenhefts abgeleitet, nämlich
 NFA-ARC, NFA-MAI, NFA-TST und NFA-SIM. Deren Umsetzung und Prüfverfahren
@@ -4237,6 +4303,12 @@ SPI & Ein-/Ausgang & Schnelle Kommunikation mit Hardwaremodulen \\
 UART & Ein-/Ausgang & Serielle Kommunikation \\
 USB & Ein-/Ausgang & Programmierung und Diagnose \\
 \end{longtable}
+
+Die Schnittstelllen und insbesondere I²C und SPI sind abhängig von den
+notwendigen und geplanten Peripheriegeräten und Sensoren. Falls
+ausgeschlossen werden kann, dass diese Schnittstellen auch in
+zukünftigen Iterationsstufen des Projekts notwendig sein werden kann die
+Recheneinheit auch ohne diese ausgewählt werden.
 
 \paragraph{Anforderungen}\label{anforderungen-3}
 
@@ -4450,6 +4522,40 @@ LOW\_BATTERY & niedriger Akkustand \\
 SHUTDOWN & kontrolliertes Abschalten \\
 \end{longtable}
 
+\subsubsection{Bedienelemente}\label{bedienelemente-1}
+
+\paragraph{Zweck}\label{zweck-6}
+
+Direkte Bedienung durch das Servicepersonal oder Gäste ohne grafische
+Nutzeroberfläche.
+
+\subparagraph{Schnittstelle}\label{schnittstelle-5}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.2222}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.6667}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Element
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Richtung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Signal / Ereignis
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ein/Aus-Schalter & Eingang & POWER\_ON / POWER\_OFF \\
+Aktionsknopf & Eingang & COASTER\_EVENT (kurz: Ausgabe, lang:
+Einsammeln) \\
+Not-Aus-Taster & Eingang & EMERGENCY\_STOP \\
+\end{longtable}
+
+Die Ereignisse werden über die Hardwareabstraktion an die Anwendungs-
+und Sicherheitslogik weitergeleitet.
+
 \subsection{Software-Schnittstellen}\label{software-schnittstellen}
 
 \subsubsection{Hardwareabstraktionsschnittstelle}\label{hardwareabstraktionsschnittstelle}
@@ -4511,7 +4617,7 @@ getActuatorState() & Liefert Aktorzustand \\
 
 \subsubsection{Navigationsschnittstelle}\label{navigationsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-6}
+\paragraph{Zweck}\label{zweck-7}
 
 Die Navigation verarbeitet Positionsinformationen und erzeugt
 Bewegungsbefehle.
@@ -4545,7 +4651,7 @@ Status & Monitoring \\
 
 \subsubsection{Lokalisierungsschnittstelle}\label{lokalisierungsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-7}
+\paragraph{Zweck}\label{zweck-8}
 
 Berechnung und Bereitstellung der aktuellen Roboterposition.
 
@@ -4577,7 +4683,7 @@ Genauigkeit & Vertrauenswert \\
 
 \subsubsection{Sicherheitsschnittstelle}\label{sicherheitsschnittstelle}
 
-\paragraph{Zweck}\label{zweck-8}
+\paragraph{Zweck}\label{zweck-9}
 
 Überwachung sicherheitskritischer Zustände.
 
@@ -4611,7 +4717,7 @@ ERROR & Fehlermeldung \\
 
 \subsubsection{Monitoring-Schnittstelle}\label{monitoring-schnittstelle}
 
-\paragraph{Zweck}\label{zweck-9}
+\paragraph{Zweck}\label{zweck-10}
 
 Bereitstellung von Diagnoseinformationen.
 

@@ -117,3 +117,34 @@ markmap:
 - D*Lite → Dynamische Pfadplanung
 - IKT + RRT → Manipulationsplanung
 - IMU + Enc + Sensorfusion → Lokalisierung
+
+
+## Mechanik
+
+### Untersetzer aufnehmen
+- Roboter mit Sauger
+- Roboter mit Greifer
+- Manuelle Einlage
+- Magnetischer Heber mit magnetischen Untersetzer
+
+### Untersetzer ablegen
+- Untersetzer ausschieben
+- Roboter mit Sauger
+- Roboter mit Greifer
+
+### Chassis
+
+#### Modularität durch
+- Austauschbare Seitenwände zur Komponentenbefestigung
+- Zusätzliche Zwischenebenen zur Komponentenbefestigung
+
+#### Form
+- Quaderförmig
+- Zylindrisch
+
+#### Material
+- Harz
+- Metall
+- Kunststoff
+- Holz
+

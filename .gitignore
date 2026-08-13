@@ -211,3 +211,7 @@ Temporary Items
 *.toc
 *.dvi
 *.out.ps
+.venv/pyvenv.cfg
+.gitignore
+.venv/*
+.vscode/*

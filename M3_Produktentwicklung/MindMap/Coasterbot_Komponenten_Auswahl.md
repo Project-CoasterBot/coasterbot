@@ -75,7 +75,7 @@ markmap:
 
 ### Chassis
 
-- Zwischenebenen zur Komponentenbefestigung
+- Austauschbare Seitenwände zur Komponentenbefestigung
 - Quaderförmig
 - Kunststoff
 

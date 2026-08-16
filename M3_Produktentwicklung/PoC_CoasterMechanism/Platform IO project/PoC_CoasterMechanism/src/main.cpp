@@ -83,7 +83,7 @@ void setup() {
 
   // Startposition (optional, hier Mittelstellung 90°)
   servo1.write(90);
-  servo2.write(90);
+  servo2.write(0);
 
   Serial.println(F("=== Servo-Steuerung bereit ==="));
   Serial.print(F("Servo 1 Kuerzel: "));

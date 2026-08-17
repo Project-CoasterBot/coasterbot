@@ -383,6 +383,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \midrule
 1 & 17.08.2026 & Etringer & Erstfassung der Alternativenbeschreibung\\
 2 & 17.08.2026 & Borutta & Detaillierung Kapitel Mechanik\\
+3 & 17.08.2026 & Such & Sensorik Ergänzungen\\
 \bottomrule
 \end{tabularx}
 
@@ -872,7 +873,7 @@ Die Auswahl ist anhand der benötigten Rechenleistung, Schnittstellen,
 verfügbaren Ressourcen und Eignung für die vorgesehenen Algorithmen zu
 treffen.
 
-\subsection{5.2 Energieversorgung}\label{energieversorgung}
+\subsection{Energieversorgung}\label{energieversorgung}
 
 Für die Energieversorgung ist eine geeignete Spannungsversorgung der
 einzelnen Komponenten erforderlich.
@@ -920,11 +921,15 @@ Für die Hinderniserkennung kommen verschiedene Sensorkonzepte infrage:
 Die Varianten unterscheiden sich hinsichtlich Messprinzip, Reichweite,
 Komplexität und Eignung zur Erkennung von Hindernissen auf einem Tisch.
 
+Bunper Sensoren werden zwar häufig in der Robotik eingesetzt, im geplanten Szenario auf einem Tisch sind die Hindernisse allerdings nicht bedeutend träger als der Coasterbot, weshalb diese Variante nicht praktikabel ist. Ein Infrarot Obstacle Sensor liefert nach eigenen Messungen nur bis ca. 3 cm Abstand ein zuverlässiges Ergebnis in einem sehr kleinen Sichtradius, die Front müsste also vollständig mit Sensoren bestückt werden, was wieerum nicht praktikabel ist. 
+
+Die Wahl fällt somit primär auf einen Ultraschallsensor, welcher auch die Distanz zu einem Objekt vermisst, nciht nur ein boolesches Signal. Optimal wäre hier eine Kombination mit einer visuellen Erkennung, um auch Dimensionen von Hindernissen erfassen zu können bzw. besser eine Wegplanung vornehmen zu können. 
+
 \subsubsection{Tischkantenerkennung}\label{tischkantenerkennung}
 
-Zur Erkennung von Tischkanten können ebenfalls unterschiedliche
-Sensorkonzepte eingesetzt werden. Als mögliche Variante ist eine
-visuelle Erfassung vorgesehen.
+Zur Erkennung von Tischkanten können ebenfalls unterschiedliche Sensorkonzepte eingesetzt werden. Der nach bisherigen Experimenten zuverlässigste Sensor sind Infrarot-Obstacle Sensoren, welche vor den jeweiligen Rädern mit Ausrichtung nach unten an der Chassisunterseite montiert werden sollen. Kurz bevor sich ein Rad von der Tischkante bewegen würde kann hier ein entsprechendes Signal abgegriffen werden. 
+
+Als mögliche Variante ist eine visuelle Erfassung möglich, allerdings ist dies um so schwieriger zu vermessen, je niedriger die Montagehöhe der Kamera am Chassis ist. 
 
 \subsubsection{Positionsbestimmung}\label{positionsbestimmung}
 

@@ -382,6 +382,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 17.08.2026 & Etringer & Erstfassung der Alternativenbeschreibung\\
+2 & 17.08.2026 & Borutta & Detaillierung Kapitel Mechanik\\
 \bottomrule
 \end{tabularx}
 
@@ -667,13 +668,24 @@ handtellergroß ausgeführt werden.
 \textbf{Quaderförmiges Chassis}
 
 Ein quaderförmiger Aufbau ermöglicht eine vergleichsweise einfache
-Anordnung und Befestigung der Komponenten.
+Anordnung und Befestigung der Komponenten. Vorallem dadurch, dass Komponenten 
+wie Platinen, ebenfalls in einem Quaderförmigen Format vorhanden sind.
+Demgegnüber besitzt ein quaderförmiges Chassis Ecken und Kanten, die
+bei einer Kollision unter Umständen zu Schäden führen können.
 
 \textbf{Zylindrisches Chassis}
 
-Ein zylindrischer Aufbau kann eine alternative Geometrie darstellen und
-insbesondere im Hinblick auf die Bewegungsrichtung und das Design des
-Roboters betrachtet werden.
+Ein zylindrischer Aufbau kann eine alternative Geometrie darstellen. Jedoch 
+wird die Befestigung und Konstruktion von Halterungen durch die Rundung als
+herausfordernder betrachtet. Auf der anderen Seite bieten die Rundungen des Chassis 
+eine bessere Möglichkeit, Kollisionen abzufedern und Schäden zu vermeiden.
+
+\textbf{Verfolgte Lösung}
+
+Für den Prototypen wird ein quaderförmiges Chassis verfolgt, da diese Geometrie
+als simpler im Vergleich zu einem zylindrischen Chassis für den Prototypen bewertet wird.
+Das einhergehende Risiko durch die Ecken und Kanten wird durch die erwartete Geschwindigkeit 
+und das Gewicht des Coasterbots als gering eingeschätzt. 
 
 \subsubsection{Materialalternativen}\label{materialalternativen}
 
@@ -695,11 +707,70 @@ anderem folgende Materialien infrage:
 Die Materialauswahl beeinflusst unter anderem Gewicht, Stabilität,
 Fertigungsaufwand und Möglichkeiten zur Integration der Komponenten.
 
+\textbf{Kunststoff}
+
+Kunststoffe bieten eine gute Möglichkeit durch 3D-Druck eine 
+schnelle Entwicklung eines Prototypen zu ermöglichen.
+Weiterhin ist dieses Material leicht und kann durch die Wahl 
+des richtigen Kunststoffes eine gute Stabilität bieten.
+
+\textbf{Holz}
+
+Holz ist ein Naturmaterial, das eine gute Stabilität bietet. 
+Jedoch ist die Bearbeitung von Holz für einen Prototypen aufwendiger als bei Kunststoff, 
+da hier weitere Werkzeuge benötigt werden.
+
+\textbf{Metall}
+
+Metall bietet eine besonders hohe Stabilität und Langlebigkeit. 
+Jedoch ist die Bearbeitung von Metall aufwendiger als bei Kunststoff und Holz.
+Weiterhin ist zu erwarten, dass Metall das Gewicht des Coasterbots erhöht.
+Dies könnte sich negativ auf die Fahrdynamik und die Energieversorgung auswirken.
+
+\textbf{Harz}
+
+Harz kann ähnlich wie Kunststoff durch 3D-Druck verarbeitet werden.
+Dadurch eignet sich das Material ebenfalls für die schnelle Entwicklung eines Prototypen.
+Allerdings werden bei Harz weitere Geräte benötigt, wie zum Beispiel ein UV-Licht zur Aushärtung des Materials.
+
+\textbf{Verfolgte Lösung}
+
+Für den Prototypen wird Kunststoff als Material für das Chassis verfolgt, da dieses Material
+besonders leicht ist und sich besonders einfach verarbeiten lässt.
+
 \subsubsection{Modularität}\label{modularituxe4t}
 
 Zur flexiblen Befestigung der Komponenten kann das Chassis modular
 aufgebaut werden. Als Möglichkeiten sind beispielsweise austauschbare
 Seitenwände oder zusätzliche Zwischenebenen vorgesehen.
+
+\textbf{Austauschbare Seitenwände}
+
+Für austauschbare Seitenwände spricht, dass bei zusätzlichen Sensoren
+nicht das gesamte Chassis neu hergestellt werden muss, sondern nur
+eine Seitenwand angepasst werden muss. So könnten auch nachträglich
+weitere Sensoren oder Kameramodule in die Wände eingelassen werden, ohne
+den Coasterbot in die Höhe wachsen zu lassen. Dagegen spricht jedoch, dass
+unter Umständen bei einem Austausch der gesamte Coasterbot demontiert werden muss.
+Weiterhin könnten nicht feststehende Seitenwände ein Risiko für die Stabilität
+des Chassis darstellen.
+
+\textbf{Zusätzliche Zwischenebenen}
+
+Für zusätzliche Zwischenebenen zur Modularität spricht, dass sich das Modell so
+gestalten lassen könnte, dass neue Module aufgesteckt werden könnten und durch 
+vorgesehene Steckverbindungen direkt in die digitale Schaltung integriert werden könnte.
+Jedoch würde damit der Coasterbot mit jedem Modul in die Höhe wachsen. Weiterhin müssten bei
+den Zwischenebenen die Geometrie des Mechanismus zur Aufnahme und Ablage der Getränkeuntersetzer
+berücksichtigt werden.
+
+
+\textbf{Verfolgte Lösung}\nopagebreak[4]
+
+Für den Prototypen wird ein modularer Aufbau durch austauschbare Seitenwände verfolgt. Da abgeschätzt wird,
+dass die Vorteile überwiegen gegenüber dem Risiko der Stabilität. Diesem lässt sich durch Fixierung mit
+Schrauben entgegenwirken.
+
 
 \subsection{Untersetzer aufnehmen und
 ablegen}\label{untersetzer-aufnehmen-und-ablegen}
@@ -726,6 +797,56 @@ Als mögliche Varianten sind vorgesehen:
 Die Varianten sind hinsichtlich ihrer mechanischen Komplexität,
 Zuverlässigkeit und Eignung für die automatisierte Ausgabe und Aufnahme
 zu bewerten.
+
+\textbf{Roboter mit Sauger/Greifer}
+
+Die Varianten Roboter mit Sauger/Greifer werden gemeinsam betrachtet, da sie
+sich nur durch den Manipulator unterscheiden. Für die Aufnahme und Ablage eines
+Untersetzers wird mindestens ein Roboter mit zwei Freiheitsgraden erfordert.
+Diese Freiheitsgrade müssen mindestens eine Bewegung nach vorne/zurück wie auch
+nach unten/oben ermöglichen. Hierzu würde mindestens je Freiheitsgrad ein Aktor benötigt.
+Zusätzlich dazu wird noch eine Aktorik für den Manipulator (Sauger/Greifer) erforderlich.
+Dadurch wird dieser Aufbau komplexer als die anderen Optionen bewertet. Bei besonders glatten
+Untersetzern, wird die Zuverlässigkeit von einem Sauger als hoch bewertet. Sobald der
+Untersetzer rauer in der Beschaffenheit wird, ist zu erwarten, dass das Ansaugen herausfordernder
+werden kann. Bei einem Greifer hingegen ist kein Risiko hinsichtlich der Zuverlässigkeit erkennbar.
+Ebenfalls eignen sich beide Lösungen gut hinsichtlich ihrer automatisierten Ausgabe und Aufnahme
+von Getränkeuntersetzern, da sich ein Roboter automatisiert bewegen lässt.
+
+\textbf{manuelle Einlage}
+
+Eine manuelle Einlage bildet die zuverlässigsten Option für die Aufnahme von Getränkeuntersetzern ab.
+Ebenso ist hier die mechanische Komplexität als am geringsten abzusehen. Jedoch widerspricht
+diese Lösungsoption der Eignung zur automatischen Ausgabe und Aufnahme von Untersetzern.
+
+\textbf{magnetischer Heber bei geeigneten Untersetzern}\nopagebreak[4]
+
+Ein automatisch angetriebener Heber mit eingelassenen Magneten in Verbindung mit
+speziellen Untersetzern, in denen ebenfalls Magnete eingelassen sind, verspricht eine geringe
+mechanische Komplexität, da sich ein Heber zum Beispiel durch einen Schubkurbeltrieb simpel
+umsetzen lässt. Hierzu wird lediglich ein Aktor als Antrieb gebraucht. 
+Weiterhin wird eine hohe Zuverlässigkeit erwartet, da sich durch die Magnete der Heber und 
+die Getränkeuntersetzer gut aufeinander abstimmen lassen.
+Für eine automatische Aufnahme von Getränkeuntersetzern eignet sich diese Lösungsoption.
+Durch eingelassene Magneten, haften die Untersetzer direkt am Heber und können so vom Untergrund
+aufgenommen werden.
+
+\textbf{Ausschieben des Untersetzers}
+
+Das Ausschieben eines Untersetzers verspricht eine Lösung mit geringer mechanischer Komplexität zu sein.
+Durch diese geringe Komplexität wird abgeschätzt, dass sich diese Lösung auch besonders Zuverlässig umsetzen lässt.
+Durch einen Stößel, der über einen Antrieb einen davorliegenden Getränkeuntersetzer aus einem Speicher
+befördert, kann dieser automatisch abgelegt werden. Damit eignet sich diese Lösung ebenfalls für eine automatische
+Ablage des Getränkeuntersetzers. 
+
+\textbf{Verfolgte Lösung}
+
+Für den Prototypen wird zur Aufnahme der Getränkeuntersetzer ein magnetischer Heber mit abgestimmten Untersetzern
+, so wie ein Ausschieber der Untersetzer vorgesehen. Beide Lösungsoptionen ermöglichen kombiniert das automatische
+Ablegen wie Aufnehmen von Getränkeuntersetzern und werden in ihrer Komplexität als gering bewertet. Vor allem daher
+begründet, dass ein Aktor weniger im Vergleich zu einem Roboter mit Manipulator benötigt wird. Durch diese
+geringe Komplexität wird erwartet, dass sich damit ein zuverlässiger Prototyp erreichen lässt. 
+
 
 \section{Elektrik und
 Energieversorgung}\label{elektrik-und-energieversorgung}

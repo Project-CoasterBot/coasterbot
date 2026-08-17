@@ -1,0 +1,525 @@
+\section{Alternativenbeschreibung}\label{alternativenbeschreibung}
+
+\subsection{Ziel und Vorgehensweise}\label{ziel-und-vorgehensweise}
+
+Im Rahmen der Projektarbeit „Coasterbot -- Entwicklung eines Prototyps``
+wird ein handtellergroßer Roboter entwickelt, der sich selbstständig auf
+einem Tisch bewegen, Getränkeuntersetzer gezielt ausgeben und diese
+anschließend automatisiert wieder aufnehmen kann.
+
+Für die Umsetzung des Prototyps bestehen für verschiedene Teilbereiche
+unterschiedliche technische Lösungsansätze. Im Rahmen der
+Alternativenbetrachtung werden diese Ansätze gegenübergestellt und
+hinsichtlich ihrer Eignung für das Projekt bewertet.
+
+Die Betrachtung orientiert sich dabei an den funktionalen und
+technischen Anforderungen des Coasterbots. Berücksichtigt werden
+insbesondere die Bereiche Software bzw. Algorithmen, Recheneinheit,
+Sensorik, Aktorik, Energieversorgung und Mechanik.
+
+Für jede betrachtete Funktion werden zunächst die zugrunde liegende
+Herausforderung und die mögliche Lösungsvariante beschrieben.
+Anschließend werden geeignete Alternativen aufgezeigt und hinsichtlich
+ihrer jeweiligen Vor- und Nachteile gegenübergestellt. Die letztendliche
+Auswahl einer Variante erfolgt unter Berücksichtigung der Anforderungen
+des Projekts, der Komplexität der Umsetzung sowie der Eignung für einen
+funktionsfähigen Prototyp.
+
+\section{Systemarchitektur}\label{systemarchitektur}
+
+Die Systemarchitektur des Coasterbots lässt sich grundsätzlich in die
+Bereiche Elektrik und Energieversorgung, Algorithmen und Mechanik
+unterteilen.
+
+Auf Softwareseite umfasst das System vor allem die Recheneinheit sowie
+Algorithmen zur Navigation und Manipulationsplanung. Die Hardware
+umfasst unter anderem Sensorik zur Hindernis- und Tischkantenerkennung,
+Komponenten zur Positionsbestimmung, Antriebsmotoren sowie die Mechanik
+zur Aufnahme und Ablage der Untersetzer.
+
+Eine mögliche Systemarchitektur sieht die Kombination einer
+Recheneinheit mit geeigneter Sensorik und Motorsteuerung vor. Die
+Auswahl der konkreten Komponenten und Verfahren wird in den folgenden
+Abschnitten anhand der jeweiligen Teilfunktionen betrachtet.
+
+\section{Algorithmen}\label{algorithmen}
+
+\subsection{Globale Fahrwegplanung}\label{globale-fahrwegplanung}
+
+\subsubsection{Herausforderung}\label{herausforderung}
+
+Der Coasterbot muss eine Zielposition auf dem Tisch erreichen. Dabei
+soll ausgehend von der aktuellen Position ein geeigneter globaler
+Fahrweg bestimmt werden. Als Grundlage kann dabei eine bekannte
+Tischkarte dienen.
+
+\subsubsection{Mögliche Lösung: A*}\label{muxf6gliche-luxf6sung-a}
+
+Für die heuristische globale Pfadplanung kann der A\emph{-Algorithmus
+eingesetzt werden. A} verbindet die bisher angefallenen Kosten eines
+Pfades mit einer Heuristik zur Abschätzung der noch verbleibenden
+Kosten. Dadurch kann gegenüber einer rein ungerichteten Suche gezielt
+ein geeigneter Weg zum Ziel bestimmt werden.
+
+\subsubsection{Alternativen}\label{alternativen}
+
+\textbf{Dijkstra-Algorithmus}
+
+Dijkstra stellt eine Alternative zur globalen Pfadplanung dar. Der
+Algorithmus bestimmt kürzeste Wege in einem gewichteten Graphen und kann
+als Referenz für eine optimale Pfadplanung dienen. Im Vergleich zu A*
+wird jedoch keine zielgerichtete Heuristik verwendet.
+
+\textbf{Breitensuche (BFS)}
+
+Die Breitensuche kann für ungewichtete Graphen eingesetzt werden. Sie
+ist konzeptionell einfach und eignet sich insbesondere dann, wenn alle
+Bewegungen dieselben Kosten besitzen.
+
+\subsubsection{Bewertung}\label{bewertung}
+
+Für den Coasterbot ist zu bewerten, wie effizient der Algorithmus einen
+Weg zur Zielposition bestimmen kann und welche Anforderungen an die
+zugrunde liegende Karte gestellt werden.
+
+Die Auswahl zwischen A*, Dijkstra und BFS erfolgt daher anhand der
+Eigenschaften der Tischkarte, der Gewichtung der Bewegungen und der
+Anforderungen an die Effizienz der Pfadplanung.
+
+\subsection{Lokale
+Kollisionsvermeidung}\label{lokale-kollisionsvermeidung}
+
+\subsubsection{Herausforderung}\label{herausforderung-1}
+
+Während der Fahrt können Hindernisse wie Gläser, Teller oder Personen
+den ursprünglich geplanten Fahrweg blockieren. Der Roboter muss daher
+kurzfristig auf Veränderungen seiner direkten Umgebung reagieren können.
+
+\subsubsection{Mögliche Lösung: Dynamic Window Approach
+(DWA)}\label{muxf6gliche-luxf6sung-dynamic-window-approach-dwa}
+
+Der Dynamic Window Approach berücksichtigt die Bewegungsdynamik des
+Roboters und ermöglicht eine lokale Reaktion auf Hindernisse. Dadurch
+kann der Roboter auf kurzfristige Veränderungen der Umgebung reagieren,
+ohne den globalen Fahrweg vollständig neu berechnen zu müssen.
+
+\subsubsection{Alternativen}\label{alternativen-1}
+
+\textbf{Potentialfelder}
+
+Bei der Methode der Potentialfelder wird das Ziel als anziehendes und
+Hindernisse als abstoßendes Potential modelliert. Die Methode ist
+vergleichsweise einfach, kann jedoch lokale Minima aufweisen.
+
+\textbf{Adaptive bzw. neuronale DWA}
+
+Eine Erweiterung des DWA-Ansatzes kann insbesondere bei dynamischen
+Hindernissen eingesetzt werden. Dabei kann die lokale Fahrplanung an
+veränderte Umgebungsbedingungen angepasst werden.
+
+\subsubsection{Bewertung}\label{bewertung-1}
+
+Bei der Auswahl sind die Reaktionsfähigkeit gegenüber Hindernissen, die
+Komplexität der Implementierung sowie das Verhalten bei dynamischen
+Hindernissen zu berücksichtigen.
+
+\subsection{Dynamische Fahrplanung}\label{dynamische-fahrplanung}
+
+\subsubsection{Herausforderung}\label{herausforderung-2}
+
+Verändert sich die Umgebung während der Fahrt wiederholt, kann der
+ursprünglich berechnete globale Fahrweg ungültig werden. Der Roboter
+benötigt daher ein Verfahren, mit dem Änderungen der Umgebung bei der
+Pfadplanung berücksichtigt werden können.
+
+\subsubsection{Mögliche Lösung: D*
+Lite}\label{muxf6gliche-luxf6sung-d-lite}
+
+D* Lite ermöglicht eine inkrementelle Neuberechnung eines Pfades.
+Anstatt bei jeder Veränderung die gesamte Planung von Grund auf neu
+durchzuführen, können Änderungen gezielt in die bestehende Planung
+einbezogen werden.
+
+\subsubsection{Alternativen}\label{alternativen-2}
+
+\textbf{D}*
+
+D* stellt einen alternativen Ansatz für die dynamische Pfadplanung dar
+und wurde ebenfalls für Umgebungen entwickelt, in denen sich die
+verfügbaren Wege verändern können.
+
+\textbf{LPA}*
+
+LPA* (Lifelong Planning A*) stellt einen weiteren inkrementellen Ansatz
+zur Pfadplanung dar. Der Algorithmus ist insbesondere für Situationen
+geeignet, in denen wiederholt Änderungen am zugrunde liegenden Graphen
+auftreten.
+
+\subsubsection{Bewertung}\label{bewertung-2}
+
+Die Verfahren unterscheiden sich hinsichtlich ihrer Vorgehensweise bei
+der inkrementellen Neuberechnung und ihrer Eignung für wiederholte
+Änderungen der Umgebung.
+
+Für den Coasterbot ist zu prüfen, welches Verfahren bei den erwarteten
+Veränderungen der Tischumgebung ein angemessenes Verhältnis zwischen
+Planungsaufwand und Reaktionsfähigkeit bietet.
+
+\subsection{Manipulationsplanung}\label{manipulationsplanung}
+
+\subsubsection{Herausforderung}\label{herausforderung-3}
+
+Der Coasterbot muss Getränkeuntersetzer aufnehmen und gezielt wieder
+ablegen können. Dabei muss sowohl die gewünschte Greif- bzw.
+Aufnahmeposition als auch die spätere Ablageposition berücksichtigt
+werden.
+
+\subsubsection{Mögliche Lösung: Inverse Kinematik und
+RRT*}\label{muxf6gliche-luxf6sung-inverse-kinematik-und-rrt}
+
+Eine mögliche Lösung besteht in der Kombination aus inverser Kinematik
+und RRT\emph{. Die inverse Kinematik kann dazu verwendet werden, aus
+einer gewünschten Zielpose geeignete Gelenkstellungen abzuleiten. RRT}
+kann anschließend für eine kollisionsfreie Bewegungsplanung eingesetzt
+werden.
+
+\subsubsection{Alternativen}\label{alternativen-3}
+
+\textbf{Roboter mit Sauger}
+
+Die Aufnahme des Untersetzers kann alternativ über einen Sauger
+erfolgen. Dabei wird der Untersetzer durch eine entsprechende
+Saugvorrichtung aufgenommen und anschließend an der gewünschten Position
+abgelegt.
+
+\textbf{Roboter mit Greifer}
+
+Eine weitere Möglichkeit ist die Verwendung eines mechanischen Greifers.
+Dieser kann den Untersetzer greifen und kontrolliert bewegen.
+
+\textbf{Manuelle Einlage}
+
+Als einfachste Alternative kann der Untersetzer manuell in eine dafür
+vorgesehene Aufnahme des Roboters eingelegt werden.
+
+\textbf{Magnetischer Heber}
+
+Falls geeignete magnetische Untersetzer verwendet werden, kann
+alternativ ein magnetischer Heber eingesetzt werden.
+
+\subsubsection{Bewertung}\label{bewertung-3}
+
+Die Varianten unterscheiden sich hinsichtlich mechanischer Komplexität,
+Zuverlässigkeit bei der Aufnahme und Ablage sowie der Anforderungen an
+die Steuerung.
+
+\subsection{Lokalisierung}\label{lokalisierung}
+
+\subsubsection{Herausforderung}\label{herausforderung-4}
+
+Damit der Coasterbot seine Fahrbewegung planen und ausführen kann, muss
+seine aktuelle Position beziehungsweise Orientierung bestimmt werden.
+
+\subsubsection{Mögliche Lösung: IMU, Encoder und
+Sensorfusion}\label{muxf6gliche-luxf6sung-imu-encoder-und-sensorfusion}
+
+Eine mögliche Lösung besteht aus der Kombination von IMU und
+Encoder-Daten. Durch eine Fusion können die Informationen der
+verschiedenen Sensoren kombiniert werden. Als mögliche Verfahren kommen
+beispielsweise der Extended Kalman Filter (EKF) oder der Unscented
+Kalman Filter (UKF) infrage.
+
+\subsubsection{Alternativen}\label{alternativen-4}
+
+\textbf{IMU / INS}
+
+Eine inertiale Messeinheit kann Beschleunigungen, Drehraten und
+Orientierung erfassen. Ein wesentlicher Nachteil besteht darin, dass
+sich Messfehler über die Zeit aufintegrieren und dadurch ein Drift
+entstehen kann.
+
+\textbf{SLAM}
+
+SLAM ermöglicht eine gleichzeitige Lokalisierung und Kartierung der
+Umgebung. Für den vorgesehenen Anwendungsfall ist dieser Ansatz dann
+relevant, wenn die Umgebung unbekannt ist und dauerhaft eine Karte
+erstellt bzw. aktualisiert werden soll.
+
+\textbf{IMU + Encoder + LiDAR/Kamera}
+
+Eine weitere Möglichkeit besteht in der Kombination von IMU und
+Encoder-Daten mit zusätzlicher visueller oder LiDAR-basierter Sensorik.
+Dadurch können zusätzliche Informationen zur Positionsbestimmung
+gewonnen werden.
+
+\subsubsection{Bewertung}\label{bewertung-4}
+
+Da der Coasterbot innerhalb einer begrenzten Tischumgebung eingesetzt
+wird, ist zu untersuchen, welcher Lokalisierungsansatz den Anforderungen
+des Prototyps mit angemessenem technischen Aufwand gerecht wird.
+
+\section{Mechanik}\label{mechanik}
+
+\subsection{Chassis}\label{chassis}
+
+\subsubsection{Anforderungen}\label{anforderungen}
+
+Das Chassis bildet die mechanische Grundlage des Coasterbots und muss
+die notwendigen Komponenten aufnehmen. Gleichzeitig soll der Roboter
+handtellergroß ausgeführt werden.
+
+\subsubsection{Mögliche Varianten}\label{muxf6gliche-varianten}
+
+\textbf{Quaderförmiges Chassis}
+
+Ein quaderförmiger Aufbau ermöglicht eine vergleichsweise einfache
+Anordnung und Befestigung der Komponenten.
+
+\textbf{Zylindrisches Chassis}
+
+Ein zylindrischer Aufbau kann eine alternative Geometrie darstellen und
+insbesondere im Hinblick auf die Bewegungsrichtung und das Design des
+Roboters betrachtet werden.
+
+\subsubsection{Materialalternativen}\label{materialalternativen}
+
+Für das Chassis beziehungsweise einzelne Gehäusekomponenten kommen unter
+anderem folgende Materialien infrage:
+
+\begin{itemize}
+\tightlist
+\item
+  Kunststoff
+\item
+  Holz
+\item
+  Metall
+\item
+  Harz
+\end{itemize}
+
+Die Materialauswahl beeinflusst unter anderem Gewicht, Stabilität,
+Fertigungsaufwand und Möglichkeiten zur Integration der Komponenten.
+
+\subsubsection{Modularität}\label{modularituxe4t}
+
+Zur flexiblen Befestigung der Komponenten kann das Chassis modular
+aufgebaut werden. Als Möglichkeiten sind beispielsweise austauschbare
+Seitenwände oder zusätzliche Zwischenebenen vorgesehen.
+
+\subsection{Untersetzer aufnehmen und
+ablegen}\label{untersetzer-aufnehmen-und-ablegen}
+
+Die Mechanik zur Aufnahme und Ablage der Untersetzer stellt eine
+zentrale Funktion des Coasterbots dar.
+
+Als mögliche Varianten sind vorgesehen:
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter mit Sauger
+\item
+  Roboter mit Greifer
+\item
+  manuelle Einlage
+\item
+  magnetischer Heber bei geeigneten Untersetzern
+\item
+  Ausschieben des Untersetzers
+\end{itemize}
+
+Die Varianten sind hinsichtlich ihrer mechanischen Komplexität,
+Zuverlässigkeit und Eignung für die automatisierte Ausgabe und Aufnahme
+zu bewerten.
+
+\section{Elektrik und
+Energieversorgung}\label{elektrik-und-energieversorgung}
+
+\subsection{Recheneinheit}\label{recheneinheit}
+
+Für die Steuerung des Coasterbots kommen verschiedene Mikrocontroller
+bzw. Recheneinheiten infrage.
+
+Als mögliche Varianten wurden identifiziert:
+
+\begin{itemize}
+\tightlist
+\item
+  Arduino Uno
+\item
+  Raspberry Pi Pico 2
+\item
+  ESP32
+\end{itemize}
+
+Die Auswahl ist anhand der benötigten Rechenleistung, Schnittstellen,
+verfügbaren Ressourcen und Eignung für die vorgesehenen Algorithmen zu
+treffen.
+
+\subsection{5.2 Energieversorgung}\label{energieversorgung}
+
+Für die Energieversorgung ist eine geeignete Spannungsversorgung der
+einzelnen Komponenten erforderlich.
+
+Als mögliche Komponenten sind unter anderem vorgesehen:
+
+\begin{itemize}
+\tightlist
+\item
+  Akku
+\item
+  Ladeelektronik
+\item
+  DC/DC-Wandler
+\item
+  Spannungsversorgung über einen 78x05-IC für eine Umsetzung von 6--18 V
+  auf 5 V Vcc
+\item
+  Messung von Akku-Strom und -Spannung
+\end{itemize}
+
+Der Betrieb mit einem aufladbaren Akkumulator ist gemäß
+Projektdefinition jedoch \textbf{Out of Scope}. Die konkrete
+Energieversorgungsvariante ist daher entsprechend der Projektabgrenzung
+festzulegen.
+
+\subsection{Sensorik}\label{sensorik}
+
+\subsubsection{Hinderniserkennung}\label{hinderniserkennung}
+
+Für die Hinderniserkennung kommen verschiedene Sensorkonzepte infrage:
+
+\begin{itemize}
+\tightlist
+\item
+  Ultraschallsensor, beispielsweise HC-SR04
+\item
+  visueller Sensor, beispielsweise Kamera OV7670
+\item
+  Bumper-Sensor, beispielsweise SPDT Limit Switch
+\item
+  Infrarot-Obstacle-Sensor
+\end{itemize}
+
+Die Varianten unterscheiden sich hinsichtlich Messprinzip, Reichweite,
+Komplexität und Eignung zur Erkennung von Hindernissen auf einem Tisch.
+
+\subsubsection{Tischkantenerkennung}\label{tischkantenerkennung}
+
+Zur Erkennung von Tischkanten können ebenfalls unterschiedliche
+Sensorkonzepte eingesetzt werden. Als mögliche Variante ist eine
+visuelle Erfassung vorgesehen.
+
+\subsubsection{Positionsbestimmung}\label{positionsbestimmung}
+
+Für die Positionsbestimmung sind unter anderem folgende Ansätze
+vorgesehen:
+
+\begin{itemize}
+\tightlist
+\item
+  Odometrie über Encoder bzw. IMU
+\item
+  IMU, beispielsweise MPU-6050 / GY-521
+\item
+  visuelle Positionsbestimmung über eine Kamera
+\end{itemize}
+
+Die Auswahl ist im Zusammenhang mit dem vorgesehenen
+Lokalisierungsverfahren zu betrachten.
+
+\subsection{Aktorik und Antrieb}\label{aktorik-und-antrieb}
+
+Für den Antrieb des Coasterbots können TT-Motoren eingesetzt werden. Zur
+Ansteuerung der Motoren ist beispielsweise ein TB6612FNG Dual Motor
+Driver mit H-Brücke vorgesehen.
+
+Für die Untersetzermechanik kann zusätzlich ein Micro-Servo-Motor
+eingesetzt werden.
+
+Die konkrete Auswahl der Motoren und Motortreiber ist anhand des
+benötigten Drehmoments, der Baugröße, der Ansteuerbarkeit und der
+Anforderungen der Mechanik zu bewerten.
+
+\subsection{Bedienelemente}\label{bedienelemente}
+
+Als Bedienelemente sind vorgesehen:
+
+\begin{itemize}
+\tightlist
+\item
+  Ein-/Aus-Schalter
+\item
+  Aktionsknopf
+\item
+  Not-Aus-Taster
+\end{itemize}
+
+Als mögliche Komponente für den Ein-/Aus-Schalter ist beispielsweise ein
+SPDT Slide Switch vorgesehen. Die übrigen Bedienelemente können über
+geeignete Taster realisiert und am Gehäuse montiert werden.
+
+\subsection{Statusanzeige}\label{statusanzeige}
+
+Der Betriebszustand des Coasterbots soll für den Benutzer erkennbar
+sein.
+
+Als mögliche Varianten sind vorgesehen:
+
+\textbf{RGB-LED}
+
+Eine RGB-LED ermöglicht die Darstellung verschiedener Zustände über
+unterschiedliche Farben.
+
+\textbf{Mehrere diskrete LEDs}
+
+Alternativ können mehrere einzelne LEDs hinter einer Blende angeordnet
+werden, wobei jeweils eine LED einen bestimmten Betriebszustand
+repräsentiert.
+
+Die Varianten sind insbesondere hinsichtlich Informationsgehalt,
+Komplexität und Bedienbarkeit zu vergleichen.
+
+\section{Zusammenfassende Bewertung}\label{zusammenfassende-bewertung}
+
+Die Alternativenbetrachtung zeigt, dass für die wesentlichen Funktionen
+des Coasterbots mehrere technische Lösungsansätze zur Verfügung stehen.
+Die Auswahl einer geeigneten Variante kann nicht isoliert für jede
+einzelne Komponente erfolgen, da zwischen den Bereichen Abhängigkeiten
+bestehen.
+
+Die Auswahl der Recheneinheit, Sensorik und Aktorik beeinflusst die
+Umsetzung der Algorithmen zur Navigation und Lokalisierung. Ebenso muss
+die mechanische Umsetzung der Untersetzeraufnahme mit der vorgesehenen
+Steuerung und Aktorik abgestimmt werden.
+
+Für die weitere Projektbearbeitung werden daher die identifizierten
+Alternativen anhand der für den Coasterbot relevanten Kriterien
+bewertet. Dazu zählen:
+
+\begin{itemize}
+\tightlist
+\item
+  Erfüllung der funktionalen Anforderungen
+\item
+  technische Komplexität
+\item
+  benötigte Rechenleistung
+\item
+  mechanischer und elektrischer Aufwand
+\item
+  Zuverlässigkeit
+\item
+  Erweiterbarkeit
+\item
+  Größe und Gewicht
+\item
+  Fertigungsaufwand
+\item
+  Eignung für die Umsetzung als Prototyp
+\end{itemize}
+
+Auf Grundlage dieser Bewertung wird für die einzelnen Teilbereiche
+jeweils eine geeignete Variante ausgewählt und anschließend in der
+weiteren Systementwicklung berücksichtigt.

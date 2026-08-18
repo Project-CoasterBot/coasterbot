@@ -19,9 +19,7 @@
 \usepackage[german]{babel}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\usepackage[inkscapelatex=false]{svg}
-% Texte im SVG von Inkscape setzen lassen, nicht durch die Dokumentschrift ersetzen
-\svgsetup{inkscapelatex=false}
+\usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{caption}
 \usepackage{gensymb}
@@ -384,6 +382,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 1 & 17.08.2026 & Etringer & Erstfassung der Alternativenbeschreibung\\
 2 & 17.08.2026 & Borutta & Detaillierung Kapitel Mechanik\\
 3 & 17.08.2026 & Such & Sensorik Ergänzungen\\
+4 & 19.08.2026 & Such & Mindmap für Komponenten\\
 \bottomrule
 \end{tabularx}
 
@@ -437,6 +436,23 @@ Eine mögliche Systemarchitektur sieht die Kombination einer
 Recheneinheit mit geeigneter Sensorik und Motorsteuerung vor. Die
 Auswahl der konkreten Komponenten und Verfahren wird in den folgenden
 Abschnitten anhand der jeweiligen Teilfunktionen betrachtet.
+
+\clearpage
+\section{Übersicht aller Möglichkeiten}
+
+\vspace*{\fill}
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{%
+    \includegraphics[width=1.2\textwidth]{Coasterbot_Komponenten_Mglkeiten.pdf}%
+  }
+  \caption{Übersicht der betrachteten Komponenten und Lösungsvarianten}
+  \label{fig:komponenten-moeglichkeiten}
+\end{figure}
+\vspace*{\fill}
+\clearpage
+
+
 
 \section{Algorithmen}\label{algorithmen}
 
@@ -1043,6 +1059,22 @@ bewertet. Dazu zählen:
 Auf Grundlage dieser Bewertung wird für die einzelnen Teilbereiche
 jeweils eine geeignete Variante ausgewählt und anschließend in der
 weiteren Systementwicklung berücksichtigt.
+
+
+
+\clearpage
+
+\vspace*{\fill}
+\begin{figure}[H]
+  \centering
+  \makebox[\textwidth][c]{%
+    \includegraphics[width=1.2\textwidth]{Coasterbot_Komponenten_Auswahl.pdf}%
+  }
+  \caption{Übersicht der ausgewählten Komponenten und Lösungsmöglichkeiten}
+  \label{fig:komponenten-auswahl}
+\end{figure}
+\vspace*{\fill}
+%\clearpage
 
 
 \end{document}

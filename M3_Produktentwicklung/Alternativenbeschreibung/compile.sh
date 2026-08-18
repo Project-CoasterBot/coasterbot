@@ -17,6 +17,10 @@ fi
 # Inkscape-Cache leeren, damit die SVGs frisch aus den .svg-Dateien gebaut werden.
 rm -rf svg-inkscape
 
+# rendert die mindmaps mittels inkscape in pdfs. 
+inkscape --export-type=pdf --export-filename=Coasterbot_Komponenten_Mglkeiten.pdf ../MindMap/Coasterbot_Komponenten_Mglkeiten.svg
+inkscape --export-type=pdf --export-filename=Coasterbot_Komponenten_Auswahl.pdf ../MindMap/Coasterbot_Komponenten_Auswahl.svg
+
 # -shell-escape ist zwingend, sonst werden die \includesvg-Grafiken nicht erzeugt.
 LATEX="pdflatex -synctex=1 -interaction=nonstopmode -shell-escape"
 

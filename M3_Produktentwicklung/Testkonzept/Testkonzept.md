@@ -1,174 +1,166 @@
-# 1 Einleitung
+# Einleitung
 
-## 1.1 Zweck der Testspezifikation
+## Zweck der Testspezifikation
 
-Diese Testspezifikation beschreibt die Planung, Durchführung und Bewertung der Tests für den im Rahmen der Projektarbeit entwickelten Coasterbot-Prototyp.
+Diese Testspezifikation beschreibt die Planung, Durchführung und Bewertung der
+Tests für den im Rahmen der Projektarbeit entwickelten Coasterbot-Prototyp.
 
-Ziel der Tests ist es, die im Lastenheft definierten Anforderungen systematisch zu überprüfen und nachzuweisen, dass die technische Umsetzung gemäß dem Pflichtenheft funktioniert.
+Ziel der Tests ist es, die im Lastenheft definierten Anforderungen systematisch
+zu überprüfen und nachzuweisen, dass die technische Umsetzung gemäß dem
+Pflichtenheft funktioniert.
 
-Die Testspezifikation stellt eine Verbindung zwischen:
+Die Testspezifikation stellt eine Verbindung zwischen folgenden Dokumenten her:
 
-* Anforderungen aus dem Lastenheft,
-* technischen Umsetzungen aus dem Pflichtenheft,
-* implementierten Systemkomponenten,
+* Anforderungen aus dem Lastenheft
+* technischen Umsetzungen aus dem Pflichtenheft
+* implementierten Systemkomponenten
 * durchgeführten Prüfungen
 
-her.
+Dadurch wird sichergestellt, dass jede relevante Funktion des Systems
+nachvollziehbar geprüft werden kann.
 
-Dadurch wird sichergestellt, dass jede relevante Funktion des Systems nachvollziehbar geprüft werden kann.
-
----
-
-## 1.2 Zielsetzung der Testdurchführung
+## Zielsetzung der Testdurchführung
 
 Die Testdurchführung verfolgt folgende Ziele:
 
-* Nachweis der Funktionsfähigkeit des Coasterbot-Prototyps.
-* Überprüfung der autonomen Navigation.
-* Validierung der Hinderniserkennung und Kollisionsvermeidung.
-* Überprüfung der Aufnahme und Positionierung von Getränkeuntersetzern.
-* Prüfung sicherheitskritischer Funktionen.
-* Bewertung der Stabilität und Zuverlässigkeit der Software.
-* Überprüfung der Simulationsumgebung hinsichtlich Reproduzierbarkeit.
+* Nachweis der Funktionsfähigkeit des Coasterbot-Prototyps
+* Überprüfung der autonomen Navigation
+* Validierung der Hinderniserkennung und Kollisionsvermeidung
+* Überprüfung der Aufnahme und Positionierung von Getränkeuntersetzern
+* Prüfung sicherheitskritischer Funktionen
+* Bewertung der Stabilität und Zuverlässigkeit der Software
+* Überprüfung der Simulationsumgebung hinsichtlich Reproduzierbarkeit
 
-Die Tests dienen nicht nur der Fehlererkennung, sondern auch der Bewertung der Systemqualität und der Erfüllung der Definition of Done.
+Die Tests dienen nicht nur der Fehlererkennung, sondern auch der Bewertung der
+Systemqualität und der Erfüllung der Definition of Done.
 
----
+## Geltungsbereich
 
-## 1.3 Geltungsbereich
-
-Die Testspezifikation umfasst alle Funktionen, die im Rahmen des Projekts umgesetzt werden.
+Die Testspezifikation umfasst alle Funktionen, die im Rahmen des Projekts
+umgesetzt werden.
 
 Der Schwerpunkt liegt auf den Funktionen des Maturity Level 1:
 
-* Navigation und Lokalisierung.
-* Hinderniserkennung.
-* Tischkantenerkennung.
-* Sicherheitsfunktionen.
-* Getränkeuntersetzeraufnahme.
-* Getränkeuntersetzerplatzierung.
-* Systemüberwachung.
-* Simulation und Testbarkeit.
+* Navigation und Lokalisierung
+* Hinderniserkennung
+* Tischkantenerkennung
+* Sicherheitsfunktionen
+* Getränkeuntersetzeraufnahme
+* Getränkeuntersetzerplatzierung
+* Systemüberwachung
+* Simulation und Testbarkeit
 
-Funktionen höherer Reifegrade werden nicht vollständig getestet, da sie außerhalb des Projektumfangs liegen.
+Funktionen höherer Reifegrade werden nicht vollständig getestet, da sie
+außerhalb des Projektumfangs liegen.
 
 Dies betrifft insbesondere:
 
-* automatisierten Getränketransport,
-* Bestellaufnahme,
-* Bezahlvorgänge,
-* Reinigung,
-* Mensch-Roboter-Interaktion,
-* Netzwerkkommunikation.
+* automatisierten Getränketransport
+* Bestellaufnahme
+* Bezahlvorgänge
+* Reinigung
+* Mensch-Roboter-Interaktion
+* Netzwerkkommunikation
 
----
+## Testobjekt
 
-## 1.4 Testobjekt
-
-Das Testobjekt ist der Coasterbot-Prototyp einschließlich seiner Hard- und Softwarekomponenten.
+Das Testobjekt ist der Coasterbot-Prototyp, einschließlich seiner Hard- und
+Softwarekomponenten.
 
 Die Tests betrachten folgende Systembestandteile:
 
 ### Hardware
 
-* Recheneinheit.
-* Sensorik.
-* Aktorik.
-* Energieversorgung.
-* Mechanische Konstruktion.
+* Recheneinheit
+* Sensorik
+* Aktorik
+* Energieversorgung
+* Mechanische Konstruktion
 
 ### Software
 
-* Hardwareabstraktion.
-* Navigationskomponente.
-* Lokalisierung.
-* Bewegungssteuerung.
-* Untersetzerhandling.
-* Sicherheitslogik.
-* Systemüberwachung.
+* Hardwareabstraktion
+* Navigationskomponente
+* Lokalisierung
+* Bewegungssteuerung
+* Untersetzerhandling
+* Sicherheitslogik
+* Systemüberwachung
 
 ### Simulation
 
-* Virtuelle Tischumgebung.
-* Sensormodelle.
-* Aktormodelle.
-* Simulierte Fehlerzustände.
-* Teststeuerung.
+* Virtuelle Tischumgebung
+* Sensormodelle
+* Aktormodelle
+* Simulierte Fehlerzustände
+* Teststeuerung
 
----
+## Testgrundlagen
 
-## 1.5 Testgrundlagen
-
-Die Testfälle werden aus den Anforderungen des Lastenhefts sowie den technischen Beschreibungen des Pflichtenhefts abgeleitet.
+Die Testfälle werden aus den Anforderungen des Lastenhefts sowie den
+technischen Beschreibungen des Pflichtenhefts abgeleitet.
 
 Jeder Testfall besitzt eine eindeutige Identifikation und beschreibt:
 
-* Testziel.
-* Bezug zu Anforderungen.
-* Voraussetzungen.
-* Testumgebung.
-* Testablauf.
-* Eingabedaten.
-* Erwartetes Ergebnis.
-* Tatsächliches Ergebnis.
-* Bewertung.
+* Testziel
+* Bezug zu Anforderungen
+* Voraussetzungen
+* Testumgebung
+* Testablauf
+* Eingabedaten
+* Erwartetes Ergebnis
+* Tatsächliches Ergebnis
+* Bewertung
 
 Die Tests werden so gestaltet, dass sie reproduzierbar durchgeführt werden können.
 
----
-
-## 1.6 Teststrategie
+## Teststrategie
 
 Die Teststrategie folgt einem mehrstufigen Ansatz.
 
 Die einzelnen Testebenen bauen aufeinander auf:
 
-## 1.6.1 Komponententests
+## Komponententests
 
 Komponententests prüfen einzelne Softwaremodule unabhängig voneinander.
 
 Beispiele:
 
-* Prüfung der Positionsberechnung.
-* Prüfung von Zustandsübergängen.
-* Prüfung der Sensorverarbeitung.
-* Prüfung der Fehlererkennung.
+* Prüfung der Positionsberechnung
+* Prüfung von Zustandsübergängen
+* Prüfung der Sensorverarbeitung
+* Prüfung der Fehlererkennung
 
 Ziel ist die frühzeitige Erkennung von Fehlern innerhalb einzelner Komponenten.
 
----
-
-## 1.6.2 Integrationstests
+## Integrationstests
 
 Integrationstests prüfen die Kommunikation zwischen mehreren Komponenten.
 
 Beispiele:
 
-* Übergabe von Sensordaten an die Navigation.
-* Übergabe von Navigationsbefehlen an die Bewegungssteuerung.
-* Kommunikation zwischen Sicherheitslogik und Aktorsteuerung.
+* Übergabe von Sensordaten an die Navigation
+* Übergabe von Navigationsbefehlen an die Bewegungssteuerung
+* Kommunikation zwischen Sicherheitslogik und Aktorsteuerung
 
 Ziel ist der Nachweis eines korrekten Zusammenspiels der Systemkomponenten.
 
----
+## Simulationstests
 
-## 1.6.3 Simulationstests
-
-Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb der virtuellen Umgebung.
+Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb der
+virtuellen Umgebung.
 
 Dabei werden insbesondere geprüft:
 
-* Navigation.
-* Hindernisvermeidung.
-* Tischkantenerkennung.
-* Untersetzerhandling.
-* Fehlerzustände.
+* Navigation
+* Hindernisvermeidung
+* Tischkantenerkennung
+* Untersetzerhandling
+* Fehlerzustände
 
 Die Simulation ermöglicht reproduzierbare Tests ohne Abhängigkeit von der physischen Hardware.
 
----
-
-## 1.6.4 Systemtests
+## Systemtests
 
 Systemtests überprüfen den vollständigen Coasterbot-Prototyp.
 
@@ -176,14 +168,12 @@ Dabei werden Hardware und Software gemeinsam betrachtet.
 
 Beispiele:
 
-* vollständiger Navigationsablauf,
-* Aufnahme eines Untersetzers,
-* Sicherheitsstopp,
-* Verhalten bei Fehlerzuständen.
+* vollständiger Navigationsablauf
+* Aufnahme eines Untersetzers
+* Sicherheitsstopp
+* Verhalten bei Fehlerzuständen
 
----
-
-## 1.7 Testumgebung
+## Testumgebung
 
 Die Tests werden in mehreren Umgebungen durchgeführt.
 
@@ -193,12 +183,10 @@ Die Entwicklungsumgebung dient zur Durchführung automatisierter Softwaretests.
 
 Sie umfasst:
 
-* Quellcodeverwaltung.
-* Build-System.
-* Testframework.
-* Analysewerkzeuge.
-
----
+* Quellcodeverwaltung
+* Build-System
+* Testframework
+* Analysewerkzeuge
 
 ### Simulationsumgebung
 
@@ -206,29 +194,27 @@ Die Simulationsumgebung ermöglicht die Prüfung des Systemverhaltens ohne reale
 
 Sie beinhaltet:
 
-* virtuelle Tischumgebung,
-* simulierte Sensoren,
-* simulierte Aktoren,
-* definierte Testszenarien.
-
----
+* virtuelle Tischumgebung
+* simulierte Sensoren
+* simulierte Aktoren
+* definierte Testszenarien
 
 ### Physischer Prototyp
 
-Nach erfolgreicher Validierung in der Simulation werden ausgewählte Tests auf dem realen Prototyp durchgeführt.
+Nach erfolgreicher Validierung in der Simulation werden ausgewählte Tests auf
+dem realen Prototyp durchgeführt.
 
 Dabei werden insbesondere geprüft:
 
-* mechanische Funktion,
-* reale Sensorik,
-* reale Bewegung,
-* Interaktion der Hardwarekomponenten.
+* mechanische Funktion
+* reale Sensorik
+* reale Bewegung
+* Interaktion der Hardwarekomponenten
 
----
+## Bewertung von Testergebnissen
 
-## 1.8 Bewertung von Testergebnissen
-
-Ein Testfall wird anhand des Vergleichs zwischen erwartetem und tatsächlichem Ergebnis bewertet.
+Ein Testfall wird anhand des Vergleichs zwischen erwartetem und tatsächlichem
+Ergebnis bewertet.
 
 Folgende Ergebnisse sind möglich:
 
@@ -238,11 +224,10 @@ Folgende Ergebnisse sind möglich:
 | Fehlgeschlagen   | Erwartetes Ergebnis wurde nicht erreicht |
 | Nicht ausführbar | Voraussetzungen waren nicht erfüllt      |
 
-Fehlgeschlagene Tests werden dokumentiert und führen zu einer Fehleranalyse sowie gegebenenfalls zu einer Anpassung der Implementierung.
+Fehlgeschlagene Tests werden dokumentiert und führen zu einer Fehleranalyse
+sowie gegebenenfalls zu einer Anpassung der Implementierung.
 
----
-
-## 1.9 Aufbau der Testspezifikation
+## Aufbau der Testspezifikation
 
 Die weiteren Kapitel dieser Testspezifikation sind wie folgt aufgebaut:
 
@@ -267,39 +252,45 @@ Dokumentation und Auswertung der durchgeführten Tests.
 **Kapitel 8 – Zusammenfassung**
 Bewertung der Testergebnisse hinsichtlich der Projektziele.
 
----
-
-## 1.10 Zusammenfassung
+## Zusammenfassung
 
 Dieses Kapitel definiert die Grundlagen für die systematische Prüfung des Coasterbot-Prototyps.
 
-Durch die Kombination aus Komponenten-, Integrations-, Simulations- und Systemtests wird sichergestellt, dass die entwickelten Funktionen nachvollziehbar bewertet werden können.
+Durch die Kombination aus Komponenten-, Integrations-, Simulations- und
+Systemtests wird sichergestellt, dass die entwickelten Funktionen
+nachvollziehbar bewertet werden können.
 
-Die Testspezifikation bildet damit die Grundlage für den Nachweis, dass der entwickelte Prototyp die Anforderungen des Lasten- und Pflichtenhefts erfüllt.
+Die Testspezifikation bildet damit die Grundlage für den Nachweis, dass der
+entwickelte Prototyp die Anforderungen des Lasten- und Pflichtenhefts erfüllt.
 
-# 2 Testmethodik und Testmanagement
+# Testmethodik und Testmanagement
 
-## 2.1 Ziel der Testmethodik
+## Ziel der Testmethodik
 
-Die Testmethodik definiert die Vorgehensweise zur Planung, Durchführung und Bewertung der Tests für den Coasterbot-Prototyp.
+Die Testmethodik definiert die Vorgehensweise zur Planung, Durchführung und
+Bewertung der Tests für den Coasterbot-Prototyp.
 
-Ziel ist es, durch eine strukturierte und nachvollziehbare Vorgehensweise sicherzustellen, dass alle relevanten Anforderungen geprüft werden. Die Testmethodik orientiert sich an den Prinzipien des systematischen Softwaretests und berücksichtigt sowohl die Besonderheiten eingebetteter Systeme als auch die Anforderungen an autonome Robotersysteme.
+Ziel ist es, durch eine strukturierte und nachvollziehbare Vorgehensweise
+sicherzustellen, dass relevante Anforderungen geprüft werden. Die Testmethodik
+orientiert sich an den Prinzipien des systematischen Softwaretests und
+berücksichtigt sowohl die Besonderheiten eingebetteter Systeme als auch die
+Anforderungen an autonome Robotersysteme.
 
 Die Testmethodik verfolgt folgende Ziele:
 
-* vollständige Abdeckung der relevanten Anforderungen,
-* frühzeitige Erkennung von Fehlern,
-* reproduzierbare Testergebnisse,
-* nachvollziehbare Dokumentation,
-* Verifikation der technischen Umsetzung.
+* vollständige Abdeckung der relevanten Anforderungen
+* frühzeitige Erkennung von Fehlern
+* reproduzierbare Testergebnisse
+* nachvollziehbare Dokumentation
+* Verifikation der technischen Umsetzung
 
----
+## Testvorgehensmodell
 
-# 2.2 Testvorgehensmodell
+Die Entwicklung und Prüfung des Coasterbots erfolgt nach einem inkrementellen
+Testvorgehen.
 
-Die Entwicklung und Prüfung des Coasterbots erfolgt nach einem inkrementellen Testvorgehen.
-
-Dabei werden Funktionen schrittweise entwickelt und anschließend auf verschiedenen Ebenen geprüft.
+Dabei werden Funktionen schrittweise entwickelt und anschließend auf
+verschiedenen Ebenen geprüft.
 
 Der Testprozess besteht aus folgenden Phasen:
 
@@ -310,25 +301,21 @@ Der Testprozess besteht aus folgenden Phasen:
 5. Fehleranalyse
 6. Testabschluss
 
----
-
-## 2.2.1 Testplanung
+### Testplanung
 
 In der Testplanung werden die Rahmenbedingungen für die Tests festgelegt.
 
 Dazu gehören:
 
-* Definition der Testziele.
-* Auswahl geeigneter Testverfahren.
-* Festlegung der Testumgebung.
-* Identifikation benötigter Testdaten.
-* Zuordnung der Anforderungen zu Testfällen.
+* Definition der Testziele
+* Auswahl geeigneter Testverfahren
+* Festlegung der Testumgebung
+* Identifikation benötigter Testdaten
+* Zuordnung der Anforderungen zu Testfällen
 
 Die Testplanung basiert auf der Traceability-Matrix aus dem Pflichtenheft.
 
----
-
-## 2.2.2 Testentwurf
+### Testentwurf
 
 Im Testentwurf werden konkrete Testfälle aus den Anforderungen abgeleitet.
 
@@ -348,33 +335,30 @@ Die Testfälle werden nach folgendem Schema aufgebaut:
 | Erwartetes Ergebnis | Sollverhalten                          |
 | Bewertung           | Testergebnis                           |
 
----
+## Testebenen
 
-# 2.3 Testebenen
+Die Tests werden in verschiedene Ebenen unterteilt. Jede Ebene besitzt eine
+eigene Zielsetzung.
 
-Die Tests werden in verschiedene Ebenen unterteilt. Jede Ebene besitzt eine eigene Zielsetzung.
-
-## 2.3.1 Komponententest
+### Komponententest
 
 Komponententests überprüfen einzelne Softwaremodule unabhängig voneinander.
 
 Ziel:
 
-* korrekte Funktion einzelner Komponenten,
-* Prüfung interner Logik,
-* Fehlerisolierung.
+* korrekte Funktion einzelner Komponenten
+* Prüfung interner Logik
+* Fehlerisolierung
 
 Beispiele:
 
-* Prüfung der Lokalisierungsberechnung.
-* Prüfung eines Zustandsautomaten.
-* Prüfung der Fehlererkennung.
+* Prüfung der Lokalisierungsberechnung
+* Prüfung eines Zustandsautomaten
+* Prüfung der Fehlererkennung
 
 Komponententests werden bevorzugt automatisiert durchgeführt.
 
----
-
-## 2.3.2 Integrationstest
+### Integrationstest
 
 Integrationstests prüfen das Zusammenspiel mehrerer Komponenten.
 
@@ -382,111 +366,101 @@ Dabei werden insbesondere Schnittstellen überprüft.
 
 Beispiele:
 
-* Sensorabstraktion liefert korrekte Daten an Navigation.
-* Navigation erzeugt gültige Steuerbefehle.
-* Sicherheitskomponente kann Bewegungen stoppen.
+* Sensorabstraktion liefert korrekte Daten an Navigation
+* Navigation erzeugt gültige Steuerbefehle
+* Sicherheitskomponente kann Bewegungen stoppen
 
 Ziel ist der Nachweis, dass die Komponenten gemeinsam korrekt funktionieren.
 
----
+### Simulationstest
 
-## 2.3.3 Simulationstest
-
-Simulationstests prüfen das Verhalten des Gesamtsystems unter kontrollierten Bedingungen.
+Simulationstests prüfen das Verhalten des Gesamtsystems unter kontrollierten
+Bedingungen.
 
 Die Simulation ermöglicht:
 
-* reproduzierbare Szenarien,
-* sichere Prüfung kritischer Situationen,
-* Untersuchung verschiedener Umgebungsbedingungen.
+* reproduzierbare Szenarien
+* sichere Prüfung kritischer Situationen
+* Untersuchung verschiedener Umgebungsbedingungen
 
 Beispiele:
 
-* Hindernis auf der Fahrstrecke.
-* Verlust eines Sensorsignals.
-* Annäherung an eine Tischkante.
+* Hindernis auf der Fahrstrecke
+* Verlust eines Sensorsignals
+* Annäherung an eine Tischkante
 
----
-
-## 2.3.4 Systemtest
+### Systemtest
 
 Systemtests prüfen den vollständigen Prototyp.
 
 Dabei werden alle relevanten Komponenten gemeinsam betrachtet:
 
-* Mechanik,
-* Elektronik,
-* Software,
-* Sensorik,
-* Aktorik.
+* Mechanik
+* Elektronik
+* Software
+* Sensorik
+* Aktorik
 
 Ziel ist die Überprüfung des Gesamtsystems unter realitätsnahen Bedingungen.
 
----
-
-# 2.4 Testarten
+## Testarten
 
 Neben den Testebenen werden unterschiedliche Testarten eingesetzt.
 
-## 2.4.1 Funktionstest
+### Funktionstest
 
 Funktionstests prüfen, ob das System die geforderten Funktionen korrekt ausführt.
 
 Beispiele:
 
-* Navigation zu einem Zielpunkt.
-* Aufnahme eines Getränkeuntersetzers.
-* Erkennen eines Hindernisses.
+* Navigation zu einem Zielpunkt
+* Aufnahme eines Getränkeuntersetzers
+* Erkennen eines Hindernisses
 
----
-
-## 2.4.2 Sicherheitstest
+### Sicherheitstest
 
 Sicherheitstests überprüfen sicherheitskritische Funktionen.
 
 Geprüft werden:
 
-* Not-Aus.
-* Tischkantenerkennung.
-* Kollisionsvermeidung.
-* Fehlerreaktionen.
+* Not-Aus
+* Tischkantenerkennung
+* Kollisionsvermeidung
+* Fehlerreaktionen
 
-Diese Tests besitzen eine hohe Priorität, da Fehler zu Schäden am System oder in der Umgebung führen können.
+Diese Tests besitzen eine hohe Priorität, da Fehler zu Schäden am System oder
+in der Umgebung führen können.
 
----
-
-## 2.4.3 Belastungstest
+### Belastungstest
 
 Belastungstests untersuchen das Verhalten unter erhöhten Anforderungen.
 
 Beispiele:
 
-* längere Betriebsdauer,
-* häufige Fahrbewegungen,
-* wiederholte Aufnahmevorgänge.
+* längere Betriebsdauer
+* häufige Fahrbewegungen
+* wiederholte Aufnahmevorgänge
 
 Ziel ist die Bewertung der Stabilität und Zuverlässigkeit.
 
----
+### Regressionstest
 
-## 2.4.4 Regressionstest
-
-Regressionstests stellen sicher, dass Änderungen an der Software keine bereits funktionierenden Funktionen beeinträchtigen.
+Regressionstests stellen sicher, dass Änderungen an der Software keine bereits
+funktionierenden Funktionen beeinträchtigen.
 
 Nach jeder größeren Änderung werden relevante Tests erneut ausgeführt.
 
----
+## Priorisierung der Testfälle
 
-# 2.5 Priorisierung der Testfälle
-
-Nicht alle Anforderungen besitzen dieselbe Kritikalität. Daher werden Testfälle priorisiert.
+Nicht alle Anforderungen besitzen dieselbe Kritikalität. Daher werden Testfälle
+priorisiert.
 
 Die Priorisierung erfolgt anhand folgender Kriterien:
 
-* Sicherheitsrelevanz.
-* Bedeutung für die Kernfunktion.
-* Abhängigkeit anderer Komponenten.
-* Einfluss auf die Definition of Done.
+* Sicherheitsrelevanz
+* Bedeutung für die Kernfunktion
+* Abhängigkeit anderer Komponenten
+* Einfluss auf die Definition of Done
 
 Die Prioritätsstufen sind:
 
@@ -496,115 +470,98 @@ Die Prioritätsstufen sind:
 | P2        | Wesentliche Funktion für den Prototyp          |
 | P3        | Unterstützende oder optionale Funktion         |
 
----
-
-## 2.5.1 Priorität P1 – Kritische Tests
+### Priorität P1 – Kritische Tests
 
 Folgende Funktionen besitzen höchste Priorität:
 
-* Erkennung von Tischkanten.
-* Sicherheitsstopp.
-* Kollisionsvermeidung.
-* Grundlegende Bewegungsfähigkeit.
-* Fehlererkennung.
+* Erkennung von Tischkanten
+* Sicherheitsstopp
+* Kollisionsvermeidung
+* Grundlegende Bewegungsfähigkeit
+* Fehlererkennung
 
 Ein Fehler in diesen Bereichen verhindert einen sicheren Betrieb des Roboters.
 
----
-
-## 2.5.2 Priorität P2 – Kernfunktionen
+### Priorität P2 – Kernfunktionen
 
 Folgende Funktionen sind für die eigentliche Aufgabe des Prototyps erforderlich:
 
-* Navigation zu Zielpunkten.
-* Lokalisierung.
-* Untersetzeraufnahme.
-* Untersetzerplatzierung.
-* Systemüberwachung.
+* Navigation (zu Zielpunkten)
+* Lokalisierung
+* Untersetzeraufnahme
+* Untersetzerplatzierung
+* Systemüberwachung
 
----
-
-## 2.5.3 Priorität P3 – Erweiterungen
+### Priorität P3 – Erweiterungen
 
 Diese Funktionen werden nachrangig betrachtet:
 
-* Erweiterte Simulationen.
-* Optimierungen.
-* Vorbereitung zukünftiger Ausbaustufen.
+* (Erweiterte) Simulationen
+* Optimierungen
+* Vorbereitung zukünftiger Ausbaustufen
 
----
+## Testdaten und Testszenarien
 
-# 2.6 Testdaten und Testszenarien
-
-Die Testdaten werden so gewählt, dass typische sowie kritische Situationen abgedeckt werden.
+Die Testdaten werden so gewählt, dass typische sowie kritische Situationen
+abgedeckt werden.
 
 Beispiele:
 
-## Normalszenario
+### Normalszenario
 
-* Freie Tischfläche.
-* Keine Hindernisse.
-* Ausreichender Energiezustand.
+* Freie Tischfläche
+* Keine Hindernisse
+* Ausreichender Energiezustand
 
 Ziel:
 
 Überprüfung des normalen Betriebs.
 
----
+### Hindernisszenario
 
-## Hindernisszenario
-
-* Objekt befindet sich auf geplanter Route.
+* Objekt befindet sich auf geplanter Route
 
 Ziel:
 
 Prüfung der Hinderniserkennung und Navigation.
 
----
+### Grenzszenario
 
-## Grenzszenario
-
-* Roboter nähert sich Tischkante.
-* Sensor liefert kritische Werte.
+* Roboter nähert sich Tischkante
+* Sensor liefert kritische Werte
 
 Ziel:
 
 Überprüfung der Sicherheitsfunktionen.
 
----
+### Fehlerszenario
 
-## Fehlerszenario
-
-* Sensor fällt aus.
-* Aktor reagiert nicht.
+* Sensor fällt aus
+* Aktor reagiert nicht
 
 Ziel:
 
 Überprüfung der Fehlerbehandlung.
 
----
-
-# 2.7 Testautomatisierung
+## Testautomatisierung
 
 Ein wesentlicher Bestandteil des Testkonzepts ist die Automatisierung wiederkehrender Prüfungen.
 
 Automatisierte Tests ermöglichen:
 
-* schnelle Wiederholung von Testfällen,
-* reproduzierbare Ergebnisse,
-* frühzeitige Fehlererkennung,
-* Unterstützung der Softwareentwicklung.
+* schnelle Wiederholung von Testfällen
+* reproduzierbare Ergebnisse
+* frühzeitige Fehlererkennung
+* Unterstützung der Softwareentwicklung
 
 Automatisiert werden insbesondere:
 
-* Komponententests,
-* Schnittstellentests,
-* Simulationstests,
-* Zustandsübergänge.
+* Komponententests
+* Schnittstellentests
+* Simulationstests
+* Zustandsübergänge
 
----
-
-# 2.8 Fehlerverwaltung
+## Fehlerverwaltung
 
 Festgestellte Fehler werden strukturiert dokumentiert.
 
@@ -628,78 +585,83 @@ Mögliche Fehlerstatus:
 | Behoben     | Fehler wurde korrigiert  |
 | Verifiziert | Korrektur wurde getestet |
 
----
-
-# 2.9 Testabschluss
+## Testabschluss
 
 Ein Testzyklus gilt als abgeschlossen, wenn:
 
-* alle geplanten Tests durchgeführt wurden,
-* Ergebnisse dokumentiert wurden,
-* kritische Fehler behoben wurden,
-* die Testabdeckung bewertet wurde.
+* alle geplanten Tests durchgeführt wurden
+* Ergebnisse dokumentiert wurden
+* kritische Fehler behoben wurden
+* die Testabdeckung bewertet wurde
 
 Die Ergebnisse werden in einem Testbericht zusammengefasst.
 
 Dieser enthält:
 
-* Anzahl ausgeführter Tests,
-* erfolgreiche Tests,
-* fehlgeschlagene Tests,
-* offene Probleme,
-* Bewertung des Systemzustands.
+* Anzahl ausgeführter Tests
+* erfolgreiche Tests
+* fehlgeschlagene Tests
+* offene Probleme
+* Bewertung des Systemzustands
 
----
+## Zusammenfassung
 
-# 2.10 Zusammenfassung
+Die Testmethodik definiert einen strukturierten Prozess zur Überprüfung des
+Coasterbot-Prototyps.
 
-Die Testmethodik definiert einen strukturierten Prozess zur Überprüfung des Coasterbot-Prototyps.
+Durch die Kombination verschiedener Testebenen und Testarten wird
+sichergestellt, dass sowohl einzelne Softwarekomponenten als auch das
+Gesamtsystem überprüft werden.
 
-Durch die Kombination verschiedener Testebenen und Testarten wird sichergestellt, dass sowohl einzelne Softwarekomponenten als auch das Gesamtsystem überprüft werden.
+Die Priorisierung der Tests stellt sicher, dass sicherheitskritische und für
+die Kernfunktion notwendige Anforderungen zuerst validiert werden.
 
-Die Priorisierung der Tests stellt sicher, dass sicherheitskritische und für die Kernfunktion notwendige Anforderungen zuerst validiert werden.
+Damit bildet dieses Testmanagement die Grundlage für die nachfolgenden
+detaillierten Testfälle.
 
-Damit bildet dieses Testmanagement die Grundlage für die nachfolgenden detaillierten Testfälle.
+# Komponententests
 
-# 3 Komponententests
+## Ziel der Komponententests
 
-## 3.1 Ziel der Komponententests
+Komponententests überprüfen einzelne Softwaremodule des Coasterbot-Systems
+unabhängig von anderen Systembestandteilen. Ziel ist es, die korrekte Funktion
+der einzelnen Komponenten sicherzustellen, bevor diese in das Gesamtsystem
+integriert werden.
 
-Komponententests überprüfen einzelne Softwaremodule des Coasterbot-Systems unabhängig von anderen Systembestandteilen. Ziel ist es, die korrekte Funktion der einzelnen Komponenten sicherzustellen, bevor diese in das Gesamtsystem integriert werden.
+Durch die isolierte Prüfung einzelner Komponenten können Fehler frühzeitig
+erkannt und deren Ursachen eindeutig zugeordnet werden.
 
-Durch die isolierte Prüfung einzelner Komponenten können Fehler frühzeitig erkannt und deren Ursachen eindeutig zugeordnet werden.
+Die Komponententests konzentrieren sich auf die im Pflichtenheft definierten
+Softwaremodule:
 
-Die Komponententests konzentrieren sich auf die im Pflichtenheft definierten Softwaremodule:
+* Hardwareabstraktion
+* Lokalisierung
+* Navigation
+* Bewegungssteuerung
+* Untersetzerhandling
+* Sicherheitskomponente
+* Systemüberwachung
 
-* Hardwareabstraktion.
-* Lokalisierung.
-* Navigation.
-* Bewegungssteuerung.
-* Untersetzerhandling.
-* Sicherheitskomponente.
-* Systemüberwachung.
+Die Tests werden bevorzugt automatisiert ausgeführt, um eine wiederholbare und
+effiziente Qualitätssicherung zu ermöglichen.
 
-Die Tests werden bevorzugt automatisiert ausgeführt, um eine wiederholbare und effiziente Qualitätssicherung zu ermöglichen.
+## Testumgebung für Komponententests
 
----
-
-# 3.2 Testumgebung für Komponententests
-
-Die Komponententests werden ohne vollständige Hardware durchgeführt. Hardwareabhängige Funktionen werden durch simulierte Schnittstellen ersetzt.
+Die Komponententests werden ohne vollständige Hardware durchgeführt.
+Hardwareabhängige Funktionen werden durch simulierte Schnittstellen ersetzt.
 
 Die Testumgebung besteht aus:
 
-* Softwarekomponenten des Coasterbots.
-* Simulierten Sensordaten.
-* Simulierten Aktorzuständen.
-* Testframework.
-* Testdatenverwaltung.
+* Softwarekomponenten des Coasterbots
+* Simulierten Sensordaten
+* Simulierten Aktorzuständen
+* Testframework
+* Testdatenverwaltung
 
-Die Hardwareabstraktion ermöglicht es, einzelne Komponenten unabhängig von realen Sensoren und Aktoren zu prüfen.
+Die Hardwareabstraktion ermöglicht es, einzelne Komponenten unabhängig von
+realen Sensoren und Aktoren zu prüfen.
 
----
-
-# 3.3 Testfallstruktur
+## Testfallstruktur
 
 Alle Komponententests werden nach einer einheitlichen Struktur dokumentiert.
 
@@ -717,27 +679,26 @@ Jeder Testfall enthält:
 | Erwartetes Ergebnis | Sollverhalten                        |
 | Bewertung           | Testergebnis                         |
 
----
+## Komponententest: Hardwareabstraktion
 
-# 3.4 Komponententest: Hardwareabstraktion
+### Testfall CT-HW-001: Verarbeitung von Sensordaten
 
-## Testfall CT-HW-001: Verarbeitung von Sensordaten
+#### Ziel
 
-### Ziel
+Überprüfung, ob die Hardwareabstraktion Sensordaten korrekt einliest und für
+die darüberliegenden Softwarekomponenten bereitstellt.
 
-Überprüfung, ob die Hardwareabstraktion Sensordaten korrekt einliest und für die darüberliegenden Softwarekomponenten bereitstellt.
+#### Zugeordnete Anforderungen
 
-### Zugeordnete Anforderungen
+* NFR-008: Software muss Hardwareabstraktion unterstützen
+* NFR-007: Sensoren und Aktoren müssen austauschbar sein
 
-* NFR-008: Software muss Hardwareabstraktion unterstützen.
-* NFR-007: Sensoren und Aktoren müssen austauschbar sein.
+#### Voraussetzungen
 
-### Voraussetzungen
+* Simulierter Sensor ist verfügbar
+* Hardwareabstraktionsschnittstelle ist initialisiert
 
-* Simulierter Sensor ist verfügbar.
-* Hardwareabstraktionsschnittstelle ist initialisiert.
-
-### Eingaben
+#### Eingaben
 
 Simulierter Abstandswert:
 
@@ -745,190 +706,183 @@ Simulierter Abstandswert:
 Entfernung = 500 mm
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Simulierter Sensor liefert Messwert.
-2. Hardwareabstraktion empfängt den Messwert.
-3. Daten werden in internes Format übertragen.
-4. Navigationskomponente ruft Sensordaten ab.
+1. Simulierter Sensor liefert Messwert
+2. Hardwareabstraktion empfängt den Messwert
+3. Daten werden in internes Format übertragen
+4. Navigationskomponente ruft Sensordaten ab
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Sensordaten werden korrekt verarbeitet.
-* Datenformat entspricht der definierten Schnittstelle.
-* Navigation erhält gültige Informationen.
+* Sensordaten werden korrekt verarbeitet
+* Datenformat entspricht der definierten Schnittstelle
+* Navigation erhält gültige Informationen
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die übertragenen Daten mit den Eingangsdaten übereinstimmen.
 
----
+## Komponententest: Lokalisierung
 
-# 3.5 Komponententest: Lokalisierung
+### Testfall CT-LOC-001: Positionsaktualisierung
 
-## Testfall CT-LOC-001: Positionsaktualisierung
-
-### Ziel
+#### Ziel
 
 Überprüfung der Berechnung und Aktualisierung der Roboterposition.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-006: Der Bot muss seine Position bestimmen können.
-* NAV-007: Der Bot muss seine Orientierung bestimmen können.
+* NAV-006: Der Bot muss seine Position bestimmen können
+* NAV-007: Der Bot muss seine Orientierung bestimmen können
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Lokalisierungskomponente ist aktiv.
-* Startposition ist definiert.
+* Lokalisierungskomponente ist aktiv
+* Startposition ist definiert
 
-### Eingaben
+#### Eingaben
 
 Startposition:
 
-[
+$$
 (x,y,\theta)=(0,0,0)
-]
+$$
 
 Bewegungsänderung:
 
-[
+$$
 \Delta x=100mm
-]
+$$
 
-### Ablauf
+#### Ablauf
 
-1. Startposition wird gesetzt.
-2. Bewegungsinformation wird übergeben.
-3. Lokalisierung verarbeitet die Daten.
-4. Neue Position wird berechnet.
+1. Startposition wird gesetzt
+2. Bewegungsinformation wird übergeben
+3. Lokalisierung verarbeitet die Daten
+4. Neue Position wird berechnet
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
 Die Position wird korrekt aktualisiert:
 
-[
+$$
 (x,y,\theta)=(100,0,0)
-]
+$$
 
-### Bewertung
+#### Bewertung
 
-Bestanden, wenn die berechnete Position innerhalb der definierten Genauigkeit liegt.
+Bestanden, wenn die berechnete Position innerhalb der definierten Genauigkeit
+liegt.
 
----
+## Komponententest: Navigation
 
-# 3.6 Komponententest: Navigation
+### Testfall CT-NAV-001: Berechnung einer gültigen Route
 
-## Testfall CT-NAV-001: Berechnung einer gültigen Route
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob die Navigationskomponente eine gültige Route zwischen Start- und Zielpunkt erzeugen kann.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-005: Der Bot muss seine Fahrtroute dynamisch anpassen.
-* NAV-008: Der Bot muss seinen Zielpunkt erreichen.
+* NAV-005: Der Bot muss seine Fahrtroute dynamisch anpassen
+* NAV-008: Der Bot muss seinen Zielpunkt erreichen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Startposition bekannt.
-* Zielposition bekannt.
-* Keine Hindernisse vorhanden.
+* Startposition bekannt
+* Zielposition bekannt
+* Keine Hindernisse vorhanden
 
-### Eingaben
+#### Eingaben
 
 Start:
 
-[
+$$
 (0,0)
-]
+$$
 
 Ziel:
 
-[
+$$
 (1000,500)
-]
+$$
 
-### Ablauf
+#### Ablauf
 
-1. Startposition wird gesetzt.
-2. Zielposition wird übergeben.
-3. Navigation berechnet Route.
-4. Route wird ausgegeben.
+1. Startposition wird gesetzt
+2. Zielposition wird übergeben
+3. Navigation berechnet Route
+4. Route wird ausgegeben
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Eine gültige Route wird erzeugt.
-* Zielpunkt ist erreichbar.
-* Route enthält keine ungültigen Bewegungen.
+* Eine gültige Route wird erzeugt
+* Zielpunkt ist erreichbar
+* Route enthält keine ungültigen Bewegungen
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn eine gültige Bewegungssequenz erzeugt wird.
 
----
+### Testfall CT-NAV-002: Hinderniserkennung
 
-## Testfall CT-NAV-002: Hinderniserkennung
-
-### Ziel
+#### Ziel
 
 Überprüfung der Reaktion der Navigation auf ein erkanntes Hindernis.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-001: Hindernisse erkennen.
-* NAV-002: Hindernissen ausweichen.
+* NAV-001: Hindernisse erkennen
+* NAV-002: Hindernissen ausweichen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Navigationsziel ist gesetzt.
-* Hindernisdaten werden simuliert.
+* Navigationsziel ist gesetzt
+* Hindernisdaten werden simuliert
 
-### Eingaben
+#### Eingaben
 
 Hindernisposition:
 
-[
+$$
 (500,0)
-]
+$$
 
-### Ablauf
+#### Ablauf
 
-1. Navigation startet.
-2. Hindernis wird erkannt.
-3. Route wird neu berechnet.
+1. Navigation startet
+2. Hindernis wird erkannt
+3. Route wird neu berechnet
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Hindernis wird erkannt.
-* Neue Route vermeidet das Hindernis.
-* Keine Kollision entsteht.
+* Hindernis wird erkannt
+* Neue Route vermeidet das Hindernis
+* Keine Kollision entsteht
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn eine kollisionsfreie Route erzeugt wird.
 
----
+## Komponententest: Bewegungssteuerung
 
-# 3.7 Komponententest: Bewegungssteuerung
+### Testfall CT-MOT-001: Umsetzung von Bewegungsbefehlen
 
-## Testfall CT-MOT-001: Umsetzung von Bewegungsbefehlen
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob Bewegungsbefehle korrekt in Aktorbefehle umgesetzt werden.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-009: Der Bot muss sich kontrolliert bewegen.
-* SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit kollidieren.
+* NAV-009: Der Bot muss sich kontrolliert bewegen
+* SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit kollidieren
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Motorsteuerung ist initialisiert.
+* Motorsteuerung ist initialisiert
 
-### Eingaben
+#### Eingaben
 
 Bewegungsbefehl:
 
@@ -937,43 +891,41 @@ Geschwindigkeit: 100 mm/s
 Richtung: vorwärts
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Bewegungsbefehl wird übergeben.
-2. Steuerung berechnet Aktorsignale.
-3. Motorzustand wird geprüft.
+1. Bewegungsbefehl wird übergeben
+2. Steuerung berechnet Aktorsignale
+3. Motorzustand wird geprüft
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Motoren erhalten korrekte Steuerwerte.
-* Geschwindigkeit entspricht Vorgabe.
-* Sicherheitsgrenzen werden eingehalten.
+* Motoren erhalten korrekte Steuerwerte
+* Geschwindigkeit entspricht Vorgabe
+* Sicherheitsgrenzen werden eingehalten
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Ausgangswerte korrekt erzeugt werden.
 
----
+## Komponententest: Untersetzerhandling
 
-# 3.8 Komponententest: Untersetzerhandling
+### Testfall CT-CST-001: Aufnahme eines Getränkeuntersetzers
 
-## Testfall CT-CST-001: Aufnahme eines Getränkeuntersetzers
-
-### Ziel
+#### Ziel
 
 Überprüfung des Aufnahmeprozesses.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-001: Untersetzer aufnehmen.
-* CST-005: Erfolgreiche Aufnahme erkennen.
+* CST-001: Untersetzer aufnehmen
+* CST-005: Erfolgreiche Aufnahme erkennen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Untersetzer befindet sich an definierter Position.
-* Aufnahmemechanismus ist verfügbar.
+* Untersetzer befindet sich an definierter Position
+* Aufnahmemechanismus ist verfügbar
 
-### Eingaben
+#### Eingaben
 
 Untersetzerstatus:
 
@@ -981,40 +933,38 @@ Untersetzerstatus:
 Verfügbar = TRUE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Aufnahmeprozess wird gestartet.
-2. Aktor wird aktiviert.
-3. Sensorstatus wird geprüft.
+1. Aufnahmeprozess wird gestartet
+2. Aktor wird aktiviert
+3. Sensorstatus wird geprüft
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Aufnahme wird durchgeführt.
-* Erfolgreiche Aufnahme wird erkannt.
-* Zustand wechselt zu "Untersetzer aufgenommen".
+* Aufnahme wird durchgeführt
+* Erfolgreiche Aufnahme wird erkannt
+* Zustand wechselt zu "Untersetzer aufgenommen"
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Zustand korrekt aktualisiert wird.
 
----
+### Testfall CT-CST-002: Fehler bei Untersetzeraufnahme
 
-## Testfall CT-CST-002: Fehler bei Untersetzeraufnahme
-
-### Ziel
+#### Ziel
 
 Überprüfung der Fehlererkennung während der Aufnahme.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-005: Aufnahme erkennen.
-* MON-005: Fehlgeschlagene Aufgaben melden.
+* CST-005: Aufnahme erkennen
+* MON-005: Fehlgeschlagene Aufgaben melden
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Aufnahmevorgang gestartet.
+* Aufnahmevorgang gestartet
 
-### Eingaben
+#### Eingaben
 
 Simulierter Fehler:
 
@@ -1022,42 +972,40 @@ Simulierter Fehler:
 Untersetzer erkannt = FALSE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Aufnahme wird gestartet.
-2. Sensor meldet fehlende Aufnahme.
-3. System verarbeitet Fehler.
+1. Aufnahme wird gestartet
+2. Sensor meldet fehlende Aufnahme
+3. System verarbeitet Fehler
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fehler wird erkannt.
-* Aufgabe wird abgebrochen.
-* Fehler wird gemeldet.
+* Fehler wird erkannt
+* Aufgabe wird abgebrochen
+* Fehler wird gemeldet
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Fehler korrekt verarbeitet wird.
 
----
+## Komponententest: Sicherheitskomponente
 
-# 3.9 Komponententest: Sicherheitskomponente
+### Testfall CT-SAF-001: Sicherheitsstopp
 
-## Testfall CT-SAF-001: Sicherheitsstopp
-
-### Ziel
+#### Ziel
 
 Überprüfung der Reaktion auf eine Gefahrensituation.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SAF-001: Bei Gefahr sofort anhalten.
-* SAF-006: Not-Aus unterstützen.
+* SAF-001: Bei Gefahr sofort anhalten
+* SAF-006: Not-Aus unterstützen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboter befindet sich im Bewegungszustand.
+* Roboter befindet sich im Bewegungszustand
 
-### Eingaben
+#### Eingaben
 
 Not-Aus-Signal:
 
@@ -1065,42 +1013,40 @@ Not-Aus-Signal:
 EmergencyStop = TRUE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Bewegungssteuerung ist aktiv.
-2. Sicherheitskomponente erhält Stoppsignal.
-3. Sicherheitszustand wird aktiviert.
+1. Bewegungssteuerung ist aktiv
+2. Sicherheitskomponente erhält Stoppsignal
+3. Sicherheitszustand wird aktiviert
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Bewegungsbefehle werden unterbrochen.
-* Roboter wechselt in sicheren Zustand.
-* Status wird aktualisiert.
+* Bewegungsbefehle werden unterbrochen
+* Roboter wechselt in sicheren Zustand
+* Status wird aktualisiert
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Stopp innerhalb der definierten Reaktionszeit erfolgt.
 
----
+## Komponententest: Systemüberwachung
 
-# 3.10 Komponententest: Systemüberwachung
+### Testfall CT-MON-001: Fehlererkennung und Protokollierung
 
-## Testfall CT-MON-001: Fehlererkennung und Protokollierung
-
-### Ziel
+#### Ziel
 
 Überprüfung der Diagnosefunktion.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* MON-001: Fehler erkennen.
-* MON-002: Fehler protokollieren.
+* MON-001: Fehler erkennen
+* MON-002: Fehler protokollieren
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Systemüberwachung ist aktiv.
+* Systemüberwachung ist aktiv
 
-### Eingaben
+#### Eingaben
 
 Simulierter Fehler:
 
@@ -1108,82 +1054,87 @@ Simulierter Fehler:
 Sensorfehler = TRUE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Fehler wird erzeugt.
-2. Systemüberwachung verarbeitet Ereignis.
-3. Fehler wird gespeichert.
+1. Fehler wird erzeugt
+2. Systemüberwachung verarbeitet Ereignis
+3. Fehler wird gespeichert
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fehler wird erkannt.
-* Fehler wird protokolliert.
-* Status wird aktualisiert.
+* Fehler wird erkannt
+* Fehler wird protokolliert
+* Status wird aktualisiert
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Fehler vollständig dokumentiert wurde.
 
----
+## Zusammenfassung der Komponententests
 
-# 3.11 Zusammenfassung der Komponententests
+Die Komponententests überprüfen die grundlegenden Funktionen der einzelnen
+Softwaremodule des Coasterbots.
 
-Die Komponententests überprüfen die grundlegenden Funktionen der einzelnen Softwaremodule des Coasterbots.
-
-Durch die isolierte Prüfung werden Fehler frühzeitig erkannt und die Grundlage für nachfolgende Integrations- und Systemtests geschaffen.
+Durch die isolierte Prüfung werden Fehler frühzeitig erkannt und die Grundlage
+für nachfolgende Integrations- und Systemtests geschaffen.
 
 Die wichtigsten überprüften Bereiche sind:
 
-* Hardwareabstraktion.
-* Navigation.
-* Lokalisierung.
-* Bewegungssteuerung.
-* Untersetzerhandling.
-* Sicherheit.
-* Systemüberwachung.
+* Hardwareabstraktion
+* Navigation
+* Lokalisierung
+* Bewegungssteuerung
+* Untersetzerhandling
+* Sicherheit
+* Systemüberwachung
 
-Die erfolgreichen Komponententests bilden die Voraussetzung für die Integration der einzelnen Softwarebestandteile zu einem vollständigen Robotersystem.
+Die erfolgreichen Komponententests bilden die Voraussetzung für die Integration
+der einzelnen Softwarebestandteile zu einem vollständigen Robotersystem.
 
-i# 4 Integrationstests
+# Integrationstests
 
-## 4.1 Ziel der Integrationstests
+## Ziel der Integrationstests
 
-Integrationstests überprüfen das Zusammenspiel mehrerer Softwarekomponenten des Coasterbot-Systems. Während Komponententests einzelne Module isoliert betrachten, wird bei Integrationstests die korrekte Kommunikation und Zusammenarbeit zwischen den Komponenten untersucht.
+Integrationstests überprüfen das Zusammenspiel mehrerer Softwarekomponenten des
+Coasterbot-Systems. Während Komponententests einzelne Module isoliert
+betrachten, wird bei Integrationstests die korrekte Kommunikation und
+Zusammenarbeit zwischen den Komponenten untersucht.
 
-Ziel der Integrationstests ist es, sicherzustellen, dass die einzelnen Systembestandteile gemeinsam die geforderten Funktionen erfüllen.
+Ziel der Integrationstests ist es, sicherzustellen, dass die einzelnen
+Systembestandteile gemeinsam die geforderten Funktionen erfüllen.
 
 Der Fokus liegt dabei auf:
 
-* korrekter Datenübertragung zwischen Komponenten,
-* definierten Schnittstellen,
-* korrekten Zustandsübergängen,
-* fehlerfreier Zusammenarbeit von Hard- und Softwareabstraktion,
-* sicherem Verhalten bei kritischen Situationen.
+* korrekter Datenübertragung zwischen Komponenten
+* definierten Schnittstellen
+* korrekten Zustandsübergängen
+* fehlerfreier Zusammenarbeit von Hard- und Softwareabstraktion
+* sicherem Verhalten bei kritischen Situationen
 
-Die Integrationstests bilden die Grundlage für die anschließenden Systemtests, bei denen der vollständige Prototyp betrachtet wird.
+Die Integrationstests bilden die Grundlage für die anschließenden Systemtests,
+bei denen der vollständige Prototyp betrachtet wird.
 
----
+## Testumgebung für Integrationstests
 
-# 4.2 Testumgebung für Integrationstests
-
-Die Integrationstests werden in einer Umgebung durchgeführt, die mehrere reale oder simulierte Komponenten kombiniert.
+Die Integrationstests werden in einer Umgebung durchgeführt, die mehrere reale
+oder simulierte Komponenten kombiniert.
 
 Die Testumgebung umfasst:
 
-* Softwarekomponenten des Coasterbots.
-* Hardwareabstraktionsschicht.
-* simulierte Sensordaten.
-* simulierte Aktorzustände.
-* Simulationsumgebung.
-* Testframework.
+* Softwarekomponenten des Coasterbots
+* Hardwareabstraktionsschicht
+* simulierte Sensordaten
+* simulierte Aktorzustände
+* Simulationsumgebung
+* Testframework
 
-Je nach Testfall können einzelne Hardwarekomponenten durch Simulationsmodelle ersetzt werden.
+Je nach Testfall können einzelne Hardwarekomponenten durch Simulationsmodelle
+ersetzt werden.
 
-Dadurch kann das Verhalten der Software unabhängig von der finalen Hardware überprüft werden.
+Dadurch kann das Verhalten der Software unabhängig von der finalen Hardware
+überprüft werden.
 
----
-
-# 4.3 Testfallstruktur
+## Testfallstruktur
 
 Die Integrationstestfälle werden nach folgendem Schema beschrieben:
 
@@ -1199,35 +1150,33 @@ Die Integrationstestfälle werden nach folgendem Schema beschrieben:
 | Erwartetes Ergebnis    | Sollverhalten               |
 | Bewertung              | Testergebnis                |
 
----
+## Integrationstest: Sensorik und Navigation
 
-# 4.4 Integrationstest: Sensorik und Navigation
+### Testfall IT-SEN-NAV-001: Verarbeitung von Hindernisdaten
 
-## Testfall IT-SEN-NAV-001: Verarbeitung von Hindernisdaten
-
-### Ziel
+#### Ziel
 
 Überprüfung der korrekten Übergabe von Sensordaten an die Navigationskomponente.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-001: Der Bot muss Hindernisse erkennen.
-* NAV-002: Der Bot muss Hindernissen ausweichen.
-* NFR-008: Software muss Hardwareabstraktion unterstützen.
+* NAV-001: Der Bot muss Hindernisse erkennen
+* NAV-002: Der Bot muss Hindernissen ausweichen
+* NFR-008: Software muss Hardwareabstraktion unterstützen
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Sensorabstraktion.
-* Hinderniserkennung.
-* Navigation.
+* Sensorabstraktion
+* Hinderniserkennung
+* Navigation
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Navigation ist aktiv.
-* Simulierter Abstandssensor ist verfügbar.
-* Eine Route zu einem Zielpunkt wurde erstellt.
+* Navigation ist aktiv
+* Simulierter Abstandssensor ist verfügbar
+* Eine Route zu einem Zielpunkt wurde erstellt
 
-### Eingaben
+#### Eingaben
 
 Sensordaten:
 
@@ -1237,53 +1186,52 @@ Abstand = 200 mm
 Position = (500,300)
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Sensorabstraktion empfängt Messwerte.
-2. Messwerte werden an die Hinderniserkennung übertragen.
-3. Hinderniserkennung bewertet die Situation.
-4. Navigationskomponente erhält die Information über das Hindernis.
-5. Neue Route wird berechnet.
+1. Sensorabstraktion empfängt Messwerte
+2. Messwerte werden an die Hinderniserkennung übertragen
+3. Hinderniserkennung bewertet die Situation
+4. Navigationskomponente erhält die Information über das Hindernis
+5. Neue Route wird berechnet
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Sensordaten werden korrekt übertragen.
-* Hindernis wird erkannt.
-* Navigation reagiert auf die Änderung.
-* Neue kollisionsfreie Route wird erzeugt.
+* Sensordaten werden korrekt übertragen
+* Hindernis wird erkannt
+* Navigation reagiert auf die Änderung
+* Neue kollisionsfreie Route wird erzeugt
 
-### Bewertung
+#### Bewertung
 
-Bestanden, wenn die Navigation innerhalb der definierten Reaktionszeit eine gültige Anpassung erzeugt.
+Bestanden, wenn die Navigation innerhalb der definierten Reaktionszeit eine
+gültige Anpassung erzeugt.
 
----
+## Integrationstest: Lokalisierung und Navigation
 
-# 4.5 Integrationstest: Lokalisierung und Navigation
+### Testfall IT-LOC-NAV-001: Zielnavigation mit Positionsdaten
 
-## Testfall IT-LOC-NAV-001: Zielnavigation mit Positionsdaten
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob die Navigation die aktuelle Position korrekt verwendet.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-006: Der Bot muss seine Position bestimmen können.
-* NAV-007: Der Bot muss seine Orientierung bestimmen können.
-* NAV-008: Der Bot muss seinen Zielpunkt erreichen.
+* NAV-006: Der Bot muss seine Position bestimmen können
+* NAV-007: Der Bot muss seine Orientierung bestimmen können
+* NAV-008: Der Bot muss seinen Zielpunkt erreichen
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Lokalisierung.
-* Navigation.
-* Bewegungssteuerung.
+* Lokalisierung
+* Navigation
+* Bewegungssteuerung
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboterposition ist initialisiert.
-* Zielpunkt ist bekannt.
+* Roboterposition ist initialisiert
+* Zielpunkt ist bekannt
 
-### Eingaben
+#### Eingaben
 
 Startposition:
 
@@ -1300,52 +1248,50 @@ x = 1000 mm
 y = 500 mm
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Lokalisierung stellt aktuelle Position bereit.
-2. Navigation berechnet Bewegungsrichtung.
-3. Bewegungssteuerung erhält Fahrbefehle.
-4. Positionsänderungen werden zurückgemeldet.
-5. Navigation aktualisiert die Route.
+1. Lokalisierung stellt aktuelle Position bereit
+2. Navigation berechnet Bewegungsrichtung
+3. Bewegungssteuerung erhält Fahrbefehle
+4. Positionsänderungen werden zurückgemeldet
+5. Navigation aktualisiert die Route
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Navigation verwendet aktuelle Positionsdaten.
-* Fahrbefehle werden korrekt erzeugt.
-* Roboter bewegt sich in Richtung Ziel.
-* Ziel wird innerhalb der definierten Genauigkeit erreicht.
+* Navigation verwendet aktuelle Positionsdaten
+* Fahrbefehle werden korrekt erzeugt
+* Roboter bewegt sich in Richtung Ziel
+* Ziel wird innerhalb der definierten Genauigkeit erreicht
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Positionsabweichung kleiner als der definierte Grenzwert ist.
 
----
+## Integrationstest: Navigation und Bewegungssteuerung
 
-# 4.6 Integrationstest: Navigation und Bewegungssteuerung
+### Testfall IT-NAV-MOT-001: Umsetzung von Navigationsbefehlen
 
-## Testfall IT-NAV-MOT-001: Umsetzung von Navigationsbefehlen
-
-### Ziel
+#### Ziel
 
 Überprüfung der Schnittstelle zwischen Navigation und Motorsteuerung.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-009: Der Bot muss sich kontrolliert bewegen.
-* SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit in Hindernisse fahren.
+* NAV-009: Der Bot muss sich kontrolliert bewegen
+* SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit in Hindernisse fahren
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Navigation.
-* Bewegungssteuerung.
-* Hardwareabstraktion.
+* Navigation
+* Bewegungssteuerung
+* Hardwareabstraktion
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Route wurde berechnet.
-* Motorsteuerung ist betriebsbereit.
+* Route wurde berechnet
+* Motorsteuerung ist betriebsbereit
 
-### Eingaben
+#### Eingaben
 
 Navigationsbefehl:
 
@@ -1355,51 +1301,49 @@ Richtung = 45°
 Distanz = 500 mm
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Navigation erzeugt Bewegungsbefehl.
-2. Bewegungssteuerung verarbeitet den Befehl.
-3. Aktorschnittstelle erzeugt Steuersignale.
-4. Bewegungsstatus wird zurückgemeldet.
+1. Navigation erzeugt Bewegungsbefehl
+2. Bewegungssteuerung verarbeitet den Befehl
+3. Aktorschnittstelle erzeugt Steuersignale
+4. Bewegungsstatus wird zurückgemeldet
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Bewegungsbefehle werden korrekt umgesetzt.
-* Geschwindigkeit bleibt innerhalb definierter Grenzen.
-* Bewegungsstatus wird aktualisiert.
+* Bewegungsbefehle werden korrekt umgesetzt
+* Geschwindigkeit bleibt innerhalb definierter Grenzen
+* Bewegungsstatus wird aktualisiert
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die erzeugte Bewegung dem Navigationsauftrag entspricht.
 
----
+## Integrationstest: Sicherheitslogik und Bewegungssteuerung
 
-# 4.7 Integrationstest: Sicherheitslogik und Bewegungssteuerung
+### Testfall IT-SAF-MOT-001: Unterbrechen einer Bewegung bei Gefahr
 
-## Testfall IT-SAF-MOT-001: Unterbrechen einer Bewegung bei Gefahr
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob die Sicherheitskomponente jederzeit Einfluss auf die Bewegungssteuerung nehmen kann.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SAF-001: Der Bot muss bei Gefahr sofort anhalten.
-* SAF-003: Der Bot darf den Tisch nicht verlassen.
-* SAF-006: Der Bot muss einen Not-Aus unterstützen.
+* SAF-001: Der Bot muss bei Gefahr sofort anhalten
+* SAF-003: Der Bot darf den Tisch nicht verlassen
+* SAF-006: Der Bot muss einen Not-Aus unterstützen
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Sicherheitskomponente.
-* Bewegungssteuerung.
-* Aktorsteuerung.
+* Sicherheitskomponente
+* Bewegungssteuerung
+* Aktorsteuerung
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboter befindet sich in Bewegung.
-* Sicherheitsüberwachung ist aktiv.
+* Roboter befindet sich in Bewegung
+* Sicherheitsüberwachung ist aktiv
 
-### Eingaben
+#### Eingaben
 
 Gefahrensignal:
 
@@ -1407,52 +1351,51 @@ Gefahrensignal:
 Tischkante erkannt = TRUE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Roboter fährt eine definierte Route.
-2. Sensorik meldet kritische Situation.
-3. Sicherheitskomponente erzeugt Stoppsignal.
-4. Bewegungssteuerung beendet Bewegung.
+1. Roboter fährt eine definierte Route
+2. Sensorik meldet kritische Situation
+3. Sicherheitskomponente erzeugt Stoppsignal
+4. Bewegungssteuerung beendet Bewegung
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Bewegung wird sofort beendet.
-* Aktoren wechseln in sicheren Zustand.
-* Fehler- oder Warnstatus wird erzeugt.
+* Bewegung wird sofort beendet
+* Aktoren wechseln in sicheren Zustand
+* Fehler- oder Warnstatus wird erzeugt
 
-### Bewertung
+#### Bewertung
 
-Bestanden, wenn keine weitere Bewegung nach Aktivierung der Sicherheitsfunktion erfolgt.
+Bestanden, wenn keine weitere Bewegung nach Aktivierung der Sicherheitsfunktion
+erfolgt.
 
----
+## Integrationstest: Untersetzerhandling und Navigation
 
-# 4.8 Integrationstest: Untersetzerhandling und Navigation
+### Testfall IT-NAV-CST-001: Navigation zu einem Untersetzer und Aufnahme
 
-## Testfall IT-NAV-CST-001: Navigation zu einem Untersetzer und Aufnahme
-
-### Ziel
+#### Ziel
 
 Überprüfung des Zusammenspiels zwischen Navigation und Untersetzerhandling.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-001: Der Bot muss einen Getränkeuntersetzer aufnehmen.
-* CST-005: Der Bot muss erkennen, ob ein Untersetzer aufgenommen wurde.
-* NAV-008: Der Bot muss Zielpunkte erreichen.
+* CST-001: Der Bot muss einen Getränkeuntersetzer aufnehmen
+* CST-005: Der Bot muss erkennen, ob ein Untersetzer aufgenommen wurde
+* NAV-008: Der Bot muss Zielpunkte erreichen
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Navigation.
-* Lokalisierung.
-* Untersetzerhandling.
-* Systemüberwachung.
+* Navigation
+* Lokalisierung
+* Untersetzerhandling
+* Systemüberwachung
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Untersetzerposition ist bekannt.
-* Roboter befindet sich in Startposition.
+* Untersetzerposition ist bekannt
+* Roboter befindet sich in Startposition
 
-### Eingaben
+#### Eingaben
 
 Untersetzerposition:
 
@@ -1461,52 +1404,50 @@ x = 700 mm
 y = 400 mm
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Zielposition des Untersetzers wird übergeben.
-2. Navigation berechnet Route.
-3. Roboter fährt zur Position.
-4. Aufnahmeprozess wird gestartet.
-5. Sensor überprüft Aufnahme.
+1. Zielposition des Untersetzers wird übergeben
+2. Navigation berechnet Route
+3. Roboter fährt zur Position
+4. Aufnahmeprozess wird gestartet
+5. Sensor überprüft Aufnahme
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Roboter erreicht Untersetzerposition.
-* Aufnahme wird durchgeführt.
-* Erfolgreiche Aufnahme wird erkannt.
+* Roboter erreicht Untersetzerposition
+* Aufnahme wird durchgeführt
+* Erfolgreiche Aufnahme wird erkannt
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der vollständige Ablauf ohne Fehler abgeschlossen wird.
 
----
+## Integrationstest: Systemüberwachung und Komponenten
 
-# 4.9 Integrationstest: Systemüberwachung und Komponenten
+### Testfall IT-MON-001: Fehlerweitergabe im Gesamtsystem
 
-## Testfall IT-MON-001: Fehlerweitergabe im Gesamtsystem
-
-### Ziel
+#### Ziel
 
 Überprüfung der Weitergabe und Verarbeitung von Fehlerzuständen.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* MON-001: Der Bot muss Fehler erkennen.
-* MON-002: Der Bot muss Fehler protokollieren.
-* MON-005: Der Bot muss fehlgeschlagene Aufgaben melden.
+* MON-001: Der Bot muss Fehler erkennen
+* MON-002: Der Bot muss Fehler protokollieren
+* MON-005: Der Bot muss fehlgeschlagene Aufgaben melden
 
-### Beteiligte Komponenten
+#### Beteiligte Komponenten
 
-* Sensorik.
-* Systemüberwachung.
-* Sicherheitskomponente.
-* Benutzerstatusanzeige.
+* Sensorik
+* Systemüberwachung
+* Sicherheitskomponente
+* Benutzerstatusanzeige
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* System befindet sich im Betriebszustand.
+* System befindet sich im Betriebszustand
 
-### Eingaben
+#### Eingaben
 
 Simulierter Fehler:
 
@@ -1514,116 +1455,119 @@ Simulierter Fehler:
 Sensorfehler = TRUE
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Sensor meldet Fehler.
-2. Systemüberwachung erkennt Fehler.
-3. Fehler wird gespeichert.
-4. Sicherheitskomponente bewertet Zustand.
-5. Statusmeldung wird erzeugt.
+1. Sensor meldet Fehler
+2. Systemüberwachung erkennt Fehler
+3. Fehler wird gespeichert
+4. Sicherheitskomponente bewertet Zustand
+5. Statusmeldung wird erzeugt
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fehler wird erkannt.
-* Fehler wird protokolliert.
-* System wechselt gegebenenfalls in sicheren Zustand.
-* Benutzer erhält Statusinformation.
+* Fehler wird erkannt
+* Fehler wird protokolliert
+* System wechselt gegebenenfalls in sicheren Zustand
+* Benutzer erhält Statusinformation
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Fehler vollständig verarbeitet wird.
 
----
+## Integrationstest: Hardwareabstraktion und Simulation
 
-# 4.10 Integrationstest: Hardwareabstraktion und Simulation
+### Testfall IT-HW-SIM-001: Austausch realer Hardware durch Simulation
 
-## Testfall IT-HW-SIM-001: Austausch realer Hardware durch Simulation
+#### Ziel
 
-### Ziel
+Überprüfung, ob Softwarekomponenten ohne Anpassung mit simulierten
+Hardwarekomponenten betrieben werden können.
 
-Überprüfung, ob Softwarekomponenten ohne Anpassung mit simulierten Hardwarekomponenten betrieben werden können.
+#### Zugeordnete Anforderungen
 
-### Zugeordnete Anforderungen
+* NFR-004: Software muss simuliert werden können
+* NFR-007: Sensoren und Aktoren müssen austauschbar sein
 
-* NFR-004: Software muss simuliert werden können.
-* NFR-007: Sensoren und Aktoren müssen austauschbar sein.
+#### Beteiligte Komponenten
 
-### Beteiligte Komponenten
+* Hardwareabstraktion
+* Simulationsmodelle
+* Robotersoftware
 
-* Hardwareabstraktion.
-* Simulationsmodelle.
-* Robotersoftware.
+#### Voraussetzungen
 
-### Voraussetzungen
+* Simulationsumgebung ist gestartet
+* Virtuelle Sensoren und Aktoren sind verfügbar
 
-* Simulationsumgebung ist gestartet.
-* Virtuelle Sensoren und Aktoren sind verfügbar.
+#### Ablauf
 
-### Ablauf
+1. Reale Hardwaretreiber werden durch Simulationsmodelle ersetzt
+2. Software wird gestartet
+3. Testablauf wird ausgeführt
+4. Datenfluss wird überprüft
 
-1. Reale Hardwaretreiber werden durch Simulationsmodelle ersetzt.
-2. Software wird gestartet.
-3. Testablauf wird ausgeführt.
-4. Datenfluss wird überprüft.
+#### Erwartetes Ergebnis
 
-### Erwartetes Ergebnis
+* Software startet ohne Anpassungen
+* Simulierte Sensorwerte werden verarbeitet
+* Aktorbefehle werden korrekt erzeugt
 
-* Software startet ohne Anpassungen.
-* Simulierte Sensorwerte werden verarbeitet.
-* Aktorbefehle werden korrekt erzeugt.
-
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Software vollständig in der Simulation betrieben werden kann.
 
----
-
-# 4.11 Zusammenfassung der Integrationstests
+## Zusammenfassung der Integrationstests
 
 Die Integrationstests überprüfen die Zusammenarbeit der zentralen Systemkomponenten des Coasterbots.
 
 Die wichtigsten geprüften Integrationen sind:
 
-* Sensorik und Navigation.
-* Lokalisierung und Navigation.
-* Navigation und Bewegungssteuerung.
-* Sicherheitslogik und Aktorsteuerung.
-* Navigation und Untersetzerhandling.
-* Systemüberwachung und Fehlerbehandlung.
-* Hardwareabstraktion und Simulation.
+* Sensorik und Navigation
+* Lokalisierung und Navigation
+* Navigation und Bewegungssteuerung
+* Sicherheitslogik und Aktorsteuerung
+* Navigation und Untersetzerhandling
+* Systemüberwachung und Fehlerbehandlung
+* Hardwareabstraktion und Simulation
 
-Durch erfolgreiche Integrationstests wird sichergestellt, dass die einzelnen Softwaremodule nicht nur isoliert funktionieren, sondern als zusammenhängendes System die Anforderungen des Pflichtenhefts erfüllen.
+Durch erfolgreiche Integrationstests wird sichergestellt, dass die einzelnen
+Softwaremodule nicht nur isoliert funktionieren, sondern als zusammenhängendes
+System die Anforderungen des Pflichtenhefts erfüllen.
 
-# 5 Simulationstests
+# Simulationstests
 
-## 5.1 Ziel der Simulationstests
+## Ziel der Simulationstests
 
-Simulationstests dienen der Überprüfung des Verhaltens des Coasterbot-Systems innerhalb einer virtuellen Umgebung. Sie ermöglichen die Validierung von Softwarefunktionen, bevor diese auf der realen Hardware ausgeführt werden.
+Simulationstests dienen der Überprüfung des Verhaltens des Coasterbot-Systems
+innerhalb einer virtuellen Umgebung. Sie ermöglichen die Validierung von
+Softwarefunktionen, bevor diese auf der realen Hardware ausgeführt werden.
 
-Die Simulation bildet dabei die für den Betrieb relevanten Eigenschaften des Systems nach:
+Die Simulation bildet dabei die für den Betrieb relevanten Eigenschaften des
+Systems nach:
 
-* Tischumgebung.
-* Roboterbewegung.
-* Sensorverhalten.
-* Aktorverhalten.
-* Hindernisse.
-* Fehlerzustände.
+* Tischumgebung
+* Roboterbewegung
+* Sensorverhalten
+* Aktorverhalten
+* Hindernisse
+* Fehlerzustände
 
-Das Ziel besteht darin, nachzuweisen, dass die Software auch unter kontrollierten und reproduzierbaren Bedingungen die erwarteten Systemreaktionen zeigt.
+Das Ziel besteht darin, nachzuweisen, dass die Software auch unter
+kontrollierten und reproduzierbaren Bedingungen die erwarteten Systemreaktionen
+zeigt.
 
 Die Simulationstests erfüllen insbesondere folgende Aufgaben:
 
-* Überprüfung autonomer Navigation.
-* Validierung der Sicherheitsfunktionen.
-* Prüfung der Fehlerbehandlung.
-* Nachweis der Reproduzierbarkeit von Fahrmanövern.
-* Unterstützung automatisierter Tests.
+* Überprüfung autonomer Navigation
+* Validierung der Sicherheitsfunktionen
+* Prüfung der Fehlerbehandlung
+* Nachweis der Reproduzierbarkeit von Fahrmanövern
+* Unterstützung automatisierter Tests
 
----
+## Testumgebung der Simulation
 
-# 5.2 Testumgebung der Simulation
-
-Die Simulation basiert auf der im Pflichtenheft beschriebenen Simulationsarchitektur.
+Die Simulation basiert auf der im Pflichtenheft beschriebenen
+Simulationsarchitektur.
 
 Die Testumgebung besteht aus folgenden Komponenten:
 
@@ -1636,13 +1580,14 @@ Die Testumgebung besteht aus folgenden Komponenten:
 | Teststeuerung       | Automatisierte Durchführung von Szenarien |
 | Testauswertung      | Vergleich von Soll- und Istverhalten      |
 
-Die Software des Coasterbots wird dabei möglichst unverändert aus der realen Umgebung übernommen. Lediglich hardwarenahe Komponenten werden durch Simulationsmodelle ersetzt.
+Die Software des Coasterbots wird dabei möglichst unverändert aus der realen
+Umgebung übernommen. Lediglich hardwarenahe Komponenten werden durch
+Simulationsmodelle ersetzt.
 
----
+## Anforderungen an Simulationstests
 
-# 5.3 Anforderungen an Simulationstests
-
-Die Simulationstests basieren auf den im Pflichtenheft definierten Simulationsanforderungen.
+Die Simulationstests basieren auf den im Pflichtenheft definierten
+Simulationsanforderungen.
 
 Folgende Eigenschaften müssen erfüllt werden:
 
@@ -1655,36 +1600,35 @@ Folgende Eigenschaften müssen erfüllt werden:
 | Testunterstützung  | Alle definierten Testfälle können ausgeführt werden   |
 | Validierung        | Simuliertes Verhalten entspricht erwarteten Verhalten |
 
----
+## Simulationstest: Grundlegende Navigation
 
-# 5.4 Simulationstest: Grundlegende Navigation
+### Testfall ST-SIM-001: Navigation zu einem Zielpunkt
 
-## Testfall ST-SIM-001: Navigation zu einem Zielpunkt
+#### Ziel
 
-### Ziel
+Überprüfung der grundlegenden Navigationsfähigkeit innerhalb der simulierten
+Tischumgebung.
 
-Überprüfung der grundlegenden Navigationsfähigkeit innerhalb der simulierten Tischumgebung.
+#### Zugeordnete Anforderungen
 
-### Zugeordnete Anforderungen
+* NAV-006: Der Bot muss seine Position bestimmen können
+* NAV-008: Der Bot muss seinen Zielpunkt erreichen
+* SIM-001: Fahrmanöver müssen reproduzierbar sein
 
-* NAV-006: Der Bot muss seine Position bestimmen können.
-* NAV-008: Der Bot muss seinen Zielpunkt erreichen.
-* SIM-001: Fahrmanöver müssen reproduzierbar sein.
+#### Simulationsumgebung
 
-### Simulationsumgebung
+* Tischgröße: definiert
+* Keine Hindernisse vorhanden
+* Roboterposition bekannt
+* Zielposition bekannt
 
-* Tischgröße: definiert.
-* Keine Hindernisse vorhanden.
-* Roboterposition bekannt.
-* Zielposition bekannt.
+#### Voraussetzungen
 
-### Voraussetzungen
+* Simulation ist gestartet
+* Robotermodell ist initialisiert
+* Navigationskomponente ist aktiv
 
-* Simulation ist gestartet.
-* Robotermodell ist initialisiert.
-* Navigationskomponente ist aktiv.
-
-### Eingaben
+#### Eingaben
 
 Startposition:
 
@@ -1701,55 +1645,55 @@ x = 1000 mm
 y = 500 mm
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Simulation wird gestartet.
-2. Roboter wird an Startposition platziert.
-3. Zielpunkt wird an Navigation übergeben.
-4. Navigation berechnet Route.
-5. Bewegungssteuerung führt Fahrbefehle aus.
-6. Position wird während der Bewegung überwacht.
+1. Simulation wird gestartet
+2. Roboter wird an Startposition platziert
+3. Zielpunkt wird an Navigation übergeben
+4. Navigation berechnet Route
+5. Bewegungssteuerung führt Fahrbefehle aus
+6. Position wird während der Bewegung überwacht
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Roboter bewegt sich entlang einer gültigen Route.
-* Zielpunkt wird erreicht.
-* Keine unerwarteten Bewegungen treten auf.
-* Ergebnis ist bei Wiederholung identisch.
+* Roboter bewegt sich entlang einer gültigen Route
+* Zielpunkt wird erreicht
+* Keine unerwarteten Bewegungen treten auf
+* Ergebnis ist bei Wiederholung identisch
 
-### Bewertung
+#### Bewertung
 
-Bestanden, wenn der Zielpunkt innerhalb der definierten Genauigkeit erreicht wird.
+Bestanden, wenn der Zielpunkt innerhalb der definierten Genauigkeit erreicht
+wird.
 
----
+## Simulationstest: Hinderniserkennung und Ausweichverhalten
 
-# 5.5 Simulationstest: Hinderniserkennung und Ausweichverhalten
+### Testfall ST-SIM-002: Dynamische Hindernisvermeidung
 
-## Testfall ST-SIM-002: Dynamische Hindernisvermeidung
+#### Ziel
 
-### Ziel
+Überprüfung, ob der Roboter Hindernisse erkennt und seine Route selbstständig
+anpasst.
 
-Überprüfung, ob der Roboter Hindernisse erkennt und seine Route selbstständig anpasst.
+#### Zugeordnete Anforderungen
 
-### Zugeordnete Anforderungen
+* NAV-001: Hindernisse erkennen
+* NAV-002: Hindernissen ausweichen
+* NAV-005: Fahrtroute dynamisch anpassen
+* SIM-004: Hindernisse müssen berücksichtigt werden
 
-* NAV-001: Hindernisse erkennen.
-* NAV-002: Hindernissen ausweichen.
-* NAV-005: Fahrtroute dynamisch anpassen.
-* SIM-004: Hindernisse müssen berücksichtigt werden.
+#### Simulationsumgebung
 
-### Simulationsumgebung
+* Tischfläche vorhanden
+* Hindernis wird auf geplanter Route platziert
+* Zielpunkt erreichbar
 
-* Tischfläche vorhanden.
-* Hindernis wird auf geplanter Route platziert.
-* Zielpunkt erreichbar.
+#### Voraussetzungen
 
-### Voraussetzungen
+* Navigation ist aktiv
+* Hindernissensoren funktionieren
 
-* Navigation ist aktiv.
-* Hindernissensoren funktionieren.
-
-### Eingaben
+#### Eingaben
 
 Hindernis:
 
@@ -1758,128 +1702,122 @@ Position = (500 mm, 250 mm)
 Größe = 100 mm x 100 mm
 ```
 
-### Ablauf
+##### Ablauf
 
-1. Navigation startet Fahrt zum Ziel.
-2. Roboter nähert sich Hindernis.
-3. Sensorsimulation erzeugt Hinderniserkennung.
-4. Navigation berechnet neue Route.
-5. Bewegung wird fortgesetzt.
+1. Navigation startet Fahrt zum Ziel
+2. Roboter nähert sich Hindernis
+3. Sensorsimulation erzeugt Hinderniserkennung
+4. Navigation berechnet neue Route
+5. Bewegung wird fortgesetzt
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Hindernis wird erkannt.
-* Kollision wird verhindert.
-* Neue Route wird berechnet.
-* Zielpunkt wird weiterhin erreicht.
+* Hindernis wird erkannt
+* Kollision wird verhindert
+* Neue Route wird berechnet
+* Zielpunkt wird weiterhin erreicht
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Roboter das Hindernis vollständig umgeht.
 
----
+## Simulationstest: Tischkantenerkennung
 
-# 5.6 Simulationstest: Tischkantenerkennung
+### Testfall ST-SIM-003: Verhindern des Verlassens der Tischfläche
 
-## Testfall ST-SIM-003: Verhindern des Verlassens der Tischfläche
-
-### Ziel
+#### Ziel
 
 Überprüfung der Sicherheitsreaktion bei Annäherung an eine Tischkante.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-003: Tischende erkennen.
-* NAV-004: Auf dem Tisch bleiben.
-* SAF-003: Tisch nicht verlassen.
+* NAV-003: Tischende erkennen
+* NAV-004: Auf dem Tisch bleiben
+* SAF-003: Tisch nicht verlassen
 
-### Simulationsumgebung
+#### Simulationsumgebung
 
-* Tischrand wird modelliert.
-* Roboter fährt kontrolliert Richtung Rand.
+* Tischrand wird modelliert
+* Roboter fährt kontrolliert Richtung Rand
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Tischkantensensor ist aktiv.
-* Sicherheitslogik ist aktiviert.
+* Tischkantensensor ist aktiv
+* Sicherheitslogik ist aktiviert
 
-### Ablauf
+#### Ablauf
 
-1. Roboter bewegt sich Richtung Tischkante.
-2. Simulation erzeugt kritische Abstandswerte.
-3. Sicherheitskomponente verarbeitet Signal.
-4. Bewegungssteuerung erhält Stoppsignal.
+1. Roboter bewegt sich Richtung Tischkante
+2. Simulation erzeugt kritische Abstandswerte
+3. Sicherheitskomponente verarbeitet Signal
+4. Bewegungssteuerung erhält Stoppsignal
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Tischkante wird erkannt.
-* Roboter stoppt vor dem Rand.
-* Tischfläche wird nicht verlassen.
+* Tischkante wird erkannt
+* Roboter stoppt vor dem Rand
+* Tischfläche wird nicht verlassen
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Roboter sicher innerhalb der Tischfläche verbleibt.
 
----
+## Simulationstest: Reproduzierbarkeit von Fahrmanövern
 
-# 5.7 Simulationstest: Reproduzierbarkeit von Fahrmanövern
+### Testfall ST-SIM-004: Wiederholbarkeit identischer Bewegungsabläufe
 
-## Testfall ST-SIM-004: Wiederholbarkeit identischer Bewegungsabläufe
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob gleiche Eingangsbedingungen zu reproduzierbaren Ergebnissen führen.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SIM-001: Fahrmanöver müssen reproduzierbar sein.
-* SIM-007: Simulationsverhalten muss erwartbarem Verhalten entsprechen.
+* SIM-001: Fahrmanöver müssen reproduzierbar sein
+* SIM-007: Simulationsverhalten muss erwartbarem Verhalten entsprechen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Identisches Szenario kann mehrfach gestartet werden.
+* Identisches Szenario kann mehrfach gestartet werden
 
-### Ablauf
+#### Ablauf
 
-1. Simulation wird mit definierten Parametern gestartet.
-2. Navigation wird ausgeführt.
-3. Bewegungsverlauf wird gespeichert.
-4. Simulation wird erneut mit gleichen Parametern gestartet.
-5. Ergebnisse werden verglichen.
+1. Simulation wird mit definierten Parametern gestartet
+2. Navigation wird ausgeführt
+3. Bewegungsverlauf wird gespeichert
+4. Simulation wird erneut mit gleichen Parametern gestartet
+5. Ergebnisse werden verglichen
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fahrwege stimmen überein.
-* Zustandsübergänge erfolgen identisch.
-* Ergebnisse sind vergleichbar.
+* Fahrwege stimmen überein
+* Zustandsübergänge erfolgen identisch
+* Ergebnisse sind vergleichbar
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Abweichungen innerhalb definierter Grenzen liegen.
 
----
+## Simulationstest: Sensorausfall
 
-# 5.8 Simulationstest: Sensorausfall
+### Testfall ST-SIM-005: Reaktion auf fehlerhafte Sensordaten
 
-## Testfall ST-SIM-005: Reaktion auf fehlerhafte Sensordaten
-
-### Ziel
+#### Ziel
 
 Überprüfung des Systemverhaltens bei einem simulierten Sensorausfall.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SAF-002: Bei Sensorfehler sicheren Zustand einnehmen.
-* MON-001: Fehler erkennen.
-* MON-002: Fehler protokollieren.
-* SIM-005: Fehlersituationen simulieren können.
+* SAF-002: Bei Sensorfehler sicheren Zustand einnehmen
+* MON-001: Fehler erkennen
+* MON-002: Fehler protokollieren
+* SIM-005: Fehlersituationen simulieren können
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboter befindet sich im Fahrbetrieb.
-* Fehlersimulation ist aktiviert.
+* Roboter befindet sich im Fahrbetrieb
+* Fehlersimulation ist aktiviert
 
-### Eingaben
+#### Eingaben
 
 Fehler:
 
@@ -1887,45 +1825,43 @@ Fehler:
 Abstandssensor = nicht verfügbar
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Simulation startet normalen Betrieb.
-2. Sensorfehler wird ausgelöst.
-3. Systemüberwachung erkennt Fehler.
-4. Sicherheitskomponente bewertet Zustand.
+1. Simulation startet normalen Betrieb
+2. Sensorfehler wird ausgelöst
+3. Systemüberwachung erkennt Fehler
+4. Sicherheitskomponente bewertet Zustand
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fehler wird erkannt.
-* Fehler wird protokolliert.
-* Roboter stoppt oder wechselt in sicheren Zustand.
-* Statusmeldung wird erzeugt.
+* Fehler wird erkannt
+* Fehler wird protokolliert
+* Roboter stoppt oder wechselt in sicheren Zustand
+* Statusmeldung wird erzeugt
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn das System keine unsichere Bewegung fortsetzt.
 
----
+## Simulationstest: Aktorfehler
 
-# 5.9 Simulationstest: Aktorfehler
+### Testfall ST-SIM-006: Verhalten bei fehlerhafter Motorsteuerung
 
-## Testfall ST-SIM-006: Verhalten bei fehlerhafter Motorsteuerung
-
-### Ziel
+#### Ziel
 
 Überprüfung der Fehlerbehandlung bei einem Aktorausfall.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* MON-001: Fehler erkennen.
-* MON-005: Fehlgeschlagene Aufgaben melden.
-* SIM-003: Aktoren können simuliert werden.
+* MON-001: Fehler erkennen
+* MON-005: Fehlgeschlagene Aufgaben melden
+* SIM-003: Aktoren können simuliert werden
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboter befindet sich in Bewegung.
+* Roboter befindet sich in Bewegung
 
-### Eingaben
+#### Eingaben
 
 Fehler:
 
@@ -1933,138 +1869,136 @@ Fehler:
 Motor links = ausgefallen
 ```
 
-### Ablauf
+#### Ablauf
 
-1. Bewegungsbefehl wird erzeugt.
-2. Simulierter Aktor reagiert fehlerhaft.
-3. Systemüberwachung erkennt Abweichung.
-4. Sicherheitslogik wird aktiviert.
+1. Bewegungsbefehl wird erzeugt
+2. Simulierter Aktor reagiert fehlerhaft
+3. Systemüberwachung erkennt Abweichung
+4. Sicherheitslogik wird aktiviert
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Aktorfehler wird erkannt.
-* Bewegung wird kontrolliert beendet.
-* Fehler wird gemeldet.
+* Aktorfehler wird erkannt
+* Bewegung wird kontrolliert beendet
+* Fehler wird gemeldet
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn das System sicher reagiert.
 
----
+## Simulationstest: Untersetzerhandling
 
-# 5.10 Simulationstest: Untersetzerhandling
+### Testfall ST-SIM-007: Aufnahme und Platzierung eines Untersetzers
 
-## Testfall ST-SIM-007: Aufnahme und Platzierung eines Untersetzers
-
-### Ziel
+#### Ziel
 
 Überprüfung des vollständigen Untersetzerprozesses innerhalb der Simulation.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-001: Untersetzer aufnehmen.
-* CST-003: Untersetzer platzieren.
-* CST-005: Aufnahme erkennen.
-* SIM-006: Simulation unterstützt Testfälle.
+* CST-001: Untersetzer aufnehmen
+* CST-003: Untersetzer platzieren
+* CST-005: Aufnahme erkennen
+* SIM-006: Simulation unterstützt Testfälle
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Untersetzer ist virtuell vorhanden.
-* Zielposition ist definiert.
+* Untersetzer ist virtuell vorhanden
+* Zielposition ist definiert
 
-### Ablauf
+#### Ablauf
 
-1. Roboter navigiert zum Untersetzer.
-2. Aufnahmevorgang wird gestartet.
-3. Zustand wird überprüft.
-4. Roboter fährt zur Zielposition.
-5. Untersetzer wird platziert.
+1. Roboter navigiert zum Untersetzer
+2. Aufnahmevorgang wird gestartet
+3. Zustand wird überprüft
+4. Roboter fährt zur Zielposition
+5. Untersetzer wird platziert
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Untersetzer wird erkannt.
-* Aufnahme funktioniert.
-* Transport erfolgt.
-* Platzierung wird bestätigt.
+* Untersetzer wird erkannt
+* Aufnahme funktioniert
+* Transport erfolgt
+* Platzierung wird bestätigt
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der komplette Prozess ohne Fehler abgeschlossen wird.
 
----
+## Simulationstest: Validierung Simulation gegen erwartetes Verhalten
 
-# 5.11 Simulationstest: Validierung Simulation gegen erwartetes Verhalten
+### Testfall ST-SIM-008: Vergleich Simulation und Systemverhalten
 
-## Testfall ST-SIM-008: Vergleich Simulation und Systemverhalten
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob die Simulation das erwartete Verhalten des realen Systems ausreichend genau abbildet.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SIM-007: Simulationsverhalten entspricht erwartetem Verhalten.
+* SIM-007: Simulationsverhalten entspricht erwartetem Verhalten
 
-### Ablauf
+#### Ablauf
 
-1. Test wird zunächst in der Simulation durchgeführt.
-2. Ergebnis wird dokumentiert.
-3. Vergleichbare Situation wird am Prototyp durchgeführt.
-4. Ergebnisse werden verglichen.
+1. Test wird zunächst in der Simulation durchgeführt
+2. Ergebnis wird dokumentiert
+3. Vergleichbare Situation wird am Prototyp durchgeführt
+4. Ergebnisse werden verglichen
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Bewegungsabläufe sind vergleichbar.
-* Zustandsübergänge stimmen überein.
-* Abweichungen sind erklärbar.
+* Bewegungsabläufe sind vergleichbar
+* Zustandsübergänge stimmen überein
+* Abweichungen sind erklärbar
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Simulation als valide Entwicklungsumgebung genutzt werden kann.
 
----
-
-# 5.12 Zusammenfassung der Simulationstests
+## Zusammenfassung der Simulationstests
 
 Die Simulationstests überprüfen das Verhalten des Coasterbot-Systems unter kontrollierten und reproduzierbaren Bedingungen.
 
 Geprüft werden insbesondere:
 
-* autonome Navigation,
-* Hindernisvermeidung,
-* Tischkantenerkennung,
-* Fehlerbehandlung,
-* Sensor- und Aktormodelle,
-* Untersetzerhandling,
-* Validierung der Simulation.
+* autonome Navigation
+* Hindernisvermeidung
+* Tischkantenerkennung
+* Fehlerbehandlung
+* Sensor- und Aktormodelle
+* Untersetzerhandling
+* Validierung der Simulation
 
-Durch die Simulation können kritische Situationen sicher getestet und Entwicklungszyklen verkürzt werden. Gleichzeitig stellt sie sicher, dass die Softwarearchitektur unabhängig von der realen Hardware überprüfbar bleibt.
+Durch die Simulation können kritische Situationen sicher getestet und
+Entwicklungszyklen verkürzt werden. Gleichzeitig stellt sie sicher, dass die
+Softwarearchitektur unabhängig von der realen Hardware überprüfbar bleibt.
 
 Die erfolgreichen Simulationstests bilden die Grundlage für die abschließenden Systemtests am realen Prototyp.
 
-# 6 Systemtests
+# Systemtests
 
-## 6.1 Ziel der Systemtests
+## Ziel der Systemtests
 
-Systemtests überprüfen das vollständige Coasterbot-System unter realitätsnahen Bedingungen. Während Komponenten- und Integrationstests einzelne Softwaremodule beziehungsweise deren Zusammenspiel betrachten, wird beim Systemtest der gesamte Prototyp als Gesamtsystem bewertet.
+Systemtests überprüfen das vollständige Coasterbot-System unter realitätsnahen
+Bedingungen. Während Komponenten- und Integrationstests einzelne Softwaremodule
+beziehungsweise deren Zusammenspiel betrachten, wird beim Systemtest der
+gesamte Prototyp als Gesamtsystem bewertet.
 
-Ziel ist es, nachzuweisen, dass der entwickelte Coasterbot die im Lasten- und Pflichtenheft definierten Kernfunktionen erfüllt.
+Ziel ist es, nachzuweisen, dass der entwickelte Coasterbot die im Lasten- und
+Pflichtenheft definierten Kernfunktionen erfüllt.
 
 Die Systemtests betrachten dabei:
 
-* mechanische Funktionalität,
-* elektrische Komponenten,
-* Sensorik,
-* Aktorik,
-* Software,
-* Sicherheitsfunktionen,
-* Benutzerinteraktion über Statusmeldungen.
+* mechanische Funktionalität
+* elektrische Komponenten
+* Sensorik
+* Aktorik
+* Software
+* Sicherheitsfunktionen
+* Benutzerinteraktion über Statusmeldungen
 
 Die Systemtests stellen die abschließende technische Verifikation des Prototyps dar.
 
----
-
-# 6.2 Testumgebung
+## Testumgebung
 
 Die Systemtests werden am vollständigen Coasterbot-Prototyp durchgeführt.
 
@@ -2083,14 +2017,12 @@ Die Testumgebung muss möglichst reproduzierbare Bedingungen gewährleisten.
 
 Dazu gehören:
 
-* definierte Tischgröße,
-* bekannte Startpositionen,
-* dokumentierte Hindernispositionen,
-* definierte Testabläufe.
+* definierte Tischgröße
+* bekannte Startpositionen
+* dokumentierte Hindernispositionen
+* definierte Testabläufe
 
----
-
-# 6.3 Systemteststruktur
+## Systemteststruktur
 
 Jeder Systemtest wird nach folgendem Schema dokumentiert:
 
@@ -2106,74 +2038,70 @@ Jeder Systemtest wird nach folgendem Schema dokumentiert:
 | Erwartetes Ergebnis | Sollverhalten              |
 | Bewertung           | Testergebnis               |
 
----
+## Systemtest: Inbetriebnahme
 
-# 6.4 Systemtest: Inbetriebnahme
+### Testfall SYS-001: Systemstart und Initialisierung
 
-## Testfall SYS-001: Systemstart und Initialisierung
-
-### Ziel
+#### Ziel
 
 Überprüfung, ob der Coasterbot nach dem Einschalten alle notwendigen Komponenten korrekt initialisiert.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* MON-003: Der Bot muss seinen Betriebszustand anzeigen.
-* NFR-001: Der Bot muss modular aufgebaut sein.
-* NFR-005: Die Software muss testbar sein.
+* MON-003: Der Bot muss seinen Betriebszustand anzeigen
+* NFR-001: Der Bot muss modular aufgebaut sein
+* NFR-005: Die Software muss testbar sein
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Hardware ist vollständig montiert.
-* Energieversorgung ist vorhanden.
-* Software ist installiert.
+* Hardware ist vollständig montiert
+* Energieversorgung ist vorhanden
+* Software ist installiert
 
-### Testaufbau
+#### Testaufbau
 
 Der Coasterbot befindet sich ausgeschaltet auf einer ebenen Tischfläche.
 
-### Ablauf
+#### Ablauf
 
-1. Energieversorgung wird aktiviert.
-2. Steuerungssystem startet.
-3. Hardwarekomponenten werden initialisiert.
-4. Sensoren werden geprüft.
-5. Betriebszustand wird ausgegeben.
+1. Energieversorgung wird aktiviert
+2. Steuerungssystem startet
+3. Hardwarekomponenten werden initialisiert
+4. Sensoren werden geprüft
+5. Betriebszustand wird ausgegeben
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Alle Komponenten starten erfolgreich.
-* Keine kritischen Fehler werden erkannt.
-* Systemstatus zeigt Betriebsbereitschaft.
+* Alle Komponenten starten erfolgreich
+* Keine kritischen Fehler werden erkannt
+* Systemstatus zeigt Betriebsbereitschaft
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Roboter vollständig betriebsbereit ist.
 
----
+## Systemtest: Navigation auf Tischfläche
 
-# 6.5 Systemtest: Navigation auf Tischfläche
+### Testfall SYS-002: Autonome Bewegung auf dem Tisch
 
-## Testfall SYS-002: Autonome Bewegung auf dem Tisch
-
-### Ziel
+#### Ziel
 
 Überprüfung der grundlegenden autonomen Bewegungsfähigkeit des Prototyps.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-006: Position bestimmen.
-* NAV-007: Orientierung bestimmen.
-* NAV-008: Zielpunkt erreichen.
-* NAV-009: Kontrollierte Bewegung.
+* NAV-006: Position bestimmen
+* NAV-007: Orientierung bestimmen
+* NAV-008: Zielpunkt erreichen
+* NAV-009: Kontrollierte Bewegung
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* System ist gestartet.
-* Tischfläche ist frei.
-* Start- und Zielposition sind definiert.
+* System ist gestartet
+* Tischfläche ist frei
+* Start- und Zielposition sind definiert
 
-### Testaufbau
+#### Testaufbau
 
 Der Roboter wird an einer definierten Startposition platziert.
 
@@ -2181,409 +2109,395 @@ Beispiel:
 
 Start:
 
-[
+$$
 (0,0)
-]
+$$
 
 Ziel:
 
-[
+$$
 (1000,500)
-]
+$$
 
-### Ablauf
+#### Ablauf
 
-1. Zielposition wird vorgegeben.
-2. Navigation wird aktiviert.
-3. Roboter fährt selbstständig zum Ziel.
-4. Position wird aufgezeichnet.
+1. Zielposition wird vorgegeben
+2. Navigation wird aktiviert
+3. Roboter fährt selbstständig zum Ziel
+4. Position wird aufgezeichnet
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Roboter bewegt sich selbstständig.
-* Fahrbewegung bleibt kontrolliert.
-* Zielpunkt wird erreicht.
-* Keine ungewollten Bewegungen treten auf.
+* Roboter bewegt sich selbstständig
+* Fahrbewegung bleibt kontrolliert
+* Zielpunkt wird erreicht
+* Keine ungewollten Bewegungen treten auf
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn die Zielposition innerhalb der definierten Genauigkeit erreicht wird.
 
----
+## Systemtest: Hindernisvermeidung
 
-# 6.6 Systemtest: Hindernisvermeidung
+### Testfall SYS-003: Erkennung und Umfahrung eines Hindernisses
 
-## Testfall SYS-003: Erkennung und Umfahrung eines Hindernisses
-
-### Ziel
+#### Ziel
 
 Überprüfung der Fähigkeit des Roboters, Hindernisse im realen Betrieb zu erkennen und zu umgehen.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-001: Hindernisse erkennen.
-* NAV-002: Hindernissen ausweichen.
-* NAV-005: Fahrroute dynamisch anpassen.
-* SAF-005: Kollisionen vermeiden.
+* NAV-001: Hindernisse erkennen
+* NAV-002: Hindernissen ausweichen
+* NAV-005: Fahrroute dynamisch anpassen
+* SAF-005: Kollisionen vermeiden
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Navigation ist aktiv.
-* Hindernis befindet sich auf der geplanten Route.
+* Navigation ist aktiv
+* Hindernis befindet sich auf der geplanten Route
 
-### Testaufbau
+#### Testaufbau
 
 Ein Hindernis wird auf der Tischfläche platziert.
 
 Beispiel:
 
-* Becher.
-* Gegenstand.
-* Tischdekoration.
+* Becher
+* Gegenstand
+* Tischdekoration
 
-### Ablauf
+#### Ablauf
 
-1. Roboter startet Navigation.
-2. Hindernis wird erkannt.
-3. Navigation berechnet alternative Route.
-4. Roboter fährt um Hindernis herum.
+1. Roboter startet Navigation
+2. Hindernis wird erkannt
+3. Navigation berechnet alternative Route
+4. Roboter fährt um Hindernis herum
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Hindernis wird erkannt.
-* Keine Kollision entsteht.
-* Route wird angepasst.
-* Ziel wird weiterhin erreicht.
+* Hindernis wird erkannt
+* Keine Kollision entsteht
+* Route wird angepasst
+* Ziel wird weiterhin erreicht
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn das Hindernis sicher umfahren wird.
 
----
+## Systemtest: Tischkantenerkennung
 
-# 6.7 Systemtest: Tischkantenerkennung
+### Testfall SYS-004: Schutz vor Herunterfallen vom Tisch
 
-## Testfall SYS-004: Schutz vor Herunterfallen vom Tisch
-
-### Ziel
+#### Ziel
 
 Überprüfung der Sicherheitsfunktion zur Vermeidung eines Absturzes.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* NAV-003: Tischende erkennen.
-* NAV-004: Auf dem Tisch bleiben.
-* SAF-003: Tisch nicht verlassen.
+* NAV-003: Tischende erkennen
+* NAV-004: Auf dem Tisch bleiben
+* SAF-003: Tisch nicht verlassen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Tischkantenerkennung ist aktiviert.
-* Roboter bewegt sich kontrolliert.
+* Tischkantenerkennung ist aktiviert
+* Roboter bewegt sich kontrolliert
 
-### Testaufbau
+#### Testaufbau
 
 Der Roboter wird auf eine Position nahe der Tischkante gefahren.
 
-### Ablauf
+#### Ablauf
 
-1. Roboter fährt Richtung Tischrand.
-2. Sensorik erkennt Annäherung.
-3. Sicherheitslogik bewertet Situation.
-4. Bewegungssteuerung stoppt.
+1. Roboter fährt Richtung Tischrand
+2. Sensorik erkennt Annäherung
+3. Sicherheitslogik bewertet Situation
+4. Bewegungssteuerung stoppt
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Tischkante wird erkannt.
-* Roboter hält ausreichend Abstand.
-* Kein Teil des Roboters verlässt die Tischfläche.
+* Tischkante wird erkannt
+* Roboter hält ausreichend Abstand
+* Kein Teil des Roboters verlässt die Tischfläche
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Roboter sicher auf dem Tisch verbleibt.
 
----
+## Systemtest: Untersetzeraufnahme
 
-# 6.8 Systemtest: Untersetzeraufnahme
+### Testfall SYS-005: Aufnahme eines Getränkeuntersetzers
 
-## Testfall SYS-005: Aufnahme eines Getränkeuntersetzers
-
-### Ziel
+#### Ziel
 
 Überprüfung der mechanischen und softwareseitigen Funktion zur Aufnahme eines Untersetzers.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-001: Untersetzer aufnehmen.
-* CST-005: Erfolgreiche Aufnahme erkennen.
+* CST-001: Untersetzer aufnehmen
+* CST-005: Erfolgreiche Aufnahme erkennen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Untersetzer befindet sich an definierter Position.
-* Aufnahmemechanismus funktioniert.
+* Untersetzer befindet sich an definierter Position
+* Aufnahmemechanismus funktioniert
 
-### Testaufbau
+#### Testaufbau
 
 Ein Getränkeuntersetzer wird auf der Tischfläche platziert.
 
-### Ablauf
+#### Ablauf
 
-1. Roboter navigiert zur Untersetzerposition.
-2. Aufnahmevorgang wird gestartet.
-3. Mechanismus nimmt Untersetzer auf.
-4. Sensorik überprüft Zustand.
+1. Roboter navigiert zur Untersetzerposition
+2. Aufnahmevorgang wird gestartet
+3. Mechanismus nimmt Untersetzer auf
+4. Sensorik überprüft Zustand
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Untersetzer wird aufgenommen.
-* Aufnahme wird erkannt.
-* Systemstatus wird aktualisiert.
+* Untersetzer wird aufgenommen
+* Aufnahme wird erkannt
+* Systemstatus wird aktualisiert
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Untersetzer sicher aufgenommen wurde.
 
----
+## Systemtest: Untersetzerplatzierung
 
-# 6.9 Systemtest: Untersetzerplatzierung
+### Testfall SYS-006: Platzierung eines Untersetzers
 
-## Testfall SYS-006: Platzierung eines Untersetzers
-
-### Ziel
+#### Ziel
 
 Überprüfung der präzisen Ablage eines Untersetzers.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* CST-003: Untersetzer präzise platzieren.
-* CST-006: Erfolgreiche Platzierung erkennen.
+* CST-003: Untersetzer präzise platzieren
+* CST-006: Erfolgreiche Platzierung erkennen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Untersetzer wurde aufgenommen.
-* Zielposition ist bekannt.
+* Untersetzer wurde aufgenommen
+* Zielposition ist bekannt
 
-### Testaufbau
+#### Testaufbau
 
 Eine definierte Ablageposition wird markiert.
 
-### Ablauf
+#### Ablauf
 
-1. Roboter fährt zur Zielposition.
-2. Platzierungsmechanismus wird aktiviert.
-3. Positionierung wird überprüft.
+1. Roboter fährt zur Zielposition
+2. Platzierungsmechanismus wird aktiviert
+3. Positionierung wird überprüft
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Untersetzer wird abgelegt.
-* Position liegt innerhalb der definierten Toleranz.
-* Erfolgreiche Ablage wird erkannt.
+* Untersetzer wird abgelegt
+* Position liegt innerhalb der definierten Toleranz
+* Erfolgreiche Ablage wird erkannt
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Untersetzer korrekt positioniert wurde.
 
----
+## Systemtest: Sicherheitsstopp
 
-# 6.10 Systemtest: Sicherheitsstopp
+### Testfall SYS-007: Aktivierung des Not-Aus
 
-## Testfall SYS-007: Aktivierung des Not-Aus
-
-### Ziel
+#### Ziel
 
 Überprüfung der Sicherheitsreaktion bei manueller oder automatisierter Notabschaltung.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* SAF-001: Bei Gefahr sofort anhalten.
-* SAF-006: Not-Aus unterstützen.
+* SAF-001: Bei Gefahr sofort anhalten
+* SAF-006: Not-Aus unterstützen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Roboter befindet sich in Bewegung.
+* Roboter befindet sich in Bewegung
 
-### Testaufbau
+#### Testaufbau
 
 Not-Aus-Funktion wird während der Bewegung ausgelöst.
 
-### Ablauf
+#### Ablauf
 
-1. Roboter fährt.
-2. Not-Aus wird aktiviert.
-3. Sicherheitslogik verarbeitet Signal.
-4. Bewegungssteuerung stoppt.
+1. Roboter fährt
+2. Not-Aus wird aktiviert
+3. Sicherheitslogik verarbeitet Signal
+4. Bewegungssteuerung stoppt
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Bewegung wird unverzüglich beendet.
-* Motoren wechseln in sicheren Zustand.
-* Systemstatus zeigt Sicherheitsstopp.
+* Bewegung wird unverzüglich beendet
+* Motoren wechseln in sicheren Zustand
+* Systemstatus zeigt Sicherheitsstopp
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Roboter sicher stoppt.
 
----
+## Systemtest: Fehlerbehandlung
 
-# 6.11 Systemtest: Fehlerbehandlung
+### Testfall SYS-008: Verhalten bei Systemfehler
 
-## Testfall SYS-008: Verhalten bei Systemfehler
-
-### Ziel
+#### Ziel
 
 Überprüfung der Reaktion auf einen realitätsnahen Fehlerzustand.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* MON-001: Fehler erkennen.
-* MON-002: Fehler protokollieren.
-* MON-005: Fehlgeschlagene Aufgaben melden.
+* MON-001: Fehler erkennen
+* MON-002: Fehler protokollieren
+* MON-005: Fehlgeschlagene Aufgaben melden
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* System befindet sich im Betriebszustand.
+* System befindet sich im Betriebszustand
 
-### Testaufbau
+#### Testaufbau
 
 Ein Fehler wird gezielt erzeugt.
 
 Beispiele:
 
-* Sensor wird getrennt.
-* Aktor reagiert nicht.
-* ungültiger Systemzustand.
+* Sensor wird getrennt
+* Aktor reagiert nicht
+* ungültiger Systemzustand
 
-### Ablauf
+#### Ablauf
 
-1. Fehler wird erzeugt.
-2. Systemüberwachung erkennt Fehler.
-3. Fehler wird protokolliert.
-4. Sicherheitsreaktion wird ausgeführt.
+1. Fehler wird erzeugt
+2. Systemüberwachung erkennt Fehler
+3. Fehler wird protokolliert
+4. Sicherheitsreaktion wird ausgeführt
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Fehler wird erkannt.
-* Fehler wird dokumentiert.
-* System wechselt in definierten Zustand.
+* Fehler wird erkannt
+* Fehler wird dokumentiert
+* System wechselt in definierten Zustand
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn der Fehler sicher verarbeitet wird.
 
----
+## Systemtest: Energieversorgung
 
-# 6.12 Systemtest: Energieversorgung
+### Testfall SYS-009: Überwachung des Akkuzustands
 
-## Testfall SYS-009: Überwachung des Akkuzustands
-
-### Ziel
+#### Ziel
 
 Überprüfung der Überwachung der Energieversorgung.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* Energieversorgung-001: Akkuladestand überwachen.
-* Energieversorgung-002: Niedrigen Akkustand erkennen.
-* Energieversorgung-003: Aufgabe kontrolliert abbrechen.
+* Energieversorgung-001: Akkuladestand überwachen
+* Energieversorgung-002: Niedrigen Akkustand erkennen
+* Energieversorgung-003: Aufgabe kontrolliert abbrechen
 
-### Voraussetzungen
+#### Voraussetzungen
 
-* Akkuüberwachung ist aktiv.
+* Akkuüberwachung ist aktiv
 
-### Testaufbau
+#### Testaufbau
 
 Akkustand wird schrittweise reduziert.
 
-### Ablauf
+#### Ablauf
 
-1. Roboter arbeitet im Normalbetrieb.
-2. Akkustand unterschreitet Grenzwert.
-3. Energieverwaltung reagiert.
+1. Roboter arbeitet im Normalbetrieb
+2. Akkustand unterschreitet Grenzwert
+3. Energieverwaltung reagiert
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
-* Niedriger Akkustand wird erkannt.
-* Statusmeldung wird erzeugt.
-* Aufgabe wird kontrolliert beendet.
+* Niedriger Akkustand wird erkannt
+* Statusmeldung wird erzeugt
+* Aufgabe wird kontrolliert beendet
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn keine unkontrollierte Abschaltung erfolgt.
 
----
+## Systemtest: Gesamtablauf
 
-# 6.13 Systemtest: Gesamtablauf
+### Testfall SYS-010: Vollständiger Coasterbot-Arbeitsablauf
 
-## Testfall SYS-010: Vollständiger Coasterbot-Arbeitsablauf
-
-### Ziel
+#### Ziel
 
 Überprüfung des vollständigen Kernprozesses.
 
-### Zugeordnete Anforderungen
+#### Zugeordnete Anforderungen
 
-* Navigation.
-* Lokalisierung.
-* Untersetzerhandling.
-* Systemüberwachung.
+* Navigation
+* Lokalisierung
+* Untersetzerhandling
+* Systemüberwachung
 
-### Ablauf
+#### Ablauf
 
-1. Roboter startet.
-2. Zielposition eines Kunden wird definiert.
-3. Roboter navigiert zur Position.
-4. Untersetzer wird aufgenommen.
-5. Roboter fährt zur Zielposition.
-6. Untersetzer wird platziert.
-7. Aufgabe wird abgeschlossen.
+1. Roboter startet
+2. Zielposition eines Kunden wird definiert
+3. Roboter navigiert zur Position
+4. Untersetzer wird aufgenommen
+5. Roboter fährt zur Zielposition
+6. Untersetzer wird platziert
+7. Aufgabe wird abgeschlossen
 
-### Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
 Der vollständige Ablauf wird ohne Fehler durchgeführt.
 
-### Bewertung
+#### Bewertung
 
 Bestanden, wenn alle Teilfunktionen erfolgreich ausgeführt wurden.
 
----
-
-# 6.14 Zusammenfassung der Systemtests
+## Zusammenfassung der Systemtests
 
 Die Systemtests überprüfen den Coasterbot als vollständiges Gesamtsystem.
 
 Dabei werden die zentralen Funktionen des Prototyps bewertet:
 
-* sichere Inbetriebnahme,
-* autonome Navigation,
-* Hindernisvermeidung,
-* Tischkantenerkennung,
-* Untersetzerhandling,
-* Sicherheitsfunktionen,
-* Fehlerbehandlung,
-* Energieüberwachung.
+* sichere Inbetriebnahme
+* autonome Navigation
+* Hindernisvermeidung
+* Tischkantenerkennung
+* Untersetzerhandling
+* Sicherheitsfunktionen
+* Fehlerbehandlung
+* Energieüberwachung
 
-Die erfolgreichen Systemtests bestätigen, dass die entwickelten Hardware- und Softwarekomponenten gemeinsam die Anforderungen des Pflichtenhefts erfüllen.
+Die erfolgreichen Systemtests bestätigen, dass die entwickelten Hardware- und
+Softwarekomponenten gemeinsam die Anforderungen des Pflichtenhefts erfüllen.
 
-Damit bilden die Systemtests die abschließende technische Grundlage für die Bewertung des Prototyps.
+Damit bilden die Systemtests die abschließende technische Grundlage für die
+Bewertung des Prototyps.
 
-# 7 Testergebnisse und Bewertung
+# Testergebnisse und Bewertung
 
-## 7.1 Ziel der Testauswertung
+## Ziel der Testauswertung
 
-Die Testauswertung dient der systematischen Bewertung der durchgeführten Tests und der Ermittlung des Entwicklungsstandes des Coasterbot-Prototyps.
+Die Testauswertung dient der systematischen Bewertung der durchgeführten Tests
+und der Ermittlung des Entwicklungsstandes des Coasterbot-Prototyps.
 
-Ziel ist es, festzustellen, in welchem Umfang die Anforderungen aus dem Lasten- und Pflichtenheft erfüllt werden. Die Ergebnisse der Testdurchführung werden dokumentiert, analysiert und hinsichtlich ihrer Bedeutung für das Gesamtsystem bewertet.
+Ziel ist es, festzustellen, in welchem Umfang die Anforderungen aus dem Lasten-
+und Pflichtenheft erfüllt werden. Die Ergebnisse der Testdurchführung werden
+dokumentiert, analysiert und hinsichtlich ihrer Bedeutung für das Gesamtsystem
+bewertet.
 
 Die Auswertung umfasst:
 
-* Bewertung einzelner Testfälle.
-* Analyse aufgetretener Fehler.
-* Ermittlung der Testabdeckung.
-* Bewertung der Systemqualität.
-* Überprüfung der Definition of Done.
+* Bewertung einzelner Testfälle
+* Analyse aufgetretener Fehler
+* Ermittlung der Testabdeckung
+* Bewertung der Systemqualität
+* Überprüfung der Definition of Done
 
----
-
-# 7.2 Dokumentation der Testergebnisse
+## Dokumentation der Testergebnisse
 
 Jeder durchgeführte Test wird mit seinem Ergebnis dokumentiert.
 
@@ -2599,55 +2513,47 @@ Die Testergebnisse werden nach folgendem Schema erfasst:
 | Bemerkungen  | Zusätzliche Informationen                       |
 | Fehler-ID    | Referenz auf Fehlerbeschreibung                 |
 
----
-
-# 7.3 Bewertungskriterien
+## Bewertungskriterien
 
 Die Bewertung der Testfälle erfolgt anhand definierter Kriterien.
 
-## Bestanden
+### Bestanden
 
 Ein Test gilt als bestanden, wenn:
 
-* das erwartete Ergebnis vollständig erreicht wurde,
-* keine sicherheitskritischen Fehler auftreten,
-* das Verhalten reproduzierbar ist.
+* das erwartete Ergebnis vollständig erreicht wurde
+* keine sicherheitskritischen Fehler auftreten
+* das Verhalten reproduzierbar ist
 
----
-
-## Fehlgeschlagen
+### Fehlgeschlagen
 
 Ein Test gilt als fehlgeschlagen, wenn:
 
-* die erwartete Funktion nicht erfüllt wird,
-* unerwartetes Verhalten auftritt,
-* Sicherheitsanforderungen verletzt werden.
+* die erwartete Funktion nicht erfüllt wird
+* unerwartetes Verhalten auftritt
+* Sicherheitsanforderungen verletzt werden
 
 Fehlgeschlagene Tests werden analysiert und führen gegebenenfalls zu einer Anpassung der Implementierung.
 
----
-
-## Nicht ausführbar
+### Nicht ausführbar
 
 Ein Test wird als nicht ausführbar bewertet, wenn:
 
-* Voraussetzungen nicht erfüllt sind,
-* benötigte Hardware nicht verfügbar ist,
-* Abhängigkeiten fehlen.
+* Voraussetzungen nicht erfüllt sind
+* benötigte Hardware nicht verfügbar ist
+* Abhängigkeiten fehlen
 
 Nicht ausführbare Tests müssen begründet und gegebenenfalls nachgeholt werden.
 
----
-
-# 7.4 Testabdeckung
+### Testabdeckung
 
 Die Testabdeckung beschreibt, welcher Anteil der Anforderungen durch Testfälle überprüft wurde.
 
 Die Bewertung erfolgt anhand der Zuordnung zwischen:
 
-* Lastenheft-Anforderungen,
-* Pflichtenheft-Komponenten,
-* Testfällen.
+* Lastenheft-Anforderungen
+* Pflichtenheft-Komponenten
+* Testfällen
 
 Eine vollständige Abdeckung bedeutet, dass jede relevante Anforderung mindestens einem Testfall zugeordnet wurde.
 
@@ -2662,73 +2568,65 @@ Die Testabdeckung wird in folgende Bereiche unterteilt:
 | Simulation                   | Vollständig getestet       |
 | Erweiterungsfunktionen       | Nicht vollständig getestet |
 
----
+## Auswertung der Kernfunktionen
 
-# 7.5 Auswertung der Kernfunktionen
-
-## 7.5.1 Navigation und Lokalisierung
+### Navigation und Lokalisierung
 
 Die Navigation stellt eine zentrale Funktion des Coasterbots dar.
 
 Die Tests überprüfen:
 
-* Positionsbestimmung.
-* Orientierung.
-* Zielanfahrt.
-* Hindernisvermeidung.
-* Anpassung der Fahrroute.
+* Positionsbestimmung
+* Orientierung
+* Zielanfahrt
+* Hindernisvermeidung
+* Anpassung der Fahrroute
 
-Die erfolgreiche Durchführung der Navigations- und Simulationstests bestätigt die grundsätzliche Fähigkeit des Roboters, sich autonom auf einer Tischfläche zu bewegen.
+Die erfolgreiche Durchführung der Navigations- und Simulationstests bestätigt
+die grundsätzliche Fähigkeit des Roboters, sich autonom auf einer Tischfläche
+zu bewegen.
 
----
-
-## 7.5.2 Sicherheitsfunktionen
+### Sicherheitsfunktionen
 
 Die Sicherheitsfunktionen besitzen aufgrund der möglichen Auswirkungen eine hohe Priorität.
 
 Geprüft wurden:
 
-* Tischkantenerkennung.
-* Kollisionsvermeidung.
-* Not-Aus.
-* sichere Zustände bei Fehlern.
+* Tischkantenerkennung
+* Kollisionsvermeidung
+* Not-Aus
+* sichere Zustände bei Fehlern
 
 Die Tests bestätigen, dass kritische Situationen erkannt und geeignete Schutzmaßnahmen eingeleitet werden.
 
----
-
-## 7.5.3 Getränkeuntersetzerhandling
+### Getränkeuntersetzerhandling
 
 Das Untersetzerhandling bildet die Kernfunktion des Prototyps.
 
 Die Tests bewerten:
 
-* Erkennung eines Untersetzers.
-* Aufnahme.
-* Transport.
-* Positionierung.
-* Erkennung erfolgreicher Aktionen.
+* Erkennung eines Untersetzers
+* Aufnahme
+* Transport
+* Positionierung
+* Erkennung erfolgreicher Aktionen
 
 Die Ergebnisse zeigen, ob die mechanischen und softwareseitigen Komponenten ausreichend zusammenarbeiten.
 
----
-
-## 7.5.4 Systemüberwachung
+### Systemüberwachung
 
 Die Systemüberwachung stellt sicher, dass Fehlerzustände erkannt und verarbeitet werden.
 
 Bewertet werden:
 
-* Fehlererkennung.
-* Fehlerprotokollierung.
-* Statusanzeige.
-* Erkennung fehlgeschlagener Aufgaben.
+* Fehlererkennung
+* Fehlerprotokollierung
+* Statusanzeige
+* Erkennung fehlgeschlagener Aufgaben
 
 Eine funktionierende Systemüberwachung ist Voraussetzung für einen zuverlässigen Betrieb.
 
----
-
-# 7.6 Fehleranalyse
+## Fehleranalyse
 
 Während der Testdurchführung erkannte Fehler werden nach ihrer Kritikalität bewertet.
 
@@ -2741,38 +2639,32 @@ Die Bewertung erfolgt anhand folgender Kategorien:
 | Mittlerer Fehler  | Beeinträchtigt Komfort oder Zuverlässigkeit |
 | Geringer Fehler   | Keine wesentliche Einschränkung             |
 
----
-
-## 7.6.1 Umgang mit kritischen Fehlern
+### Umgang mit kritischen Fehlern
 
 Kritische Fehler besitzen höchste Priorität und müssen vor Abschluss der Projektarbeit behoben oder bewertet werden.
 
 Beispiele:
 
-* Verlust der Tischkantenerkennung.
-* Unkontrollierte Bewegung.
-* Fehlfunktion des Not-Aus.
-* Gefährliche Kollision.
+* Verlust der Tischkantenerkennung
+* Unkontrollierte Bewegung
+* Fehlfunktion des Not-Aus
+* Gefährliche Kollision
 
 Ein Prototyp darf nicht als erfolgreich bewertet werden, wenn kritische Sicherheitsanforderungen nicht erfüllt sind.
 
----
-
-## 7.6.2 Umgang mit funktionalen Fehlern
+### Umgang mit funktionalen Fehlern
 
 Funktionale Fehler werden hinsichtlich ihrer Auswirkungen bewertet.
 
 Beispiele:
 
-* Ungenaue Positionierung.
-* Verzögerte Statusmeldung.
-* Fehlgeschlagene Untersetzeraufnahme.
+* Ungenaue Positionierung
+* Verzögerte Statusmeldung
+* Fehlgeschlagene Untersetzeraufnahme
 
 Je nach Bedeutung können diese Fehler behoben oder als bekannte Einschränkung dokumentiert werden.
 
----
-
-# 7.7 Bewertung der Definition of Done
+## Bewertung der Definition of Done
 
 Die Definition of Done des Projekts umfasst mehrere technische Ziele. Diese werden anhand der Testergebnisse bewertet.
 
@@ -2783,51 +2675,41 @@ Die Definition of Done des Projekts umfasst mehrere technische Ziele. Diese werd
 | Simulation erstellt und validiert    | Durchführung der Simulationstests                     |
 | Tests identifiziert und definiert    | Prüfung der Testspezifikation                         |
 
----
-
-## 7.7.1 Fertigungsunterlagen
+### Fertigungsunterlagen
 
 Die Fertigungsunterlagen gelten als erfüllt, wenn:
 
-* mechanische Bauteile dokumentiert sind,
-* STL-Dateien vorhanden sind,
-* Schaltpläne erstellt wurden.
+* mechanische Bauteile dokumentiert sind
+* STL-Dateien vorhanden sind
+* Schaltpläne erstellt wurden
 
----
-
-## 7.7.2 Softwarearchitektur
+### Softwarearchitektur
 
 Die Softwarearchitektur gilt als erfüllt, wenn:
 
-* Komponenten definiert sind,
-* Schnittstellen dokumentiert sind,
-* Hardwareabstraktion umgesetzt wurde,
-* Erweiterbarkeit gewährleistet ist.
+* Komponenten definiert sind
+* Schnittstellen dokumentiert sind
+* Hardwareabstraktion umgesetzt wurde
+* Erweiterbarkeit gewährleistet ist
 
----
-
-## 7.7.3 Simulation
+### Simulation
 
 Die Simulation gilt als erfüllt, wenn:
 
-* Fahrmanöver reproduzierbar sind,
-* Sensoren modelliert werden können,
-* Aktoren simuliert werden können,
-* Fehlerfälle getestet werden können.
+* Fahrmanöver reproduzierbar sind
+* Sensoren modelliert werden können
+* Aktoren simuliert werden können
+* Fehlerfälle getestet werden können
 
----
-
-## 7.7.4 Testspezifikation
+### Testspezifikation
 
 Die Testdefinition gilt als erfüllt, wenn:
 
-* Anforderungen Testfällen zugeordnet wurden,
-* Testabläufe beschrieben sind,
-* Bewertungskriterien definiert wurden.
+* Anforderungen Testfällen zugeordnet wurden
+* Testabläufe beschrieben sind
+* Bewertungskriterien definiert wurden
 
----
-
-# 7.8 Bewertung der Projektziele
+## Bewertung der Projektziele
 
 Die Testergebnisse werden abschließend hinsichtlich der ursprünglichen Projektziele bewertet.
 
@@ -2835,35 +2717,32 @@ Das Hauptziel war die Entwicklung eines funktionsfähigen Prototyps eines Coaste
 
 Dabei standen folgende Funktionen im Mittelpunkt:
 
-* autonome Navigation auf einem Tisch,
-* Erkennung und Vermeidung von Hindernissen,
-* sichere Bewegung,
-* Aufnahme und Platzierung von Getränkeuntersetzern,
-* modulare Softwarearchitektur,
-* simulationsgestützte Entwicklung.
+* autonome Navigation auf einem Tisch
+* Erkennung und Vermeidung von Hindernissen
+* sichere Bewegung
+* Aufnahme und Platzierung von Getränkeuntersetzern
+* modulare Softwarearchitektur
+* simulationsgestützte Entwicklung
 
-Die Testergebnisse zeigen, welche Funktionen erfolgreich umgesetzt wurden und welche Bereiche noch Entwicklungspotenzial besitzen.
+Die Testergebnisse zeigen, welche Funktionen erfolgreich umgesetzt wurden und
+welche Bereiche noch Entwicklungspotenzial besitzen.
 
----
-
-# 7.9 Grenzen der Bewertung
+### Grenzen der Bewertung
 
 Die Bewertung berücksichtigt den Projektumfang und die definierten Abgrenzungen.
 
 Nicht Bestandteil der Bewertung sind:
 
-* automatischer Getränketransport,
-* Bestellung und Bezahlung,
-* Reinigung,
-* Netzwerkfunktionen,
-* Schwarmverhalten mehrerer Roboter,
-* EMV-Betrachtungen.
+* automatischer Getränketransport
+* Bestellung und Bezahlung
+* Reinigung
+* Netzwerkfunktionen
+* Schwarmverhalten mehrerer Roboter
+* EMV-Betrachtungen
 
 Diese Funktionen können in zukünftigen Entwicklungsstufen betrachtet werden.
 
----
-
-# 7.10 Zusammenfassung
+# Zusammenfassung
 
 Die Testauswertung stellt den erreichten Entwicklungsstand des Coasterbot-Prototyps dar.
 
@@ -2873,9 +2752,9 @@ Die Testergebnisse ermöglichen eine objektive Bewertung der Umsetzung und zeige
 
 Damit bildet dieses Kapitel die Grundlage für die abschließende Bewertung des Projektergebnisses.
 
-# 8 Zusammenfassung und Ausblick
+## Zusammenfassung und Ausblick
 
-## 8.1 Zusammenfassung der Testspezifikation
+### Zusammenfassung der Testspezifikation
 
 Diese Testspezifikation beschreibt die systematische Überprüfung des im Rahmen der Projektarbeit entwickelten Coasterbot-Prototyps.
 
@@ -2883,35 +2762,31 @@ Ziel der Testdurchführung war es, die im Lasten- und Pflichtenheft definierten 
 
 Hierzu wurden verschiedene Testebenen betrachtet:
 
-* Komponententests zur Prüfung einzelner Softwaremodule.
-* Integrationstests zur Überprüfung des Zusammenspiels mehrerer Komponenten.
-* Simulationstests zur Validierung des Systemverhaltens unter kontrollierten Bedingungen.
-* Systemtests zur Bewertung des vollständigen Prototyps.
+* Komponententests zur Prüfung einzelner Softwaremodule
+* Integrationstests zur Überprüfung des Zusammenspiels mehrerer Komponenten
+* Simulationstests zur Validierung des Systemverhaltens unter kontrollierten Bedingungen
+* Systemtests zur Bewertung des vollständigen Prototyps
 
 Durch diese strukturierte Vorgehensweise konnten sowohl einzelne Funktionen als auch das Gesamtsystem betrachtet werden.
 
----
-
-# 8.2 Bewertung der erreichten Projektziele
+### Bewertung der erreichten Projektziele
 
 Das zentrale Ziel der Projektarbeit war die Entwicklung eines Prototyps eines Coasterbots, der sich selbstständig auf einer Tischfläche bewegen und Getränkeuntersetzer zielgerichtet ausgeben beziehungsweise aufnehmen kann.
 
 Die durchgeführten Tests überprüfen insbesondere folgende Kernfunktionen:
 
-* autonome Navigation,
-* Lokalisierung auf der Tischfläche,
-* Hinderniserkennung,
-* Vermeidung von Kollisionen,
-* Erkennung von Tischgrenzen,
-* Aufnahme und Platzierung von Getränkeuntersetzern,
-* sichere Reaktion auf Fehlerzustände,
-* simulationsgestützte Entwicklung.
+* autonome Navigation
+* Lokalisierung auf der Tischfläche
+* Hinderniserkennung
+* Vermeidung von Kollisionen
+* Erkennung von Tischgrenzen
+* Aufnahme und Platzierung von Getränkeuntersetzern
+* sichere Reaktion auf Fehlerzustände
+* simulationsgestützte Entwicklung
 
 Die Testergebnisse ermöglichen eine objektive Bewertung, welche Funktionen erfolgreich umgesetzt wurden und welche Bereiche noch weiterer Entwicklung bedürfen.
 
----
-
-# 8.3 Bewertung der Softwarearchitektur
+### Bewertung der Softwarearchitektur
 
 Die Tests bestätigen die Bedeutung einer modularen Softwarearchitektur für das Robotersystem.
 
@@ -2919,126 +2794,110 @@ Durch die Trennung der einzelnen Komponenten konnten Funktionen unabhängig vone
 
 Die wesentlichen Architekturziele waren:
 
-* klare Trennung zwischen Hardware und Software,
-* Austauschbarkeit von Sensoren und Aktoren,
-* Erweiterbarkeit zukünftiger Funktionen,
-* automatisierbare Tests.
+* klare Trennung zwischen Hardware und Software
+* Austauschbarkeit von Sensoren und Aktoren
+* Erweiterbarkeit zukünftiger Funktionen
+* automatisierbare Tests
 
 Insbesondere die Hardwareabstraktion ermöglicht es, reale Komponenten durch Simulationsmodelle zu ersetzen. Dadurch kann die Softwareentwicklung unabhängig vom finalen Hardwarestand erfolgen.
 
----
-
-# 8.4 Bedeutung der Simulation
+### Bedeutung der Simulation
 
 Die Simulation stellt einen wesentlichen Bestandteil der Entwicklungs- und Teststrategie dar.
 
 Durch die virtuelle Umgebung können:
 
-* Fahrmanöver reproduzierbar ausgeführt werden,
-* kritische Situationen sicher untersucht werden,
-* Fehlerzustände gezielt erzeugt werden,
-* Softwareänderungen frühzeitig bewertet werden.
+* Fahrmanöver reproduzierbar ausgeführt werden
+* kritische Situationen sicher untersucht werden
+* Fehlerzustände gezielt erzeugt werden
+* Softwareänderungen frühzeitig bewertet werden
 
 Die Simulation reduziert damit den Aufwand bei der Entwicklung und ermöglicht eine frühzeitige Validierung der Systemlogik.
 
 Für zukünftige Entwicklungsstufen stellt sie weiterhin eine wichtige Grundlage dar, da neue Funktionen zunächst virtuell getestet werden können.
 
----
-
-# 8.5 Grenzen des entwickelten Prototyps
+### Grenzen des entwickelten Prototyps
 
 Der entwickelte Prototyp stellt eine erste Entwicklungsstufe dar und konzentriert sich auf die grundlegenden Funktionen eines autonomen Coasterbots.
 
 Nicht Bestandteil dieser Projektarbeit waren:
 
-* automatisierter Getränketransport,
-* Bestellaufnahme,
-* digitale Bezahlvorgänge,
-* automatische Tischreinigung,
-* Netzwerkkommunikation,
-* Interaktion mehrerer Coasterbots,
-* EMV-Untersuchungen.
+* automatisierter Getränketransport
+* Bestellaufnahme
+* digitale Bezahlvorgänge
+* automatische Tischreinigung
+* Netzwerkkommunikation
+* Interaktion mehrerer Coasterbots
+* EMV-Untersuchungen
 
 Diese Funktionen können in zukünftigen Entwicklungsphasen ergänzt werden.
 
----
-
-# 8.6 Verbesserungsmöglichkeiten
+### Verbesserungsmöglichkeiten
 
 Aus den Testergebnissen ergeben sich verschiedene Möglichkeiten zur Weiterentwicklung des Systems.
 
-## 8.6.1 Erweiterung der Navigation
+#### Erweiterung der Navigation
 
 Die Navigation könnte zukünftig durch komplexere Verfahren verbessert werden.
 
 Mögliche Erweiterungen:
 
-* dynamische Kartierung der Umgebung,
-* verbesserte Hindernisklassifikation,
-* lernende Navigationsverfahren,
-* Optimierung der Fahrwege.
+* dynamische Kartierung der Umgebung
+* verbesserte Hindernisklassifikation
+* lernende Navigationsverfahren
+* Optimierung der Fahrwege
 
----
-
-## 8.6.2 Erweiterung der Mensch-Roboter-Interaktion
+#### Erweiterung der Mensch-Roboter-Interaktion
 
 Eine zukünftige Ausbaustufe könnte die direkte Interaktion mit Gästen ermöglichen.
 
 Mögliche Funktionen:
 
-* Erkennung einzelner Personen,
-* Sprachsteuerung,
-* visuelle Statusanzeige,
-* personalisierte Interaktionen.
+* Erkennung einzelner Personen
+* Sprachsteuerung
+* visuelle Statusanzeige
+* personalisierte Interaktionen
 
----
-
-## 8.6.3 Erweiterung zum Getränketransport
+#### Erweiterung zum Getränketransport
 
 Der Transport von Getränken stellt eine zusätzliche technische Herausforderung dar.
 
 Dabei müssten insbesondere betrachtet werden:
 
-* Schwerpunkt des Getränks,
-* Beschleunigungsbegrenzung,
-* dynamische Stabilität,
-* sichere Aufnahmevorrichtung,
-* Erkennung von Verschütten.
+* Schwerpunkt des Getränks
+* Beschleunigungsbegrenzung
+* dynamische Stabilität
+* sichere Aufnahmevorrichtung
+* Erkennung von Verschütten
 
 Diese Funktionen wurden aufgrund der Projektabgrenzung nicht umgesetzt.
 
----
-
-## 8.6.4 Erweiterung der Energieverwaltung
+#### Erweiterung der Energieverwaltung
 
 Eine zukünftige Version könnte eine vollständig autonome Energieverwaltung enthalten.
 
 Mögliche Funktionen:
 
-* automatische Rückkehr zur Ladestation,
-* intelligente Planung abhängig vom Akkustand,
-* Optimierung des Energieverbrauchs.
+* automatische Rückkehr zur Ladestation
+* intelligente Planung abhängig vom Akkustand
+* Optimierung des Energieverbrauchs
 
----
-
-# 8.7 Weiterentwicklung zu einem marktnahen System
+#### Weiterentwicklung zu einem marktnahen System
 
 Der entwickelte Prototyp bildet eine technische Grundlage für eine mögliche Weiterentwicklung zu einem marktnahen Produkt.
 
 Für eine Produktentwicklung wären zusätzliche Untersuchungen notwendig:
 
-* Langzeitzuverlässigkeit,
-* Sicherheitszertifizierungen,
-* Produktionskosten,
-* Wartungskonzepte,
-* Benutzerfreundlichkeit,
-* industrielle Fertigung.
+* Langzeitzuverlässigkeit
+* Sicherheitszertifizierungen
+* Produktionskosten
+* Wartungskonzepte
+* Benutzerfreundlichkeit
+* industrielle Fertigung
 
 Zusätzlich müssten Anforderungen aus realen Gastronomieumgebungen berücksichtigt werden, beispielsweise unterschiedliche Tischgrößen, wechselnde Umgebungen und hohe Betriebszeiten.
 
----
-
-# 8.8 Fazit
+## Fazit
 
 Im Rahmen der Projektarbeit wurde ein Konzept für einen autonomen Coasterbot entwickelt und durch eine strukturierte Teststrategie bewertet.
 
@@ -3048,25 +2907,23 @@ Die Kombination aus modularer Softwarearchitektur, Simulation und systematischer
 
 Der entwickelte Ansatz zeigt das Potenzial eines autonomen Tischroboters zur Unterstützung gastronomischer Arbeitsabläufe und bildet eine technische Basis für zukünftige Erweiterungen in Richtung eines vollständigen Serviceroboters.
 
-## Anhang
+# Anhang
 
-### Anhang A Vollständige Testfallmatrix (Anforderung → Test-ID → Ergebnis)
+## Anhang Vollständige Testfallmatrix (Anforderung → Test-ID → Ergebnis)
 
-#### A.1 Zweck der Testfallmatrix
+###  Zweck der Testfallmatrix
 
 Die Testfallmatrix stellt eine Übersicht aller definierten Testfälle des Coasterbot-Projekts dar.
 
 Sie dient der strukturierten Verwaltung und Nachverfolgung der Testaktivitäten und ermöglicht eine schnelle Zuordnung zwischen:
 
-* getesteter Funktion,
-* zugehöriger Anforderung,
-* Testebene,
-* Testpriorität,
-* Teststatus.
+* getesteter Funktion
+* zugehöriger Anforderung
+* Testebene
+* Testpriorität
+* Teststatus
 
 Die Testfallmatrix ergänzt die detaillierten Testbeschreibungen aus den Kapiteln 3 bis 6 und bietet eine kompakte Übersicht über die gesamte Testabdeckung.
-
----
 
 # A.2 Übersicht der Test-ID-Struktur
 
@@ -3080,8 +2937,6 @@ Die Testfälle werden anhand ihrer Testebene kategorisiert.
 | SYS    | System Test (Systemtest)            |
 
 Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
-
----
 
 # A.3 Komponententests
 
@@ -3097,8 +2952,6 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | CT-SAF-001 | Sicherheitsstopp                    | Sicherheitskomponente | SAF-001, SAF-006          | P1        | geplant |
 | CT-MON-001 | Fehlererkennung und Protokollierung | Systemüberwachung     | MON-001, MON-002          | P1        | geplant |
 
----
-
 # A.4 Integrationstests
 
 | Test-ID        | Testname                               | Beteiligte Komponenten                         | Zugeordnete Anforderungen | Priorität | Status  |
@@ -3110,8 +2963,6 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | IT-NAV-CST-001 | Navigation und Untersetzeraufnahme     | Navigation, Lokalisierung, Untersetzerhandling | CST-001, CST-005, NAV-008 | P2        | geplant |
 | IT-MON-001     | Fehlerweitergabe im Gesamtsystem       | Sensorik, Monitoring, Sicherheit               | MON-001, MON-002, MON-005 | P1        | geplant |
 | IT-HW-SIM-001  | Austausch Hardware durch Simulation    | Hardwareabstraktion, Simulation                | NFR-003, NFR-004, NFR-007 | P2        | geplant |
-
----
 
 # A.5 Simulationstests
 
@@ -3125,8 +2976,6 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | ST-SIM-006 | Verhalten bei fehlerhafter Motorsteuerung     | Aktormodell             | MON-001, MON-005, SIM-003          | P2        | geplant |
 | ST-SIM-007 | Aufnahme und Platzierung eines Untersetzers   | Untersetzerhandling     | CST-001, CST-003, CST-005, SIM-006 | P2        | geplant |
 | ST-SIM-008 | Vergleich Simulation und Systemverhalten      | Validierung             | SIM-007                            | P2        | geplant |
-
----
 
 # A.6 Systemtests
 
@@ -3143,8 +2992,6 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | SYS-009 | Überwachung des Akkuzustands               | Energieversorgung      | EN-001, EN-002, EN-003                      | P2        | geplant |
 | SYS-010 | Vollständiger Coasterbot-Arbeitsablauf     | Gesamtsystem           | Navigation, Untersetzerhandling, Monitoring | P1        | geplant |
 
----
-
 # A.7 Testabdeckung nach Anforderungsbereich
 
 | Anforderungsbereich          | Anzahl Testfälle | Testebenen      |
@@ -3157,8 +3004,6 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | Simulation                   | 8                | IT, ST          |
 | Energieversorgung            | 1                | SYS             |
 
----
-
 # A.8 Testpriorisierung
 
 ## Priorität P1 – Kritische Funktionen
@@ -3167,14 +3012,12 @@ Diese Tests müssen zwingend erfolgreich abgeschlossen werden, da sie sicherheit
 
 Dazu gehören:
 
-* Navigation.
-* Tischkantenerkennung.
-* Kollisionsvermeidung.
-* Sicherheitsstopp.
-* Fehlererkennung.
-* Grundlegende Systemfunktion.
-
----
+* Navigation
+* Tischkantenerkennung
+* Kollisionsvermeidung
+* Sicherheitsstopp
+* Fehlererkennung
+* Grundlegende Systemfunktion
 
 ## Priorität P2 – Kernfunktionen
 
@@ -3182,12 +3025,10 @@ Diese Tests betreffen wesentliche Funktionen des Projektziels.
 
 Dazu gehören:
 
-* Untersetzeraufnahme.
-* Untersetzerplatzierung.
-* Simulationserweiterungen.
-* Energieüberwachung.
-
----
+* Untersetzeraufnahme
+* Untersetzerplatzierung
+* Simulationserweiterungen
+* Energieüberwachung
 
 ## Priorität P3 – Optionale Funktionen
 
@@ -3195,13 +3036,11 @@ Funktionen der späteren Ausbaustufen werden nicht im Rahmen dieser Testmatrix b
 
 Dazu gehören:
 
-* Getränketransport.
-* Bestellung.
-* Bezahlung.
-* Reinigung.
-* Mensch-Roboter-Interaktion.
-
----
+* Getränketransport
+* Bestellung
+* Bezahlung
+* Reinigung
+* Mensch-Roboter-Interaktion
 
 # A.9 Teststatusdefinition
 
@@ -3212,8 +3051,6 @@ Dazu gehören:
 | bestanden        | Erwartetes Ergebnis wurde erreicht                 |
 | fehlgeschlagen   | Erwartetes Ergebnis wurde nicht erreicht           |
 | nicht ausführbar | Voraussetzungen waren nicht erfüllt                |
-
----
 
 # A.10 Zusammenfassung
 
@@ -3234,15 +3071,13 @@ Durch die einheitliche Erfassung aller Testdurchführungen wird sichergestellt, 
 
 Das Testprotokoll enthält alle relevanten Informationen zu:
 
-* Testumgebung,
-* Testbedingungen,
-* Testdurchführung,
-* Testergebnis,
-* Fehlern und Abweichungen.
+* Testumgebung
+* Testbedingungen
+* Testdurchführung
+* Testergebnis
+* Fehlern und Abweichungen
 
 Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der Anforderungen aus dem Lasten- und Pflichtenheft.
-
----
 
 # B.2 Allgemeine Testinformationen
 
@@ -3260,21 +3095,11 @@ Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der A
 | Testart              |         |
 | Priorität            |         |
 
----
-
 # B.3 Beschreibung des Testziels
 
 ## Ziel des Tests
 
 **Beschreibung:**
-
----
-
----
-
----
-
----
 
 ## Zugeordnete Anforderungen
 
@@ -3283,8 +3108,6 @@ Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der A
 |                 |              |
 |                 |              |
 |                 |              |
-
----
 
 # B.4 Testvoraussetzungen
 
@@ -3299,21 +3122,11 @@ Vor Beginn des Tests müssen alle erforderlichen Bedingungen erfüllt sein.
 | Testumgebung vorbereitet       |                   |           |
 | Testdaten vorhanden            |                   |           |
 
----
-
 # B.5 Testaufbau
 
 ## Beschreibung der Testumgebung
 
 Beschreibung des verwendeten Aufbaus:
-
----
-
----
-
----
-
----
 
 ## Verwendete Komponenten
 
@@ -3324,8 +3137,6 @@ Beschreibung des verwendeten Aufbaus:
 | Aktorik             |                        |
 | Softwarekomponenten |                        |
 | Simulation          |                        |
-
----
 
 # B.6 Testdaten
 
@@ -3340,8 +3151,6 @@ Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 | Sensordaten     |      |
 | Fehlerzustände  |      |
 
----
-
 # B.7 Testdurchführung
 
 ## Ablauf
@@ -3354,53 +3163,25 @@ Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 | 4       |              |          |
 | 5       |              |          |
 
----
-
 # B.8 Erwartetes Ergebnis
 
 Beschreibung des erwarteten Systemverhaltens:
-
----
-
----
-
----
-
----
 
 # B.9 Tatsächliches Ergebnis
 
 Beschreibung des beobachteten Verhaltens:
 
----
-
----
-
----
-
----
-
 # B.10 Bewertung des Testergebnisses
 
 ## Testergebnis
 
-☐ Bestanden
+[ ] Bestanden
 
-☐ Fehlgeschlagen
+[ ] Fehlgeschlagen
 
-☐ Nicht ausführbar
-
----
+[ ] Nicht ausführbar
 
 ## Begründung
-
----
-
----
-
----
-
----
 
 # B.11 Fehlerdokumentation
 
@@ -3416,53 +3197,21 @@ Falls während der Testdurchführung Fehler auftreten, werden diese dokumentiert
 | Schweregrad              |              |
 | Status                   |              |
 
----
-
 ## Fehlerbeschreibung
-
----
-
----
-
----
-
----
 
 ## Fehleranalyse
 
 ### Ursache
 
----
-
----
-
 ### Auswirkungen
 
----
-
----
-
 ### Maßnahmen
-
----
-
----
-
----
 
 # B.12 Testabschluss
 
 ## Zusammenfassung
 
 Kurze Bewertung des Testverlaufs:
-
----
-
----
-
----
-
----
 
 ## Testergebnis bestätigt durch
 
@@ -3471,8 +3220,6 @@ Kurze Bewertung des Testverlaufs:
 | Tester     |      |       |              |
 | Entwickler |      |       |              |
 | Betreuer   |      |       |              |
-
----
 
 # B.13 Vorlage für automatisierte Tests
 
@@ -3490,8 +3237,6 @@ Für automatisierte Software- und Simulationstests wird folgende zusätzliche Do
 | Laufzeit                   |              |
 | Ergebnis                   |              |
 
----
-
 ## Beispiel eines automatisierten Testergebnisses
 
 | Parameter             | Wert                         |
@@ -3503,8 +3248,6 @@ Für automatisierte Software- und Simulationstests wird folgende zusätzliche Do
 | Erwartete Position    | (100,0,0)                    |
 | Tatsächliche Position |                              |
 | Ergebnis              |                              |
-
----
 
 # B.14 Vorlage für Simulationstests
 
@@ -3521,17 +3264,9 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Simulationszeit    |              |
 | Wiederholungen     |              |
 
----
-
 ## Simulationsszenario
 
 ### Beschreibung
-
----
-
----
-
----
 
 ### Startbedingungen
 
@@ -3542,8 +3277,6 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Umgebung        |      |
 | Hindernisse     |      |
 
----
-
 ### Ergebnisvergleich
 
 | Kriterium           | Erwartet | Erreicht |
@@ -3552,8 +3285,6 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Kollision vermieden |          |          |
 | Position korrekt    |          |          |
 | Fehler erkannt      |          |          |
-
----
 
 # B.15 Vorlage für Systemtests
 
@@ -3568,8 +3299,6 @@ Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben ergänz
 | Testdauer             |              |
 | Anzahl Wiederholungen |              |
 
----
-
 ## Bewertung des Systemverhaltens
 
 | Funktion               | Ergebnis |
@@ -3581,8 +3310,6 @@ Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben ergänz
 | Untersetzerplatzierung |          |
 | Sicherheitsfunktionen  |          |
 | Fehlerbehandlung       |          |
-
----
 
 # B.16 Zusammenfassung
 
@@ -3602,13 +3329,11 @@ Die Traceability-Matrix stellt die Nachverfolgbarkeit zwischen den Anforderungen
 
 Ziel ist es, nachzuweisen, dass jede relevante Anforderung:
 
-* analysiert wurde,
-* in eine technische Umsetzung überführt wurde,
-* durch mindestens einen Testfall überprüft wird.
+* analysiert wurde
+* in eine technische Umsetzung überführt wurde
+* durch mindestens einen Testfall überprüft wird
 
 Die Matrix unterstützt damit die systematische Verifikation des Coasterbot-Prototyps und ermöglicht eine transparente Bewertung der Anforderungserfüllung.
-
----
 
 # C.2 Struktur der Traceability-Matrix
 
@@ -3622,8 +3347,6 @@ Die Matrix verwendet folgende Zuordnung:
 | Test-ID                 | Zugeordneter Testfall                                     |
 | Testebene               | Komponenten-, Integrations-, Simulations- oder Systemtest |
 | Status                  | Bewertung der Umsetzung                                   |
-
----
 
 # C.3 Navigation und Lokalisierung
 
@@ -3639,8 +3362,6 @@ Die Matrix verwendet folgende Zuordnung:
 | NAV-008 | Der Bot muss Zielpunkt erreichen           | Navigation und Bewegungssteuerung führen Zielanfahrt aus  | CT-NAV-001, SYS-002                             | Komponenten / System                            | geprüft |
 | NAV-009 | Der Bot muss sich kontrolliert bewegen     | Bewegungssteuerung mit Geschwindigkeitsbegrenzung         | CT-MOT-001, IT-NAV-MOT-001                      | Komponenten / Integration                       | geprüft |
 
----
-
 # C.4 Anforderungen Getränkeuntersetzer
 
 | ID      | Lastenheft-Anforderung                                 | Pflichtenheft-Umsetzung                                   | Test-ID                         | Testebene                         | Status  |
@@ -3651,8 +3372,6 @@ Die Matrix verwendet folgende Zuordnung:
 | CST-004 | Der Bot muss einen Untersetzer wieder aufnehmen können | Aufnahmeprozess mit Zustandserkennung                     | CT-CST-001                      | Komponenten                       | geprüft |
 | CST-005 | Der Bot muss erfolgreiche Aufnahme erkennen            | Sensorbasierte Zustandsprüfung                            | CT-CST-001, CT-CST-002          | Komponenten                       | geprüft |
 | CST-006 | Der Bot muss erfolgreiche Platzierung erkennen         | Statusprüfung nach Ablagevorgang                          | SYS-006                         | System                            | geprüft |
-
----
 
 # C.5 Sicherheitsanforderungen
 
@@ -3665,8 +3384,6 @@ Die Matrix verwendet folgende Zuordnung:
 | SAF-005 | Der Bot muss Kollisionen vermeiden                       | Hinderniserkennung und Navigation          | SYS-003                             | System                             | geprüft |
 | SAF-006 | Der Bot muss Not-Aus unterstützen                        | Not-Aus-Schnittstelle und Sicherheitslogik | CT-SAF-001, SYS-007                 | Komponenten / System               | geprüft |
 
----
-
 # C.6 Systemüberwachung
 
 | ID      | Lastenheft-Anforderung          | Pflichtenheft-Umsetzung                       | Test-ID                         | Testebene                          | Status  |
@@ -3676,8 +3393,6 @@ Die Matrix verwendet folgende Zuordnung:
 | MON-003 | Betriebszustand anzeigen        | Statusverwaltung und Anzeige                  | SYS-001                         | System                             | geprüft |
 | MON-004 | Erfolg einer Aufgabe erkennen   | Zustandsmanagement der Arbeitsabläufe         | SYS-010                         | System                             | geprüft |
 | MON-005 | Fehlgeschlagene Aufgaben melden | Fehlerstatus und Meldesystem                  | CT-CST-002, SYS-008             | Komponenten / System               | geprüft |
-
----
 
 # C.7 Nichtfunktionale Anforderungen
 
@@ -3692,8 +3407,6 @@ Die Matrix verwendet folgende Zuordnung:
 | NFR-007 | Sensoren und Aktoren müssen austauschbar sein      | Hardwareabstraktionsschicht                          | CT-HW-001, IT-HW-SIM-001  | Komponenten / Integration | geprüft |
 | NFR-008 | Hardwareabstraktion unterstützen                   | Abstrakte Schnittstellen zwischen Hard- und Software | CT-HW-001                 | Komponenten               | geprüft |
 
----
-
 # C.8 Simulationsanforderungen
 
 | ID      | Lastenheft-Anforderung                               | Pflichtenheft-Umsetzung                  | Test-ID                | Testebene   | Status  |
@@ -3705,8 +3418,6 @@ Die Matrix verwendet folgende Zuordnung:
 | SIM-005 | Fehlersituationen müssen simulierbar sein            | Fehlerinjektion in Simulation            | ST-SIM-005, ST-SIM-006 | Simulation  | geprüft |
 | SIM-006 | Simulation unterstützt Testfälle                     | Testautomatisierung innerhalb Simulation | ST-SIM-007             | Simulation  | geprüft |
 | SIM-007 | Simulationsverhalten entspricht erwartetem Verhalten | Vergleich Simulation und Prototyp        | ST-SIM-008             | Simulation  | geprüft |
-
----
 
 # C.9 Anforderungen außerhalb des Projektumfangs
 
@@ -3721,8 +3432,6 @@ Die folgenden Anforderungen wurden bewusst nicht umgesetzt und sind daher nicht 
 | Schwarmverhalten                     | Nicht Bestandteil des Einzelroboters      |
 | EMV-Betrachtungen                    | Nicht Bestandteil der Prototypentwicklung |
 
----
-
 # C.10 Zusammenfassung
 
 Die Traceability-Matrix zeigt die vollständige Verbindung zwischen Anforderungen, technischer Umsetzung und Testfällen.
@@ -3731,10 +3440,10 @@ Durch die eindeutige Zuordnung wird sichergestellt, dass die relevanten Anforder
 
 Die Matrix ermöglicht:
 
-* Nachweis der Anforderungsabdeckung,
-* strukturierte Testplanung,
-* transparente Bewertung des Entwicklungsstands,
-* nachvollziehbare Verifikation des Prototyps.
+* Nachweis der Anforderungsabdeckung
+* strukturierte Testplanung
+* transparente Bewertung des Entwicklungsstands
+* nachvollziehbare Verifikation des Prototyps
 
 Damit stellt sie einen wichtigen Bestandteil der technischen Dokumentation des Projekts dar.
 
@@ -3750,19 +3459,17 @@ Aufgrund der Kombination aus mobiler Robotik, Sensorik, Aktorik und sicherheitsk
 
 Ziel der Risikoanalyse ist es:
 
-* kritische Systemrisiken frühzeitig zu erkennen,
-* geeignete Gegenmaßnahmen zu definieren,
-* Testaktivitäten entsprechend ihrer Bedeutung zu priorisieren,
-* die Zuverlässigkeit des Prototyps sicherzustellen.
+* kritische Systemrisiken frühzeitig zu erkennen
+* geeignete Gegenmaßnahmen zu definieren
+* Testaktivitäten entsprechend ihrer Bedeutung zu priorisieren
+* die Zuverlässigkeit des Prototyps sicherzustellen
 
 Die Bewertung orientiert sich an den Kriterien:
 
-* Eintrittswahrscheinlichkeit,
-* Auswirkung,
-* Risikopriorität,
-* erforderliche Maßnahmen.
-
----
+* Eintrittswahrscheinlichkeit
+* Auswirkung
+* Risikopriorität
+* erforderliche Maßnahmen
 
 # D.2 Bewertungsmethode
 
@@ -3778,8 +3485,6 @@ Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 | 4    | Wahrscheinlich        |
 | 5    | Sehr wahrscheinlich   |
 
----
-
 ## Auswirkung
 
 | Wert | Beschreibung                                    |
@@ -3790,15 +3495,13 @@ Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 | 4    | Wesentliche Beeinträchtigung                    |
 | 5    | Kritischer Systemausfall oder Sicherheitsrisiko |
 
----
-
 ## Risikopriorität
 
 Die Risikopriorität ergibt sich aus:
 
-[
+$$
 RPZ = Eintrittswahrscheinlichkeit \times Auswirkung
-]
+$$
 
 Die Bewertung erfolgt nach:
 
@@ -3807,8 +3510,6 @@ Die Bewertung erfolgt nach:
 | 1–5   | Niedriges Risiko |
 | 6–12  | Mittleres Risiko |
 | 13–25 | Hohes Risiko     |
-
----
 
 # D.3 Technische Risikoanalyse
 
@@ -3825,8 +3526,6 @@ Die Bewertung erfolgt nach:
 | R-009 | Unzureichende Akkukapazität                   | Falsche Dimensionierung                       | 2        | 3          | 6   | Mittel    |
 | R-010 | Softwarefehler führt zu undefiniertem Zustand | Fehlerhafte Zustandsverwaltung                | 2        | 5          | 10  | Mittel    |
 
----
-
 # D.4 Sicherheitsrisiken
 
 ## D.4.1 Verlust der Tischsicherheit
@@ -3837,24 +3536,22 @@ Ein wesentliches Risiko besteht darin, dass der Roboter aufgrund fehlerhafter Se
 
 ### Auswirkungen
 
-* Beschädigung des Prototyps.
-* Unterbrechung des Betriebs.
-* Potenzielle Gefährdung in realer Umgebung.
+* Beschädigung des Prototyps
+* Unterbrechung des Betriebs
+* Potenzielle Gefährdung in realer Umgebung
 
 ### Gegenmaßnahmen
 
-* redundante Prüfung kritischer Sensordaten,
-* Begrenzung der Geschwindigkeit,
-* Sicherheitsabstand zur Tischkante,
-* Simulation verschiedener Grenzsituationen.
+* redundante Prüfung kritischer Sensordaten
+* Begrenzung der Geschwindigkeit
+* Sicherheitsabstand zur Tischkante
+* Simulation verschiedener Grenzsituationen
 
 ### Zugeordnete Tests
 
-* SYS-004: Schutz vor Herunterfallen vom Tisch.
-* ST-SIM-003: Simulation der Tischkantenerkennung.
-* SYS-007: Sicherheitsstopp.
-
----
+* SYS-004: Schutz vor Herunterfallen vom Tisch
+* ST-SIM-003: Simulation der Tischkantenerkennung
+* SYS-007: Sicherheitsstopp
 
 ## D.4.2 Kollision mit Objekten oder Personen
 
@@ -3864,24 +3561,22 @@ Der Coasterbot bewegt sich in einer Umgebung mit wechselnden Hindernissen und po
 
 ### Auswirkungen
 
-* Beschädigung von Gegenständen.
-* Fehlfunktion des Arbeitsablaufs.
-* Sicherheitsrisiko.
+* Beschädigung von Gegenständen
+* Fehlfunktion des Arbeitsablaufs
+* Sicherheitsrisiko
 
 ### Gegenmaßnahmen
 
-* Hinderniserkennung,
-* Geschwindigkeitsbegrenzung,
-* Kollisionsvermeidung,
-* Sicherheitsabschaltung.
+* Hinderniserkennung
+* Geschwindigkeitsbegrenzung
+* Kollisionsvermeidung
+* Sicherheitsabschaltung
 
 ### Zugeordnete Tests
 
-* SYS-003: Hinderniserkennung und Umfahrung.
-* CT-NAV-002: Hinderniserkennung.
-* SYS-007: Not-Aus.
-
----
+* SYS-003: Hinderniserkennung und Umfahrung
+* CT-NAV-002: Hinderniserkennung
+* SYS-007: Not-Aus
 
 # D.5 Softwarerisiken
 
@@ -3893,24 +3588,22 @@ Komplexe Robotersysteme besitzen zahlreiche Betriebszustände. Fehlerhafte Über
 
 ### Auswirkungen
 
-* Blockierte Arbeitsabläufe.
-* Falsche Bewegungsbefehle.
-* Verlust der Systemzuverlässigkeit.
+* Blockierte Arbeitsabläufe
+* Falsche Bewegungsbefehle
+* Verlust der Systemzuverlässigkeit
 
 ### Gegenmaßnahmen
 
-* Zustandsautomat für Betriebsabläufe,
-* definierte Fehlerzustände,
-* automatisierte Softwaretests,
-* Fehlerprotokollierung.
+* Zustandsautomat für Betriebsabläufe
+* definierte Fehlerzustände
+* automatisierte Softwaretests
+* Fehlerprotokollierung
 
 ### Zugeordnete Tests
 
-* CT-MON-001.
-* IT-MON-001.
-* SYS-008.
-
----
+* CT-MON-001
+* IT-MON-001
+* SYS-008
 
 ## D.5.2 Fehlende Hardwareabstraktion
 
@@ -3920,22 +3613,20 @@ Eine unzureichende Trennung zwischen Hard- und Software kann spätere Erweiterun
 
 ### Auswirkungen
 
-* Erhöhter Entwicklungsaufwand.
-* Schlechtere Testbarkeit.
-* Eingeschränkte Austauschbarkeit von Komponenten.
+* Erhöhter Entwicklungsaufwand
+* Schlechtere Testbarkeit
+* Eingeschränkte Austauschbarkeit von Komponenten
 
 ### Gegenmaßnahmen
 
-* modulare Architektur,
-* definierte Schnittstellen,
-* simulierte Hardwarekomponenten.
+* modulare Architektur
+* definierte Schnittstellen
+* simulierte Hardwarekomponenten
 
 ### Zugeordnete Tests
 
-* CT-HW-001.
-* IT-HW-SIM-001.
-
----
+* CT-HW-001
+* IT-HW-SIM-001
 
 # D.6 Projektrisiken
 
@@ -3946,20 +3637,16 @@ Eine unzureichende Trennung zwischen Hard- und Software kann spätere Erweiterun
 | PR-003 | Fehlende Testdaten                         | Unzureichende Vorbereitung               | Eingeschränkte Validierung  | Frühzeitige Definition der Testszenarien |
 | PR-004 | Integration funktioniert nicht rechtzeitig | Unterschiedliche Entwicklungsstände      | Verzögerung der Systemtests | Regelmäßige Integrationstests            |
 
----
-
 # D.7 Testpriorisierung
 
 Die Testpriorisierung erfolgt anhand der Kritikalität der Anforderungen.
 
 Dabei werden folgende Kriterien berücksichtigt:
 
-* Sicherheitsrelevanz,
-* Bedeutung für die Kernfunktion,
-* technische Abhängigkeiten,
-* Auswirkung bei Fehlern.
-
----
+* Sicherheitsrelevanz
+* Bedeutung für die Kernfunktion
+* technische Abhängigkeiten
+* Auswirkung bei Fehlern
 
 # D.8 Prioritätsstufen der Tests
 
@@ -3982,8 +3669,6 @@ Begründung:
 
 Diese Funktionen stellen die grundlegende Sicherheit und Betriebsfähigkeit des Roboters sicher.
 
----
-
 ## Priorität P2 – Kernfunktionstests
 
 Diese Tests überprüfen die eigentliche Zielanwendung des Coasterbots.
@@ -4001,23 +3686,19 @@ Begründung:
 
 Diese Funktionen bestimmen den praktischen Nutzen des Prototyps.
 
----
-
 ## Priorität P3 – Erweiterungstests
 
 Diese Tests betreffen optionale oder zukünftige Funktionen.
 
 Beispiele:
 
-* Getränketransport,
-* Bestellung,
-* Bezahlung,
-* Reinigung,
-* Mensch-Roboter-Interaktion.
+* Getränketransport
+* Bestellung
+* Bezahlung
+* Reinigung
+* Mensch-Roboter-Interaktion
 
 Diese Funktionen sind nicht Bestandteil des aktuellen Projektumfangs.
-
----
 
 # D.9 Maßnahmen zur Risikoreduzierung
 
@@ -4025,26 +3706,24 @@ Zur Minimierung technischer Risiken werden folgende Maßnahmen eingesetzt:
 
 ## Entwicklung
 
-* modulare Softwarearchitektur,
-* klare Schnittstellendefinition,
-* kontinuierliche Integration,
-* frühzeitige Simulation.
+* modulare Softwarearchitektur
+* klare Schnittstellendefinition
+* kontinuierliche Integration
+* frühzeitige Simulation
 
 ## Test
 
-* automatisierte Komponententests,
-* reproduzierbare Simulationstests,
-* schrittweise Systemintegration,
-* Fehlerprotokollierung.
+* automatisierte Komponententests
+* reproduzierbare Simulationstests
+* schrittweise Systemintegration
+* Fehlerprotokollierung
 
 ## Sicherheit
 
-* Begrenzung kritischer Bewegungen,
-* definierte sichere Zustände,
-* Not-Aus-Funktion,
-* Überwachung wichtiger Systemparameter.
-
----
+* Begrenzung kritischer Bewegungen
+* definierte sichere Zustände
+* Not-Aus-Funktion
+* Überwachung wichtiger Systemparameter
 
 # D.10 Zusammenfassung
 
@@ -4052,11 +3731,11 @@ Die Risikoanalyse zeigt die wesentlichen technischen und organisatorischen Herau
 
 Besonders relevant sind Risiken in den Bereichen:
 
-* autonome Navigation,
-* Sicherheit,
-* Sensorverarbeitung,
-* Softwareintegration,
-* Systemzuverlässigkeit.
+* autonome Navigation
+* Sicherheit
+* Sensorverarbeitung
+* Softwareintegration
+* Systemzuverlässigkeit
 
 Durch eine strukturierte Testpriorisierung werden kritische Funktionen zuerst überprüft und mögliche Fehler frühzeitig erkannt.
 

@@ -1,0 +1,6448 @@
+\section{Einleitung}\label{einleitung}
+
+\subsection{Zweck der
+Testspezifikation}\label{zweck-der-testspezifikation}
+
+Diese Testspezifikation beschreibt die Planung, Durchführung und
+Bewertung der Tests für den im Rahmen der Projektarbeit entwickelten
+Coasterbot-Prototyp.
+
+Ziel der Tests ist es, die im Lastenheft definierten Anforderungen
+systematisch zu überprüfen und nachzuweisen, dass die technische
+Umsetzung gemäß dem Pflichtenheft funktioniert.
+
+Die Testspezifikation stellt eine Verbindung zwischen folgenden
+Dokumenten her:
+
+\begin{itemize}
+\tightlist
+\item
+  Anforderungen aus dem Lastenheft
+\item
+  technischen Umsetzungen aus dem Pflichtenheft
+\item
+  implementierten Systemkomponenten
+\item
+  durchgeführten Prüfungen
+\end{itemize}
+
+Dadurch wird sichergestellt, dass jede relevante Funktion des Systems
+nachvollziehbar geprüft werden kann.
+
+\subsection{Zielsetzung der
+Testdurchführung}\label{zielsetzung-der-testdurchfuxfchrung}
+
+Die Testdurchführung verfolgt folgende Ziele:
+
+\begin{itemize}
+\tightlist
+\item
+  Nachweis der Funktionsfähigkeit des Coasterbot-Prototyps
+\item
+  Überprüfung der autonomen Navigation
+\item
+  Validierung der Hinderniserkennung und Kollisionsvermeidung
+\item
+  Überprüfung der Aufnahme und Positionierung von Getränkeuntersetzern
+\item
+  Prüfung sicherheitskritischer Funktionen
+\item
+  Bewertung der Stabilität und Zuverlässigkeit der Software
+\item
+  Überprüfung der Simulationsumgebung hinsichtlich Reproduzierbarkeit
+\end{itemize}
+
+Die Tests dienen nicht nur der Fehlererkennung, sondern auch der
+Bewertung der Systemqualität und der Erfüllung der Definition of Done.
+
+\subsection{Geltungsbereich}\label{geltungsbereich}
+
+Die Testspezifikation umfasst alle Funktionen, die im Rahmen des
+Projekts umgesetzt werden.
+
+Der Schwerpunkt liegt auf den Funktionen des Maturity Level 1:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation und Lokalisierung
+\item
+  Hinderniserkennung
+\item
+  Tischkantenerkennung
+\item
+  Sicherheitsfunktionen
+\item
+  Getränkeuntersetzeraufnahme
+\item
+  Getränkeuntersetzerplatzierung
+\item
+  Systemüberwachung
+\item
+  Simulation und Testbarkeit
+\end{itemize}
+
+Funktionen höherer Reifegrade werden nicht vollständig getestet, da sie
+außerhalb des Projektumfangs liegen.
+
+Dies betrifft insbesondere:
+
+\begin{itemize}
+\tightlist
+\item
+  automatisierten Getränketransport
+\item
+  Bestellaufnahme
+\item
+  Bezahlvorgänge
+\item
+  Reinigung
+\item
+  Mensch-Roboter-Interaktion
+\item
+  Netzwerkkommunikation
+\end{itemize}
+
+\subsection{Testobjekt}\label{testobjekt}
+
+Das Testobjekt ist der Coasterbot-Prototyp, einschließlich seiner Hard-
+und Softwarekomponenten.
+
+Die Tests betrachten folgende Systembestandteile:
+
+\subsubsection{Hardware}\label{hardware}
+
+\begin{itemize}
+\tightlist
+\item
+  Recheneinheit
+\item
+  Sensorik
+\item
+  Aktorik
+\item
+  Energieversorgung
+\item
+  Mechanische Konstruktion
+\end{itemize}
+
+\subsubsection{Software}\label{software}
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwareabstraktion
+\item
+  Navigationskomponente
+\item
+  Lokalisierung
+\item
+  Bewegungssteuerung
+\item
+  Untersetzerhandling
+\item
+  Sicherheitslogik
+\item
+  Systemüberwachung
+\end{itemize}
+
+\subsubsection{Simulation}\label{simulation}
+
+\begin{itemize}
+\tightlist
+\item
+  Virtuelle Tischumgebung
+\item
+  Sensormodelle
+\item
+  Aktormodelle
+\item
+  Simulierte Fehlerzustände
+\item
+  Teststeuerung
+\end{itemize}
+
+\subsection{Testgrundlagen}\label{testgrundlagen}
+
+Die Testfälle werden aus den Anforderungen des Lastenhefts sowie den
+technischen Beschreibungen des Pflichtenhefts abgeleitet.
+
+Jeder Testfall besitzt eine eindeutige Identifikation und beschreibt:
+
+\begin{itemize}
+\tightlist
+\item
+  Testziel
+\item
+  Bezug zu Anforderungen
+\item
+  Voraussetzungen
+\item
+  Testumgebung
+\item
+  Testablauf
+\item
+  Eingabedaten
+\item
+  Erwartetes Ergebnis
+\item
+  Tatsächliches Ergebnis
+\item
+  Bewertung
+\end{itemize}
+
+Die Tests werden so gestaltet, dass sie reproduzierbar durchgeführt
+werden können.
+
+\subsection{Teststrategie}\label{teststrategie}
+
+Die Teststrategie folgt einem mehrstufigen Ansatz.
+
+Die einzelnen Testebenen bauen aufeinander auf:
+
+\subsection{Komponententests}\label{komponententests}
+
+Komponententests prüfen einzelne Softwaremodule unabhängig voneinander.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Prüfung der Positionsberechnung
+\item
+  Prüfung von Zustandsübergängen
+\item
+  Prüfung der Sensorverarbeitung
+\item
+  Prüfung der Fehlererkennung
+\end{itemize}
+
+Ziel ist die frühzeitige Erkennung von Fehlern innerhalb einzelner
+Komponenten.
+
+\subsection{Integrationstests}\label{integrationstests}
+
+Integrationstests prüfen die Kommunikation zwischen mehreren
+Komponenten.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Übergabe von Sensordaten an die Navigation
+\item
+  Übergabe von Navigationsbefehlen an die Bewegungssteuerung
+\item
+  Kommunikation zwischen Sicherheitslogik und Aktorsteuerung
+\end{itemize}
+
+Ziel ist der Nachweis eines korrekten Zusammenspiels der
+Systemkomponenten.
+
+\subsection{Simulationstests}\label{simulationstests}
+
+Simulationstests überprüfen das Verhalten des Gesamtsystems innerhalb
+der virtuellen Umgebung.
+
+Dabei werden insbesondere geprüft:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Hindernisvermeidung
+\item
+  Tischkantenerkennung
+\item
+  Untersetzerhandling
+\item
+  Fehlerzustände
+\end{itemize}
+
+Die Simulation ermöglicht reproduzierbare Tests ohne Abhängigkeit von
+der physischen Hardware.
+
+\subsection{Systemtests}\label{systemtests}
+
+Systemtests überprüfen den vollständigen Coasterbot-Prototyp.
+
+Dabei werden Hardware und Software gemeinsam betrachtet.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  vollständiger Navigationsablauf
+\item
+  Aufnahme eines Untersetzers
+\item
+  Sicherheitsstopp
+\item
+  Verhalten bei Fehlerzuständen
+\end{itemize}
+
+\subsection{Testumgebung}\label{testumgebung}
+
+Die Tests werden in mehreren Umgebungen durchgeführt.
+
+\subsubsection{Entwicklungsumgebung}\label{entwicklungsumgebung}
+
+Die Entwicklungsumgebung dient zur Durchführung automatisierter
+Softwaretests.
+
+Sie umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Quellcodeverwaltung
+\item
+  Build-System
+\item
+  Testframework
+\item
+  Analysewerkzeuge
+\end{itemize}
+
+\subsubsection{Simulationsumgebung}\label{simulationsumgebung}
+
+Die Simulationsumgebung ermöglicht die Prüfung des Systemverhaltens ohne
+reale Hardware.
+
+Sie beinhaltet:
+
+\begin{itemize}
+\tightlist
+\item
+  virtuelle Tischumgebung
+\item
+  simulierte Sensoren
+\item
+  simulierte Aktoren
+\item
+  definierte Testszenarien
+\end{itemize}
+
+\subsubsection{Physischer Prototyp}\label{physischer-prototyp}
+
+Nach erfolgreicher Validierung in der Simulation werden ausgewählte
+Tests auf dem realen Prototyp durchgeführt.
+
+Dabei werden insbesondere geprüft:
+
+\begin{itemize}
+\tightlist
+\item
+  mechanische Funktion
+\item
+  reale Sensorik
+\item
+  reale Bewegung
+\item
+  Interaktion der Hardwarekomponenten
+\end{itemize}
+
+\subsection{Bewertung von
+Testergebnissen}\label{bewertung-von-testergebnissen}
+
+Ein Testfall wird anhand des Vergleichs zwischen erwartetem und
+tatsächlichem Ergebnis bewertet.
+
+Folgende Ergebnisse sind möglich:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Ergebnis & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Bestanden & Erwartetes Ergebnis wurde erreicht \\
+Fehlgeschlagen & Erwartetes Ergebnis wurde nicht erreicht \\
+Nicht ausführbar & Voraussetzungen waren nicht erfüllt \\
+\end{longtable}
+
+Fehlgeschlagene Tests werden dokumentiert und führen zu einer
+Fehleranalyse sowie gegebenenfalls zu einer Anpassung der
+Implementierung.
+
+\subsection{Aufbau der
+Testspezifikation}\label{aufbau-der-testspezifikation}
+
+Die weiteren Kapitel dieser Testspezifikation sind wie folgt aufgebaut:
+
+\textbf{Kapitel 2 -- Testmethodik und Testmanagement} Beschreibung der
+Testorganisation, Testprozesse und Dokumentation.
+
+\textbf{Kapitel 3 -- Komponententests} Beschreibung der Tests einzelner
+Softwaremodule.
+
+\textbf{Kapitel 4 -- Integrationstests} Beschreibung der Tests zwischen
+Softwarekomponenten.
+
+\textbf{Kapitel 5 -- Simulationstests} Beschreibung der virtuellen
+Testszenarien.
+
+\textbf{Kapitel 6 -- Systemtests} Beschreibung der Tests am
+vollständigen Prototyp.
+
+\textbf{Kapitel 7 -- Testergebnisse und Bewertung} Dokumentation und
+Auswertung der durchgeführten Tests.
+
+\textbf{Kapitel 8 -- Zusammenfassung} Bewertung der Testergebnisse
+hinsichtlich der Projektziele.
+
+\subsection{Zusammenfassung}\label{zusammenfassung}
+
+Dieses Kapitel definiert die Grundlagen für die systematische Prüfung
+des Coasterbot-Prototyps.
+
+Durch die Kombination aus Komponenten-, Integrations-, Simulations- und
+Systemtests wird sichergestellt, dass die entwickelten Funktionen
+nachvollziehbar bewertet werden können.
+
+Die Testspezifikation bildet damit die Grundlage für den Nachweis, dass
+der entwickelte Prototyp die Anforderungen des Lasten- und
+Pflichtenhefts erfüllt.
+
+\section{Testmethodik und
+Testmanagement}\label{testmethodik-und-testmanagement}
+
+\subsection{Ziel der Testmethodik}\label{ziel-der-testmethodik}
+
+Die Testmethodik definiert die Vorgehensweise zur Planung, Durchführung
+und Bewertung der Tests für den Coasterbot-Prototyp.
+
+Ziel ist es, durch eine strukturierte und nachvollziehbare
+Vorgehensweise sicherzustellen, dass relevante Anforderungen geprüft
+werden. Die Testmethodik orientiert sich an den Prinzipien des
+systematischen Softwaretests und berücksichtigt sowohl die
+Besonderheiten eingebetteter Systeme als auch die Anforderungen an
+autonome Robotersysteme.
+
+Die Testmethodik verfolgt folgende Ziele:
+
+\begin{itemize}
+\tightlist
+\item
+  vollständige Abdeckung der relevanten Anforderungen
+\item
+  frühzeitige Erkennung von Fehlern
+\item
+  reproduzierbare Testergebnisse
+\item
+  nachvollziehbare Dokumentation
+\item
+  Verifikation der technischen Umsetzung
+\end{itemize}
+
+\subsection{Testvorgehensmodell}\label{testvorgehensmodell}
+
+Die Entwicklung und Prüfung des Coasterbots erfolgt nach einem
+inkrementellen Testvorgehen.
+
+Dabei werden Funktionen schrittweise entwickelt und anschließend auf
+verschiedenen Ebenen geprüft.
+
+Der Testprozess besteht aus folgenden Phasen:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Testplanung
+\item
+  Testentwurf
+\item
+  Testimplementierung
+\item
+  Testdurchführung
+\item
+  Fehleranalyse
+\item
+  Testabschluss
+\end{enumerate}
+
+\subsubsection{Testplanung}\label{testplanung}
+
+In der Testplanung werden die Rahmenbedingungen für die Tests
+festgelegt.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Definition der Testziele
+\item
+  Auswahl geeigneter Testverfahren
+\item
+  Festlegung der Testumgebung
+\item
+  Identifikation benötigter Testdaten
+\item
+  Zuordnung der Anforderungen zu Testfällen
+\end{itemize}
+
+Die Testplanung basiert auf der Traceability-Matrix aus dem
+Pflichtenheft.
+
+\subsubsection{Testentwurf}\label{testentwurf}
+
+Im Testentwurf werden konkrete Testfälle aus den Anforderungen
+abgeleitet.
+
+Jeder Testfall erhält eine eindeutige Identifikation.
+
+Die Testfälle werden nach folgendem Schema aufgebaut:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & Eindeutige Kennung des Testfalls \\
+Titel & Name des Tests \\
+Ziel & Beschreibung der zu prüfenden Funktion \\
+Anforderungen & Zugeordnete Anforderungen \\
+Voraussetzungen & Notwendige Ausgangsbedingungen \\
+Testdaten & Verwendete Eingaben und Parameter \\
+Ablauf & Beschreibung der Testschritte \\
+Erwartetes Ergebnis & Sollverhalten \\
+Bewertung & Testergebnis \\
+\end{longtable}
+
+\subsection{Testebenen}\label{testebenen}
+
+Die Tests werden in verschiedene Ebenen unterteilt. Jede Ebene besitzt
+eine eigene Zielsetzung.
+
+\subsubsection{Komponententest}\label{komponententest}
+
+Komponententests überprüfen einzelne Softwaremodule unabhängig
+voneinander.
+
+Ziel:
+
+\begin{itemize}
+\tightlist
+\item
+  korrekte Funktion einzelner Komponenten
+\item
+  Prüfung interner Logik
+\item
+  Fehlerisolierung
+\end{itemize}
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Prüfung der Lokalisierungsberechnung
+\item
+  Prüfung eines Zustandsautomaten
+\item
+  Prüfung der Fehlererkennung
+\end{itemize}
+
+Komponententests werden bevorzugt automatisiert durchgeführt.
+
+\subsubsection{Integrationstest}\label{integrationstest}
+
+Integrationstests prüfen das Zusammenspiel mehrerer Komponenten.
+
+Dabei werden insbesondere Schnittstellen überprüft.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorabstraktion liefert korrekte Daten an Navigation
+\item
+  Navigation erzeugt gültige Steuerbefehle
+\item
+  Sicherheitskomponente kann Bewegungen stoppen
+\end{itemize}
+
+Ziel ist der Nachweis, dass die Komponenten gemeinsam korrekt
+funktionieren.
+
+\subsubsection{Simulationstest}\label{simulationstest}
+
+Simulationstests prüfen das Verhalten des Gesamtsystems unter
+kontrollierten Bedingungen.
+
+Die Simulation ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  reproduzierbare Szenarien
+\item
+  sichere Prüfung kritischer Situationen
+\item
+  Untersuchung verschiedener Umgebungsbedingungen
+\end{itemize}
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Hindernis auf der Fahrstrecke
+\item
+  Verlust eines Sensorsignals
+\item
+  Annäherung an eine Tischkante
+\end{itemize}
+
+\subsubsection{Systemtest}\label{systemtest}
+
+Systemtests prüfen den vollständigen Prototyp.
+
+Dabei werden alle relevanten Komponenten gemeinsam betrachtet:
+
+\begin{itemize}
+\tightlist
+\item
+  Mechanik
+\item
+  Elektronik
+\item
+  Software
+\item
+  Sensorik
+\item
+  Aktorik
+\end{itemize}
+
+Ziel ist die Überprüfung des Gesamtsystems unter realitätsnahen
+Bedingungen.
+
+\subsection{Testarten}\label{testarten}
+
+Neben den Testebenen werden unterschiedliche Testarten eingesetzt.
+
+\subsubsection{Funktionstest}\label{funktionstest}
+
+Funktionstests prüfen, ob das System die geforderten Funktionen korrekt
+ausführt.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation zu einem Zielpunkt
+\item
+  Aufnahme eines Getränkeuntersetzers
+\item
+  Erkennen eines Hindernisses
+\end{itemize}
+
+\subsubsection{Sicherheitstest}\label{sicherheitstest}
+
+Sicherheitstests überprüfen sicherheitskritische Funktionen.
+
+Geprüft werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Not-Aus
+\item
+  Tischkantenerkennung
+\item
+  Kollisionsvermeidung
+\item
+  Fehlerreaktionen
+\end{itemize}
+
+Diese Tests besitzen eine hohe Priorität, da Fehler zu Schäden am System
+oder in der Umgebung führen können.
+
+\subsubsection{Belastungstest}\label{belastungstest}
+
+Belastungstests untersuchen das Verhalten unter erhöhten Anforderungen.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  längere Betriebsdauer
+\item
+  häufige Fahrbewegungen
+\item
+  wiederholte Aufnahmevorgänge
+\end{itemize}
+
+Ziel ist die Bewertung der Stabilität und Zuverlässigkeit.
+
+\subsubsection{Regressionstest}\label{regressionstest}
+
+Regressionstests stellen sicher, dass Änderungen an der Software keine
+bereits funktionierenden Funktionen beeinträchtigen.
+
+Nach jeder größeren Änderung werden relevante Tests erneut ausgeführt.
+
+\subsection{Priorisierung der
+Testfälle}\label{priorisierung-der-testfuxe4lle}
+
+Nicht alle Anforderungen besitzen dieselbe Kritikalität. Daher werden
+Testfälle priorisiert.
+
+Die Priorisierung erfolgt anhand folgender Kriterien:
+
+\begin{itemize}
+\tightlist
+\item
+  Sicherheitsrelevanz
+\item
+  Bedeutung für die Kernfunktion
+\item
+  Abhängigkeit anderer Komponenten
+\item
+  Einfluss auf die Definition of Done
+\end{itemize}
+
+Die Prioritätsstufen sind:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Priorität & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+P1 & Kritische Funktion, muss zwingend erfüllt sein \\
+P2 & Wesentliche Funktion für den Prototyp \\
+P3 & Unterstützende oder optionale Funktion \\
+\end{longtable}
+
+\subsubsection{Priorität P1 -- Kritische
+Tests}\label{priorituxe4t-p1-kritische-tests}
+
+Folgende Funktionen besitzen höchste Priorität:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung von Tischkanten
+\item
+  Sicherheitsstopp
+\item
+  Kollisionsvermeidung
+\item
+  Grundlegende Bewegungsfähigkeit
+\item
+  Fehlererkennung
+\end{itemize}
+
+Ein Fehler in diesen Bereichen verhindert einen sicheren Betrieb des
+Roboters.
+
+\subsubsection{Priorität P2 --
+Kernfunktionen}\label{priorituxe4t-p2-kernfunktionen}
+
+Folgende Funktionen sind für die eigentliche Aufgabe des Prototyps
+erforderlich:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation (zu Zielpunkten)
+\item
+  Lokalisierung
+\item
+  Untersetzeraufnahme
+\item
+  Untersetzerplatzierung
+\item
+  Systemüberwachung
+\end{itemize}
+
+\subsubsection{Priorität P3 --
+Erweiterungen}\label{priorituxe4t-p3-erweiterungen}
+
+Diese Funktionen werden nachrangig betrachtet:
+
+\begin{itemize}
+\tightlist
+\item
+  (Erweiterte) Simulationen
+\item
+  Optimierungen
+\item
+  Vorbereitung zukünftiger Ausbaustufen
+\end{itemize}
+
+\subsection{Testdaten und
+Testszenarien}\label{testdaten-und-testszenarien}
+
+Die Testdaten werden so gewählt, dass typische sowie kritische
+Situationen abgedeckt werden.
+
+Beispiele:
+
+\subsubsection{Normalszenario}\label{normalszenario}
+
+\begin{itemize}
+\tightlist
+\item
+  Freie Tischfläche
+\item
+  Keine Hindernisse
+\item
+  Ausreichender Energiezustand
+\end{itemize}
+
+Ziel:
+
+Überprüfung des normalen Betriebs.
+
+\subsubsection{Hindernisszenario}\label{hindernisszenario}
+
+\begin{itemize}
+\tightlist
+\item
+  Objekt befindet sich auf geplanter Route
+\end{itemize}
+
+Ziel:
+
+Prüfung der Hinderniserkennung und Navigation.
+
+\subsubsection{Grenzszenario}\label{grenzszenario}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter nähert sich Tischkante
+\item
+  Sensor liefert kritische Werte
+\end{itemize}
+
+Ziel:
+
+Überprüfung der Sicherheitsfunktionen.
+
+\subsubsection{Fehlerszenario}\label{fehlerszenario}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensor fällt aus
+\item
+  Aktor reagiert nicht
+\end{itemize}
+
+Ziel:
+
+Überprüfung der Fehlerbehandlung.
+
+\subsection{Testautomatisierung}\label{testautomatisierung}
+
+Ein wesentlicher Bestandteil des Testkonzepts ist die Automatisierung
+wiederkehrender Prüfungen.
+
+Automatisierte Tests ermöglichen:
+
+\begin{itemize}
+\tightlist
+\item
+  schnelle Wiederholung von Testfällen
+\item
+  reproduzierbare Ergebnisse
+\item
+  frühzeitige Fehlererkennung
+\item
+  Unterstützung der Softwareentwicklung
+\end{itemize}
+
+Automatisiert werden insbesondere:
+
+\begin{itemize}
+\tightlist
+\item
+  Komponententests
+\item
+  Schnittstellentests
+\item
+  Simulationstests
+\item
+  Zustandsübergänge
+\end{itemize}
+
+\subsection{Fehlerverwaltung}\label{fehlerverwaltung}
+
+Festgestellte Fehler werden strukturiert dokumentiert.
+
+Jeder Fehler enthält:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Fehler-ID & Eindeutige Kennung \\
+Beschreibung & Fehlerbeschreibung \\
+Betroffene Komponente & Verantwortliches Modul \\
+Priorität & Kritikalität \\
+Reproduzierbarkeit & Möglichkeit der Wiederholung \\
+Status & Bearbeitungsstand \\
+\end{longtable}
+
+Mögliche Fehlerstatus:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Status & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Neu & Fehler wurde erkannt \\
+Analyse & Ursache wird untersucht \\
+Behoben & Fehler wurde korrigiert \\
+Verifiziert & Korrektur wurde getestet \\
+\end{longtable}
+
+\subsection{Testabschluss}\label{testabschluss}
+
+Ein Testzyklus gilt als abgeschlossen, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  alle geplanten Tests durchgeführt wurden
+\item
+  Ergebnisse dokumentiert wurden
+\item
+  kritische Fehler behoben wurden
+\item
+  die Testabdeckung bewertet wurde
+\end{itemize}
+
+Die Ergebnisse werden in einem Testbericht zusammengefasst.
+
+Dieser enthält:
+
+\begin{itemize}
+\tightlist
+\item
+  Anzahl ausgeführter Tests
+\item
+  erfolgreiche Tests
+\item
+  fehlgeschlagene Tests
+\item
+  offene Probleme
+\item
+  Bewertung des Systemzustands
+\end{itemize}
+
+\subsection{Zusammenfassung}\label{zusammenfassung-1}
+
+Die Testmethodik definiert einen strukturierten Prozess zur Überprüfung
+des Coasterbot-Prototyps.
+
+Durch die Kombination verschiedener Testebenen und Testarten wird
+sichergestellt, dass sowohl einzelne Softwarekomponenten als auch das
+Gesamtsystem überprüft werden.
+
+Die Priorisierung der Tests stellt sicher, dass sicherheitskritische und
+für die Kernfunktion notwendige Anforderungen zuerst validiert werden.
+
+Damit bildet dieses Testmanagement die Grundlage für die nachfolgenden
+detaillierten Testfälle.
+
+\section{Komponententests}\label{komponententests-1}
+
+\subsection{Ziel der Komponententests}\label{ziel-der-komponententests}
+
+Komponententests überprüfen einzelne Softwaremodule des
+Coasterbot-Systems unabhängig von anderen Systembestandteilen. Ziel ist
+es, die korrekte Funktion der einzelnen Komponenten sicherzustellen,
+bevor diese in das Gesamtsystem integriert werden.
+
+Durch die isolierte Prüfung einzelner Komponenten können Fehler
+frühzeitig erkannt und deren Ursachen eindeutig zugeordnet werden.
+
+Die Komponententests konzentrieren sich auf die im Pflichtenheft
+definierten Softwaremodule:
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwareabstraktion
+\item
+  Lokalisierung
+\item
+  Navigation
+\item
+  Bewegungssteuerung
+\item
+  Untersetzerhandling
+\item
+  Sicherheitskomponente
+\item
+  Systemüberwachung
+\end{itemize}
+
+Die Tests werden bevorzugt automatisiert ausgeführt, um eine
+wiederholbare und effiziente Qualitätssicherung zu ermöglichen.
+
+\subsection{Testumgebung für
+Komponententests}\label{testumgebung-fuxfcr-komponententests}
+
+Die Komponententests werden ohne vollständige Hardware durchgeführt.
+Hardwareabhängige Funktionen werden durch simulierte Schnittstellen
+ersetzt.
+
+Die Testumgebung besteht aus:
+
+\begin{itemize}
+\tightlist
+\item
+  Softwarekomponenten des Coasterbots
+\item
+  Simulierten Sensordaten
+\item
+  Simulierten Aktorzuständen
+\item
+  Testframework
+\item
+  Testdatenverwaltung
+\end{itemize}
+
+Die Hardwareabstraktion ermöglicht es, einzelne Komponenten unabhängig
+von realen Sensoren und Aktoren zu prüfen.
+
+\subsection{Testfallstruktur}\label{testfallstruktur}
+
+Alle Komponententests werden nach einer einheitlichen Struktur
+dokumentiert.
+
+Jeder Testfall enthält:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & Eindeutige Kennung \\
+Komponente & Getestetes Modul \\
+Ziel & Zweck des Tests \\
+Anforderungen & Zugeordnete Lastenheft-Anforderungen \\
+Voraussetzungen & Notwendige Bedingungen \\
+Eingaben & Testdaten \\
+Ablauf & Durchführung \\
+Erwartetes Ergebnis & Sollverhalten \\
+Bewertung & Testergebnis \\
+\end{longtable}
+
+\subsection{Komponententest:
+Hardwareabstraktion}\label{komponententest-hardwareabstraktion}
+
+\subsubsection{Testfall CT-HW-001: Verarbeitung von
+Sensordaten}\label{testfall-ct-hw-001-verarbeitung-von-sensordaten}
+
+\paragraph{Ziel}\label{ziel}
+
+Überprüfung, ob die Hardwareabstraktion Sensordaten korrekt einliest und
+für die darüberliegenden Softwarekomponenten bereitstellt.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen}
+
+\begin{itemize}
+\tightlist
+\item
+  NFR-008: Software muss Hardwareabstraktion unterstützen
+\item
+  NFR-007: Sensoren und Aktoren müssen austauschbar sein
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen}
+
+\begin{itemize}
+\tightlist
+\item
+  Simulierter Sensor ist verfügbar
+\item
+  Hardwareabstraktionsschnittstelle ist initialisiert
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben}
+
+Simulierter Abstandswert:
+
+\begin{verbatim}
+Entfernung = 500 mm
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulierter Sensor liefert Messwert
+\item
+  Hardwareabstraktion empfängt den Messwert
+\item
+  Daten werden in internes Format übertragen
+\item
+  Navigationskomponente ruft Sensordaten ab
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensordaten werden korrekt verarbeitet
+\item
+  Datenformat entspricht der definierten Schnittstelle
+\item
+  Navigation erhält gültige Informationen
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung}
+
+Bestanden, wenn die übertragenen Daten mit den Eingangsdaten
+übereinstimmen.
+
+\subsection{Komponententest:
+Lokalisierung}\label{komponententest-lokalisierung}
+
+\subsubsection{Testfall CT-LOC-001:
+Positionsaktualisierung}\label{testfall-ct-loc-001-positionsaktualisierung}
+
+\paragraph{Ziel}\label{ziel-1}
+
+Überprüfung der Berechnung und Aktualisierung der Roboterposition.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-006: Der Bot muss seine Position bestimmen können
+\item
+  NAV-007: Der Bot muss seine Orientierung bestimmen können
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Lokalisierungskomponente ist aktiv
+\item
+  Startposition ist definiert
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-1}
+
+Startposition:
+
+\[
+(x,y,\theta)=(0,0,0)
+\]
+
+Bewegungsänderung:
+
+\[
+\Delta x=100mm
+\]
+
+\paragraph{Ablauf}\label{ablauf-1}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Startposition wird gesetzt
+\item
+  Bewegungsinformation wird übergeben
+\item
+  Lokalisierung verarbeitet die Daten
+\item
+  Neue Position wird berechnet
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-1}
+
+Die Position wird korrekt aktualisiert:
+
+\[
+(x,y,\theta)=(100,0,0)
+\]
+
+\paragraph{Bewertung}\label{bewertung-1}
+
+Bestanden, wenn die berechnete Position innerhalb der definierten
+Genauigkeit liegt.
+
+\subsection{Komponententest:
+Navigation}\label{komponententest-navigation}
+
+\subsubsection{Testfall CT-NAV-001: Berechnung einer gültigen
+Route}\label{testfall-ct-nav-001-berechnung-einer-guxfcltigen-route}
+
+\paragraph{Ziel}\label{ziel-2}
+
+Überprüfung, ob die Navigationskomponente eine gültige Route zwischen
+Start- und Zielpunkt erzeugen kann.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-2}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-005: Der Bot muss seine Fahrtroute dynamisch anpassen
+\item
+  NAV-008: Der Bot muss seinen Zielpunkt erreichen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Startposition bekannt
+\item
+  Zielposition bekannt
+\item
+  Keine Hindernisse vorhanden
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-2}
+
+Start:
+
+\[
+(0,0)
+\]
+
+Ziel:
+
+\[
+(1000,500)
+\]
+
+\paragraph{Ablauf}\label{ablauf-2}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Startposition wird gesetzt
+\item
+  Zielposition wird übergeben
+\item
+  Navigation berechnet Route
+\item
+  Route wird ausgegeben
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Eine gültige Route wird erzeugt
+\item
+  Zielpunkt ist erreichbar
+\item
+  Route enthält keine ungültigen Bewegungen
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-2}
+
+Bestanden, wenn eine gültige Bewegungssequenz erzeugt wird.
+
+\subsubsection{Testfall CT-NAV-002:
+Hinderniserkennung}\label{testfall-ct-nav-002-hinderniserkennung}
+
+\paragraph{Ziel}\label{ziel-3}
+
+Überprüfung der Reaktion der Navigation auf ein erkanntes Hindernis.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-3}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-001: Hindernisse erkennen
+\item
+  NAV-002: Hindernissen ausweichen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigationsziel ist gesetzt
+\item
+  Hindernisdaten werden simuliert
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-3}
+
+Hindernisposition:
+
+\[
+(500,0)
+\]
+
+\paragraph{Ablauf}\label{ablauf-3}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Navigation startet
+\item
+  Hindernis wird erkannt
+\item
+  Route wird neu berechnet
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Hindernis wird erkannt
+\item
+  Neue Route vermeidet das Hindernis
+\item
+  Keine Kollision entsteht
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-3}
+
+Bestanden, wenn eine kollisionsfreie Route erzeugt wird.
+
+\subsection{Komponententest:
+Bewegungssteuerung}\label{komponententest-bewegungssteuerung}
+
+\subsubsection{Testfall CT-MOT-001: Umsetzung von
+Bewegungsbefehlen}\label{testfall-ct-mot-001-umsetzung-von-bewegungsbefehlen}
+
+\paragraph{Ziel}\label{ziel-4}
+
+Überprüfung, ob Bewegungsbefehle korrekt in Aktorbefehle umgesetzt
+werden.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-4}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-009: Der Bot muss sich kontrolliert bewegen
+\item
+  SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit kollidieren
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Motorsteuerung ist initialisiert
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-4}
+
+Bewegungsbefehl:
+
+\begin{verbatim}
+Geschwindigkeit: 100 mm/s
+Richtung: vorwärts
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-4}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Bewegungsbefehl wird übergeben
+\item
+  Steuerung berechnet Aktorsignale
+\item
+  Motorzustand wird geprüft
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Motoren erhalten korrekte Steuerwerte
+\item
+  Geschwindigkeit entspricht Vorgabe
+\item
+  Sicherheitsgrenzen werden eingehalten
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-4}
+
+Bestanden, wenn die Ausgangswerte korrekt erzeugt werden.
+
+\subsection{Komponententest:
+Untersetzerhandling}\label{komponententest-untersetzerhandling}
+
+\subsubsection{Testfall CT-CST-001: Aufnahme eines
+Getränkeuntersetzers}\label{testfall-ct-cst-001-aufnahme-eines-getruxe4nkeuntersetzers}
+
+\paragraph{Ziel}\label{ziel-5}
+
+Überprüfung des Aufnahmeprozesses.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-5}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-001: Untersetzer aufnehmen
+\item
+  CST-005: Erfolgreiche Aufnahme erkennen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer befindet sich an definierter Position
+\item
+  Aufnahmemechanismus ist verfügbar
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-5}
+
+Untersetzerstatus:
+
+\begin{verbatim}
+Verfügbar = TRUE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-5}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Aufnahmeprozess wird gestartet
+\item
+  Aktor wird aktiviert
+\item
+  Sensorstatus wird geprüft
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Aufnahme wird durchgeführt
+\item
+  Erfolgreiche Aufnahme wird erkannt
+\item
+  Zustand wechselt zu ``Untersetzer aufgenommen''
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-5}
+
+Bestanden, wenn der Zustand korrekt aktualisiert wird.
+
+\subsubsection{Testfall CT-CST-002: Fehler bei
+Untersetzeraufnahme}\label{testfall-ct-cst-002-fehler-bei-untersetzeraufnahme}
+
+\paragraph{Ziel}\label{ziel-6}
+
+Überprüfung der Fehlererkennung während der Aufnahme.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-6}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-005: Aufnahme erkennen
+\item
+  MON-005: Fehlgeschlagene Aufgaben melden
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Aufnahmevorgang gestartet
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-6}
+
+Simulierter Fehler:
+
+\begin{verbatim}
+Untersetzer erkannt = FALSE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-6}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Aufnahme wird gestartet
+\item
+  Sensor meldet fehlende Aufnahme
+\item
+  System verarbeitet Fehler
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehler wird erkannt
+\item
+  Aufgabe wird abgebrochen
+\item
+  Fehler wird gemeldet
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-6}
+
+Bestanden, wenn der Fehler korrekt verarbeitet wird.
+
+\subsection{Komponententest:
+Sicherheitskomponente}\label{komponententest-sicherheitskomponente}
+
+\subsubsection{Testfall CT-SAF-001:
+Sicherheitsstopp}\label{testfall-ct-saf-001-sicherheitsstopp}
+
+\paragraph{Ziel}\label{ziel-7}
+
+Überprüfung der Reaktion auf eine Gefahrensituation.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-7}
+
+\begin{itemize}
+\tightlist
+\item
+  SAF-001: Bei Gefahr sofort anhalten
+\item
+  SAF-006: Not-Aus unterstützen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich im Bewegungszustand
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-7}
+
+Not-Aus-Signal:
+
+\begin{verbatim}
+EmergencyStop = TRUE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-7}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Bewegungssteuerung ist aktiv
+\item
+  Sicherheitskomponente erhält Stoppsignal
+\item
+  Sicherheitszustand wird aktiviert
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-7}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsbefehle werden unterbrochen
+\item
+  Roboter wechselt in sicheren Zustand
+\item
+  Status wird aktualisiert
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-7}
+
+Bestanden, wenn der Stopp innerhalb der definierten Reaktionszeit
+erfolgt.
+
+\subsection{Komponententest:
+Systemüberwachung}\label{komponententest-systemuxfcberwachung}
+
+\subsubsection{Testfall CT-MON-001: Fehlererkennung und
+Protokollierung}\label{testfall-ct-mon-001-fehlererkennung-und-protokollierung}
+
+\paragraph{Ziel}\label{ziel-8}
+
+Überprüfung der Diagnosefunktion.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-8}
+
+\begin{itemize}
+\tightlist
+\item
+  MON-001: Fehler erkennen
+\item
+  MON-002: Fehler protokollieren
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Systemüberwachung ist aktiv
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-8}
+
+Simulierter Fehler:
+
+\begin{verbatim}
+Sensorfehler = TRUE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-8}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Fehler wird erzeugt
+\item
+  Systemüberwachung verarbeitet Ereignis
+\item
+  Fehler wird gespeichert
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-8}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehler wird erkannt
+\item
+  Fehler wird protokolliert
+\item
+  Status wird aktualisiert
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-8}
+
+Bestanden, wenn der Fehler vollständig dokumentiert wurde.
+
+\subsection{Zusammenfassung der
+Komponententests}\label{zusammenfassung-der-komponententests}
+
+Die Komponententests überprüfen die grundlegenden Funktionen der
+einzelnen Softwaremodule des Coasterbots.
+
+Durch die isolierte Prüfung werden Fehler frühzeitig erkannt und die
+Grundlage für nachfolgende Integrations- und Systemtests geschaffen.
+
+Die wichtigsten überprüften Bereiche sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwareabstraktion
+\item
+  Navigation
+\item
+  Lokalisierung
+\item
+  Bewegungssteuerung
+\item
+  Untersetzerhandling
+\item
+  Sicherheit
+\item
+  Systemüberwachung
+\end{itemize}
+
+Die erfolgreichen Komponententests bilden die Voraussetzung für die
+Integration der einzelnen Softwarebestandteile zu einem vollständigen
+Robotersystem.
+
+\section{Integrationstests}\label{integrationstests-1}
+
+\subsection{Ziel der
+Integrationstests}\label{ziel-der-integrationstests}
+
+Integrationstests überprüfen das Zusammenspiel mehrerer
+Softwarekomponenten des Coasterbot-Systems. Während Komponententests
+einzelne Module isoliert betrachten, wird bei Integrationstests die
+korrekte Kommunikation und Zusammenarbeit zwischen den Komponenten
+untersucht.
+
+Ziel der Integrationstests ist es, sicherzustellen, dass die einzelnen
+Systembestandteile gemeinsam die geforderten Funktionen erfüllen.
+
+Der Fokus liegt dabei auf:
+
+\begin{itemize}
+\tightlist
+\item
+  korrekter Datenübertragung zwischen Komponenten
+\item
+  definierten Schnittstellen
+\item
+  korrekten Zustandsübergängen
+\item
+  fehlerfreier Zusammenarbeit von Hard- und Softwareabstraktion
+\item
+  sicherem Verhalten bei kritischen Situationen
+\end{itemize}
+
+Die Integrationstests bilden die Grundlage für die anschließenden
+Systemtests, bei denen der vollständige Prototyp betrachtet wird.
+
+\subsection{Testumgebung für
+Integrationstests}\label{testumgebung-fuxfcr-integrationstests}
+
+Die Integrationstests werden in einer Umgebung durchgeführt, die mehrere
+reale oder simulierte Komponenten kombiniert.
+
+Die Testumgebung umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Softwarekomponenten des Coasterbots
+\item
+  Hardwareabstraktionsschicht
+\item
+  simulierte Sensordaten
+\item
+  simulierte Aktorzustände
+\item
+  Simulationsumgebung
+\item
+  Testframework
+\end{itemize}
+
+Je nach Testfall können einzelne Hardwarekomponenten durch
+Simulationsmodelle ersetzt werden.
+
+Dadurch kann das Verhalten der Software unabhängig von der finalen
+Hardware überprüft werden.
+
+\subsection{Testfallstruktur}\label{testfallstruktur-1}
+
+Die Integrationstestfälle werden nach folgendem Schema beschrieben:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & Eindeutige Identifikation \\
+Testname & Bezeichnung des Tests \\
+Ziel & Zu überprüfende Integration \\
+Anforderungen & Zugeordnete Anforderungen \\
+Beteiligte Komponenten & Verwendete Systemmodule \\
+Voraussetzungen & Ausgangszustand \\
+Ablauf & Testschritte \\
+Erwartetes Ergebnis & Sollverhalten \\
+Bewertung & Testergebnis \\
+\end{longtable}
+
+\subsection{Integrationstest: Sensorik und
+Navigation}\label{integrationstest-sensorik-und-navigation}
+
+\subsubsection{Testfall IT-SEN-NAV-001: Verarbeitung von
+Hindernisdaten}\label{testfall-it-sen-nav-001-verarbeitung-von-hindernisdaten}
+
+\paragraph{Ziel}\label{ziel-9}
+
+Überprüfung der korrekten Übergabe von Sensordaten an die
+Navigationskomponente.
+
+\paragraph{Zugeordnete Anforderungen}\label{zugeordnete-anforderungen-9}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-001: Der Bot muss Hindernisse erkennen
+\item
+  NAV-002: Der Bot muss Hindernissen ausweichen
+\item
+  NFR-008: Software muss Hardwareabstraktion unterstützen
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorabstraktion
+\item
+  Hinderniserkennung
+\item
+  Navigation
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-9}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation ist aktiv
+\item
+  Simulierter Abstandssensor ist verfügbar
+\item
+  Eine Route zu einem Zielpunkt wurde erstellt
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-9}
+
+Sensordaten:
+
+\begin{verbatim}
+Hindernis erkannt = TRUE
+Abstand = 200 mm
+Position = (500,300)
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-9}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sensorabstraktion empfängt Messwerte
+\item
+  Messwerte werden an die Hinderniserkennung übertragen
+\item
+  Hinderniserkennung bewertet die Situation
+\item
+  Navigationskomponente erhält die Information über das Hindernis
+\item
+  Neue Route wird berechnet
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-9}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensordaten werden korrekt übertragen
+\item
+  Hindernis wird erkannt
+\item
+  Navigation reagiert auf die Änderung
+\item
+  Neue kollisionsfreie Route wird erzeugt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-9}
+
+Bestanden, wenn die Navigation innerhalb der definierten Reaktionszeit
+eine gültige Anpassung erzeugt.
+
+\subsection{Integrationstest: Lokalisierung und
+Navigation}\label{integrationstest-lokalisierung-und-navigation}
+
+\subsubsection{Testfall IT-LOC-NAV-001: Zielnavigation mit
+Positionsdaten}\label{testfall-it-loc-nav-001-zielnavigation-mit-positionsdaten}
+
+\paragraph{Ziel}\label{ziel-10}
+
+Überprüfung, ob die Navigation die aktuelle Position korrekt verwendet.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-10}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-006: Der Bot muss seine Position bestimmen können
+\item
+  NAV-007: Der Bot muss seine Orientierung bestimmen können
+\item
+  NAV-008: Der Bot muss seinen Zielpunkt erreichen
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Lokalisierung
+\item
+  Navigation
+\item
+  Bewegungssteuerung
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-10}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboterposition ist initialisiert
+\item
+  Zielpunkt ist bekannt
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-10}
+
+Startposition:
+
+\begin{verbatim}
+x = 0 mm
+y = 0 mm
+Orientierung = 0°
+\end{verbatim}
+
+Ziel:
+
+\begin{verbatim}
+x = 1000 mm
+y = 500 mm
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-10}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Lokalisierung stellt aktuelle Position bereit
+\item
+  Navigation berechnet Bewegungsrichtung
+\item
+  Bewegungssteuerung erhält Fahrbefehle
+\item
+  Positionsänderungen werden zurückgemeldet
+\item
+  Navigation aktualisiert die Route
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-10}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation verwendet aktuelle Positionsdaten
+\item
+  Fahrbefehle werden korrekt erzeugt
+\item
+  Roboter bewegt sich in Richtung Ziel
+\item
+  Ziel wird innerhalb der definierten Genauigkeit erreicht
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-10}
+
+Bestanden, wenn die Positionsabweichung kleiner als der definierte
+Grenzwert ist.
+
+\subsection{Integrationstest: Navigation und
+Bewegungssteuerung}\label{integrationstest-navigation-und-bewegungssteuerung}
+
+\subsubsection{Testfall IT-NAV-MOT-001: Umsetzung von
+Navigationsbefehlen}\label{testfall-it-nav-mot-001-umsetzung-von-navigationsbefehlen}
+
+\paragraph{Ziel}\label{ziel-11}
+
+Überprüfung der Schnittstelle zwischen Navigation und Motorsteuerung.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-11}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-009: Der Bot muss sich kontrolliert bewegen
+\item
+  SAF-004: Der Bot darf nicht mit hoher Geschwindigkeit in Hindernisse
+  fahren
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Bewegungssteuerung
+\item
+  Hardwareabstraktion
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-11}
+
+\begin{itemize}
+\tightlist
+\item
+  Route wurde berechnet
+\item
+  Motorsteuerung ist betriebsbereit
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-11}
+
+Navigationsbefehl:
+
+\begin{verbatim}
+Geschwindigkeit = 100 mm/s
+Richtung = 45°
+Distanz = 500 mm
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-11}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Navigation erzeugt Bewegungsbefehl
+\item
+  Bewegungssteuerung verarbeitet den Befehl
+\item
+  Aktorschnittstelle erzeugt Steuersignale
+\item
+  Bewegungsstatus wird zurückgemeldet
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-11}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsbefehle werden korrekt umgesetzt
+\item
+  Geschwindigkeit bleibt innerhalb definierter Grenzen
+\item
+  Bewegungsstatus wird aktualisiert
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-11}
+
+Bestanden, wenn die erzeugte Bewegung dem Navigationsauftrag entspricht.
+
+\subsection{Integrationstest: Sicherheitslogik und
+Bewegungssteuerung}\label{integrationstest-sicherheitslogik-und-bewegungssteuerung}
+
+\subsubsection{Testfall IT-SAF-MOT-001: Unterbrechen einer Bewegung bei
+Gefahr}\label{testfall-it-saf-mot-001-unterbrechen-einer-bewegung-bei-gefahr}
+
+\paragraph{Ziel}\label{ziel-12}
+
+Überprüfung, ob die Sicherheitskomponente jederzeit Einfluss auf die
+Bewegungssteuerung nehmen kann.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-12}
+
+\begin{itemize}
+\tightlist
+\item
+  SAF-001: Der Bot muss bei Gefahr sofort anhalten
+\item
+  SAF-003: Der Bot darf den Tisch nicht verlassen
+\item
+  SAF-006: Der Bot muss einen Not-Aus unterstützen
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Sicherheitskomponente
+\item
+  Bewegungssteuerung
+\item
+  Aktorsteuerung
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-12}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich in Bewegung
+\item
+  Sicherheitsüberwachung ist aktiv
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-12}
+
+Gefahrensignal:
+
+\begin{verbatim}
+Tischkante erkannt = TRUE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-12}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter fährt eine definierte Route
+\item
+  Sensorik meldet kritische Situation
+\item
+  Sicherheitskomponente erzeugt Stoppsignal
+\item
+  Bewegungssteuerung beendet Bewegung
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-12}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegung wird sofort beendet
+\item
+  Aktoren wechseln in sicheren Zustand
+\item
+  Fehler- oder Warnstatus wird erzeugt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-12}
+
+Bestanden, wenn keine weitere Bewegung nach Aktivierung der
+Sicherheitsfunktion erfolgt.
+
+\subsection{Integrationstest: Untersetzerhandling und
+Navigation}\label{integrationstest-untersetzerhandling-und-navigation}
+
+\subsubsection{Testfall IT-NAV-CST-001: Navigation zu einem Untersetzer
+und
+Aufnahme}\label{testfall-it-nav-cst-001-navigation-zu-einem-untersetzer-und-aufnahme}
+
+\paragraph{Ziel}\label{ziel-13}
+
+Überprüfung des Zusammenspiels zwischen Navigation und
+Untersetzerhandling.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-13}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-001: Der Bot muss einen Getränkeuntersetzer aufnehmen
+\item
+  CST-005: Der Bot muss erkennen, ob ein Untersetzer aufgenommen wurde
+\item
+  NAV-008: Der Bot muss Zielpunkte erreichen
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Lokalisierung
+\item
+  Untersetzerhandling
+\item
+  Systemüberwachung
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-13}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzerposition ist bekannt
+\item
+  Roboter befindet sich in Startposition
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-13}
+
+Untersetzerposition:
+
+\begin{verbatim}
+x = 700 mm
+y = 400 mm
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-13}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Zielposition des Untersetzers wird übergeben
+\item
+  Navigation berechnet Route
+\item
+  Roboter fährt zur Position
+\item
+  Aufnahmeprozess wird gestartet
+\item
+  Sensor überprüft Aufnahme
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-13}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter erreicht Untersetzerposition
+\item
+  Aufnahme wird durchgeführt
+\item
+  Erfolgreiche Aufnahme wird erkannt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-13}
+
+Bestanden, wenn der vollständige Ablauf ohne Fehler abgeschlossen wird.
+
+\subsection{Integrationstest: Systemüberwachung und
+Komponenten}\label{integrationstest-systemuxfcberwachung-und-komponenten}
+
+\subsubsection{Testfall IT-MON-001: Fehlerweitergabe im
+Gesamtsystem}\label{testfall-it-mon-001-fehlerweitergabe-im-gesamtsystem}
+
+\paragraph{Ziel}\label{ziel-14}
+
+Überprüfung der Weitergabe und Verarbeitung von Fehlerzuständen.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-14}
+
+\begin{itemize}
+\tightlist
+\item
+  MON-001: Der Bot muss Fehler erkennen
+\item
+  MON-002: Der Bot muss Fehler protokollieren
+\item
+  MON-005: Der Bot muss fehlgeschlagene Aufgaben melden
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-5}
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorik
+\item
+  Systemüberwachung
+\item
+  Sicherheitskomponente
+\item
+  Benutzerstatusanzeige
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-14}
+
+\begin{itemize}
+\tightlist
+\item
+  System befindet sich im Betriebszustand
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-14}
+
+Simulierter Fehler:
+
+\begin{verbatim}
+Sensorfehler = TRUE
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-14}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Sensor meldet Fehler
+\item
+  Systemüberwachung erkennt Fehler
+\item
+  Fehler wird gespeichert
+\item
+  Sicherheitskomponente bewertet Zustand
+\item
+  Statusmeldung wird erzeugt
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-14}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehler wird erkannt
+\item
+  Fehler wird protokolliert
+\item
+  System wechselt gegebenenfalls in sicheren Zustand
+\item
+  Benutzer erhält Statusinformation
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-14}
+
+Bestanden, wenn der Fehler vollständig verarbeitet wird.
+
+\subsection{Integrationstest: Hardwareabstraktion und
+Simulation}\label{integrationstest-hardwareabstraktion-und-simulation}
+
+\subsubsection{Testfall IT-HW-SIM-001: Austausch realer Hardware durch
+Simulation}\label{testfall-it-hw-sim-001-austausch-realer-hardware-durch-simulation}
+
+\paragraph{Ziel}\label{ziel-15}
+
+Überprüfung, ob Softwarekomponenten ohne Anpassung mit simulierten
+Hardwarekomponenten betrieben werden können.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-15}
+
+\begin{itemize}
+\tightlist
+\item
+  NFR-004: Software muss simuliert werden können
+\item
+  NFR-007: Sensoren und Aktoren müssen austauschbar sein
+\end{itemize}
+
+\paragraph{Beteiligte Komponenten}\label{beteiligte-komponenten-6}
+
+\begin{itemize}
+\tightlist
+\item
+  Hardwareabstraktion
+\item
+  Simulationsmodelle
+\item
+  Robotersoftware
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-15}
+
+\begin{itemize}
+\tightlist
+\item
+  Simulationsumgebung ist gestartet
+\item
+  Virtuelle Sensoren und Aktoren sind verfügbar
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-15}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Reale Hardwaretreiber werden durch Simulationsmodelle ersetzt
+\item
+  Software wird gestartet
+\item
+  Testablauf wird ausgeführt
+\item
+  Datenfluss wird überprüft
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-15}
+
+\begin{itemize}
+\tightlist
+\item
+  Software startet ohne Anpassungen
+\item
+  Simulierte Sensorwerte werden verarbeitet
+\item
+  Aktorbefehle werden korrekt erzeugt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-15}
+
+Bestanden, wenn die Software vollständig in der Simulation betrieben
+werden kann.
+
+\subsection{Zusammenfassung der
+Integrationstests}\label{zusammenfassung-der-integrationstests}
+
+Die Integrationstests überprüfen die Zusammenarbeit der zentralen
+Systemkomponenten des Coasterbots.
+
+Die wichtigsten geprüften Integrationen sind:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensorik und Navigation
+\item
+  Lokalisierung und Navigation
+\item
+  Navigation und Bewegungssteuerung
+\item
+  Sicherheitslogik und Aktorsteuerung
+\item
+  Navigation und Untersetzerhandling
+\item
+  Systemüberwachung und Fehlerbehandlung
+\item
+  Hardwareabstraktion und Simulation
+\end{itemize}
+
+Durch erfolgreiche Integrationstests wird sichergestellt, dass die
+einzelnen Softwaremodule nicht nur isoliert funktionieren, sondern als
+zusammenhängendes System die Anforderungen des Pflichtenhefts erfüllen.
+
+\section{Simulationstests}\label{simulationstests-1}
+
+\subsection{Ziel der Simulationstests}\label{ziel-der-simulationstests}
+
+Simulationstests dienen der Überprüfung des Verhaltens des
+Coasterbot-Systems innerhalb einer virtuellen Umgebung. Sie ermöglichen
+die Validierung von Softwarefunktionen, bevor diese auf der realen
+Hardware ausgeführt werden.
+
+Die Simulation bildet dabei die für den Betrieb relevanten Eigenschaften
+des Systems nach:
+
+\begin{itemize}
+\tightlist
+\item
+  Tischumgebung
+\item
+  Roboterbewegung
+\item
+  Sensorverhalten
+\item
+  Aktorverhalten
+\item
+  Hindernisse
+\item
+  Fehlerzustände
+\end{itemize}
+
+Das Ziel besteht darin, nachzuweisen, dass die Software auch unter
+kontrollierten und reproduzierbaren Bedingungen die erwarteten
+Systemreaktionen zeigt.
+
+Die Simulationstests erfüllen insbesondere folgende Aufgaben:
+
+\begin{itemize}
+\tightlist
+\item
+  Überprüfung autonomer Navigation
+\item
+  Validierung der Sicherheitsfunktionen
+\item
+  Prüfung der Fehlerbehandlung
+\item
+  Nachweis der Reproduzierbarkeit von Fahrmanövern
+\item
+  Unterstützung automatisierter Tests
+\end{itemize}
+
+\subsection{Testumgebung der
+Simulation}\label{testumgebung-der-simulation}
+
+Die Simulation basiert auf der im Pflichtenheft beschriebenen
+Simulationsarchitektur.
+
+Die Testumgebung besteht aus folgenden Komponenten:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Aufgabe \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Simulationsumgebung & Abbildung der virtuellen Tischumgebung \\
+Robotermodell & Simulation der Bewegung und Position \\
+Sensormodelle & Erzeugung virtueller Messwerte \\
+Aktormodelle & Simulation der Motor- und Mechanikbefehle \\
+Teststeuerung & Automatisierte Durchführung von Szenarien \\
+Testauswertung & Vergleich von Soll- und Istverhalten \\
+\end{longtable}
+
+Die Software des Coasterbots wird dabei möglichst unverändert aus der
+realen Umgebung übernommen. Lediglich hardwarenahe Komponenten werden
+durch Simulationsmodelle ersetzt.
+
+\subsection{Anforderungen an
+Simulationstests}\label{anforderungen-an-simulationstests}
+
+Die Simulationstests basieren auf den im Pflichtenheft definierten
+Simulationsanforderungen.
+
+Folgende Eigenschaften müssen erfüllt werden:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2535}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7465}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Beschreibung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Reproduzierbarkeit & Gleiche Eingaben erzeugen gleiche Ergebnisse \\
+Sensorabstraktion & Sensorwerte können simuliert werden \\
+Aktorabstraktion & Aktorverhalten kann modelliert werden \\
+Fehlerfähigkeit & Fehlerzustände können gezielt erzeugt werden \\
+Testunterstützung & Alle definierten Testfälle können ausgeführt
+werden \\
+Validierung & Simuliertes Verhalten entspricht erwarteten Verhalten \\
+\end{longtable}
+
+\subsection{Simulationstest: Grundlegende
+Navigation}\label{simulationstest-grundlegende-navigation}
+
+\subsubsection{Testfall ST-SIM-001: Navigation zu einem
+Zielpunkt}\label{testfall-st-sim-001-navigation-zu-einem-zielpunkt}
+
+\paragraph{Ziel}\label{ziel-16}
+
+Überprüfung der grundlegenden Navigationsfähigkeit innerhalb der
+simulierten Tischumgebung.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-16}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-006: Der Bot muss seine Position bestimmen können
+\item
+  NAV-008: Der Bot muss seinen Zielpunkt erreichen
+\item
+  SIM-001: Fahrmanöver müssen reproduzierbar sein
+\end{itemize}
+
+\paragraph{Simulationsumgebung}\label{simulationsumgebung-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischgröße: definiert
+\item
+  Keine Hindernisse vorhanden
+\item
+  Roboterposition bekannt
+\item
+  Zielposition bekannt
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-16}
+
+\begin{itemize}
+\tightlist
+\item
+  Simulation ist gestartet
+\item
+  Robotermodell ist initialisiert
+\item
+  Navigationskomponente ist aktiv
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-15}
+
+Startposition:
+
+\begin{verbatim}
+x = 0 mm
+y = 0 mm
+Orientierung = 0°
+\end{verbatim}
+
+Zielposition:
+
+\begin{verbatim}
+x = 1000 mm
+y = 500 mm
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-16}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulation wird gestartet
+\item
+  Roboter wird an Startposition platziert
+\item
+  Zielpunkt wird an Navigation übergeben
+\item
+  Navigation berechnet Route
+\item
+  Bewegungssteuerung führt Fahrbefehle aus
+\item
+  Position wird während der Bewegung überwacht
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-16}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter bewegt sich entlang einer gültigen Route
+\item
+  Zielpunkt wird erreicht
+\item
+  Keine unerwarteten Bewegungen treten auf
+\item
+  Ergebnis ist bei Wiederholung identisch
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-16}
+
+Bestanden, wenn der Zielpunkt innerhalb der definierten Genauigkeit
+erreicht wird.
+
+\subsection{Simulationstest: Hinderniserkennung und
+Ausweichverhalten}\label{simulationstest-hinderniserkennung-und-ausweichverhalten}
+
+\subsubsection{Testfall ST-SIM-002: Dynamische
+Hindernisvermeidung}\label{testfall-st-sim-002-dynamische-hindernisvermeidung}
+
+\paragraph{Ziel}\label{ziel-17}
+
+Überprüfung, ob der Roboter Hindernisse erkennt und seine Route
+selbstständig anpasst.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-17}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-001: Hindernisse erkennen
+\item
+  NAV-002: Hindernissen ausweichen
+\item
+  NAV-005: Fahrtroute dynamisch anpassen
+\item
+  SIM-004: Hindernisse müssen berücksichtigt werden
+\end{itemize}
+
+\paragraph{Simulationsumgebung}\label{simulationsumgebung-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischfläche vorhanden
+\item
+  Hindernis wird auf geplanter Route platziert
+\item
+  Zielpunkt erreichbar
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-17}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation ist aktiv
+\item
+  Hindernissensoren funktionieren
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-16}
+
+Hindernis:
+
+\begin{verbatim}
+Position = (500 mm, 250 mm)
+Größe = 100 mm x 100 mm
+\end{verbatim}
+
+\subparagraph{Ablauf}\label{ablauf-17}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Navigation startet Fahrt zum Ziel
+\item
+  Roboter nähert sich Hindernis
+\item
+  Sensorsimulation erzeugt Hinderniserkennung
+\item
+  Navigation berechnet neue Route
+\item
+  Bewegung wird fortgesetzt
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-17}
+
+\begin{itemize}
+\tightlist
+\item
+  Hindernis wird erkannt
+\item
+  Kollision wird verhindert
+\item
+  Neue Route wird berechnet
+\item
+  Zielpunkt wird weiterhin erreicht
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-17}
+
+Bestanden, wenn der Roboter das Hindernis vollständig umgeht.
+
+\subsection{Simulationstest:
+Tischkantenerkennung}\label{simulationstest-tischkantenerkennung}
+
+\subsubsection{Testfall ST-SIM-003: Verhindern des Verlassens der
+Tischfläche}\label{testfall-st-sim-003-verhindern-des-verlassens-der-tischfluxe4che}
+
+\paragraph{Ziel}\label{ziel-18}
+
+Überprüfung der Sicherheitsreaktion bei Annäherung an eine Tischkante.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-18}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-003: Tischende erkennen
+\item
+  NAV-004: Auf dem Tisch bleiben
+\item
+  SAF-003: Tisch nicht verlassen
+\end{itemize}
+
+\paragraph{Simulationsumgebung}\label{simulationsumgebung-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischrand wird modelliert
+\item
+  Roboter fährt kontrolliert Richtung Rand
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-18}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischkantensensor ist aktiv
+\item
+  Sicherheitslogik ist aktiviert
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-18}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter bewegt sich Richtung Tischkante
+\item
+  Simulation erzeugt kritische Abstandswerte
+\item
+  Sicherheitskomponente verarbeitet Signal
+\item
+  Bewegungssteuerung erhält Stoppsignal
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-18}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischkante wird erkannt
+\item
+  Roboter stoppt vor dem Rand
+\item
+  Tischfläche wird nicht verlassen
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-18}
+
+Bestanden, wenn der Roboter sicher innerhalb der Tischfläche verbleibt.
+
+\subsection{Simulationstest: Reproduzierbarkeit von
+Fahrmanövern}\label{simulationstest-reproduzierbarkeit-von-fahrmanuxf6vern}
+
+\subsubsection{Testfall ST-SIM-004: Wiederholbarkeit identischer
+Bewegungsabläufe}\label{testfall-st-sim-004-wiederholbarkeit-identischer-bewegungsabluxe4ufe}
+
+\paragraph{Ziel}\label{ziel-19}
+
+Überprüfung, ob gleiche Eingangsbedingungen zu reproduzierbaren
+Ergebnissen führen.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-19}
+
+\begin{itemize}
+\tightlist
+\item
+  SIM-001: Fahrmanöver müssen reproduzierbar sein
+\item
+  SIM-007: Simulationsverhalten muss erwartbarem Verhalten entsprechen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-19}
+
+\begin{itemize}
+\tightlist
+\item
+  Identisches Szenario kann mehrfach gestartet werden
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-19}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulation wird mit definierten Parametern gestartet
+\item
+  Navigation wird ausgeführt
+\item
+  Bewegungsverlauf wird gespeichert
+\item
+  Simulation wird erneut mit gleichen Parametern gestartet
+\item
+  Ergebnisse werden verglichen
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-19}
+
+\begin{itemize}
+\tightlist
+\item
+  Fahrwege stimmen überein
+\item
+  Zustandsübergänge erfolgen identisch
+\item
+  Ergebnisse sind vergleichbar
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-19}
+
+Bestanden, wenn die Abweichungen innerhalb definierter Grenzen liegen.
+
+\subsection{Simulationstest:
+Sensorausfall}\label{simulationstest-sensorausfall}
+
+\subsubsection{Testfall ST-SIM-005: Reaktion auf fehlerhafte
+Sensordaten}\label{testfall-st-sim-005-reaktion-auf-fehlerhafte-sensordaten}
+
+\paragraph{Ziel}\label{ziel-20}
+
+Überprüfung des Systemverhaltens bei einem simulierten Sensorausfall.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-20}
+
+\begin{itemize}
+\tightlist
+\item
+  SAF-002: Bei Sensorfehler sicheren Zustand einnehmen
+\item
+  MON-001: Fehler erkennen
+\item
+  MON-002: Fehler protokollieren
+\item
+  SIM-005: Fehlersituationen simulieren können
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-20}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich im Fahrbetrieb
+\item
+  Fehlersimulation ist aktiviert
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-17}
+
+Fehler:
+
+\begin{verbatim}
+Abstandssensor = nicht verfügbar
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-20}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simulation startet normalen Betrieb
+\item
+  Sensorfehler wird ausgelöst
+\item
+  Systemüberwachung erkennt Fehler
+\item
+  Sicherheitskomponente bewertet Zustand
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-20}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehler wird erkannt
+\item
+  Fehler wird protokolliert
+\item
+  Roboter stoppt oder wechselt in sicheren Zustand
+\item
+  Statusmeldung wird erzeugt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-20}
+
+Bestanden, wenn das System keine unsichere Bewegung fortsetzt.
+
+\subsection{Simulationstest:
+Aktorfehler}\label{simulationstest-aktorfehler}
+
+\subsubsection{Testfall ST-SIM-006: Verhalten bei fehlerhafter
+Motorsteuerung}\label{testfall-st-sim-006-verhalten-bei-fehlerhafter-motorsteuerung}
+
+\paragraph{Ziel}\label{ziel-21}
+
+Überprüfung der Fehlerbehandlung bei einem Aktorausfall.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-21}
+
+\begin{itemize}
+\tightlist
+\item
+  MON-001: Fehler erkennen
+\item
+  MON-005: Fehlgeschlagene Aufgaben melden
+\item
+  SIM-003: Aktoren können simuliert werden
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-21}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich in Bewegung
+\end{itemize}
+
+\paragraph{Eingaben}\label{eingaben-18}
+
+Fehler:
+
+\begin{verbatim}
+Motor links = ausgefallen
+\end{verbatim}
+
+\paragraph{Ablauf}\label{ablauf-21}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Bewegungsbefehl wird erzeugt
+\item
+  Simulierter Aktor reagiert fehlerhaft
+\item
+  Systemüberwachung erkennt Abweichung
+\item
+  Sicherheitslogik wird aktiviert
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-21}
+
+\begin{itemize}
+\tightlist
+\item
+  Aktorfehler wird erkannt
+\item
+  Bewegung wird kontrolliert beendet
+\item
+  Fehler wird gemeldet
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-21}
+
+Bestanden, wenn das System sicher reagiert.
+
+\subsection{Simulationstest:
+Untersetzerhandling}\label{simulationstest-untersetzerhandling}
+
+\subsubsection{Testfall ST-SIM-007: Aufnahme und Platzierung eines
+Untersetzers}\label{testfall-st-sim-007-aufnahme-und-platzierung-eines-untersetzers}
+
+\paragraph{Ziel}\label{ziel-22}
+
+Überprüfung des vollständigen Untersetzerprozesses innerhalb der
+Simulation.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-22}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-001: Untersetzer aufnehmen
+\item
+  CST-003: Untersetzer platzieren
+\item
+  CST-005: Aufnahme erkennen
+\item
+  SIM-006: Simulation unterstützt Testfälle
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-22}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer ist virtuell vorhanden
+\item
+  Zielposition ist definiert
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-22}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter navigiert zum Untersetzer
+\item
+  Aufnahmevorgang wird gestartet
+\item
+  Zustand wird überprüft
+\item
+  Roboter fährt zur Zielposition
+\item
+  Untersetzer wird platziert
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-22}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer wird erkannt
+\item
+  Aufnahme funktioniert
+\item
+  Transport erfolgt
+\item
+  Platzierung wird bestätigt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-22}
+
+Bestanden, wenn der komplette Prozess ohne Fehler abgeschlossen wird.
+
+\subsection{Simulationstest: Validierung Simulation gegen erwartetes
+Verhalten}\label{simulationstest-validierung-simulation-gegen-erwartetes-verhalten}
+
+\subsubsection{Testfall ST-SIM-008: Vergleich Simulation und
+Systemverhalten}\label{testfall-st-sim-008-vergleich-simulation-und-systemverhalten}
+
+\paragraph{Ziel}\label{ziel-23}
+
+Überprüfung, ob die Simulation das erwartete Verhalten des realen
+Systems ausreichend genau abbildet.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-23}
+
+\begin{itemize}
+\tightlist
+\item
+  SIM-007: Simulationsverhalten entspricht erwartetem Verhalten
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-23}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Test wird zunächst in der Simulation durchgeführt
+\item
+  Ergebnis wird dokumentiert
+\item
+  Vergleichbare Situation wird am Prototyp durchgeführt
+\item
+  Ergebnisse werden verglichen
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-23}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegungsabläufe sind vergleichbar
+\item
+  Zustandsübergänge stimmen überein
+\item
+  Abweichungen sind erklärbar
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-23}
+
+Bestanden, wenn die Simulation als valide Entwicklungsumgebung genutzt
+werden kann.
+
+\subsection{Zusammenfassung der
+Simulationstests}\label{zusammenfassung-der-simulationstests}
+
+Die Simulationstests überprüfen das Verhalten des Coasterbot-Systems
+unter kontrollierten und reproduzierbaren Bedingungen.
+
+Geprüft werden insbesondere:
+
+\begin{itemize}
+\tightlist
+\item
+  autonome Navigation
+\item
+  Hindernisvermeidung
+\item
+  Tischkantenerkennung
+\item
+  Fehlerbehandlung
+\item
+  Sensor- und Aktormodelle
+\item
+  Untersetzerhandling
+\item
+  Validierung der Simulation
+\end{itemize}
+
+Durch die Simulation können kritische Situationen sicher getestet und
+Entwicklungszyklen verkürzt werden. Gleichzeitig stellt sie sicher, dass
+die Softwarearchitektur unabhängig von der realen Hardware überprüfbar
+bleibt.
+
+Die erfolgreichen Simulationstests bilden die Grundlage für die
+abschließenden Systemtests am realen Prototyp.
+
+\section{Systemtests}\label{systemtests-1}
+
+\subsection{Ziel der Systemtests}\label{ziel-der-systemtests}
+
+Systemtests überprüfen das vollständige Coasterbot-System unter
+realitätsnahen Bedingungen. Während Komponenten- und Integrationstests
+einzelne Softwaremodule beziehungsweise deren Zusammenspiel betrachten,
+wird beim Systemtest der gesamte Prototyp als Gesamtsystem bewertet.
+
+Ziel ist es, nachzuweisen, dass der entwickelte Coasterbot die im
+Lasten- und Pflichtenheft definierten Kernfunktionen erfüllt.
+
+Die Systemtests betrachten dabei:
+
+\begin{itemize}
+\tightlist
+\item
+  mechanische Funktionalität
+\item
+  elektrische Komponenten
+\item
+  Sensorik
+\item
+  Aktorik
+\item
+  Software
+\item
+  Sicherheitsfunktionen
+\item
+  Benutzerinteraktion über Statusmeldungen
+\end{itemize}
+
+Die Systemtests stellen die abschließende technische Verifikation des
+Prototyps dar.
+
+\subsection{Testumgebung}\label{testumgebung-1}
+
+Die Systemtests werden am vollständigen Coasterbot-Prototyp
+durchgeführt.
+
+Die Testumgebung umfasst:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2209}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7791}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Beschreibung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Prototyp-Hardware & Vollständig montierter Coasterbot \\
+Tischumgebung & Realer Testtisch mit definierter Fläche \\
+Hindernisse & Testobjekte zur Simulation realer Situationen \\
+Getränkeuntersetzer & Testobjekte für Aufnahme und Platzierung \\
+Messmittel & Werkzeuge zur Bewertung von Position, Geschwindigkeit und
+Verhalten \\
+Testsoftware & Werkzeuge zur Protokollierung und Auswertung \\
+\end{longtable}
+
+Die Testumgebung muss möglichst reproduzierbare Bedingungen
+gewährleisten.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  definierte Tischgröße
+\item
+  bekannte Startpositionen
+\item
+  dokumentierte Hindernispositionen
+\item
+  definierte Testabläufe
+\end{itemize}
+
+\subsection{Systemteststruktur}\label{systemteststruktur}
+
+Jeder Systemtest wird nach folgendem Schema dokumentiert:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & Eindeutige Identifikation \\
+Testname & Bezeichnung des Tests \\
+Ziel & Zu prüfende Systemfunktion \\
+Anforderungen & Zugeordnete Anforderungen \\
+Voraussetzungen & Erforderliche Bedingungen \\
+Testaufbau & Beschreibung der Umgebung \\
+Ablauf & Durchführung \\
+Erwartetes Ergebnis & Sollverhalten \\
+Bewertung & Testergebnis \\
+\end{longtable}
+
+\subsection{Systemtest: Inbetriebnahme}\label{systemtest-inbetriebnahme}
+
+\subsubsection{Testfall SYS-001: Systemstart und
+Initialisierung}\label{testfall-sys-001-systemstart-und-initialisierung}
+
+\paragraph{Ziel}\label{ziel-24}
+
+Überprüfung, ob der Coasterbot nach dem Einschalten alle notwendigen
+Komponenten korrekt initialisiert.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-24}
+
+\begin{itemize}
+\tightlist
+\item
+  MON-003: Der Bot muss seinen Betriebszustand anzeigen
+\item
+  NFR-001: Der Bot muss modular aufgebaut sein
+\item
+  NFR-005: Die Software muss testbar sein
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-23}
+
+\begin{itemize}
+\tightlist
+\item
+  Hardware ist vollständig montiert
+\item
+  Energieversorgung ist vorhanden
+\item
+  Software ist installiert
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau}
+
+Der Coasterbot befindet sich ausgeschaltet auf einer ebenen Tischfläche.
+
+\paragraph{Ablauf}\label{ablauf-24}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Energieversorgung wird aktiviert
+\item
+  Steuerungssystem startet
+\item
+  Hardwarekomponenten werden initialisiert
+\item
+  Sensoren werden geprüft
+\item
+  Betriebszustand wird ausgegeben
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-24}
+
+\begin{itemize}
+\tightlist
+\item
+  Alle Komponenten starten erfolgreich
+\item
+  Keine kritischen Fehler werden erkannt
+\item
+  Systemstatus zeigt Betriebsbereitschaft
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-24}
+
+Bestanden, wenn der Roboter vollständig betriebsbereit ist.
+
+\subsection{Systemtest: Navigation auf
+Tischfläche}\label{systemtest-navigation-auf-tischfluxe4che}
+
+\subsubsection{Testfall SYS-002: Autonome Bewegung auf dem
+Tisch}\label{testfall-sys-002-autonome-bewegung-auf-dem-tisch}
+
+\paragraph{Ziel}\label{ziel-25}
+
+Überprüfung der grundlegenden autonomen Bewegungsfähigkeit des
+Prototyps.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-25}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-006: Position bestimmen
+\item
+  NAV-007: Orientierung bestimmen
+\item
+  NAV-008: Zielpunkt erreichen
+\item
+  NAV-009: Kontrollierte Bewegung
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-24}
+
+\begin{itemize}
+\tightlist
+\item
+  System ist gestartet
+\item
+  Tischfläche ist frei
+\item
+  Start- und Zielposition sind definiert
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-1}
+
+Der Roboter wird an einer definierten Startposition platziert.
+
+Beispiel:
+
+Start:
+
+\[
+(0,0)
+\]
+
+Ziel:
+
+\[
+(1000,500)
+\]
+
+\paragraph{Ablauf}\label{ablauf-25}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Zielposition wird vorgegeben
+\item
+  Navigation wird aktiviert
+\item
+  Roboter fährt selbstständig zum Ziel
+\item
+  Position wird aufgezeichnet
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-25}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter bewegt sich selbstständig
+\item
+  Fahrbewegung bleibt kontrolliert
+\item
+  Zielpunkt wird erreicht
+\item
+  Keine ungewollten Bewegungen treten auf
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-25}
+
+Bestanden, wenn die Zielposition innerhalb der definierten Genauigkeit
+erreicht wird.
+
+\subsection{Systemtest:
+Hindernisvermeidung}\label{systemtest-hindernisvermeidung}
+
+\subsubsection{Testfall SYS-003: Erkennung und Umfahrung eines
+Hindernisses}\label{testfall-sys-003-erkennung-und-umfahrung-eines-hindernisses}
+
+\paragraph{Ziel}\label{ziel-26}
+
+Überprüfung der Fähigkeit des Roboters, Hindernisse im realen Betrieb zu
+erkennen und zu umgehen.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-26}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-001: Hindernisse erkennen
+\item
+  NAV-002: Hindernissen ausweichen
+\item
+  NAV-005: Fahrroute dynamisch anpassen
+\item
+  SAF-005: Kollisionen vermeiden
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-25}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation ist aktiv
+\item
+  Hindernis befindet sich auf der geplanten Route
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-2}
+
+Ein Hindernis wird auf der Tischfläche platziert.
+
+Beispiel:
+
+\begin{itemize}
+\tightlist
+\item
+  Becher
+\item
+  Gegenstand
+\item
+  Tischdekoration
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-26}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter startet Navigation
+\item
+  Hindernis wird erkannt
+\item
+  Navigation berechnet alternative Route
+\item
+  Roboter fährt um Hindernis herum
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-26}
+
+\begin{itemize}
+\tightlist
+\item
+  Hindernis wird erkannt
+\item
+  Keine Kollision entsteht
+\item
+  Route wird angepasst
+\item
+  Ziel wird weiterhin erreicht
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-26}
+
+Bestanden, wenn das Hindernis sicher umfahren wird.
+
+\subsection{Systemtest:
+Tischkantenerkennung}\label{systemtest-tischkantenerkennung}
+
+\subsubsection{Testfall SYS-004: Schutz vor Herunterfallen vom
+Tisch}\label{testfall-sys-004-schutz-vor-herunterfallen-vom-tisch}
+
+\paragraph{Ziel}\label{ziel-27}
+
+Überprüfung der Sicherheitsfunktion zur Vermeidung eines Absturzes.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-27}
+
+\begin{itemize}
+\tightlist
+\item
+  NAV-003: Tischende erkennen
+\item
+  NAV-004: Auf dem Tisch bleiben
+\item
+  SAF-003: Tisch nicht verlassen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-26}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischkantenerkennung ist aktiviert
+\item
+  Roboter bewegt sich kontrolliert
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-3}
+
+Der Roboter wird auf eine Position nahe der Tischkante gefahren.
+
+\paragraph{Ablauf}\label{ablauf-27}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter fährt Richtung Tischrand
+\item
+  Sensorik erkennt Annäherung
+\item
+  Sicherheitslogik bewertet Situation
+\item
+  Bewegungssteuerung stoppt
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-27}
+
+\begin{itemize}
+\tightlist
+\item
+  Tischkante wird erkannt
+\item
+  Roboter hält ausreichend Abstand
+\item
+  Kein Teil des Roboters verlässt die Tischfläche
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-27}
+
+Bestanden, wenn der Roboter sicher auf dem Tisch verbleibt.
+
+\subsection{Systemtest:
+Untersetzeraufnahme}\label{systemtest-untersetzeraufnahme}
+
+\subsubsection{Testfall SYS-005: Aufnahme eines
+Getränkeuntersetzers}\label{testfall-sys-005-aufnahme-eines-getruxe4nkeuntersetzers}
+
+\paragraph{Ziel}\label{ziel-28}
+
+Überprüfung der mechanischen und softwareseitigen Funktion zur Aufnahme
+eines Untersetzers.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-28}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-001: Untersetzer aufnehmen
+\item
+  CST-005: Erfolgreiche Aufnahme erkennen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-27}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer befindet sich an definierter Position
+\item
+  Aufnahmemechanismus funktioniert
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-4}
+
+Ein Getränkeuntersetzer wird auf der Tischfläche platziert.
+
+\paragraph{Ablauf}\label{ablauf-28}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter navigiert zur Untersetzerposition
+\item
+  Aufnahmevorgang wird gestartet
+\item
+  Mechanismus nimmt Untersetzer auf
+\item
+  Sensorik überprüft Zustand
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-28}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer wird aufgenommen
+\item
+  Aufnahme wird erkannt
+\item
+  Systemstatus wird aktualisiert
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-28}
+
+Bestanden, wenn der Untersetzer sicher aufgenommen wurde.
+
+\subsection{Systemtest:
+Untersetzerplatzierung}\label{systemtest-untersetzerplatzierung}
+
+\subsubsection{Testfall SYS-006: Platzierung eines
+Untersetzers}\label{testfall-sys-006-platzierung-eines-untersetzers}
+
+\paragraph{Ziel}\label{ziel-29}
+
+Überprüfung der präzisen Ablage eines Untersetzers.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-29}
+
+\begin{itemize}
+\tightlist
+\item
+  CST-003: Untersetzer präzise platzieren
+\item
+  CST-006: Erfolgreiche Platzierung erkennen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-28}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer wurde aufgenommen
+\item
+  Zielposition ist bekannt
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-5}
+
+Eine definierte Ablageposition wird markiert.
+
+\paragraph{Ablauf}\label{ablauf-29}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter fährt zur Zielposition
+\item
+  Platzierungsmechanismus wird aktiviert
+\item
+  Positionierung wird überprüft
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-29}
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzer wird abgelegt
+\item
+  Position liegt innerhalb der definierten Toleranz
+\item
+  Erfolgreiche Ablage wird erkannt
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-29}
+
+Bestanden, wenn der Untersetzer korrekt positioniert wurde.
+
+\subsection{Systemtest:
+Sicherheitsstopp}\label{systemtest-sicherheitsstopp}
+
+\subsubsection{Testfall SYS-007: Aktivierung des
+Not-Aus}\label{testfall-sys-007-aktivierung-des-not-aus}
+
+\paragraph{Ziel}\label{ziel-30}
+
+Überprüfung der Sicherheitsreaktion bei manueller oder automatisierter
+Notabschaltung.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-30}
+
+\begin{itemize}
+\tightlist
+\item
+  SAF-001: Bei Gefahr sofort anhalten
+\item
+  SAF-006: Not-Aus unterstützen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-29}
+
+\begin{itemize}
+\tightlist
+\item
+  Roboter befindet sich in Bewegung
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-6}
+
+Not-Aus-Funktion wird während der Bewegung ausgelöst.
+
+\paragraph{Ablauf}\label{ablauf-30}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter fährt
+\item
+  Not-Aus wird aktiviert
+\item
+  Sicherheitslogik verarbeitet Signal
+\item
+  Bewegungssteuerung stoppt
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-30}
+
+\begin{itemize}
+\tightlist
+\item
+  Bewegung wird unverzüglich beendet
+\item
+  Motoren wechseln in sicheren Zustand
+\item
+  Systemstatus zeigt Sicherheitsstopp
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-30}
+
+Bestanden, wenn der Roboter sicher stoppt.
+
+\subsection{Systemtest:
+Fehlerbehandlung}\label{systemtest-fehlerbehandlung}
+
+\subsubsection{Testfall SYS-008: Verhalten bei
+Systemfehler}\label{testfall-sys-008-verhalten-bei-systemfehler}
+
+\paragraph{Ziel}\label{ziel-31}
+
+Überprüfung der Reaktion auf einen realitätsnahen Fehlerzustand.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-31}
+
+\begin{itemize}
+\tightlist
+\item
+  MON-001: Fehler erkennen
+\item
+  MON-002: Fehler protokollieren
+\item
+  MON-005: Fehlgeschlagene Aufgaben melden
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-30}
+
+\begin{itemize}
+\tightlist
+\item
+  System befindet sich im Betriebszustand
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-7}
+
+Ein Fehler wird gezielt erzeugt.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Sensor wird getrennt
+\item
+  Aktor reagiert nicht
+\item
+  ungültiger Systemzustand
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-31}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Fehler wird erzeugt
+\item
+  Systemüberwachung erkennt Fehler
+\item
+  Fehler wird protokolliert
+\item
+  Sicherheitsreaktion wird ausgeführt
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-31}
+
+\begin{itemize}
+\tightlist
+\item
+  Fehler wird erkannt
+\item
+  Fehler wird dokumentiert
+\item
+  System wechselt in definierten Zustand
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-31}
+
+Bestanden, wenn der Fehler sicher verarbeitet wird.
+
+\subsection{Systemtest:
+Energieversorgung}\label{systemtest-energieversorgung}
+
+\subsubsection{Testfall SYS-009: Überwachung des
+Akkuzustands}\label{testfall-sys-009-uxfcberwachung-des-akkuzustands}
+
+\paragraph{Ziel}\label{ziel-32}
+
+Überprüfung der Überwachung der Energieversorgung.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-32}
+
+\begin{itemize}
+\tightlist
+\item
+  Energieversorgung-001: Akkuladestand überwachen
+\item
+  Energieversorgung-002: Niedrigen Akkustand erkennen
+\item
+  Energieversorgung-003: Aufgabe kontrolliert abbrechen
+\end{itemize}
+
+\paragraph{Voraussetzungen}\label{voraussetzungen-31}
+
+\begin{itemize}
+\tightlist
+\item
+  Akkuüberwachung ist aktiv
+\end{itemize}
+
+\paragraph{Testaufbau}\label{testaufbau-8}
+
+Akkustand wird schrittweise reduziert.
+
+\paragraph{Ablauf}\label{ablauf-32}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter arbeitet im Normalbetrieb
+\item
+  Akkustand unterschreitet Grenzwert
+\item
+  Energieverwaltung reagiert
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-32}
+
+\begin{itemize}
+\tightlist
+\item
+  Niedriger Akkustand wird erkannt
+\item
+  Statusmeldung wird erzeugt
+\item
+  Aufgabe wird kontrolliert beendet
+\end{itemize}
+
+\paragraph{Bewertung}\label{bewertung-32}
+
+Bestanden, wenn keine unkontrollierte Abschaltung erfolgt.
+
+\subsection{Systemtest: Gesamtablauf}\label{systemtest-gesamtablauf}
+
+\subsubsection{Testfall SYS-010: Vollständiger
+Coasterbot-Arbeitsablauf}\label{testfall-sys-010-vollstuxe4ndiger-coasterbot-arbeitsablauf}
+
+\paragraph{Ziel}\label{ziel-33}
+
+Überprüfung des vollständigen Kernprozesses.
+
+\paragraph{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-33}
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Lokalisierung
+\item
+  Untersetzerhandling
+\item
+  Systemüberwachung
+\end{itemize}
+
+\paragraph{Ablauf}\label{ablauf-33}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Roboter startet
+\item
+  Zielposition eines Kunden wird definiert
+\item
+  Roboter navigiert zur Position
+\item
+  Untersetzer wird aufgenommen
+\item
+  Roboter fährt zur Zielposition
+\item
+  Untersetzer wird platziert
+\item
+  Aufgabe wird abgeschlossen
+\end{enumerate}
+
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-33}
+
+Der vollständige Ablauf wird ohne Fehler durchgeführt.
+
+\paragraph{Bewertung}\label{bewertung-33}
+
+Bestanden, wenn alle Teilfunktionen erfolgreich ausgeführt wurden.
+
+\subsection{Zusammenfassung der
+Systemtests}\label{zusammenfassung-der-systemtests}
+
+Die Systemtests überprüfen den Coasterbot als vollständiges
+Gesamtsystem.
+
+Dabei werden die zentralen Funktionen des Prototyps bewertet:
+
+\begin{itemize}
+\tightlist
+\item
+  sichere Inbetriebnahme
+\item
+  autonome Navigation
+\item
+  Hindernisvermeidung
+\item
+  Tischkantenerkennung
+\item
+  Untersetzerhandling
+\item
+  Sicherheitsfunktionen
+\item
+  Fehlerbehandlung
+\item
+  Energieüberwachung
+\end{itemize}
+
+Die erfolgreichen Systemtests bestätigen, dass die entwickelten
+Hardware- und Softwarekomponenten gemeinsam die Anforderungen des
+Pflichtenhefts erfüllen.
+
+Damit bilden die Systemtests die abschließende technische Grundlage für
+die Bewertung des Prototyps.
+
+\section{Testergebnisse und
+Bewertung}\label{testergebnisse-und-bewertung}
+
+\subsection{Ziel der Testauswertung}\label{ziel-der-testauswertung}
+
+Die Testauswertung dient der systematischen Bewertung der durchgeführten
+Tests und der Ermittlung des Entwicklungsstandes des
+Coasterbot-Prototyps.
+
+Ziel ist es, festzustellen, in welchem Umfang die Anforderungen aus dem
+Lasten- und Pflichtenheft erfüllt werden. Die Ergebnisse der
+Testdurchführung werden dokumentiert, analysiert und hinsichtlich ihrer
+Bedeutung für das Gesamtsystem bewertet.
+
+Die Auswertung umfasst:
+
+\begin{itemize}
+\tightlist
+\item
+  Bewertung einzelner Testfälle
+\item
+  Analyse aufgetretener Fehler
+\item
+  Ermittlung der Testabdeckung
+\item
+  Bewertung der Systemqualität
+\item
+  Überprüfung der Definition of Done
+\end{itemize}
+
+\subsection{Dokumentation der
+Testergebnisse}\label{dokumentation-der-testergebnisse}
+
+Jeder durchgeführte Test wird mit seinem Ergebnis dokumentiert.
+
+Die Testergebnisse werden nach folgendem Schema erfasst:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & Identifikation des Testfalls \\
+Testname & Bezeichnung des Tests \\
+Datum & Zeitpunkt der Durchführung \\
+Testumgebung & Simulation oder Prototyp \\
+Ergebnis & Bestanden, Fehlgeschlagen oder Nicht ausführbar \\
+Bemerkungen & Zusätzliche Informationen \\
+Fehler-ID & Referenz auf Fehlerbeschreibung \\
+\end{longtable}
+
+\subsection{Bewertungskriterien}\label{bewertungskriterien}
+
+Die Bewertung der Testfälle erfolgt anhand definierter Kriterien.
+
+\subsubsection{Bestanden}\label{bestanden}
+
+Ein Test gilt als bestanden, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  das erwartete Ergebnis vollständig erreicht wurde
+\item
+  keine sicherheitskritischen Fehler auftreten
+\item
+  das Verhalten reproduzierbar ist
+\end{itemize}
+
+\subsubsection{Fehlgeschlagen}\label{fehlgeschlagen}
+
+Ein Test gilt als fehlgeschlagen, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  die erwartete Funktion nicht erfüllt wird
+\item
+  unerwartetes Verhalten auftritt
+\item
+  Sicherheitsanforderungen verletzt werden
+\end{itemize}
+
+Fehlgeschlagene Tests werden analysiert und führen gegebenenfalls zu
+einer Anpassung der Implementierung.
+
+\subsubsection{Nicht ausführbar}\label{nicht-ausfuxfchrbar}
+
+Ein Test wird als nicht ausführbar bewertet, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  Voraussetzungen nicht erfüllt sind
+\item
+  benötigte Hardware nicht verfügbar ist
+\item
+  Abhängigkeiten fehlen
+\end{itemize}
+
+Nicht ausführbare Tests müssen begründet und gegebenenfalls nachgeholt
+werden.
+
+\subsubsection{Testabdeckung}\label{testabdeckung}
+
+Die Testabdeckung beschreibt, welcher Anteil der Anforderungen durch
+Testfälle überprüft wurde.
+
+Die Bewertung erfolgt anhand der Zuordnung zwischen:
+
+\begin{itemize}
+\tightlist
+\item
+  Lastenheft-Anforderungen
+\item
+  Pflichtenheft-Komponenten
+\item
+  Testfällen
+\end{itemize}
+
+Eine vollständige Abdeckung bedeutet, dass jede relevante Anforderung
+mindestens einem Testfall zugeordnet wurde.
+
+Die Testabdeckung wird in folgende Bereiche unterteilt:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Bereich & Bewertung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Navigation und Lokalisierung & Vollständig getestet \\
+Sicherheit & Vollständig getestet \\
+Untersetzerhandling & Vollständig getestet \\
+Systemüberwachung & Vollständig getestet \\
+Simulation & Vollständig getestet \\
+Erweiterungsfunktionen & Nicht vollständig getestet \\
+\end{longtable}
+
+\subsection{Auswertung der
+Kernfunktionen}\label{auswertung-der-kernfunktionen}
+
+\subsubsection{Navigation und
+Lokalisierung}\label{navigation-und-lokalisierung}
+
+Die Navigation stellt eine zentrale Funktion des Coasterbots dar.
+
+Die Tests überprüfen:
+
+\begin{itemize}
+\tightlist
+\item
+  Positionsbestimmung
+\item
+  Orientierung
+\item
+  Zielanfahrt
+\item
+  Hindernisvermeidung
+\item
+  Anpassung der Fahrroute
+\end{itemize}
+
+Die erfolgreiche Durchführung der Navigations- und Simulationstests
+bestätigt die grundsätzliche Fähigkeit des Roboters, sich autonom auf
+einer Tischfläche zu bewegen.
+
+\subsubsection{Sicherheitsfunktionen}\label{sicherheitsfunktionen}
+
+Die Sicherheitsfunktionen besitzen aufgrund der möglichen Auswirkungen
+eine hohe Priorität.
+
+Geprüft wurden:
+
+\begin{itemize}
+\tightlist
+\item
+  Tischkantenerkennung
+\item
+  Kollisionsvermeidung
+\item
+  Not-Aus
+\item
+  sichere Zustände bei Fehlern
+\end{itemize}
+
+Die Tests bestätigen, dass kritische Situationen erkannt und geeignete
+Schutzmaßnahmen eingeleitet werden.
+
+\subsubsection{Getränkeuntersetzerhandling}\label{getruxe4nkeuntersetzerhandling}
+
+Das Untersetzerhandling bildet die Kernfunktion des Prototyps.
+
+Die Tests bewerten:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung eines Untersetzers
+\item
+  Aufnahme
+\item
+  Transport
+\item
+  Positionierung
+\item
+  Erkennung erfolgreicher Aktionen
+\end{itemize}
+
+Die Ergebnisse zeigen, ob die mechanischen und softwareseitigen
+Komponenten ausreichend zusammenarbeiten.
+
+\subsubsection{Systemüberwachung}\label{systemuxfcberwachung}
+
+Die Systemüberwachung stellt sicher, dass Fehlerzustände erkannt und
+verarbeitet werden.
+
+Bewertet werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Fehlererkennung
+\item
+  Fehlerprotokollierung
+\item
+  Statusanzeige
+\item
+  Erkennung fehlgeschlagener Aufgaben
+\end{itemize}
+
+Eine funktionierende Systemüberwachung ist Voraussetzung für einen
+zuverlässigen Betrieb.
+
+\subsection{Fehleranalyse}\label{fehleranalyse}
+
+Während der Testdurchführung erkannte Fehler werden nach ihrer
+Kritikalität bewertet.
+
+Die Bewertung erfolgt anhand folgender Kategorien:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Kategorie & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Kritischer Fehler & Beeinträchtigt Sicherheit oder Kernfunktion \\
+Schwerer Fehler & Verhindert wesentliche Funktionen \\
+Mittlerer Fehler & Beeinträchtigt Komfort oder Zuverlässigkeit \\
+Geringer Fehler & Keine wesentliche Einschränkung \\
+\end{longtable}
+
+\subsubsection{Umgang mit kritischen
+Fehlern}\label{umgang-mit-kritischen-fehlern}
+
+Kritische Fehler besitzen höchste Priorität und müssen vor Abschluss der
+Projektarbeit behoben oder bewertet werden.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Verlust der Tischkantenerkennung
+\item
+  Unkontrollierte Bewegung
+\item
+  Fehlfunktion des Not-Aus
+\item
+  Gefährliche Kollision
+\end{itemize}
+
+Ein Prototyp darf nicht als erfolgreich bewertet werden, wenn kritische
+Sicherheitsanforderungen nicht erfüllt sind.
+
+\subsubsection{Umgang mit funktionalen
+Fehlern}\label{umgang-mit-funktionalen-fehlern}
+
+Funktionale Fehler werden hinsichtlich ihrer Auswirkungen bewertet.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Ungenaue Positionierung
+\item
+  Verzögerte Statusmeldung
+\item
+  Fehlgeschlagene Untersetzeraufnahme
+\end{itemize}
+
+Je nach Bedeutung können diese Fehler behoben oder als bekannte
+Einschränkung dokumentiert werden.
+
+\subsection{Bewertung der Definition of
+Done}\label{bewertung-der-definition-of-done}
+
+Die Definition of Done des Projekts umfasst mehrere technische Ziele.
+Diese werden anhand der Testergebnisse bewertet.
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4045}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5955}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Definition of Done
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bewertungsmethode
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+STL-Dateien und Schaltpläne erstellt & Prüfung der
+Fertigungsunterlagen \\
+Softwarearchitektur ausgearbeitet & Prüfung der Architektur- und
+Komponentendokumentation \\
+Simulation erstellt und validiert & Durchführung der Simulationstests \\
+Tests identifiziert und definiert & Prüfung der Testspezifikation \\
+\end{longtable}
+
+\subsubsection{Fertigungsunterlagen}\label{fertigungsunterlagen}
+
+Die Fertigungsunterlagen gelten als erfüllt, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  mechanische Bauteile dokumentiert sind
+\item
+  STL-Dateien vorhanden sind
+\item
+  Schaltpläne erstellt wurden
+\end{itemize}
+
+\subsubsection{Softwarearchitektur}\label{softwarearchitektur}
+
+Die Softwarearchitektur gilt als erfüllt, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  Komponenten definiert sind
+\item
+  Schnittstellen dokumentiert sind
+\item
+  Hardwareabstraktion umgesetzt wurde
+\item
+  Erweiterbarkeit gewährleistet ist
+\end{itemize}
+
+\subsubsection{Simulation}\label{simulation-1}
+
+Die Simulation gilt als erfüllt, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  Fahrmanöver reproduzierbar sind
+\item
+  Sensoren modelliert werden können
+\item
+  Aktoren simuliert werden können
+\item
+  Fehlerfälle getestet werden können
+\end{itemize}
+
+\subsubsection{Testspezifikation}\label{testspezifikation}
+
+Die Testdefinition gilt als erfüllt, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  Anforderungen Testfällen zugeordnet wurden
+\item
+  Testabläufe beschrieben sind
+\item
+  Bewertungskriterien definiert wurden
+\end{itemize}
+
+\subsection{Bewertung der
+Projektziele}\label{bewertung-der-projektziele}
+
+Die Testergebnisse werden abschließend hinsichtlich der ursprünglichen
+Projektziele bewertet.
+
+Das Hauptziel war die Entwicklung eines funktionsfähigen Prototyps eines
+Coasterbots.
+
+Dabei standen folgende Funktionen im Mittelpunkt:
+
+\begin{itemize}
+\tightlist
+\item
+  autonome Navigation auf einem Tisch
+\item
+  Erkennung und Vermeidung von Hindernissen
+\item
+  sichere Bewegung
+\item
+  Aufnahme und Platzierung von Getränkeuntersetzern
+\item
+  modulare Softwarearchitektur
+\item
+  simulationsgestützte Entwicklung
+\end{itemize}
+
+Die Testergebnisse zeigen, welche Funktionen erfolgreich umgesetzt
+wurden und welche Bereiche noch Entwicklungspotenzial besitzen.
+
+\subsubsection{Grenzen der Bewertung}\label{grenzen-der-bewertung}
+
+Die Bewertung berücksichtigt den Projektumfang und die definierten
+Abgrenzungen.
+
+Nicht Bestandteil der Bewertung sind:
+
+\begin{itemize}
+\tightlist
+\item
+  automatischer Getränketransport
+\item
+  Bestellung und Bezahlung
+\item
+  Reinigung
+\item
+  Netzwerkfunktionen
+\item
+  Schwarmverhalten mehrerer Roboter
+\item
+  EMV-Betrachtungen
+\end{itemize}
+
+Diese Funktionen können in zukünftigen Entwicklungsstufen betrachtet
+werden.
+
+\section{Zusammenfassung}\label{zusammenfassung-2}
+
+Die Testauswertung stellt den erreichten Entwicklungsstand des
+Coasterbot-Prototyps dar.
+
+Durch die Kombination aus Komponenten-, Integrations-, Simulations- und
+Systemtests konnte die Funktionsfähigkeit der entwickelten Lösung
+systematisch überprüft werden.
+
+Die Testergebnisse ermöglichen eine objektive Bewertung der Umsetzung
+und zeigen gleichzeitig mögliche zukünftige Erweiterungen und
+Optimierungspotenziale auf.
+
+Damit bildet dieses Kapitel die Grundlage für die abschließende
+Bewertung des Projektergebnisses.
+
+\subsection{Zusammenfassung und
+Ausblick}\label{zusammenfassung-und-ausblick}
+
+\subsubsection{Zusammenfassung der
+Testspezifikation}\label{zusammenfassung-der-testspezifikation}
+
+Diese Testspezifikation beschreibt die systematische Überprüfung des im
+Rahmen der Projektarbeit entwickelten Coasterbot-Prototyps.
+
+Ziel der Testdurchführung war es, die im Lasten- und Pflichtenheft
+definierten Anforderungen nachvollziehbar zu überprüfen und den
+Entwicklungsstand des Prototyps zu bewerten.
+
+Hierzu wurden verschiedene Testebenen betrachtet:
+
+\begin{itemize}
+\tightlist
+\item
+  Komponententests zur Prüfung einzelner Softwaremodule
+\item
+  Integrationstests zur Überprüfung des Zusammenspiels mehrerer
+  Komponenten
+\item
+  Simulationstests zur Validierung des Systemverhaltens unter
+  kontrollierten Bedingungen
+\item
+  Systemtests zur Bewertung des vollständigen Prototyps
+\end{itemize}
+
+Durch diese strukturierte Vorgehensweise konnten sowohl einzelne
+Funktionen als auch das Gesamtsystem betrachtet werden.
+
+\subsubsection{Bewertung der erreichten
+Projektziele}\label{bewertung-der-erreichten-projektziele}
+
+Das zentrale Ziel der Projektarbeit war die Entwicklung eines Prototyps
+eines Coasterbots, der sich selbstständig auf einer Tischfläche bewegen
+und Getränkeuntersetzer zielgerichtet ausgeben beziehungsweise aufnehmen
+kann.
+
+Die durchgeführten Tests überprüfen insbesondere folgende
+Kernfunktionen:
+
+\begin{itemize}
+\tightlist
+\item
+  autonome Navigation
+\item
+  Lokalisierung auf der Tischfläche
+\item
+  Hinderniserkennung
+\item
+  Vermeidung von Kollisionen
+\item
+  Erkennung von Tischgrenzen
+\item
+  Aufnahme und Platzierung von Getränkeuntersetzern
+\item
+  sichere Reaktion auf Fehlerzustände
+\item
+  simulationsgestützte Entwicklung
+\end{itemize}
+
+Die Testergebnisse ermöglichen eine objektive Bewertung, welche
+Funktionen erfolgreich umgesetzt wurden und welche Bereiche noch
+weiterer Entwicklung bedürfen.
+
+\subsubsection{Bewertung der
+Softwarearchitektur}\label{bewertung-der-softwarearchitektur}
+
+Die Tests bestätigen die Bedeutung einer modularen Softwarearchitektur
+für das Robotersystem.
+
+Durch die Trennung der einzelnen Komponenten konnten Funktionen
+unabhängig voneinander entwickelt und geprüft werden.
+
+Die wesentlichen Architekturziele waren:
+
+\begin{itemize}
+\tightlist
+\item
+  klare Trennung zwischen Hardware und Software
+\item
+  Austauschbarkeit von Sensoren und Aktoren
+\item
+  Erweiterbarkeit zukünftiger Funktionen
+\item
+  automatisierbare Tests
+\end{itemize}
+
+Insbesondere die Hardwareabstraktion ermöglicht es, reale Komponenten
+durch Simulationsmodelle zu ersetzen. Dadurch kann die
+Softwareentwicklung unabhängig vom finalen Hardwarestand erfolgen.
+
+\subsubsection{Bedeutung der Simulation}\label{bedeutung-der-simulation}
+
+Die Simulation stellt einen wesentlichen Bestandteil der Entwicklungs-
+und Teststrategie dar.
+
+Durch die virtuelle Umgebung können:
+
+\begin{itemize}
+\tightlist
+\item
+  Fahrmanöver reproduzierbar ausgeführt werden
+\item
+  kritische Situationen sicher untersucht werden
+\item
+  Fehlerzustände gezielt erzeugt werden
+\item
+  Softwareänderungen frühzeitig bewertet werden
+\end{itemize}
+
+Die Simulation reduziert damit den Aufwand bei der Entwicklung und
+ermöglicht eine frühzeitige Validierung der Systemlogik.
+
+Für zukünftige Entwicklungsstufen stellt sie weiterhin eine wichtige
+Grundlage dar, da neue Funktionen zunächst virtuell getestet werden
+können.
+
+\subsubsection{Grenzen des entwickelten
+Prototyps}\label{grenzen-des-entwickelten-prototyps}
+
+Der entwickelte Prototyp stellt eine erste Entwicklungsstufe dar und
+konzentriert sich auf die grundlegenden Funktionen eines autonomen
+Coasterbots.
+
+Nicht Bestandteil dieser Projektarbeit waren:
+
+\begin{itemize}
+\tightlist
+\item
+  automatisierter Getränketransport
+\item
+  Bestellaufnahme
+\item
+  digitale Bezahlvorgänge
+\item
+  automatische Tischreinigung
+\item
+  Netzwerkkommunikation
+\item
+  Interaktion mehrerer Coasterbots
+\item
+  EMV-Untersuchungen
+\end{itemize}
+
+Diese Funktionen können in zukünftigen Entwicklungsphasen ergänzt
+werden.
+
+\subsubsection{Verbesserungsmöglichkeiten}\label{verbesserungsmuxf6glichkeiten}
+
+Aus den Testergebnissen ergeben sich verschiedene Möglichkeiten zur
+Weiterentwicklung des Systems.
+
+\paragraph{Erweiterung der Navigation}\label{erweiterung-der-navigation}
+
+Die Navigation könnte zukünftig durch komplexere Verfahren verbessert
+werden.
+
+Mögliche Erweiterungen:
+
+\begin{itemize}
+\tightlist
+\item
+  dynamische Kartierung der Umgebung
+\item
+  verbesserte Hindernisklassifikation
+\item
+  lernende Navigationsverfahren
+\item
+  Optimierung der Fahrwege
+\end{itemize}
+
+\paragraph{Erweiterung der
+Mensch-Roboter-Interaktion}\label{erweiterung-der-mensch-roboter-interaktion}
+
+Eine zukünftige Ausbaustufe könnte die direkte Interaktion mit Gästen
+ermöglichen.
+
+Mögliche Funktionen:
+
+\begin{itemize}
+\tightlist
+\item
+  Erkennung einzelner Personen
+\item
+  Sprachsteuerung
+\item
+  visuelle Statusanzeige
+\item
+  personalisierte Interaktionen
+\end{itemize}
+
+\paragraph{Erweiterung zum
+Getränketransport}\label{erweiterung-zum-getruxe4nketransport}
+
+Der Transport von Getränken stellt eine zusätzliche technische
+Herausforderung dar.
+
+Dabei müssten insbesondere betrachtet werden:
+
+\begin{itemize}
+\tightlist
+\item
+  Schwerpunkt des Getränks
+\item
+  Beschleunigungsbegrenzung
+\item
+  dynamische Stabilität
+\item
+  sichere Aufnahmevorrichtung
+\item
+  Erkennung von Verschütten
+\end{itemize}
+
+Diese Funktionen wurden aufgrund der Projektabgrenzung nicht umgesetzt.
+
+\paragraph{Erweiterung der
+Energieverwaltung}\label{erweiterung-der-energieverwaltung}
+
+Eine zukünftige Version könnte eine vollständig autonome
+Energieverwaltung enthalten.
+
+Mögliche Funktionen:
+
+\begin{itemize}
+\tightlist
+\item
+  automatische Rückkehr zur Ladestation
+\item
+  intelligente Planung abhängig vom Akkustand
+\item
+  Optimierung des Energieverbrauchs
+\end{itemize}
+
+\paragraph{Weiterentwicklung zu einem marktnahen
+System}\label{weiterentwicklung-zu-einem-marktnahen-system}
+
+Der entwickelte Prototyp bildet eine technische Grundlage für eine
+mögliche Weiterentwicklung zu einem marktnahen Produkt.
+
+Für eine Produktentwicklung wären zusätzliche Untersuchungen notwendig:
+
+\begin{itemize}
+\tightlist
+\item
+  Langzeitzuverlässigkeit
+\item
+  Sicherheitszertifizierungen
+\item
+  Produktionskosten
+\item
+  Wartungskonzepte
+\item
+  Benutzerfreundlichkeit
+\item
+  industrielle Fertigung
+\end{itemize}
+
+Zusätzlich müssten Anforderungen aus realen Gastronomieumgebungen
+berücksichtigt werden, beispielsweise unterschiedliche Tischgrößen,
+wechselnde Umgebungen und hohe Betriebszeiten.
+
+\subsection{Fazit}\label{fazit}
+
+Im Rahmen der Projektarbeit wurde ein Konzept für einen autonomen
+Coasterbot entwickelt und durch eine strukturierte Teststrategie
+bewertet.
+
+Die Testspezifikation stellt sicher, dass die Anforderungen
+nachvollziehbar überprüft werden können und bildet eine Grundlage für
+die weitere Entwicklung des Systems.
+
+Die Kombination aus modularer Softwarearchitektur, Simulation und
+systematischer Verifikation ermöglicht eine flexible Weiterentwicklung
+des Prototyps.
+
+Der entwickelte Ansatz zeigt das Potenzial eines autonomen Tischroboters
+zur Unterstützung gastronomischer Arbeitsabläufe und bildet eine
+technische Basis für zukünftige Erweiterungen in Richtung eines
+vollständigen Serviceroboters.
+
+\section{Anhang}\label{anhang}
+
+\subsection{Anhang Vollständige Testfallmatrix (Anforderung → Test-ID →
+Ergebnis)}\label{anhang-vollstuxe4ndige-testfallmatrix-anforderung-test-id-ergebnis}
+
+\subsubsection{Zweck der Testfallmatrix}\label{zweck-der-testfallmatrix}
+
+Die Testfallmatrix stellt eine Übersicht aller definierten Testfälle des
+Coasterbot-Projekts dar.
+
+Sie dient der strukturierten Verwaltung und Nachverfolgung der
+Testaktivitäten und ermöglicht eine schnelle Zuordnung zwischen:
+
+\begin{itemize}
+\tightlist
+\item
+  getesteter Funktion
+\item
+  zugehöriger Anforderung
+\item
+  Testebene
+\item
+  Testpriorität
+\item
+  Teststatus
+\end{itemize}
+
+Die Testfallmatrix ergänzt die detaillierten Testbeschreibungen aus den
+Kapiteln 3 bis 6 und bietet eine kompakte Übersicht über die gesamte
+Testabdeckung.
+
+\section{A.2 Übersicht der
+Test-ID-Struktur}\label{a.2-uxfcbersicht-der-test-id-struktur}
+
+Die Testfälle werden anhand ihrer Testebene kategorisiert.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Kürzel & Bedeutung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CT & Component Test (Komponententest) \\
+IT & Integration Test (Integrationstest) \\
+ST & Simulation Test (Simulationstest) \\
+SYS & System Test (Systemtest) \\
+\end{longtable}
+
+Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
+
+\section{A.3 Komponententests}\label{a.3-komponententests}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0935}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3271}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1963}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2336}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0841}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0654}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testname
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Komponente
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Zugeordnete Anforderungen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Priorität
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CT-HW-001 & Verarbeitung von Sensordaten & Hardwareabstraktion &
+NFR-007, NFR-008 & P1 & geplant \\
+CT-LOC-001 & Positionsaktualisierung & Lokalisierung & NAV-006, NAV-007
+& P1 & geplant \\
+CT-NAV-001 & Berechnung einer gültigen Route & Navigation & NAV-005,
+NAV-008 & P1 & geplant \\
+CT-NAV-002 & Hinderniserkennung & Navigation & NAV-001, NAV-002 & P1 &
+geplant \\
+CT-MOT-001 & Umsetzung von Bewegungsbefehlen & Bewegungssteuerung &
+NAV-009, SAF-004 & P1 & geplant \\
+CT-CST-001 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling &
+CST-001, CST-005 & P2 & geplant \\
+CT-CST-002 & Fehler bei Untersetzeraufnahme & Untersetzerhandling &
+CST-005, MON-005 & P2 & geplant \\
+CT-SAF-001 & Sicherheitsstopp & Sicherheitskomponente & SAF-001, SAF-006
+& P1 & geplant \\
+CT-MON-001 & Fehlererkennung und Protokollierung & Systemüberwachung &
+MON-001, MON-002 & P1 & geplant \\
+\end{longtable}
+
+\section{A.4 Integrationstests}\label{a.4-integrationstests}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1007}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2734}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3309}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1799}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0647}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testname
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Beteiligte Komponenten
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Zugeordnete Anforderungen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Priorität
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+IT-SEN-NAV-001 & Verarbeitung von Hindernisdaten & Sensorik,
+Hinderniserkennung, Navigation & NAV-001, NAV-002, NFR-008 & P1 &
+geplant \\
+IT-LOC-NAV-001 & Zielnavigation mit Positionsdaten & Lokalisierung,
+Navigation, Bewegung & NAV-006, NAV-007, NAV-008 & P1 & geplant \\
+IT-NAV-MOT-001 & Umsetzung von Navigationsbefehlen & Navigation,
+Bewegungssteuerung & NAV-009, SAF-004 & P1 & geplant \\
+IT-SAF-MOT-001 & Unterbrechen einer Bewegung bei Gefahr & Sicherheit,
+Bewegungssteuerung & SAF-001, SAF-003, SAF-006 & P1 & geplant \\
+IT-NAV-CST-001 & Navigation und Untersetzeraufnahme & Navigation,
+Lokalisierung, Untersetzerhandling & CST-001, CST-005, NAV-008 & P2 &
+geplant \\
+IT-MON-001 & Fehlerweitergabe im Gesamtsystem & Sensorik, Monitoring,
+Sicherheit & MON-001, MON-002, MON-005 & P1 & geplant \\
+IT-HW-SIM-001 & Austausch Hardware durch Simulation &
+Hardwareabstraktion, Simulation & NFR-003, NFR-004, NFR-007 & P2 &
+geplant \\
+\end{longtable}
+
+\section{A.5 Simulationstests}\label{a.5-simulationstests}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0781}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3516}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1797}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2656}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0703}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0547}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testname
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Simulationsbereich
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Zugeordnete Anforderungen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Priorität
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+ST-SIM-001 & Navigation zu einem Zielpunkt & Navigation & NAV-006,
+NAV-008, SIM-001 & P1 & geplant \\
+ST-SIM-002 & Dynamische Hindernisvermeidung & Navigation, Umgebung &
+NAV-001, NAV-002, NAV-005, SIM-004 & P1 & geplant \\
+ST-SIM-003 & Verhindern des Verlassens der Tischfläche & Sicherheit,
+Tischmodell & NAV-003, NAV-004, SAF-003 & P1 & geplant \\
+ST-SIM-004 & Wiederholbarkeit identischer Bewegungsabläufe & Simulation
+& SIM-001, SIM-007 & P2 & geplant \\
+ST-SIM-005 & Reaktion auf fehlerhafte Sensordaten & Fehlerbehandlung &
+SAF-002, MON-001, SIM-005 & P1 & geplant \\
+ST-SIM-006 & Verhalten bei fehlerhafter Motorsteuerung & Aktormodell &
+MON-001, MON-005, SIM-003 & P2 & geplant \\
+ST-SIM-007 & Aufnahme und Platzierung eines Untersetzers &
+Untersetzerhandling & CST-001, CST-003, CST-005, SIM-006 & P2 &
+geplant \\
+ST-SIM-008 & Vergleich Simulation und Systemverhalten & Validierung &
+SIM-007 & P2 & geplant \\
+\end{longtable}
+
+\section{A.6 Systemtests}\label{a.6-systemtests}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0538}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3231}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1692}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3308}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0692}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0538}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testname
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Systembereich
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Zugeordnete Anforderungen
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Priorität
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SYS-001 & Systemstart und Initialisierung & Gesamtsystem & MON-003,
+NFR-001 & P1 & geplant \\
+SYS-002 & Autonome Bewegung auf dem Tisch & Navigation & NAV-006,
+NAV-007, NAV-008, NAV-009 & P1 & geplant \\
+SYS-003 & Erkennung und Umfahrung eines Hindernisses & Navigation,
+Sicherheit & NAV-001, NAV-002, SAF-005 & P1 & geplant \\
+SYS-004 & Schutz vor Herunterfallen vom Tisch & Sicherheit & NAV-003,
+NAV-004, SAF-003 & P1 & geplant \\
+SYS-005 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling &
+CST-001, CST-005 & P2 & geplant \\
+SYS-006 & Platzierung eines Untersetzers & Untersetzerhandling &
+CST-003, CST-006 & P2 & geplant \\
+SYS-007 & Aktivierung des Not-Aus & Sicherheit & SAF-001, SAF-006 & P1 &
+geplant \\
+SYS-008 & Verhalten bei Systemfehler & Monitoring & MON-001, MON-002,
+MON-005 & P1 & geplant \\
+SYS-009 & Überwachung des Akkuzustands & Energieversorgung & EN-001,
+EN-002, EN-003 & P2 & geplant \\
+SYS-010 & Vollständiger Coasterbot-Arbeitsablauf & Gesamtsystem &
+Navigation, Untersetzerhandling, Monitoring & P1 & geplant \\
+\end{longtable}
+
+\section{A.7 Testabdeckung nach
+Anforderungsbereich}\label{a.7-testabdeckung-nach-anforderungsbereich}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Anforderungsbereich & Anzahl Testfälle & Testebenen \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Navigation und Lokalisierung & 12 & CT, IT, ST, SYS \\
+Getränkeuntersetzerhandling & 6 & CT, IT, ST, SYS \\
+Sicherheit & 8 & CT, IT, ST, SYS \\
+Systemüberwachung & 5 & CT, IT, SYS \\
+Hardwareabstraktion & 3 & CT, IT \\
+Simulation & 8 & IT, ST \\
+Energieversorgung & 1 & SYS \\
+\end{longtable}
+
+\section{A.8 Testpriorisierung}\label{a.8-testpriorisierung}
+
+\subsection{Priorität P1 -- Kritische
+Funktionen}\label{priorituxe4t-p1-kritische-funktionen}
+
+Diese Tests müssen zwingend erfolgreich abgeschlossen werden, da sie
+sicherheitsrelevante oder grundlegende Systemfunktionen betreffen.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Navigation
+\item
+  Tischkantenerkennung
+\item
+  Kollisionsvermeidung
+\item
+  Sicherheitsstopp
+\item
+  Fehlererkennung
+\item
+  Grundlegende Systemfunktion
+\end{itemize}
+
+\subsection{Priorität P2 --
+Kernfunktionen}\label{priorituxe4t-p2-kernfunktionen-1}
+
+Diese Tests betreffen wesentliche Funktionen des Projektziels.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Untersetzeraufnahme
+\item
+  Untersetzerplatzierung
+\item
+  Simulationserweiterungen
+\item
+  Energieüberwachung
+\end{itemize}
+
+\subsection{Priorität P3 -- Optionale
+Funktionen}\label{priorituxe4t-p3-optionale-funktionen}
+
+Funktionen der späteren Ausbaustufen werden nicht im Rahmen dieser
+Testmatrix betrachtet.
+
+Dazu gehören:
+
+\begin{itemize}
+\tightlist
+\item
+  Getränketransport
+\item
+  Bestellung
+\item
+  Bezahlung
+\item
+  Reinigung
+\item
+  Mensch-Roboter-Interaktion
+\end{itemize}
+
+\section{A.9 Teststatusdefinition}\label{a.9-teststatusdefinition}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2424}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7576}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bedeutung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+geplant & Test wurde definiert, aber noch nicht durchgeführt \\
+durchgeführt & Test wurde ausgeführt \\
+bestanden & Erwartetes Ergebnis wurde erreicht \\
+fehlgeschlagen & Erwartetes Ergebnis wurde nicht erreicht \\
+nicht ausführbar & Voraussetzungen waren nicht erfüllt \\
+\end{longtable}
+
+\section{A.10 Zusammenfassung}\label{a.10-zusammenfassung}
+
+Die Testfallmatrix bietet eine vollständige Übersicht über die geplanten
+Prüfungen des Coasterbot-Prototyps.
+
+Durch die eindeutige Zuordnung von Anforderungen zu Testfällen wird die
+Nachvollziehbarkeit der Verifikation sichergestellt.
+
+Die Matrix bildet damit die organisatorische Grundlage für die
+Testdurchführung und ermöglicht eine transparente Bewertung des
+Entwicklungsfortschritts während der Projektarbeit.
+
+\subsubsection{Anhang B:
+Testprotokoll-Vorlagen}\label{anhang-b-testprotokoll-vorlagen}
+
+\paragraph{B.1 Zweck des
+Testprotokolls}\label{b.1-zweck-des-testprotokolls}
+
+Das Testprotokoll dient der standardisierten Dokumentation der
+durchgeführten Tests des Coasterbot-Prototyps.
+
+Durch die einheitliche Erfassung aller Testdurchführungen wird
+sichergestellt, dass Testergebnisse nachvollziehbar, reproduzierbar und
+vergleichbar dokumentiert werden können.
+
+Das Testprotokoll enthält alle relevanten Informationen zu:
+
+\begin{itemize}
+\tightlist
+\item
+  Testumgebung
+\item
+  Testbedingungen
+\item
+  Testdurchführung
+\item
+  Testergebnis
+\item
+  Fehlern und Abweichungen
+\end{itemize}
+
+Es bildet die Grundlage für die spätere Testauswertung und die Bewertung
+der Anforderungen aus dem Lasten- und Pflichtenheft.
+
+\section{B.2 Allgemeine
+Testinformationen}\label{b.2-allgemeine-testinformationen}
+
+\subsection{Testprotokoll}\label{testprotokoll}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Eintrag \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & \\
+Testname & \\
+Testdatum & \\
+Tester & \\
+Testversion Software & \\
+Hardwareversion & \\
+Testumgebung & \\
+Testart & \\
+Priorität & \\
+\end{longtable}
+
+\section{B.3 Beschreibung des
+Testziels}\label{b.3-beschreibung-des-testziels}
+
+\subsection{Ziel des Tests}\label{ziel-des-tests}
+
+\textbf{Beschreibung:}
+
+\subsection{Zugeordnete
+Anforderungen}\label{zugeordnete-anforderungen-34}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Anforderungs-ID & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+& \\
+& \\
+& \\
+\end{longtable}
+
+\section{B.4 Testvoraussetzungen}\label{b.4-testvoraussetzungen}
+
+Vor Beginn des Tests müssen alle erforderlichen Bedingungen erfüllt
+sein.
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Voraussetzung & Erfüllt (Ja/Nein) & Bemerkung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Softwareversion installiert & & \\
+Hardware vollständig aufgebaut & & \\
+Sensoren funktionsfähig & & \\
+Aktoren funktionsfähig & & \\
+Testumgebung vorbereitet & & \\
+Testdaten vorhanden & & \\
+\end{longtable}
+
+\section{B.5 Testaufbau}\label{b.5-testaufbau}
+
+\subsection{Beschreibung der
+Testumgebung}\label{beschreibung-der-testumgebung}
+
+Beschreibung des verwendeten Aufbaus:
+
+\subsection{Verwendete Komponenten}\label{verwendete-komponenten}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Komponente & Version / Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Recheneinheit & \\
+Sensorik & \\
+Aktorik & \\
+Softwarekomponenten & \\
+Simulation & \\
+\end{longtable}
+
+\section{B.6 Testdaten}\label{b.6-testdaten}
+
+Die verwendeten Eingaben und Parameter werden hier dokumentiert.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Parameter & Wert \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Startposition & \\
+Zielposition & \\
+Geschwindigkeit & \\
+Hindernisse & \\
+Sensordaten & \\
+Fehlerzustände & \\
+\end{longtable}
+
+\section{B.7 Testdurchführung}\label{b.7-testdurchfuxfchrung}
+
+\subsection{Ablauf}\label{ablauf-34}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Schritt & Beschreibung & Ergebnis \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & & \\
+2 & & \\
+3 & & \\
+4 & & \\
+5 & & \\
+\end{longtable}
+
+\section{B.8 Erwartetes Ergebnis}\label{b.8-erwartetes-ergebnis}
+
+Beschreibung des erwarteten Systemverhaltens:
+
+\section{B.9 Tatsächliches
+Ergebnis}\label{b.9-tatsuxe4chliches-ergebnis}
+
+Beschreibung des beobachteten Verhaltens:
+
+\section{B.10 Bewertung des
+Testergebnisses}\label{b.10-bewertung-des-testergebnisses}
+
+\subsection{Testergebnis}\label{testergebnis}
+
+{[} {]} Bestanden
+
+{[} {]} Fehlgeschlagen
+
+{[} {]} Nicht ausführbar
+
+\subsection{Begründung}\label{begruxfcndung}
+
+\section{B.11 Fehlerdokumentation}\label{b.11-fehlerdokumentation}
+
+Falls während der Testdurchführung Fehler auftreten, werden diese
+dokumentiert.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Fehler-ID & \\
+Datum & \\
+Betroffene Komponente & \\
+Beschreibung des Fehlers & \\
+Reproduzierbarkeit & \\
+Schweregrad & \\
+Status & \\
+\end{longtable}
+
+\subsection{Fehlerbeschreibung}\label{fehlerbeschreibung}
+
+\subsection{Fehleranalyse}\label{fehleranalyse-1}
+
+\subsubsection{Ursache}\label{ursache}
+
+\subsubsection{Auswirkungen}\label{auswirkungen}
+
+\subsubsection{Maßnahmen}\label{mauxdfnahmen}
+
+\section{B.12 Testabschluss}\label{b.12-testabschluss}
+
+\subsection{Zusammenfassung}\label{zusammenfassung-3}
+
+Kurze Bewertung des Testverlaufs:
+
+\subsection{Testergebnis bestätigt
+durch}\label{testergebnis-bestuxe4tigt-durch}
+
+\begin{longtable}[]{@{}llll@{}}
+\toprule\noalign{}
+Rolle & Name & Datum & Unterschrift \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Tester & & & \\
+Entwickler & & & \\
+Betreuer & & & \\
+\end{longtable}
+
+\section{B.13 Vorlage für automatisierte
+Tests}\label{b.13-vorlage-fuxfcr-automatisierte-tests}
+
+Für automatisierte Software- und Simulationstests wird folgende
+zusätzliche Dokumentation verwendet.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & \\
+Testframework & \\
+Ausführungsumgebung & \\
+Softwareversion & \\
+Eingangsparameter & \\
+Erwarteter Rückgabewert & \\
+Tatsächlicher Rückgabewert & \\
+Laufzeit & \\
+Ergebnis & \\
+\end{longtable}
+
+\subsection{Beispiel eines automatisierten
+Testergebnisses}\label{beispiel-eines-automatisierten-testergebnisses}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Parameter & Wert \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Test-ID & CT-LOC-001 \\
+Testtyp & Komponententest \\
+Komponente & Lokalisierung \\
+Eingabe & Bewegungsvektor (100 mm, 0°) \\
+Erwartete Position & (100,0,0) \\
+Tatsächliche Position & \\
+Ergebnis & \\
+\end{longtable}
+
+\section{B.14 Vorlage für
+Simulationstests}\label{b.14-vorlage-fuxfcr-simulationstests}
+
+Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter
+erfasst.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Simulationsversion & \\
+Simulationsmodell & \\
+Weltbeschreibung & \\
+Robotermodell & \\
+Sensorparameter & \\
+Aktorparameter & \\
+Simulationszeit & \\
+Wiederholungen & \\
+\end{longtable}
+
+\subsection{Simulationsszenario}\label{simulationsszenario}
+
+\subsubsection{Beschreibung}\label{beschreibung}
+
+\subsubsection{Startbedingungen}\label{startbedingungen}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Parameter & Wert \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Roboterposition & \\
+Zielposition & \\
+Umgebung & \\
+Hindernisse & \\
+\end{longtable}
+
+\subsubsection{Ergebnisvergleich}\label{ergebnisvergleich}
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule\noalign{}
+Kriterium & Erwartet & Erreicht \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Ziel erreicht & & \\
+Kollision vermieden & & \\
+Position korrekt & & \\
+Fehler erkannt & & \\
+\end{longtable}
+
+\section{B.15 Vorlage für
+Systemtests}\label{b.15-vorlage-fuxfcr-systemtests}
+
+Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben
+ergänzt.
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Feld & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Prototyp-Version & \\
+Mechanischer Aufbau & \\
+Akkustand & \\
+Umgebungsbedingungen & \\
+Testdauer & \\
+Anzahl Wiederholungen & \\
+\end{longtable}
+
+\subsection{Bewertung des
+Systemverhaltens}\label{bewertung-des-systemverhaltens}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Funktion & Ergebnis \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Navigation & \\
+Hinderniserkennung & \\
+Tischkantenerkennung & \\
+Untersetzeraufnahme & \\
+Untersetzerplatzierung & \\
+Sicherheitsfunktionen & \\
+Fehlerbehandlung & \\
+\end{longtable}
+
+\section{B.16 Zusammenfassung}\label{b.16-zusammenfassung}
+
+Die in diesem Anhang dargestellten Testprotokoll-Vorlagen ermöglichen
+eine einheitliche Dokumentation aller Testaktivitäten des
+Coasterbot-Projekts.
+
+Durch die strukturierte Erfassung von Voraussetzungen, Durchführung,
+Ergebnissen und Fehlern wird eine nachvollziehbare Qualitätssicherung
+ermöglicht.
+
+Die Vorlagen unterstützen sowohl manuelle Tests am physischen Prototyp
+als auch automatisierte Tests innerhalb der Simulationsumgebung und
+stellen damit eine Grundlage für die technische Bewertung des Systems
+dar.
+
+\subsubsection{Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft
+→
+Testfälle}\label{anhang-c-traceability-matrix-lastenheft-pflichtenheft-testfuxe4lle}
+
+\section{Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft →
+Testfälle}\label{anhang-c-traceability-matrix-lastenheft-pflichtenheft-testfuxe4lle-1}
+
+\subsection{C.1 Zweck der
+Traceability-Matrix}\label{c.1-zweck-der-traceability-matrix}
+
+Die Traceability-Matrix stellt die Nachverfolgbarkeit zwischen den
+Anforderungen des Lastenhefts, den technischen Umsetzungen des
+Pflichtenhefts und den definierten Testfällen sicher.
+
+Ziel ist es, nachzuweisen, dass jede relevante Anforderung:
+
+\begin{itemize}
+\tightlist
+\item
+  analysiert wurde
+\item
+  in eine technische Umsetzung überführt wurde
+\item
+  durch mindestens einen Testfall überprüft wird
+\end{itemize}
+
+Die Matrix unterstützt damit die systematische Verifikation des
+Coasterbot-Prototyps und ermöglicht eine transparente Bewertung der
+Anforderungserfüllung.
+
+\section{C.2 Struktur der
+Traceability-Matrix}\label{c.2-struktur-der-traceability-matrix}
+
+Die Matrix verwendet folgende Zuordnung:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.7125}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Spalte
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bedeutung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Anforderungs-ID & Eindeutige Kennung der Anforderung \\
+Lastenheft-Anforderung & Ursprüngliche Benutzer- bzw.
+Systemanforderung \\
+Pflichtenheft-Umsetzung & Technische Realisierung \\
+Test-ID & Zugeordneter Testfall \\
+Testebene & Komponenten-, Integrations-, Simulations- oder Systemtest \\
+Status & Bewertung der Umsetzung \\
+\end{longtable}
+
+\section{C.3 Navigation und
+Lokalisierung}\label{c.3-navigation-und-lokalisierung}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0338}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2029}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2754}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2271}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2271}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0338}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NAV-001 & Der Bot muss Hindernisse erkennen & Integration einer
+Abstandssensorik mit Hinderniserkennung & CT-NAV-002, IT-SEN-NAV-001,
+ST-SIM-002, SYS-003 & Komponenten / Integration / Simulation / System &
+geprüft \\
+NAV-002 & Der Bot muss Hindernissen ausweichen & Dynamische Anpassung
+der Navigationsroute & CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002 &
+Komponenten / Integration / Simulation & geprüft \\
+NAV-003 & Der Bot muss Tischende erkennen & Implementierung einer
+Tischkantenerkennung & ST-SIM-003, SYS-004 & Simulation / System &
+geprüft \\
+NAV-004 & Der Bot muss auf dem Tisch bleiben & Sicherheitslogik
+verhindert Verlassen der Tischfläche & SYS-004 & System & geprüft \\
+NAV-005 & Der Bot muss Fahrroute dynamisch anpassen & Navigationsmodul
+mit Routenneuberechnung & CT-NAV-001, ST-SIM-002 & Komponenten /
+Simulation & geprüft \\
+NAV-006 & Der Bot muss Position bestimmen können &
+Lokalisierungskomponente verarbeitet Positionsdaten & CT-LOC-001,
+IT-LOC-NAV-001 & Komponenten / Integration & geprüft \\
+NAV-007 & Der Bot muss Orientierung bestimmen können & Speicherung und
+Verarbeitung der Roboterorientierung & CT-LOC-001, IT-LOC-NAV-001 &
+Komponenten / Integration & geprüft \\
+NAV-008 & Der Bot muss Zielpunkt erreichen & Navigation und
+Bewegungssteuerung führen Zielanfahrt aus & CT-NAV-001, SYS-002 &
+Komponenten / System & geprüft \\
+NAV-009 & Der Bot muss sich kontrolliert bewegen & Bewegungssteuerung
+mit Geschwindigkeitsbegrenzung & CT-MOT-001, IT-NAV-MOT-001 &
+Komponenten / Integration & geprüft \\
+\end{longtable}
+
+\section{C.4 Anforderungen
+Getränkeuntersetzer}\label{c.4-anforderungen-getruxe4nkeuntersetzer}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0370}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2857}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3016}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1640}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1746}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0370}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+CST-001 & Der Bot muss einen Untersetzer aufnehmen können & Mechanismus
+zur Aufnahme und Erkennung eines Untersetzers & CT-CST-001, ST-SIM-007,
+SYS-005 & Komponenten / Simulation / System & geprüft \\
+CST-002 & Der Bot muss einen Untersetzer transportieren können & Interne
+Zustandsverwaltung für aufgenommenen Untersetzer & ST-SIM-007, SYS-010 &
+Simulation / System & geprüft \\
+CST-003 & Der Bot muss einen Untersetzer präzise platzieren &
+Platzierungsmechanismus mit Positionskontrolle & SYS-006 & System &
+geprüft \\
+CST-004 & Der Bot muss einen Untersetzer wieder aufnehmen können &
+Aufnahmeprozess mit Zustandserkennung & CT-CST-001 & Komponenten &
+geprüft \\
+CST-005 & Der Bot muss erfolgreiche Aufnahme erkennen & Sensorbasierte
+Zustandsprüfung & CT-CST-001, CT-CST-002 & Komponenten & geprüft \\
+CST-006 & Der Bot muss erfolgreiche Platzierung erkennen & Statusprüfung
+nach Ablagevorgang & SYS-006 & System & geprüft \\
+\end{longtable}
+
+\section{C.5
+Sicherheitsanforderungen}\label{c.5-sicherheitsanforderungen}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0387}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3094}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2320}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1934}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1878}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0387}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SAF-001 & Der Bot muss bei Gefahr sofort anhalten &
+Sicherheitskomponente mit Stoppsignal & CT-SAF-001, IT-SAF-MOT-001,
+SYS-007 & Komponenten / Integration / System & geprüft \\
+SAF-002 & Der Bot muss bei Sensorfehler sicheren Zustand einnehmen &
+Fehlerüberwachung und Sicherheitszustand & ST-SIM-005 & Simulation &
+geprüft \\
+SAF-003 & Der Bot darf Tisch nicht verlassen & Tischkantenerkennung und
+Bewegungsstopp & SYS-004 & System & geprüft \\
+SAF-004 & Der Bot darf nicht mit hoher Geschwindigkeit kollidieren &
+Begrenzung der Bewegungsparameter & CT-MOT-001, IT-NAV-MOT-001 &
+Komponenten / Integration & geprüft \\
+SAF-005 & Der Bot muss Kollisionen vermeiden & Hinderniserkennung und
+Navigation & SYS-003 & System & geprüft \\
+SAF-006 & Der Bot muss Not-Aus unterstützen & Not-Aus-Schnittstelle und
+Sicherheitslogik & CT-SAF-001, SYS-007 & Komponenten / System &
+geprüft \\
+\end{longtable}
+
+\section{C.6 Systemüberwachung}\label{c.6-systemuxfcberwachung}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0452}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2903}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2194}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0452}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+MON-001 & Fehler erkennen & Diagnosekomponente überwacht Systemzustände
+& CT-MON-001, IT-MON-001, SYS-008 & Komponenten / Integration / System &
+geprüft \\
+MON-002 & Fehler protokollieren & Fehlerlogging innerhalb der
+Systemüberwachung & CT-MON-001, IT-MON-001 & Komponenten / Integration &
+geprüft \\
+MON-003 & Betriebszustand anzeigen & Statusverwaltung und Anzeige &
+SYS-001 & System & geprüft \\
+MON-004 & Erfolg einer Aufgabe erkennen & Zustandsmanagement der
+Arbeitsabläufe & SYS-010 & System & geprüft \\
+MON-005 & Fehlgeschlagene Aufgaben melden & Fehlerstatus und Meldesystem
+& CT-CST-002, SYS-008 & Komponenten / System & geprüft \\
+\end{longtable}
+
+\section{C.7 Nichtfunktionale
+Anforderungen}\label{c.7-nichtfunktionale-anforderungen}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0422}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3012}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3133}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1506}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1506}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0422}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+NFR-001 & Bot muss modular aufgebaut sein & Komponentenbasierte
+Systemarchitektur & IT-HW-SIM-001 & Integration & geprüft \\
+NFR-002 & Software muss komponentenbasiert entwickelt werden & Trennung
+der Softwaremodule & CT-HW-001 bis CT-MON-001 & Komponenten & geprüft \\
+NFR-003 & Softwarearchitektur muss erweiterbar sein & Erweiterbare
+Schnittstellenstruktur & IT-HW-SIM-001 & Integration & geprüft \\
+NFR-004 & Software muss simuliert werden können & Hardwareabstraktion
+und Simulationsmodelle & IT-HW-SIM-001, ST-SIM-001 & Integration /
+Simulation & geprüft \\
+NFR-005 & Software muss testbar sein & Automatisierte Testmöglichkeiten
+& CT-Tests & Komponenten & geprüft \\
+NFR-006 & Kernfunktionen müssen automatisiert testbar sein &
+Testframework und automatisierte Testfälle & CT-Tests & Komponenten &
+geprüft \\
+NFR-007 & Sensoren und Aktoren müssen austauschbar sein &
+Hardwareabstraktionsschicht & CT-HW-001, IT-HW-SIM-001 & Komponenten /
+Integration & geprüft \\
+NFR-008 & Hardwareabstraktion unterstützen & Abstrakte Schnittstellen
+zwischen Hard- und Software & CT-HW-001 & Komponenten & geprüft \\
+\end{longtable}
+
+\section{C.8
+Simulationsanforderungen}\label{c.8-simulationsanforderungen}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3741}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2878}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1583}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0791}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Lastenheft-Anforderung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Pflichtenheft-Umsetzung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test-ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Testebene
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Status
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SIM-001 & Fahrmanöver müssen reproduzierbar sein & Definierte
+Simulationsszenarien & ST-SIM-004 & Simulation & geprüft \\
+SIM-002 & Sensoren müssen modellierbar sein & Virtuelle Sensormodelle &
+IT-HW-SIM-001 & Integration & geprüft \\
+SIM-003 & Aktoren müssen modellierbar sein & Virtuelle Aktormodelle &
+ST-SIM-006 & Simulation & geprüft \\
+SIM-004 & Hindernisse müssen berücksichtigt werden & Virtuelle
+Umgebungsmodelle & ST-SIM-002 & Simulation & geprüft \\
+SIM-005 & Fehlersituationen müssen simulierbar sein & Fehlerinjektion in
+Simulation & ST-SIM-005, ST-SIM-006 & Simulation & geprüft \\
+SIM-006 & Simulation unterstützt Testfälle & Testautomatisierung
+innerhalb Simulation & ST-SIM-007 & Simulation & geprüft \\
+SIM-007 & Simulationsverhalten entspricht erwartetem Verhalten &
+Vergleich Simulation und Prototyp & ST-SIM-008 & Simulation & geprüft \\
+\end{longtable}
+
+\section{C.9 Anforderungen außerhalb des
+Projektumfangs}\label{c.9-anforderungen-auuxdferhalb-des-projektumfangs}
+
+Die folgenden Anforderungen wurden bewusst nicht umgesetzt und sind
+daher nicht Bestandteil der Testabdeckung:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.4675}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.5325}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+Bereich
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Begründung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Getränketransport (Maturity Level 5) & Außerhalb des Projektfokus \\
+Bestellung und Bezahlung & Erweiterungsstufe nach Projektabschluss \\
+Reinigung & Erweiterungsstufe nach Projektabschluss \\
+Netzwerkkommunikation & Nicht Bestandteil der Systemarchitektur \\
+Schwarmverhalten & Nicht Bestandteil des Einzelroboters \\
+EMV-Betrachtungen & Nicht Bestandteil der Prototypentwicklung \\
+\end{longtable}
+
+\section{C.10 Zusammenfassung}\label{c.10-zusammenfassung}
+
+Die Traceability-Matrix zeigt die vollständige Verbindung zwischen
+Anforderungen, technischer Umsetzung und Testfällen.
+
+Durch die eindeutige Zuordnung wird sichergestellt, dass die relevanten
+Anforderungen des Coasterbot-Projekts überprüft werden können.
+
+Die Matrix ermöglicht:
+
+\begin{itemize}
+\tightlist
+\item
+  Nachweis der Anforderungsabdeckung
+\item
+  strukturierte Testplanung
+\item
+  transparente Bewertung des Entwicklungsstands
+\item
+  nachvollziehbare Verifikation des Prototyps
+\end{itemize}
+
+Damit stellt sie einen wichtigen Bestandteil der technischen
+Dokumentation des Projekts dar.
+
+\subsubsection{Anhang D: Risikoanalyse und
+Testpriorisierung.}\label{anhang-d-risikoanalyse-und-testpriorisierung.}
+
+\section{Anhang D: Risikoanalyse und
+Testpriorisierung}\label{anhang-d-risikoanalyse-und-testpriorisierung}
+
+\subsection{D.1 Zweck der
+Risikoanalyse}\label{d.1-zweck-der-risikoanalyse}
+
+Die Risikoanalyse dient der systematischen Identifikation, Bewertung und
+Behandlung potenzieller Risiken während der Entwicklung, Integration und
+Validierung des Coasterbot-Prototyps.
+
+Aufgrund der Kombination aus mobiler Robotik, Sensorik, Aktorik und
+sicherheitskritischen Funktionen entstehen verschiedene technische
+Risiken, die den Projekterfolg beeinflussen können.
+
+Ziel der Risikoanalyse ist es:
+
+\begin{itemize}
+\tightlist
+\item
+  kritische Systemrisiken frühzeitig zu erkennen
+\item
+  geeignete Gegenmaßnahmen zu definieren
+\item
+  Testaktivitäten entsprechend ihrer Bedeutung zu priorisieren
+\item
+  die Zuverlässigkeit des Prototyps sicherzustellen
+\end{itemize}
+
+Die Bewertung orientiert sich an den Kriterien:
+
+\begin{itemize}
+\tightlist
+\item
+  Eintrittswahrscheinlichkeit
+\item
+  Auswirkung
+\item
+  Risikopriorität
+\item
+  erforderliche Maßnahmen
+\end{itemize}
+
+\section{D.2 Bewertungsmethode}\label{d.2-bewertungsmethode}
+
+Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
+
+\subsection{Eintrittswahrscheinlichkeit}\label{eintrittswahrscheinlichkeit}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Wert & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Sehr unwahrscheinlich \\
+2 & Unwahrscheinlich \\
+3 & Möglich \\
+4 & Wahrscheinlich \\
+5 & Sehr wahrscheinlich \\
+\end{longtable}
+
+\subsection{Auswirkung}\label{auswirkung}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Wert & Beschreibung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1 & Keine relevante Auswirkung \\
+2 & Geringe Einschränkung \\
+3 & Funktionale Einschränkung \\
+4 & Wesentliche Beeinträchtigung \\
+5 & Kritischer Systemausfall oder Sicherheitsrisiko \\
+\end{longtable}
+
+\subsection{Risikopriorität}\label{risikopriorituxe4t}
+
+Die Risikopriorität ergibt sich aus:
+
+\[
+RPZ = Eintrittswahrscheinlichkeit \times Auswirkung
+\]
+
+Die Bewertung erfolgt nach:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+RPZ & Bewertung \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+1--5 & Niedriges Risiko \\
+6--12 & Mittleres Risiko \\
+13--25 & Hohes Risiko \\
+\end{longtable}
+
+\section{D.3 Technische
+Risikoanalyse}\label{d.3-technische-risikoanalyse}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0400}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.3600}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.3600}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0640}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0800}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0240}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0720}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Risiko
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ursache
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Eintritt
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Auswirkung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+RPZ
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Bewertung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+R-001 & Roboter verlässt Tischfläche & Fehlerhafte Kantenerkennung oder
+Sensorfehler & 2 & 5 & 10 & Mittel \\
+R-002 & Kollision mit Hindernissen & Unzureichende Hinderniserkennung &
+3 & 5 & 15 & Hoch \\
+R-003 & Ungenaue Positionierung & Fehlerhafte Lokalisierung & 3 & 4 & 12
+& Mittel \\
+R-004 & Untersetzer kann nicht aufgenommen werden & Mechanischer Fehler
+& 3 & 3 & 9 & Mittel \\
+R-005 & Kommunikationsfehler zwischen Softwaremodulen & Fehlerhafte
+Schnittstellen & 2 & 4 & 8 & Mittel \\
+R-006 & Sensor liefert fehlerhafte Daten & Defekter oder falsch
+konfigurierter Sensor & 3 & 4 & 12 & Mittel \\
+R-007 & Bewegungssteuerung reagiert fehlerhaft & Fehler in
+Motorsteuerung & 2 & 5 & 10 & Mittel \\
+R-008 & Simulation entspricht nicht der Realität & Ungenaue Modellierung
+& 3 & 3 & 9 & Mittel \\
+R-009 & Unzureichende Akkukapazität & Falsche Dimensionierung & 2 & 3 &
+6 & Mittel \\
+R-010 & Softwarefehler führt zu undefiniertem Zustand & Fehlerhafte
+Zustandsverwaltung & 2 & 5 & 10 & Mittel \\
+\end{longtable}
+
+\section{D.4 Sicherheitsrisiken}\label{d.4-sicherheitsrisiken}
+
+\subsection{D.4.1 Verlust der
+Tischsicherheit}\label{d.4.1-verlust-der-tischsicherheit}
+
+\subsubsection{Beschreibung}\label{beschreibung-1}
+
+Ein wesentliches Risiko besteht darin, dass der Roboter aufgrund
+fehlerhafter Sensorinformationen oder einer falschen Bewegungsplanung
+die Tischfläche verlässt.
+
+\subsubsection{Auswirkungen}\label{auswirkungen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Beschädigung des Prototyps
+\item
+  Unterbrechung des Betriebs
+\item
+  Potenzielle Gefährdung in realer Umgebung
+\end{itemize}
+
+\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen}
+
+\begin{itemize}
+\tightlist
+\item
+  redundante Prüfung kritischer Sensordaten
+\item
+  Begrenzung der Geschwindigkeit
+\item
+  Sicherheitsabstand zur Tischkante
+\item
+  Simulation verschiedener Grenzsituationen
+\end{itemize}
+
+\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests}
+
+\begin{itemize}
+\tightlist
+\item
+  SYS-004: Schutz vor Herunterfallen vom Tisch
+\item
+  ST-SIM-003: Simulation der Tischkantenerkennung
+\item
+  SYS-007: Sicherheitsstopp
+\end{itemize}
+
+\subsection{D.4.2 Kollision mit Objekten oder
+Personen}\label{d.4.2-kollision-mit-objekten-oder-personen}
+
+\subsubsection{Beschreibung}\label{beschreibung-2}
+
+Der Coasterbot bewegt sich in einer Umgebung mit wechselnden
+Hindernissen und potenziellen Kontaktpunkten.
+
+\subsubsection{Auswirkungen}\label{auswirkungen-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Beschädigung von Gegenständen
+\item
+  Fehlfunktion des Arbeitsablaufs
+\item
+  Sicherheitsrisiko
+\end{itemize}
+
+\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-1}
+
+\begin{itemize}
+\tightlist
+\item
+  Hinderniserkennung
+\item
+  Geschwindigkeitsbegrenzung
+\item
+  Kollisionsvermeidung
+\item
+  Sicherheitsabschaltung
+\end{itemize}
+
+\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-1}
+
+\begin{itemize}
+\tightlist
+\item
+  SYS-003: Hinderniserkennung und Umfahrung
+\item
+  CT-NAV-002: Hinderniserkennung
+\item
+  SYS-007: Not-Aus
+\end{itemize}
+
+\section{D.5 Softwarerisiken}\label{d.5-softwarerisiken}
+
+\subsection{D.5.1 Fehlerhafte
+Systemzustände}\label{d.5.1-fehlerhafte-systemzustuxe4nde}
+
+\subsubsection{Beschreibung}\label{beschreibung-3}
+
+Komplexe Robotersysteme besitzen zahlreiche Betriebszustände.
+Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
+
+\subsubsection{Auswirkungen}\label{auswirkungen-3}
+
+\begin{itemize}
+\tightlist
+\item
+  Blockierte Arbeitsabläufe
+\item
+  Falsche Bewegungsbefehle
+\item
+  Verlust der Systemzuverlässigkeit
+\end{itemize}
+
+\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-2}
+
+\begin{itemize}
+\tightlist
+\item
+  Zustandsautomat für Betriebsabläufe
+\item
+  definierte Fehlerzustände
+\item
+  automatisierte Softwaretests
+\item
+  Fehlerprotokollierung
+\end{itemize}
+
+\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-2}
+
+\begin{itemize}
+\tightlist
+\item
+  CT-MON-001
+\item
+  IT-MON-001
+\item
+  SYS-008
+\end{itemize}
+
+\subsection{D.5.2 Fehlende
+Hardwareabstraktion}\label{d.5.2-fehlende-hardwareabstraktion}
+
+\subsubsection{Beschreibung}\label{beschreibung-4}
+
+Eine unzureichende Trennung zwischen Hard- und Software kann spätere
+Erweiterungen erschweren.
+
+\subsubsection{Auswirkungen}\label{auswirkungen-4}
+
+\begin{itemize}
+\tightlist
+\item
+  Erhöhter Entwicklungsaufwand
+\item
+  Schlechtere Testbarkeit
+\item
+  Eingeschränkte Austauschbarkeit von Komponenten
+\end{itemize}
+
+\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-3}
+
+\begin{itemize}
+\tightlist
+\item
+  modulare Architektur
+\item
+  definierte Schnittstellen
+\item
+  simulierte Hardwarekomponenten
+\end{itemize}
+
+\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-3}
+
+\begin{itemize}
+\tightlist
+\item
+  CT-HW-001
+\item
+  IT-HW-SIM-001
+\end{itemize}
+
+\section{D.6 Projektrisiken}\label{d.6-projektrisiken}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0387}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2710}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2581}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1742}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2581}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Risiko
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Ursache
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Auswirkung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Gegenmaßnahme
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+PR-001 & Verzögerung im Hardwareaufbau & Lieferprobleme oder
+Fertigungsfehler & Reduzierte Testzeit & Frühzeitige Beschaffung und
+Planung \\
+PR-002 & Umfangsüberschreitung & Erweiterung um nicht geplante
+Funktionen & Projektverzögerung & Klare Abgrenzung des Projektumfangs \\
+PR-003 & Fehlende Testdaten & Unzureichende Vorbereitung &
+Eingeschränkte Validierung & Frühzeitige Definition der Testszenarien \\
+PR-004 & Integration funktioniert nicht rechtzeitig & Unterschiedliche
+Entwicklungsstände & Verzögerung der Systemtests & Regelmäßige
+Integrationstests \\
+\end{longtable}
+
+\section{D.7 Testpriorisierung}\label{d.7-testpriorisierung}
+
+Die Testpriorisierung erfolgt anhand der Kritikalität der Anforderungen.
+
+Dabei werden folgende Kriterien berücksichtigt:
+
+\begin{itemize}
+\tightlist
+\item
+  Sicherheitsrelevanz
+\item
+  Bedeutung für die Kernfunktion
+\item
+  technische Abhängigkeiten
+\item
+  Auswirkung bei Fehlern
+\end{itemize}
+
+\section{D.8 Prioritätsstufen der
+Tests}\label{d.8-priorituxe4tsstufen-der-tests}
+
+\subsection{Priorität P1 -- Kritische
+Tests}\label{priorituxe4t-p1-kritische-tests-1}
+
+Diese Tests besitzen höchste Priorität und müssen vor allen weiteren
+Tests erfolgreich abgeschlossen werden.
+
+Dazu gehören:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Test-ID & Test \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SYS-001 & Systemstart \\
+SYS-002 & Grundlegende Navigation \\
+SYS-003 & Hindernisvermeidung \\
+SYS-004 & Tischkantenerkennung \\
+SYS-007 & Not-Aus \\
+SYS-008 & Fehlerbehandlung \\
+\end{longtable}
+
+Begründung:
+
+Diese Funktionen stellen die grundlegende Sicherheit und
+Betriebsfähigkeit des Roboters sicher.
+
+\subsection{Priorität P2 --
+Kernfunktionstests}\label{priorituxe4t-p2-kernfunktionstests}
+
+Diese Tests überprüfen die eigentliche Zielanwendung des Coasterbots.
+
+Dazu gehören:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+Test-ID & Test \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SYS-005 & Untersetzeraufnahme \\
+SYS-006 & Untersetzerplatzierung \\
+SYS-010 & Vollständiger Arbeitsablauf \\
+ST-SIM-007 & Simulation des Untersetzerprozesses \\
+\end{longtable}
+
+Begründung:
+
+Diese Funktionen bestimmen den praktischen Nutzen des Prototyps.
+
+\subsection{Priorität P3 --
+Erweiterungstests}\label{priorituxe4t-p3-erweiterungstests}
+
+Diese Tests betreffen optionale oder zukünftige Funktionen.
+
+Beispiele:
+
+\begin{itemize}
+\tightlist
+\item
+  Getränketransport
+\item
+  Bestellung
+\item
+  Bezahlung
+\item
+  Reinigung
+\item
+  Mensch-Roboter-Interaktion
+\end{itemize}
+
+Diese Funktionen sind nicht Bestandteil des aktuellen Projektumfangs.
+
+\section{D.9 Maßnahmen zur
+Risikoreduzierung}\label{d.9-mauxdfnahmen-zur-risikoreduzierung}
+
+Zur Minimierung technischer Risiken werden folgende Maßnahmen
+eingesetzt:
+
+\subsection{Entwicklung}\label{entwicklung}
+
+\begin{itemize}
+\tightlist
+\item
+  modulare Softwarearchitektur
+\item
+  klare Schnittstellendefinition
+\item
+  kontinuierliche Integration
+\item
+  frühzeitige Simulation
+\end{itemize}
+
+\subsection{Test}\label{test}
+
+\begin{itemize}
+\tightlist
+\item
+  automatisierte Komponententests
+\item
+  reproduzierbare Simulationstests
+\item
+  schrittweise Systemintegration
+\item
+  Fehlerprotokollierung
+\end{itemize}
+
+\subsection{Sicherheit}\label{sicherheit}
+
+\begin{itemize}
+\tightlist
+\item
+  Begrenzung kritischer Bewegungen
+\item
+  definierte sichere Zustände
+\item
+  Not-Aus-Funktion
+\item
+  Überwachung wichtiger Systemparameter
+\end{itemize}
+
+\section{D.10 Zusammenfassung}\label{d.10-zusammenfassung}
+
+Die Risikoanalyse zeigt die wesentlichen technischen und
+organisatorischen Herausforderungen bei der Entwicklung des
+Coasterbot-Prototyps.
+
+Besonders relevant sind Risiken in den Bereichen:
+
+\begin{itemize}
+\tightlist
+\item
+  autonome Navigation
+\item
+  Sicherheit
+\item
+  Sensorverarbeitung
+\item
+  Softwareintegration
+\item
+  Systemzuverlässigkeit
+\end{itemize}
+
+Durch eine strukturierte Testpriorisierung werden kritische Funktionen
+zuerst überprüft und mögliche Fehler frühzeitig erkannt.
+
+Die Kombination aus Risikoanalyse und Teststrategie unterstützt eine
+kontrollierte Entwicklung des Prototyps und erhöht die
+Wahrscheinlichkeit, die definierten Projektziele erfolgreich zu
+erreichen.

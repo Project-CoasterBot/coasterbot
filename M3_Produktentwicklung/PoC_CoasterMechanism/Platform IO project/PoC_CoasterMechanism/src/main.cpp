@@ -91,6 +91,7 @@ void setup() {
   Serial.print(F("Servo 2 Kuerzel: "));
   Serial.println(SERVO2_LABEL);
   Serial.println(F("Eingabeformat:  <Kuerzel> <Winkel>   z.B.  S1 90"));
+  Serial.println(F("Fuer s2 min 28°"));
 }
 
 void loop() {

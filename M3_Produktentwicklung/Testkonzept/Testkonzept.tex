@@ -380,6 +380,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 19.08.2026 & Etringer & Erstfassung der Alternativenbeschreibung\\
+2 & 23.08.2026 & Etringer & Formatierung und Kapitelstruktur\\
 \bottomrule
 \end{tabularx}
 
@@ -5153,8 +5154,8 @@ vollständigen Serviceroboters.
 
 \section{Anhang}\label{anhang}
 
-\subsection{Anhang Vollständige Testfallmatrix (Anforderung → Test-ID →
-Ergebnis)}\label{anhang-vollstuxe4ndige-testfallmatrix-anforderung-test-id-ergebnis}
+\subsection{Vollständige Testfallmatrix (Anforderung → Test-ID →
+Ergebnis)}\label{vollstuxe4ndige-testfallmatrix-anforderung-test-id-ergebnis}
 
 \subsubsection{Zweck der Testfallmatrix}\label{zweck-der-testfallmatrix}
 
@@ -5182,8 +5183,8 @@ Die Testfallmatrix ergänzt die detaillierten Testbeschreibungen aus den
 Kapiteln 3 bis 6 und bietet eine kompakte Übersicht über die gesamte
 Testabdeckung.
 
-\section{A.2 Übersicht der
-Test-ID-Struktur}\label{a.2-uxfcbersicht-der-test-id-struktur}
+\subsubsection{Übersicht der
+Test-ID-Struktur}\label{uxfcbersicht-der-test-id-struktur}
 
 Die Testfälle werden anhand ihrer Testebene kategorisiert.
 
@@ -5202,15 +5203,15 @@ SYS & System Test (Systemtest) \\
 
 Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 
-\section{A.3 Komponententests}\label{a.3-komponententests}
+\subsubsection{Komponententests}\label{komponententests-2}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0935}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3271}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1963}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2336}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0841}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0654}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1000}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2100}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1900}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0600}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0900}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Test-ID
@@ -5219,9 +5220,9 @@ Testname
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Komponente
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Zugeordnete Anforderungen
+Zugeord. AFOs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Priorität
+Prio-rität
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
@@ -5229,7 +5230,7 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-CT-HW-001 & Verarbeitung von Sensordaten & Hardwareabstraktion &
+CT-HW-001 & Verarbeitung von Sensordaten & Hardware-abstraktion &
 NFR-007, NFR-008 & P1 & geplant \\
 CT-LOC-001 & Positionsaktualisierung & Lokalisierung & NAV-006, NAV-007
 & P1 & geplant \\
@@ -5237,27 +5238,27 @@ CT-NAV-001 & Berechnung einer gültigen Route & Navigation & NAV-005,
 NAV-008 & P1 & geplant \\
 CT-NAV-002 & Hinderniserkennung & Navigation & NAV-001, NAV-002 & P1 &
 geplant \\
-CT-MOT-001 & Umsetzung von Bewegungsbefehlen & Bewegungssteuerung &
+CT-MOT-001 & Umsetzung von Bewegungsbefehlen & Bewegungs-steuerung &
 NAV-009, SAF-004 & P1 & geplant \\
-CT-CST-001 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling &
-CST-001, CST-005 & P2 & geplant \\
-CT-CST-002 & Fehler bei Untersetzeraufnahme & Untersetzerhandling &
+CT-CST-001 & Aufnahme eines Getränkeuntersetzers & Untersetzer-handling
+& CST-001, CST-005 & P2 & geplant \\
+CT-CST-002 & Fehler bei Untersetzeraufnahme & Untersetzer-handling &
 CST-005, MON-005 & P2 & geplant \\
-CT-SAF-001 & Sicherheitsstopp & Sicherheitskomponente & SAF-001, SAF-006
-& P1 & geplant \\
-CT-MON-001 & Fehlererkennung und Protokollierung & Systemüberwachung &
+CT-SAF-001 & Sicherheitsstopp & Sicherheits-komponente & SAF-001,
+SAF-006 & P1 & geplant \\
+CT-MON-001 & Fehlererkennung und Protokollierung & System-überwachung &
 MON-001, MON-002 & P1 & geplant \\
 \end{longtable}
 
-\section{A.4 Integrationstests}\label{a.4-integrationstests}
+\subsubsection{Integrationstests}\label{integrationstests-2}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1007}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2734}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3309}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1799}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0647}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1184}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2105}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3158}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1974}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0526}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1053}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Test-ID
@@ -5266,9 +5267,9 @@ Testname
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Beteiligte Komponenten
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Zugeordnete Anforderungen
+Zugeord. AFOs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Priorität
+Prio-rität
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
@@ -5288,33 +5289,33 @@ Bewegungssteuerung & SAF-001, SAF-003, SAF-006 & P1 & geplant \\
 IT-NAV-CST-001 & Navigation und Untersetzeraufnahme & Navigation,
 Lokalisierung, Untersetzerhandling & CST-001, CST-005, NAV-008 & P2 &
 geplant \\
-IT-MON-001 & Fehlerweitergabe im Gesamtsystem & Sensorik, Monitoring,
-Sicherheit & MON-001, MON-002, MON-005 & P1 & geplant \\
+IT-MON-001 & Fehlerweitergabe im Gesamtsystem & Sensorik,
+Monitoring,Sicherheit & MON-001, MON-002, MON-005 & P1 & geplant \\
 IT-HW-SIM-001 & Austausch Hardware durch Simulation &
 Hardwareabstraktion, Simulation & NFR-003, NFR-004, NFR-007 & P2 &
 geplant \\
 \end{longtable}
 
-\section{A.5 Simulationstests}\label{a.5-simulationstests}
+\subsubsection{Simulationstests}\label{simulationstests-2}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0781}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3516}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1797}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2656}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0703}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0547}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1343}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1493}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3134}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2239}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0597}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1194}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Test-ID
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Testname
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Simulationsbereich
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Zugeordnete Anforderungen
+Zugeord. AFOs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Priorität
+Prio-rität
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
@@ -5330,7 +5331,7 @@ ST-SIM-003 & Verhindern des Verlassens der Tischfläche & Sicherheit,
 Tischmodell & NAV-003, NAV-004, SAF-003 & P1 & geplant \\
 ST-SIM-004 & Wiederholbarkeit identischer Bewegungsabläufe & Simulation
 & SIM-001, SIM-007 & P2 & geplant \\
-ST-SIM-005 & Reaktion auf fehlerhafte Sensordaten & Fehlerbehandlung &
+ST-SIM-005 & Reaktion auf fehlerhafte Sensordaten & Fehler-behandlung &
 SAF-002, MON-001, SIM-005 & P1 & geplant \\
 ST-SIM-006 & Verhalten bei fehlerhafter Motorsteuerung & Aktormodell &
 MON-001, MON-005, SIM-003 & P2 & geplant \\
@@ -5341,15 +5342,15 @@ ST-SIM-008 & Vergleich Simulation und Systemverhalten & Validierung &
 SIM-007 & P2 & geplant \\
 \end{longtable}
 
-\section{A.6 Systemtests}\label{a.6-systemtests}
+\subsubsection{Systemtests}\label{systemtests-2}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0538}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3231}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1692}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3308}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0692}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0538}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1071}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3095}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1786}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1905}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1190}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0952}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 Test-ID
@@ -5358,9 +5359,9 @@ Testname
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Systembereich
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Zugeordnete Anforderungen
+Zugeord. AFOs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Priorität
+Prio-rität
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Status
 \end{minipage} \\
@@ -5376,22 +5377,22 @@ SYS-003 & Erkennung und Umfahrung eines Hindernisses & Navigation,
 Sicherheit & NAV-001, NAV-002, SAF-005 & P1 & geplant \\
 SYS-004 & Schutz vor Herunterfallen vom Tisch & Sicherheit & NAV-003,
 NAV-004, SAF-003 & P1 & geplant \\
-SYS-005 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling &
+SYS-005 & Aufnahme eines Getränkeuntersetzers & Untersetzer-handling &
 CST-001, CST-005 & P2 & geplant \\
-SYS-006 & Platzierung eines Untersetzers & Untersetzerhandling &
+SYS-006 & Platzierung eines Untersetzers & Untersetzer-handling &
 CST-003, CST-006 & P2 & geplant \\
 SYS-007 & Aktivierung des Not-Aus & Sicherheit & SAF-001, SAF-006 & P1 &
 geplant \\
 SYS-008 & Verhalten bei Systemfehler & Monitoring & MON-001, MON-002,
 MON-005 & P1 & geplant \\
-SYS-009 & Überwachung des Akkuzustands & Energieversorgung & EN-001,
+SYS-009 & Überwachung des Akkuzustands & Energie-versorgung & EN-001,
 EN-002, EN-003 & P2 & geplant \\
 SYS-010 & Vollständiger Coasterbot-Arbeitsablauf & Gesamtsystem &
 Navigation, Untersetzerhandling, Monitoring & P1 & geplant \\
 \end{longtable}
 
-\section{A.7 Testabdeckung nach
-Anforderungsbereich}\label{a.7-testabdeckung-nach-anforderungsbereich}
+\subsubsection{Testabdeckung nach
+Anforderungsbereich}\label{testabdeckung-nach-anforderungsbereich}
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
@@ -5409,9 +5410,9 @@ Simulation & 8 & IT, ST \\
 Energieversorgung & 1 & SYS \\
 \end{longtable}
 
-\section{A.8 Testpriorisierung}\label{a.8-testpriorisierung}
+\subsubsection{Testpriorisierung}\label{testpriorisierung}
 
-\subsection{Priorität P1 -- Kritische
+\paragraph{Priorität P1 -- Kritische
 Funktionen}\label{priorituxe4t-p1-kritische-funktionen}
 
 Diese Tests müssen zwingend erfolgreich abgeschlossen werden, da sie
@@ -5435,7 +5436,7 @@ Dazu gehören:
   Grundlegende Systemfunktion
 \end{itemize}
 
-\subsection{Priorität P2 --
+\paragraph{Priorität P2 --
 Kernfunktionen}\label{priorituxe4t-p2-kernfunktionen-1}
 
 Diese Tests betreffen wesentliche Funktionen des Projektziels.
@@ -5454,7 +5455,7 @@ Dazu gehören:
   Energieüberwachung
 \end{itemize}
 
-\subsection{Priorität P3 -- Optionale
+\paragraph{Priorität P3 -- Optionale
 Funktionen}\label{priorituxe4t-p3-optionale-funktionen}
 
 Funktionen der späteren Ausbaustufen werden nicht im Rahmen dieser
@@ -5476,7 +5477,7 @@ Dazu gehören:
   Mensch-Roboter-Interaktion
 \end{itemize}
 
-\section{A.9 Teststatusdefinition}\label{a.9-teststatusdefinition}
+\subsubsection{Teststatusdefinition}\label{teststatusdefinition}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 2\tabcolsep) * \real{0.2424}}
@@ -5498,7 +5499,7 @@ fehlgeschlagen & Erwartetes Ergebnis wurde nicht erreicht \\
 nicht ausführbar & Voraussetzungen waren nicht erfüllt \\
 \end{longtable}
 
-\section{A.10 Zusammenfassung}\label{a.10-zusammenfassung}
+\subsubsection{Zusammenfassung}\label{zusammenfassung-3}
 
 Die Testfallmatrix bietet eine vollständige Übersicht über die geplanten
 Prüfungen des Coasterbot-Prototyps.
@@ -5510,11 +5511,9 @@ Die Matrix bildet damit die organisatorische Grundlage für die
 Testdurchführung und ermöglicht eine transparente Bewertung des
 Entwicklungsfortschritts während der Projektarbeit.
 
-\subsubsection{Anhang B:
-Testprotokoll-Vorlagen}\label{anhang-b-testprotokoll-vorlagen}
+\subsection{Testprotokoll-Vorlagen}\label{testprotokoll-vorlagen}
 
-\paragraph{B.1 Zweck des
-Testprotokolls}\label{b.1-zweck-des-testprotokolls}
+\subsubsection{Zweck des Testprotokolls}\label{zweck-des-testprotokolls}
 
 Das Testprotokoll dient der standardisierten Dokumentation der
 durchgeführten Tests des Coasterbot-Prototyps.
@@ -5542,10 +5541,10 @@ Das Testprotokoll enthält alle relevanten Informationen zu:
 Es bildet die Grundlage für die spätere Testauswertung und die Bewertung
 der Anforderungen aus dem Lasten- und Pflichtenheft.
 
-\section{B.2 Allgemeine
-Testinformationen}\label{b.2-allgemeine-testinformationen}
+\subsubsection{Allgemeine
+Testinformationen}\label{allgemeine-testinformationen}
 
-\subsection{Testprotokoll}\label{testprotokoll}
+\subsubsection{Testprotokoll}\label{testprotokoll}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -5565,14 +5564,14 @@ Testart & \\
 Priorität & \\
 \end{longtable}
 
-\section{B.3 Beschreibung des
-Testziels}\label{b.3-beschreibung-des-testziels}
+\subsubsection{Beschreibung des
+Testziels}\label{beschreibung-des-testziels}
 
-\subsection{Ziel des Tests}\label{ziel-des-tests}
+\paragraph{Ziel des Tests}\label{ziel-des-tests}
 
 \textbf{Beschreibung:}
 
-\subsection{Zugeordnete
+\subsubsection{Zugeordnete
 Anforderungen}\label{zugeordnete-anforderungen-34}
 
 \begin{longtable}[]{@{}ll@{}}
@@ -5587,7 +5586,7 @@ Anforderungs-ID & Beschreibung \\
 & \\
 \end{longtable}
 
-\section{B.4 Testvoraussetzungen}\label{b.4-testvoraussetzungen}
+\subsubsection{Testvoraussetzungen}\label{testvoraussetzungen}
 
 Vor Beginn des Tests müssen alle erforderlichen Bedingungen erfüllt
 sein.
@@ -5607,14 +5606,14 @@ Testumgebung vorbereitet & & \\
 Testdaten vorhanden & & \\
 \end{longtable}
 
-\section{B.5 Testaufbau}\label{b.5-testaufbau}
+\subsubsection{Testaufbau}\label{testaufbau-9}
 
-\subsection{Beschreibung der
+\paragraph{Beschreibung der
 Testumgebung}\label{beschreibung-der-testumgebung}
 
 Beschreibung des verwendeten Aufbaus:
 
-\subsection{Verwendete Komponenten}\label{verwendete-komponenten}
+\paragraph{Verwendete Komponenten}\label{verwendete-komponenten}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -5630,7 +5629,7 @@ Softwarekomponenten & \\
 Simulation & \\
 \end{longtable}
 
-\section{B.6 Testdaten}\label{b.6-testdaten}
+\paragraph{Testdaten}\label{testdaten}
 
 Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 
@@ -5649,9 +5648,9 @@ Sensordaten & \\
 Fehlerzustände & \\
 \end{longtable}
 
-\section{B.7 Testdurchführung}\label{b.7-testdurchfuxfchrung}
+\paragraph{Testdurchführung}\label{testdurchfuxfchrung}
 
-\subsection{Ablauf}\label{ablauf-34}
+\paragraph{Ablauf}\label{ablauf-34}
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
@@ -5667,19 +5666,18 @@ Schritt & Beschreibung & Ergebnis \\
 5 & & \\
 \end{longtable}
 
-\section{B.8 Erwartetes Ergebnis}\label{b.8-erwartetes-ergebnis}
+\paragraph{Erwartetes Ergebnis}\label{erwartetes-ergebnis-34}
 
 Beschreibung des erwarteten Systemverhaltens:
 
-\section{B.9 Tatsächliches
-Ergebnis}\label{b.9-tatsuxe4chliches-ergebnis}
+\paragraph{Tatsächliches Ergebnis}\label{tatsuxe4chliches-ergebnis}
 
 Beschreibung des beobachteten Verhaltens:
 
-\section{B.10 Bewertung des
-Testergebnisses}\label{b.10-bewertung-des-testergebnisses}
+\paragraph{Bewertung des
+Testergebnisses}\label{bewertung-des-testergebnisses}
 
-\subsection{Testergebnis}\label{testergebnis}
+\paragraph{Testergebnis}\label{testergebnis}
 
 {[} {]} Bestanden
 
@@ -5687,9 +5685,9 @@ Testergebnisses}\label{b.10-bewertung-des-testergebnisses}
 
 {[} {]} Nicht ausführbar
 
-\subsection{Begründung}\label{begruxfcndung}
+\paragraph{Begründung}\label{begruxfcndung}
 
-\section{B.11 Fehlerdokumentation}\label{b.11-fehlerdokumentation}
+\subsubsection{Fehlerdokumentation}\label{fehlerdokumentation}
 
 Falls während der Testdurchführung Fehler auftreten, werden diese
 dokumentiert.
@@ -5710,23 +5708,23 @@ Schweregrad & \\
 Status & \\
 \end{longtable}
 
-\subsection{Fehlerbeschreibung}\label{fehlerbeschreibung}
+\paragraph{Fehlerbeschreibung}\label{fehlerbeschreibung}
 
-\subsection{Fehleranalyse}\label{fehleranalyse-1}
+\paragraph{Fehleranalyse}\label{fehleranalyse-1}
 
-\subsubsection{Ursache}\label{ursache}
+\paragraph{Ursache}\label{ursache}
 
-\subsubsection{Auswirkungen}\label{auswirkungen}
+\paragraph{Auswirkungen}\label{auswirkungen}
 
-\subsubsection{Maßnahmen}\label{mauxdfnahmen}
+\paragraph{Maßnahmen}\label{mauxdfnahmen}
 
-\section{B.12 Testabschluss}\label{b.12-testabschluss}
+\paragraph{Testabschluss}\label{testabschluss-1}
 
-\subsection{Zusammenfassung}\label{zusammenfassung-3}
+\subsubsection{Zusammenfassung}\label{zusammenfassung-4}
 
 Kurze Bewertung des Testverlaufs:
 
-\subsection{Testergebnis bestätigt
+\paragraph{Testergebnis bestätigt
 durch}\label{testergebnis-bestuxe4tigt-durch}
 
 \begin{longtable}[]{@{}llll@{}}
@@ -5741,8 +5739,8 @@ Entwickler & & & \\
 Betreuer & & & \\
 \end{longtable}
 
-\section{B.13 Vorlage für automatisierte
-Tests}\label{b.13-vorlage-fuxfcr-automatisierte-tests}
+\subsubsection{Vorlage für automatisierte
+Tests}\label{vorlage-fuxfcr-automatisierte-tests}
 
 Für automatisierte Software- und Simulationstests wird folgende
 zusätzliche Dokumentation verwendet.
@@ -5765,7 +5763,7 @@ Laufzeit & \\
 Ergebnis & \\
 \end{longtable}
 
-\subsection{Beispiel eines automatisierten
+\paragraph{Beispiel eines automatisierten
 Testergebnisses}\label{beispiel-eines-automatisierten-testergebnisses}
 
 \begin{longtable}[]{@{}ll@{}}
@@ -5784,8 +5782,8 @@ Tatsächliche Position & \\
 Ergebnis & \\
 \end{longtable}
 
-\section{B.14 Vorlage für
-Simulationstests}\label{b.14-vorlage-fuxfcr-simulationstests}
+\subsubsection{Vorlage für
+Simulationstests}\label{vorlage-fuxfcr-simulationstests}
 
 Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter
 erfasst.
@@ -5807,11 +5805,11 @@ Simulationszeit & \\
 Wiederholungen & \\
 \end{longtable}
 
-\subsection{Simulationsszenario}\label{simulationsszenario}
+\paragraph{Simulationsszenario}\label{simulationsszenario}
 
-\subsubsection{Beschreibung}\label{beschreibung}
+Beschreibung
 
-\subsubsection{Startbedingungen}\label{startbedingungen}
+\subparagraph{Startbedingungen}\label{startbedingungen}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -5826,7 +5824,7 @@ Umgebung & \\
 Hindernisse & \\
 \end{longtable}
 
-\subsubsection{Ergebnisvergleich}\label{ergebnisvergleich}
+\subparagraph{Ergebnisvergleich}\label{ergebnisvergleich}
 
 \begin{longtable}[]{@{}lll@{}}
 \toprule\noalign{}
@@ -5841,8 +5839,7 @@ Position korrekt & & \\
 Fehler erkannt & & \\
 \end{longtable}
 
-\section{B.15 Vorlage für
-Systemtests}\label{b.15-vorlage-fuxfcr-systemtests}
+\subparagraph{Vorlage für Systemtests}\label{vorlage-fuxfcr-systemtests}
 
 Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben
 ergänzt.
@@ -5862,7 +5859,7 @@ Testdauer & \\
 Anzahl Wiederholungen & \\
 \end{longtable}
 
-\subsection{Bewertung des
+\subparagraph{Bewertung des
 Systemverhaltens}\label{bewertung-des-systemverhaltens}
 
 \begin{longtable}[]{@{}ll@{}}
@@ -5881,7 +5878,7 @@ Sicherheitsfunktionen & \\
 Fehlerbehandlung & \\
 \end{longtable}
 
-\section{B.16 Zusammenfassung}\label{b.16-zusammenfassung}
+\subsubsection{Zusammenfassung}\label{zusammenfassung-5}
 
 Die in diesem Anhang dargestellten Testprotokoll-Vorlagen ermöglichen
 eine einheitliche Dokumentation aller Testaktivitäten des
@@ -5896,15 +5893,11 @@ als auch automatisierte Tests innerhalb der Simulationsumgebung und
 stellen damit eine Grundlage für die technische Bewertung des Systems
 dar.
 
-\subsubsection{Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft
-→
-Testfälle}\label{anhang-c-traceability-matrix-lastenheft-pflichtenheft-testfuxe4lle}
+\subsection{Traceability-Matrix Lastenheft → Pflichtenheft →
+Testfälle}\label{traceability-matrix-lastenheft-pflichtenheft-testfuxe4lle}
 
-\section{Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft →
-Testfälle}\label{anhang-c-traceability-matrix-lastenheft-pflichtenheft-testfuxe4lle-1}
-
-\subsection{C.1 Zweck der
-Traceability-Matrix}\label{c.1-zweck-der-traceability-matrix}
+\subsubsection{Zweck der
+Traceability-Matrix}\label{zweck-der-traceability-matrix}
 
 Die Traceability-Matrix stellt die Nachverfolgbarkeit zwischen den
 Anforderungen des Lastenhefts, den technischen Umsetzungen des
@@ -5926,8 +5919,8 @@ Die Matrix unterstützt damit die systematische Verifikation des
 Coasterbot-Prototyps und ermöglicht eine transparente Bewertung der
 Anforderungserfüllung.
 
-\section{C.2 Struktur der
-Traceability-Matrix}\label{c.2-struktur-der-traceability-matrix}
+\subsubsection{Struktur der
+Traceability-Matrix}\label{struktur-der-traceability-matrix}
 
 Die Matrix verwendet folgende Zuordnung:
 
@@ -5953,16 +5946,16 @@ Testebene & Komponenten-, Integrations-, Simulations- oder Systemtest \\
 Status & Bewertung der Umsetzung \\
 \end{longtable}
 
-\section{C.3 Navigation und
-Lokalisierung}\label{c.3-navigation-und-lokalisierung}
+\subsubsection{Navigation und
+Lokalisierung}\label{navigation-und-lokalisierung-1}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0338}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2029}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2754}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2271}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2271}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0338}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0488}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2927}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3049}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1098}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1341}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1098}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -5983,43 +5976,43 @@ Status
 \endlastfoot
 NAV-001 & Der Bot muss Hindernisse erkennen & Integration einer
 Abstandssensorik mit Hinderniserkennung & CT-NAV-002, IT-SEN-NAV-001,
-ST-SIM-002, SYS-003 & Komponenten / Integration / Simulation / System &
+ST-SIM-002, SYS-003 & Kompo-nenten, Integration, Simulation, System &
 geprüft \\
 NAV-002 & Der Bot muss Hindernissen ausweichen & Dynamische Anpassung
 der Navigationsroute & CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002 &
-Komponenten / Integration / Simulation & geprüft \\
+Kompo-nenten, Integration, Simulation & geprüft \\
 NAV-003 & Der Bot muss Tischende erkennen & Implementierung einer
-Tischkantenerkennung & ST-SIM-003, SYS-004 & Simulation / System &
+Tischkantenerkennung & ST-SIM-003, SYS-004 & Simulation, System &
 geprüft \\
 NAV-004 & Der Bot muss auf dem Tisch bleiben & Sicherheitslogik
 verhindert Verlassen der Tischfläche & SYS-004 & System & geprüft \\
 NAV-005 & Der Bot muss Fahrroute dynamisch anpassen & Navigationsmodul
-mit Routenneuberechnung & CT-NAV-001, ST-SIM-002 & Komponenten /
+mit Routenneuberechnung & CT-NAV-001, ST-SIM-002 & Kompo-nenten,
 Simulation & geprüft \\
 NAV-006 & Der Bot muss Position bestimmen können &
-Lokalisierungskomponente verarbeitet Positionsdaten & CT-LOC-001,
-IT-LOC-NAV-001 & Komponenten / Integration & geprüft \\
+Lokalisierungs-komponente verarbeitet Positionsdaten & CT-LOC-001,
+IT-LOC-NAV-001 & Kompo-nenten, Integration & geprüft \\
 NAV-007 & Der Bot muss Orientierung bestimmen können & Speicherung und
 Verarbeitung der Roboterorientierung & CT-LOC-001, IT-LOC-NAV-001 &
-Komponenten / Integration & geprüft \\
+Kompo-nenten, Integration & geprüft \\
 NAV-008 & Der Bot muss Zielpunkt erreichen & Navigation und
 Bewegungssteuerung führen Zielanfahrt aus & CT-NAV-001, SYS-002 &
-Komponenten / System & geprüft \\
+Kompon-enten, System & geprüft \\
 NAV-009 & Der Bot muss sich kontrolliert bewegen & Bewegungssteuerung
 mit Geschwindigkeitsbegrenzung & CT-MOT-001, IT-NAV-MOT-001 &
-Komponenten / Integration & geprüft \\
+Kompo-nenten, Integration & geprüft \\
 \end{longtable}
 
-\section{C.4 Anforderungen
-Getränkeuntersetzer}\label{c.4-anforderungen-getruxe4nkeuntersetzer}
+\subsubsection{Anforderungen
+Getränkeuntersetzer}\label{anforderungen-getruxe4nkeuntersetzer}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0370}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2857}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3016}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1640}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1746}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0370}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0864}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2593}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3086}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1358}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6040,32 +6033,31 @@ Status
 \endlastfoot
 CST-001 & Der Bot muss einen Untersetzer aufnehmen können & Mechanismus
 zur Aufnahme und Erkennung eines Untersetzers & CT-CST-001, ST-SIM-007,
-SYS-005 & Komponenten / Simulation / System & geprüft \\
+SYS-005 & Kompo-nenten, Simulation, System & geprüft \\
 CST-002 & Der Bot muss einen Untersetzer transportieren können & Interne
 Zustandsverwaltung für aufgenommenen Untersetzer & ST-SIM-007, SYS-010 &
-Simulation / System & geprüft \\
+Simu-lation, System & geprüft \\
 CST-003 & Der Bot muss einen Untersetzer präzise platzieren &
 Platzierungsmechanismus mit Positionskontrolle & SYS-006 & System &
 geprüft \\
 CST-004 & Der Bot muss einen Untersetzer wieder aufnehmen können &
-Aufnahmeprozess mit Zustandserkennung & CT-CST-001 & Komponenten &
+Aufnahmeprozess mit Zustandserkennung & CT-CST-001 & Kompo-nenten &
 geprüft \\
 CST-005 & Der Bot muss erfolgreiche Aufnahme erkennen & Sensorbasierte
-Zustandsprüfung & CT-CST-001, CT-CST-002 & Komponenten & geprüft \\
+Zustandsprüfung & CT-CST-001, CT-CST-002 & Kompo-nenten & geprüft \\
 CST-006 & Der Bot muss erfolgreiche Platzierung erkennen & Statusprüfung
 nach Ablagevorgang & SYS-006 & System & geprüft \\
 \end{longtable}
 
-\section{C.5
-Sicherheitsanforderungen}\label{c.5-sicherheitsanforderungen}
+\subsubsection{Sicherheitsanforderungen}\label{sicherheitsanforderungen}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0387}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3094}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2320}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1934}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1878}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0387}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0494}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2963}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3086}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1358}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6086,7 +6078,7 @@ Status
 \endlastfoot
 SAF-001 & Der Bot muss bei Gefahr sofort anhalten &
 Sicherheitskomponente mit Stoppsignal & CT-SAF-001, IT-SAF-MOT-001,
-SYS-007 & Komponenten / Integration / System & geprüft \\
+SYS-007 & Kompo-nenten, Integration, System & geprüft \\
 SAF-002 & Der Bot muss bei Sensorfehler sicheren Zustand einnehmen &
 Fehlerüberwachung und Sicherheitszustand & ST-SIM-005 & Simulation &
 geprüft \\
@@ -6094,23 +6086,23 @@ SAF-003 & Der Bot darf Tisch nicht verlassen & Tischkantenerkennung und
 Bewegungsstopp & SYS-004 & System & geprüft \\
 SAF-004 & Der Bot darf nicht mit hoher Geschwindigkeit kollidieren &
 Begrenzung der Bewegungsparameter & CT-MOT-001, IT-NAV-MOT-001 &
-Komponenten / Integration & geprüft \\
+Komp-onenten, Integration & geprüft \\
 SAF-005 & Der Bot muss Kollisionen vermeiden & Hinderniserkennung und
 Navigation & SYS-003 & System & geprüft \\
 SAF-006 & Der Bot muss Not-Aus unterstützen & Not-Aus-Schnittstelle und
-Sicherheitslogik & CT-SAF-001, SYS-007 & Komponenten / System &
+Sicherheitslogik & CT-SAF-001, SYS-007 & Kompo-nenten, System &
 geprüft \\
 \end{longtable}
 
-\section{C.6 Systemüberwachung}\label{c.6-systemuxfcberwachung}
+\subsubsection{Systemüberwachung}\label{systemuxfcberwachung-1}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0452}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2903}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2000}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2194}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0452}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0494}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2963}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3086}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1358}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6130,29 +6122,29 @@ Status
 \bottomrule\noalign{}
 \endlastfoot
 MON-001 & Fehler erkennen & Diagnosekomponente überwacht Systemzustände
-& CT-MON-001, IT-MON-001, SYS-008 & Komponenten / Integration / System &
+& CT-MON-001, IT-MON-001, SYS-008 & Kompo-nenten, Integration, System &
 geprüft \\
 MON-002 & Fehler protokollieren & Fehlerlogging innerhalb der
-Systemüberwachung & CT-MON-001, IT-MON-001 & Komponenten / Integration &
+Systemüberwachung & CT-MON-001, IT-MON-001 & Kompo-nenten, Integration &
 geprüft \\
 MON-003 & Betriebszustand anzeigen & Statusverwaltung und Anzeige &
 SYS-001 & System & geprüft \\
 MON-004 & Erfolg einer Aufgabe erkennen & Zustandsmanagement der
 Arbeitsabläufe & SYS-010 & System & geprüft \\
 MON-005 & Fehlgeschlagene Aufgaben melden & Fehlerstatus und Meldesystem
-& CT-CST-002, SYS-008 & Komponenten / System & geprüft \\
+& CT-CST-002, SYS-008 & Kompo-nenten, System & geprüft \\
 \end{longtable}
 
-\section{C.7 Nichtfunktionale
-Anforderungen}\label{c.7-nichtfunktionale-anforderungen}
+\subsubsection{Nichtfunktionale
+Anforderungen}\label{nichtfunktionale-anforderungen}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0422}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3012}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3133}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1506}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1506}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0422}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0494}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2963}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3086}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1358}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6174,34 +6166,34 @@ Status
 NFR-001 & Bot muss modular aufgebaut sein & Komponentenbasierte
 Systemarchitektur & IT-HW-SIM-001 & Integration & geprüft \\
 NFR-002 & Software muss komponentenbasiert entwickelt werden & Trennung
-der Softwaremodule & CT-HW-001 bis CT-MON-001 & Komponenten & geprüft \\
+der Softwaremodule & CT-HW-001 bis CT-MON-001 & Kompo-nenten &
+geprüft \\
 NFR-003 & Softwarearchitektur muss erweiterbar sein & Erweiterbare
 Schnittstellenstruktur & IT-HW-SIM-001 & Integration & geprüft \\
 NFR-004 & Software muss simuliert werden können & Hardwareabstraktion
-und Simulationsmodelle & IT-HW-SIM-001, ST-SIM-001 & Integration /
+und Simulationsmodelle & IT-HW-SIM-001, ST-SIM-001 & Integration,
 Simulation & geprüft \\
 NFR-005 & Software muss testbar sein & Automatisierte Testmöglichkeiten
-& CT-Tests & Komponenten & geprüft \\
+& CT-Tests & Kompo-nenten & geprüft \\
 NFR-006 & Kernfunktionen müssen automatisiert testbar sein &
-Testframework und automatisierte Testfälle & CT-Tests & Komponenten &
+Testframework und automatisierte Testfälle & CT-Tests & Kompo-nenten &
 geprüft \\
 NFR-007 & Sensoren und Aktoren müssen austauschbar sein &
-Hardwareabstraktionsschicht & CT-HW-001, IT-HW-SIM-001 & Komponenten /
+Hardwareabstraktions-schicht & CT-HW-001, IT-HW-SIM-001 & Kompo-nenten,
 Integration & geprüft \\
 NFR-008 & Hardwareabstraktion unterstützen & Abstrakte Schnittstellen
-zwischen Hard- und Software & CT-HW-001 & Komponenten & geprüft \\
+zwischen Hard- und Software & CT-HW-001 & Kompo-nenten & geprüft \\
 \end{longtable}
 
-\section{C.8
-Simulationsanforderungen}\label{c.8-simulationsanforderungen}
+\subsubsection{Simulationsanforderungen}\label{simulationsanforderungen}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3741}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2878}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1583}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0791}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0504}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2469}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3086}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1111}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1358}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0988}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6236,8 +6228,8 @@ SIM-007 & Simulationsverhalten entspricht erwartetem Verhalten &
 Vergleich Simulation und Prototyp & ST-SIM-008 & Simulation & geprüft \\
 \end{longtable}
 
-\section{C.9 Anforderungen außerhalb des
-Projektumfangs}\label{c.9-anforderungen-auuxdferhalb-des-projektumfangs}
+\subsubsection{Anforderungen außerhalb des
+Projektumfangs}\label{anforderungen-auuxdferhalb-des-projektumfangs}
 
 Die folgenden Anforderungen wurden bewusst nicht umgesetzt und sind
 daher nicht Bestandteil der Testabdeckung:
@@ -6263,7 +6255,7 @@ Schwarmverhalten & Nicht Bestandteil des Einzelroboters \\
 EMV-Betrachtungen & Nicht Bestandteil der Prototypentwicklung \\
 \end{longtable}
 
-\section{C.10 Zusammenfassung}\label{c.10-zusammenfassung}
+\subsubsection{Zusammenfassung}\label{zusammenfassung-6}
 
 Die Traceability-Matrix zeigt die vollständige Verbindung zwischen
 Anforderungen, technischer Umsetzung und Testfällen.
@@ -6288,14 +6280,10 @@ Die Matrix ermöglicht:
 Damit stellt sie einen wichtigen Bestandteil der technischen
 Dokumentation des Projekts dar.
 
-\subsubsection{Anhang D: Risikoanalyse und
-Testpriorisierung.}\label{anhang-d-risikoanalyse-und-testpriorisierung.}
+\subsection{Risikoanalyse und
+Testpriorisierung}\label{risikoanalyse-und-testpriorisierung}
 
-\section{Anhang D: Risikoanalyse und
-Testpriorisierung}\label{anhang-d-risikoanalyse-und-testpriorisierung}
-
-\subsection{D.1 Zweck der
-Risikoanalyse}\label{d.1-zweck-der-risikoanalyse}
+\subsubsection{Zweck der Risikoanalyse}\label{zweck-der-risikoanalyse}
 
 Die Risikoanalyse dient der systematischen Identifikation, Bewertung und
 Behandlung potenzieller Risiken während der Entwicklung, Integration und
@@ -6333,11 +6321,11 @@ Die Bewertung orientiert sich an den Kriterien:
   erforderliche Maßnahmen
 \end{itemize}
 
-\section{D.2 Bewertungsmethode}\label{d.2-bewertungsmethode}
+\subsubsection{Bewertungsmethode}\label{bewertungsmethode}
 
 Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 
-\subsection{Eintrittswahrscheinlichkeit}\label{eintrittswahrscheinlichkeit}
+\subsubsection{Eintrittswahrscheinlichkeit}\label{eintrittswahrscheinlichkeit}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -6353,7 +6341,7 @@ Wert & Beschreibung \\
 5 & Sehr wahrscheinlich \\
 \end{longtable}
 
-\subsection{Auswirkung}\label{auswirkung}
+\subsubsection{Auswirkung}\label{auswirkung}
 
 \begin{longtable}[]{@{}ll@{}}
 \toprule\noalign{}
@@ -6369,7 +6357,7 @@ Wert & Beschreibung \\
 5 & Kritischer Systemausfall oder Sicherheitsrisiko \\
 \end{longtable}
 
-\subsection{Risikopriorität}\label{risikopriorituxe4t}
+\subsubsection{Risikopriorität}\label{risikopriorituxe4t}
 
 Die Risikopriorität ergibt sich aus:
 
@@ -6391,17 +6379,16 @@ RPZ & Bewertung \\
 13--25 & Hohes Risiko \\
 \end{longtable}
 
-\section{D.3 Technische
-Risikoanalyse}\label{d.3-technische-risikoanalyse}
+\subsubsection{Technische Risikoanalyse}\label{technische-risikoanalyse}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0400}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.3600}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.3600}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0640}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0800}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0240}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0720}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0769}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.2747}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1978}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1099}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1319}}
+  >{\raggedleft\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.0549}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 12\tabcolsep) * \real{0.1538}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6409,11 +6396,11 @@ ID
 Risiko
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Ursache
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 Eintritt
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Auswirkung
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
+Aus-wirkung
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
 RPZ
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Bewertung
@@ -6444,18 +6431,18 @@ R-010 & Softwarefehler führt zu undefiniertem Zustand & Fehlerhafte
 Zustandsverwaltung & 2 & 5 & 10 & Mittel \\
 \end{longtable}
 
-\section{D.4 Sicherheitsrisiken}\label{d.4-sicherheitsrisiken}
+\subsubsection{Sicherheitsrisiken}\label{sicherheitsrisiken}
 
-\subsection{D.4.1 Verlust der
-Tischsicherheit}\label{d.4.1-verlust-der-tischsicherheit}
+\paragraph{Verlust der
+Tischsicherheit}\label{verlust-der-tischsicherheit}
 
-\subsubsection{Beschreibung}\label{beschreibung-1}
+\subparagraph{Beschreibung}\label{beschreibung-1}
 
 Ein wesentliches Risiko besteht darin, dass der Roboter aufgrund
 fehlerhafter Sensorinformationen oder einer falschen Bewegungsplanung
 die Tischfläche verlässt.
 
-\subsubsection{Auswirkungen}\label{auswirkungen-1}
+\subparagraph{Auswirkungen}\label{auswirkungen-1}
 
 \begin{itemize}
 \tightlist
@@ -6467,7 +6454,7 @@ die Tischfläche verlässt.
   Potenzielle Gefährdung in realer Umgebung
 \end{itemize}
 
-\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen}
+\subparagraph{Gegenmaßnahmen}\label{gegenmauxdfnahmen}
 
 \begin{itemize}
 \tightlist
@@ -6481,7 +6468,7 @@ die Tischfläche verlässt.
   Simulation verschiedener Grenzsituationen
 \end{itemize}
 
-\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests}
+\subparagraph{Zugeordnete Tests}\label{zugeordnete-tests}
 
 \begin{itemize}
 \tightlist
@@ -6493,15 +6480,15 @@ die Tischfläche verlässt.
   SYS-007: Sicherheitsstopp
 \end{itemize}
 
-\subsection{D.4.2 Kollision mit Objekten oder
-Personen}\label{d.4.2-kollision-mit-objekten-oder-personen}
+\paragraph{Kollision mit Objekten oder
+Personen}\label{kollision-mit-objekten-oder-personen}
 
-\subsubsection{Beschreibung}\label{beschreibung-2}
+\subparagraph{Beschreibung}\label{beschreibung-2}
 
 Der Coasterbot bewegt sich in einer Umgebung mit wechselnden
 Hindernissen und potenziellen Kontaktpunkten.
 
-\subsubsection{Auswirkungen}\label{auswirkungen-2}
+\subparagraph{Auswirkungen}\label{auswirkungen-2}
 
 \begin{itemize}
 \tightlist
@@ -6513,7 +6500,7 @@ Hindernissen und potenziellen Kontaktpunkten.
   Sicherheitsrisiko
 \end{itemize}
 
-\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-1}
+\subparagraph{Gegenmaßnahmen}\label{gegenmauxdfnahmen-1}
 
 \begin{itemize}
 \tightlist
@@ -6527,7 +6514,7 @@ Hindernissen und potenziellen Kontaktpunkten.
   Sicherheitsabschaltung
 \end{itemize}
 
-\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-1}
+\subparagraph{Zugeordnete Tests}\label{zugeordnete-tests-1}
 
 \begin{itemize}
 \tightlist
@@ -6539,17 +6526,17 @@ Hindernissen und potenziellen Kontaktpunkten.
   SYS-007: Not-Aus
 \end{itemize}
 
-\section{D.5 Softwarerisiken}\label{d.5-softwarerisiken}
+\subsubsection{Softwarerisiken}\label{softwarerisiken}
 
-\subsection{D.5.1 Fehlerhafte
-Systemzustände}\label{d.5.1-fehlerhafte-systemzustuxe4nde}
+\paragraph{Fehlerhafte
+Systemzustände}\label{fehlerhafte-systemzustuxe4nde}
 
-\subsubsection{Beschreibung}\label{beschreibung-3}
+\subparagraph{Beschreibung}\label{beschreibung-3}
 
 Komplexe Robotersysteme besitzen zahlreiche Betriebszustände.
 Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
 
-\subsubsection{Auswirkungen}\label{auswirkungen-3}
+\subparagraph{Auswirkungen}\label{auswirkungen-3}
 
 \begin{itemize}
 \tightlist
@@ -6561,7 +6548,7 @@ Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
   Verlust der Systemzuverlässigkeit
 \end{itemize}
 
-\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-2}
+\subparagraph{Gegenmaßnahmen}\label{gegenmauxdfnahmen-2}
 
 \begin{itemize}
 \tightlist
@@ -6575,7 +6562,7 @@ Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
   Fehlerprotokollierung
 \end{itemize}
 
-\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-2}
+\subparagraph{Zugeordnete Tests}\label{zugeordnete-tests-2}
 
 \begin{itemize}
 \tightlist
@@ -6587,15 +6574,15 @@ Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
   SYS-008
 \end{itemize}
 
-\subsection{D.5.2 Fehlende
-Hardwareabstraktion}\label{d.5.2-fehlende-hardwareabstraktion}
+\paragraph{Fehlende
+Hardwareabstraktion}\label{fehlende-hardwareabstraktion}
 
-\subsubsection{Beschreibung}\label{beschreibung-4}
+\subparagraph{Beschreibung}\label{beschreibung-4}
 
 Eine unzureichende Trennung zwischen Hard- und Software kann spätere
 Erweiterungen erschweren.
 
-\subsubsection{Auswirkungen}\label{auswirkungen-4}
+\subparagraph{Auswirkungen}\label{auswirkungen-4}
 
 \begin{itemize}
 \tightlist
@@ -6607,7 +6594,7 @@ Erweiterungen erschweren.
   Eingeschränkte Austauschbarkeit von Komponenten
 \end{itemize}
 
-\subsubsection{Gegenmaßnahmen}\label{gegenmauxdfnahmen-3}
+\subparagraph{Gegenmaßnahmen}\label{gegenmauxdfnahmen-3}
 
 \begin{itemize}
 \tightlist
@@ -6619,7 +6606,7 @@ Erweiterungen erschweren.
   simulierte Hardwarekomponenten
 \end{itemize}
 
-\subsubsection{Zugeordnete Tests}\label{zugeordnete-tests-3}
+\subparagraph{Zugeordnete Tests}\label{zugeordnete-tests-3}
 
 \begin{itemize}
 \tightlist
@@ -6629,14 +6616,14 @@ Erweiterungen erschweren.
   IT-HW-SIM-001
 \end{itemize}
 
-\section{D.6 Projektrisiken}\label{d.6-projektrisiken}
+\subsubsection{Projektrisiken}\label{projektrisiken}
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0387}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2710}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2581}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1742}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2581}}@{}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.0833}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1667}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.1875}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.2500}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 8\tabcolsep) * \real{0.3125}}@{}}
 \toprule\noalign{}
 \begin{minipage}[b]{\linewidth}\raggedright
 ID
@@ -6656,7 +6643,7 @@ Gegenmaßnahme
 PR-001 & Verzögerung im Hardwareaufbau & Lieferprobleme oder
 Fertigungsfehler & Reduzierte Testzeit & Frühzeitige Beschaffung und
 Planung \\
-PR-002 & Umfangsüberschreitung & Erweiterung um nicht geplante
+PR-002 & Umfangsüber-schreitung & Erweiterung um nicht geplante
 Funktionen & Projektverzögerung & Klare Abgrenzung des Projektumfangs \\
 PR-003 & Fehlende Testdaten & Unzureichende Vorbereitung &
 Eingeschränkte Validierung & Frühzeitige Definition der Testszenarien \\
@@ -6665,7 +6652,7 @@ Entwicklungsstände & Verzögerung der Systemtests & Regelmäßige
 Integrationstests \\
 \end{longtable}
 
-\section{D.7 Testpriorisierung}\label{d.7-testpriorisierung}
+\subsubsection{Testpriorisierung}\label{testpriorisierung-1}
 
 Die Testpriorisierung erfolgt anhand der Kritikalität der Anforderungen.
 
@@ -6683,10 +6670,10 @@ Dabei werden folgende Kriterien berücksichtigt:
   Auswirkung bei Fehlern
 \end{itemize}
 
-\section{D.8 Prioritätsstufen der
-Tests}\label{d.8-priorituxe4tsstufen-der-tests}
+\paragraph{Prioritätsstufen der
+Tests}\label{priorituxe4tsstufen-der-tests}
 
-\subsection{Priorität P1 -- Kritische
+\subparagraph{Priorität P1 -- Kritische
 Tests}\label{priorituxe4t-p1-kritische-tests-1}
 
 Diese Tests besitzen höchste Priorität und müssen vor allen weiteren
@@ -6714,7 +6701,7 @@ Begründung:
 Diese Funktionen stellen die grundlegende Sicherheit und
 Betriebsfähigkeit des Roboters sicher.
 
-\subsection{Priorität P2 --
+\subparagraph{Priorität P2 --
 Kernfunktionstests}\label{priorituxe4t-p2-kernfunktionstests}
 
 Diese Tests überprüfen die eigentliche Zielanwendung des Coasterbots.
@@ -6738,7 +6725,7 @@ Begründung:
 
 Diese Funktionen bestimmen den praktischen Nutzen des Prototyps.
 
-\subsection{Priorität P3 --
+\subparagraph{Priorität P3 --
 Erweiterungstests}\label{priorituxe4t-p3-erweiterungstests}
 
 Diese Tests betreffen optionale oder zukünftige Funktionen.
@@ -6761,13 +6748,13 @@ Beispiele:
 
 Diese Funktionen sind nicht Bestandteil des aktuellen Projektumfangs.
 
-\section{D.9 Maßnahmen zur
-Risikoreduzierung}\label{d.9-mauxdfnahmen-zur-risikoreduzierung}
+\subsubsection{Maßnahmen zur
+Risikoreduzierung}\label{mauxdfnahmen-zur-risikoreduzierung}
 
 Zur Minimierung technischer Risiken werden folgende Maßnahmen
 eingesetzt:
 
-\subsection{Entwicklung}\label{entwicklung}
+\paragraph{Entwicklung}\label{entwicklung}
 
 \begin{itemize}
 \tightlist
@@ -6781,7 +6768,7 @@ eingesetzt:
   frühzeitige Simulation
 \end{itemize}
 
-\subsection{Test}\label{test}
+\paragraph{Test}\label{test}
 
 \begin{itemize}
 \tightlist
@@ -6795,7 +6782,7 @@ eingesetzt:
   Fehlerprotokollierung
 \end{itemize}
 
-\subsection{Sicherheit}\label{sicherheit}
+\paragraph{Sicherheit}\label{sicherheit}
 
 \begin{itemize}
 \tightlist
@@ -6809,7 +6796,7 @@ eingesetzt:
   Überwachung wichtiger Systemparameter
 \end{itemize}
 
-\section{D.10 Zusammenfassung}\label{d.10-zusammenfassung}
+\subsubsection{Zusammenfassung}\label{zusammenfassung-7}
 
 Die Risikoanalyse zeigt die wesentlichen technischen und
 organisatorischen Herausforderungen bei der Entwicklung des
@@ -6838,6 +6825,5 @@ Die Kombination aus Risikoanalyse und Teststrategie unterstützt eine
 kontrollierte Entwicklung des Prototyps und erhöht die
 Wahrscheinlichkeit, die definierten Projektziele erfolgreich zu
 erreichen.
-
 
 \end{document}

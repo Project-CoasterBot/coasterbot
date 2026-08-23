@@ -2909,9 +2909,9 @@ Der entwickelte Ansatz zeigt das Potenzial eines autonomen Tischroboters zur Unt
 
 # Anhang
 
-## Anhang Vollständige Testfallmatrix (Anforderung → Test-ID → Ergebnis)
+## Vollständige Testfallmatrix (Anforderung → Test-ID → Ergebnis)
 
-###  Zweck der Testfallmatrix
+### Zweck der Testfallmatrix
 
 Die Testfallmatrix stellt eine Übersicht aller definierten Testfälle des Coasterbot-Projekts dar.
 
@@ -2925,7 +2925,7 @@ Sie dient der strukturierten Verwaltung und Nachverfolgung der Testaktivitäten 
 
 Die Testfallmatrix ergänzt die detaillierten Testbeschreibungen aus den Kapiteln 3 bis 6 und bietet eine kompakte Übersicht über die gesamte Testabdeckung.
 
-# A.2 Übersicht der Test-ID-Struktur
+### Übersicht der Test-ID-Struktur
 
 Die Testfälle werden anhand ihrer Testebene kategorisiert.
 
@@ -2938,61 +2938,61 @@ Die Testfälle werden anhand ihrer Testebene kategorisiert.
 
 Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 
-# A.3 Komponententests
+### Komponententests
 
-| Test-ID    | Testname                            | Komponente            | Zugeordnete Anforderungen | Priorität | Status  |
-| ---------- | ----------------------------------- | --------------------- | ------------------------- | --------- | ------- |
-| CT-HW-001  | Verarbeitung von Sensordaten        | Hardwareabstraktion   | NFR-007, NFR-008          | P1        | geplant |
-| CT-LOC-001 | Positionsaktualisierung             | Lokalisierung         | NAV-006, NAV-007          | P1        | geplant |
-| CT-NAV-001 | Berechnung einer gültigen Route     | Navigation            | NAV-005, NAV-008          | P1        | geplant |
-| CT-NAV-002 | Hinderniserkennung                  | Navigation            | NAV-001, NAV-002          | P1        | geplant |
-| CT-MOT-001 | Umsetzung von Bewegungsbefehlen     | Bewegungssteuerung    | NAV-009, SAF-004          | P1        | geplant |
-| CT-CST-001 | Aufnahme eines Getränkeuntersetzers | Untersetzerhandling   | CST-001, CST-005          | P2        | geplant |
-| CT-CST-002 | Fehler bei Untersetzeraufnahme      | Untersetzerhandling   | CST-005, MON-005          | P2        | geplant |
-| CT-SAF-001 | Sicherheitsstopp                    | Sicherheitskomponente | SAF-001, SAF-006          | P1        | geplant |
-| CT-MON-001 | Fehlererkennung und Protokollierung | Systemüberwachung     | MON-001, MON-002          | P1        | geplant |
+| Test-ID    | Testname                            | Komponente            | Zugeord. AFOs | Prio-rität | Status  |
+| ---------- | ----------------------------------- | --------------------- | -------------------|:-----|:--------|
+| CT-HW-001  | Verarbeitung von Sensordaten        | Hardware-abstraktion   | NFR-007, NFR-008  | P1  | geplant |
+| CT-LOC-001 | Positionsaktualisierung             | Lokalisierung         | NAV-006, NAV-007  | P1  | geplant |
+| CT-NAV-001 | Berechnung einer gültigen Route     | Navigation            | NAV-005, NAV-008  | P1  | geplant |
+| CT-NAV-002 | Hinderniserkennung                  | Navigation            | NAV-001, NAV-002  | P1  | geplant |
+| CT-MOT-001 | Umsetzung von Bewegungsbefehlen     | Bewegungs-steuerung    | NAV-009, SAF-004  | P1  | geplant |
+| CT-CST-001 | Aufnahme eines Getränkeuntersetzers | Untersetzer-handling   | CST-001, CST-005  | P2  | geplant |
+| CT-CST-002 | Fehler bei Untersetzeraufnahme      | Untersetzer-handling   | CST-005, MON-005  | P2  | geplant |
+| CT-SAF-001 | Sicherheitsstopp                    | Sicherheits-komponente | SAF-001, SAF-006  | P1  | geplant |
+| CT-MON-001 | Fehlererkennung und Protokollierung | System-überwachung     | MON-001, MON-002  | P1  | geplant |
 
-# A.4 Integrationstests
+### Integrationstests
 
-| Test-ID        | Testname                               | Beteiligte Komponenten                         | Zugeordnete Anforderungen | Priorität | Status  |
-| -------------- | -------------------------------------- | ---------------------------------------------- | ------------------------- | --------- | ------- |
-| IT-SEN-NAV-001 | Verarbeitung von Hindernisdaten        | Sensorik, Hinderniserkennung, Navigation       | NAV-001, NAV-002, NFR-008 | P1        | geplant |
-| IT-LOC-NAV-001 | Zielnavigation mit Positionsdaten      | Lokalisierung, Navigation, Bewegung            | NAV-006, NAV-007, NAV-008 | P1        | geplant |
-| IT-NAV-MOT-001 | Umsetzung von Navigationsbefehlen      | Navigation, Bewegungssteuerung                 | NAV-009, SAF-004          | P1        | geplant |
-| IT-SAF-MOT-001 | Unterbrechen einer Bewegung bei Gefahr | Sicherheit, Bewegungssteuerung                 | SAF-001, SAF-003, SAF-006 | P1        | geplant |
-| IT-NAV-CST-001 | Navigation und Untersetzeraufnahme     | Navigation, Lokalisierung, Untersetzerhandling | CST-001, CST-005, NAV-008 | P2        | geplant |
-| IT-MON-001     | Fehlerweitergabe im Gesamtsystem       | Sensorik, Monitoring, Sicherheit               | MON-001, MON-002, MON-005 | P1        | geplant |
-| IT-HW-SIM-001  | Austausch Hardware durch Simulation    | Hardwareabstraktion, Simulation                | NFR-003, NFR-004, NFR-007 | P2        | geplant |
+| Test-ID | Testname | Beteiligte Komponenten | Zugeord. AFOs | Prio-rität | Status |
+|---------|----------------|------------------------|:--------------|:---|:-------|
+| IT-SEN-NAV-001 | Verarbeitung von Hindernisdaten | Sensorik, Hinderniserkennung, Navigation| NAV-001, NAV-002, NFR-008 | P1 | geplant |
+| IT-LOC-NAV-001 | Zielnavigation mit Positionsdaten | Lokalisierung, Navigation, Bewegung | NAV-006, NAV-007, NAV-008 | P1 | geplant |
+| IT-NAV-MOT-001 | Umsetzung von Navigationsbefehlen | Navigation, Bewegungssteuerung | NAV-009, SAF-004 | P1 | geplant |
+| IT-SAF-MOT-001 | Unterbrechen einer Bewegung bei Gefahr | Sicherheit, Bewegungssteuerung | SAF-001, SAF-003, SAF-006 | P1 | geplant |
+| IT-NAV-CST-001 | Navigation und Untersetzeraufnahme | Navigation, Lokalisierung, Untersetzerhandling | CST-001, CST-005, NAV-008 | P2 | geplant |
+| IT-MON-001 | Fehlerweitergabe im Gesamtsystem | Sensorik, Monitoring,Sicherheit | MON-001, MON-002, MON-005 | P1 | geplant |
+| IT-HW-SIM-001 | Austausch Hardware durch Simulation | Hardwareabstraktion, Simulation | NFR-003, NFR-004, NFR-007 | P2 | geplant |
 
-# A.5 Simulationstests
+### Simulationstests
 
-| Test-ID    | Testname                                      | Simulationsbereich      | Zugeordnete Anforderungen          | Priorität | Status  |
-| ---------- | --------------------------------------------- | ----------------------- | ---------------------------------- | --------- | ------- |
-| ST-SIM-001 | Navigation zu einem Zielpunkt                 | Navigation              | NAV-006, NAV-008, SIM-001          | P1        | geplant |
-| ST-SIM-002 | Dynamische Hindernisvermeidung                | Navigation, Umgebung    | NAV-001, NAV-002, NAV-005, SIM-004 | P1        | geplant |
-| ST-SIM-003 | Verhindern des Verlassens der Tischfläche     | Sicherheit, Tischmodell | NAV-003, NAV-004, SAF-003          | P1        | geplant |
-| ST-SIM-004 | Wiederholbarkeit identischer Bewegungsabläufe | Simulation              | SIM-001, SIM-007                   | P2        | geplant |
-| ST-SIM-005 | Reaktion auf fehlerhafte Sensordaten          | Fehlerbehandlung        | SAF-002, MON-001, SIM-005          | P1        | geplant |
-| ST-SIM-006 | Verhalten bei fehlerhafter Motorsteuerung     | Aktormodell             | MON-001, MON-005, SIM-003          | P2        | geplant |
-| ST-SIM-007 | Aufnahme und Platzierung eines Untersetzers   | Untersetzerhandling     | CST-001, CST-003, CST-005, SIM-006 | P2        | geplant |
-| ST-SIM-008 | Vergleich Simulation und Systemverhalten      | Validierung             | SIM-007                            | P2        | geplant |
+| Test-ID | Testname | Simulationsbereich | Zugeord. AFOs | Prio-rität | Status  |
+|:--------|----------|--------------------:|:--------------|:---|:-------|
+| ST-SIM-001 | Navigation zu einem Zielpunkt | Navigation | NAV-006, NAV-008, SIM-001 | P1 | geplant |
+| ST-SIM-002 | Dynamische Hindernisvermeidung | Navigation, Umgebung | NAV-001, NAV-002, NAV-005, SIM-004 | P1 | geplant |
+| ST-SIM-003 | Verhindern des Verlassens der Tischfläche | Sicherheit, Tischmodell | NAV-003, NAV-004, SAF-003 | P1 | geplant |
+| ST-SIM-004 | Wiederholbarkeit identischer Bewegungsabläufe | Simulation | SIM-001, SIM-007 | P2 | geplant |
+| ST-SIM-005 | Reaktion auf fehlerhafte Sensordaten | Fehler-behandlung | SAF-002, MON-001, SIM-005 | P1 | geplant |
+| ST-SIM-006 | Verhalten bei fehlerhafter Motorsteuerung | Aktormodell | MON-001, MON-005, SIM-003 | P2 | geplant |
+| ST-SIM-007 | Aufnahme und Platzierung eines Untersetzers | Untersetzerhandling | CST-001, CST-003, CST-005, SIM-006 | P2 | geplant |
+| ST-SIM-008 | Vergleich Simulation und Systemverhalten | Validierung | SIM-007 | P2 | geplant |
 
-# A.6 Systemtests
+### Systemtests
 
-| Test-ID | Testname                                   | Systembereich          | Zugeordnete Anforderungen                   | Priorität | Status  |
-| ------- | ------------------------------------------ | ---------------------- | ------------------------------------------- | --------- | ------- |
-| SYS-001 | Systemstart und Initialisierung            | Gesamtsystem           | MON-003, NFR-001                            | P1        | geplant |
-| SYS-002 | Autonome Bewegung auf dem Tisch            | Navigation             | NAV-006, NAV-007, NAV-008, NAV-009          | P1        | geplant |
-| SYS-003 | Erkennung und Umfahrung eines Hindernisses | Navigation, Sicherheit | NAV-001, NAV-002, SAF-005                   | P1        | geplant |
-| SYS-004 | Schutz vor Herunterfallen vom Tisch        | Sicherheit             | NAV-003, NAV-004, SAF-003                   | P1        | geplant |
-| SYS-005 | Aufnahme eines Getränkeuntersetzers        | Untersetzerhandling    | CST-001, CST-005                            | P2        | geplant |
-| SYS-006 | Platzierung eines Untersetzers             | Untersetzerhandling    | CST-003, CST-006                            | P2        | geplant |
-| SYS-007 | Aktivierung des Not-Aus                    | Sicherheit             | SAF-001, SAF-006                            | P1        | geplant |
-| SYS-008 | Verhalten bei Systemfehler                 | Monitoring             | MON-001, MON-002, MON-005                   | P1        | geplant |
-| SYS-009 | Überwachung des Akkuzustands               | Energieversorgung      | EN-001, EN-002, EN-003                      | P2        | geplant |
-| SYS-010 | Vollständiger Coasterbot-Arbeitsablauf     | Gesamtsystem           | Navigation, Untersetzerhandling, Monitoring | P1        | geplant |
+| Test-ID | Testname | Systembereich | Zugeord. AFOs | Prio-rität | Status  |
+|:--------|--------------------------|---------------|:---------------|:---------|:-------|
+| SYS-001 | Systemstart und Initialisierung | Gesamtsystem | MON-003, NFR-001 | P1 | geplant |
+| SYS-002 | Autonome Bewegung auf dem Tisch | Navigation | NAV-006, NAV-007, NAV-008, NAV-009 | P1 | geplant |
+| SYS-003 | Erkennung und Umfahrung eines Hindernisses | Navigation, Sicherheit | NAV-001, NAV-002, SAF-005 | P1 | geplant |
+| SYS-004 | Schutz vor Herunterfallen vom Tisch | Sicherheit | NAV-003, NAV-004, SAF-003 | P1 | geplant |
+| SYS-005 | Aufnahme eines Getränkeuntersetzers | Untersetzer-handling | CST-001, CST-005 | P2 | geplant |
+| SYS-006 | Platzierung eines Untersetzers | Untersetzer-handling | CST-003, CST-006 | P2 | geplant |
+| SYS-007 | Aktivierung des Not-Aus | Sicherheit | SAF-001, SAF-006 | P1 | geplant |
+| SYS-008 | Verhalten bei Systemfehler | Monitoring | MON-001, MON-002, MON-005 | P1 | geplant |
+| SYS-009 | Überwachung des Akkuzustands | Energie-versorgung | EN-001, EN-002, EN-003 | P2 | geplant |
+| SYS-010 | Vollständiger Coasterbot-Arbeitsablauf | Gesamtsystem | Navigation, Untersetzerhandling, Monitoring | P1 | geplant |
 
-# A.7 Testabdeckung nach Anforderungsbereich
+### Testabdeckung nach Anforderungsbereich
 
 | Anforderungsbereich          | Anzahl Testfälle | Testebenen      |
 | ---------------------------- | ---------------- | --------------- |
@@ -3004,9 +3004,9 @@ Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 | Simulation                   | 8                | IT, ST          |
 | Energieversorgung            | 1                | SYS             |
 
-# A.8 Testpriorisierung
+### Testpriorisierung
 
-## Priorität P1 – Kritische Funktionen
+#### Priorität P1 – Kritische Funktionen
 
 Diese Tests müssen zwingend erfolgreich abgeschlossen werden, da sie sicherheitsrelevante oder grundlegende Systemfunktionen betreffen.
 
@@ -3019,7 +3019,7 @@ Dazu gehören:
 * Fehlererkennung
 * Grundlegende Systemfunktion
 
-## Priorität P2 – Kernfunktionen
+#### Priorität P2 – Kernfunktionen
 
 Diese Tests betreffen wesentliche Funktionen des Projektziels.
 
@@ -3030,7 +3030,7 @@ Dazu gehören:
 * Simulationserweiterungen
 * Energieüberwachung
 
-## Priorität P3 – Optionale Funktionen
+#### Priorität P3 – Optionale Funktionen
 
 Funktionen der späteren Ausbaustufen werden nicht im Rahmen dieser Testmatrix betrachtet.
 
@@ -3042,7 +3042,7 @@ Dazu gehören:
 * Reinigung
 * Mensch-Roboter-Interaktion
 
-# A.9 Teststatusdefinition
+### Teststatusdefinition
 
 | Status           | Bedeutung                                          |
 | ---------------- | -------------------------------------------------- |
@@ -3052,7 +3052,7 @@ Dazu gehören:
 | fehlgeschlagen   | Erwartetes Ergebnis wurde nicht erreicht           |
 | nicht ausführbar | Voraussetzungen waren nicht erfüllt                |
 
-# A.10 Zusammenfassung
+### Zusammenfassung
 
 Die Testfallmatrix bietet eine vollständige Übersicht über die geplanten Prüfungen des Coasterbot-Prototyps.
 
@@ -3061,9 +3061,9 @@ Durch die eindeutige Zuordnung von Anforderungen zu Testfällen wird die Nachvol
 Die Matrix bildet damit die organisatorische Grundlage für die Testdurchführung und ermöglicht eine transparente Bewertung des Entwicklungsfortschritts während der Projektarbeit.
 
 
-### Anhang B: Testprotokoll-Vorlagen
+## Testprotokoll-Vorlagen
 
-#### B.1 Zweck des Testprotokolls
+### Zweck des Testprotokolls
 
 Das Testprotokoll dient der standardisierten Dokumentation der durchgeführten Tests des Coasterbot-Prototyps.
 
@@ -3077,11 +3077,12 @@ Das Testprotokoll enthält alle relevanten Informationen zu:
 * Testergebnis
 * Fehlern und Abweichungen
 
-Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der Anforderungen aus dem Lasten- und Pflichtenheft.
+Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der
+Anforderungen aus dem Lasten- und Pflichtenheft.
 
-# B.2 Allgemeine Testinformationen
+### Allgemeine Testinformationen
 
-## Testprotokoll
+### Testprotokoll
 
 | Feld                 | Eintrag |
 | -------------------- | ------- |
@@ -3095,13 +3096,13 @@ Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der A
 | Testart              |         |
 | Priorität            |         |
 
-# B.3 Beschreibung des Testziels
+### Beschreibung des Testziels
 
-## Ziel des Tests
+#### Ziel des Tests
 
 **Beschreibung:**
 
-## Zugeordnete Anforderungen
+### Zugeordnete Anforderungen
 
 | Anforderungs-ID | Beschreibung |
 | --------------- | ------------ |
@@ -3109,7 +3110,7 @@ Es bildet die Grundlage für die spätere Testauswertung und die Bewertung der A
 |                 |              |
 |                 |              |
 
-# B.4 Testvoraussetzungen
+### Testvoraussetzungen
 
 Vor Beginn des Tests müssen alle erforderlichen Bedingungen erfüllt sein.
 
@@ -3122,13 +3123,13 @@ Vor Beginn des Tests müssen alle erforderlichen Bedingungen erfüllt sein.
 | Testumgebung vorbereitet       |                   |           |
 | Testdaten vorhanden            |                   |           |
 
-# B.5 Testaufbau
+### Testaufbau
 
-## Beschreibung der Testumgebung
+#### Beschreibung der Testumgebung
 
 Beschreibung des verwendeten Aufbaus:
 
-## Verwendete Komponenten
+#### Verwendete Komponenten
 
 | Komponente          | Version / Beschreibung |
 | ------------------- | ---------------------- |
@@ -3138,7 +3139,7 @@ Beschreibung des verwendeten Aufbaus:
 | Softwarekomponenten |                        |
 | Simulation          |                        |
 
-# B.6 Testdaten
+#### Testdaten
 
 Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 
@@ -3151,9 +3152,9 @@ Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 | Sensordaten     |      |
 | Fehlerzustände  |      |
 
-# B.7 Testdurchführung
+#### Testdurchführung
 
-## Ablauf
+#### Ablauf
 
 | Schritt | Beschreibung | Ergebnis |
 | ------- | ------------ | -------- |
@@ -3163,17 +3164,17 @@ Die verwendeten Eingaben und Parameter werden hier dokumentiert.
 | 4       |              |          |
 | 5       |              |          |
 
-# B.8 Erwartetes Ergebnis
+#### Erwartetes Ergebnis
 
 Beschreibung des erwarteten Systemverhaltens:
 
-# B.9 Tatsächliches Ergebnis
+#### Tatsächliches Ergebnis
 
 Beschreibung des beobachteten Verhaltens:
 
-# B.10 Bewertung des Testergebnisses
+#### Bewertung des Testergebnisses
 
-## Testergebnis
+#### Testergebnis
 
 [ ] Bestanden
 
@@ -3181,9 +3182,9 @@ Beschreibung des beobachteten Verhaltens:
 
 [ ] Nicht ausführbar
 
-## Begründung
+#### Begründung
 
-# B.11 Fehlerdokumentation
+### Fehlerdokumentation
 
 Falls während der Testdurchführung Fehler auftreten, werden diese dokumentiert.
 
@@ -3197,23 +3198,23 @@ Falls während der Testdurchführung Fehler auftreten, werden diese dokumentiert
 | Schweregrad              |              |
 | Status                   |              |
 
-## Fehlerbeschreibung
+#### Fehlerbeschreibung
 
-## Fehleranalyse
+#### Fehleranalyse
 
-### Ursache
+#### Ursache
 
-### Auswirkungen
+#### Auswirkungen
 
-### Maßnahmen
+#### Maßnahmen
 
-# B.12 Testabschluss
+#### Testabschluss
 
-## Zusammenfassung
+### Zusammenfassung
 
 Kurze Bewertung des Testverlaufs:
 
-## Testergebnis bestätigt durch
+#### Testergebnis bestätigt durch
 
 | Rolle      | Name | Datum | Unterschrift |
 | ---------- | ---- | ----- | ------------ |
@@ -3221,7 +3222,7 @@ Kurze Bewertung des Testverlaufs:
 | Entwickler |      |       |              |
 | Betreuer   |      |       |              |
 
-# B.13 Vorlage für automatisierte Tests
+### Vorlage für automatisierte Tests
 
 Für automatisierte Software- und Simulationstests wird folgende zusätzliche Dokumentation verwendet.
 
@@ -3237,7 +3238,7 @@ Für automatisierte Software- und Simulationstests wird folgende zusätzliche Do
 | Laufzeit                   |              |
 | Ergebnis                   |              |
 
-## Beispiel eines automatisierten Testergebnisses
+#### Beispiel eines automatisierten Testergebnisses
 
 | Parameter             | Wert                         |
 | --------------------- | ---------------------------- |
@@ -3249,7 +3250,7 @@ Für automatisierte Software- und Simulationstests wird folgende zusätzliche Do
 | Tatsächliche Position |                              |
 | Ergebnis              |                              |
 
-# B.14 Vorlage für Simulationstests
+### Vorlage für Simulationstests
 
 Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfasst.
 
@@ -3264,11 +3265,11 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Simulationszeit    |              |
 | Wiederholungen     |              |
 
-## Simulationsszenario
+#### Simulationsszenario
 
-### Beschreibung
+###### Beschreibung
 
-### Startbedingungen
+##### Startbedingungen
 
 | Parameter       | Wert |
 | --------------- | ---- |
@@ -3277,7 +3278,7 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Umgebung        |      |
 | Hindernisse     |      |
 
-### Ergebnisvergleich
+##### Ergebnisvergleich
 
 | Kriterium           | Erwartet | Erreicht |
 | ------------------- | -------- | -------- |
@@ -3286,7 +3287,7 @@ Für Tests innerhalb der Simulationsumgebung werden zusätzliche Parameter erfas
 | Position korrekt    |          |          |
 | Fehler erkannt      |          |          |
 
-# B.15 Vorlage für Systemtests
+##### Vorlage für Systemtests
 
 Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben ergänzt.
 
@@ -3299,7 +3300,7 @@ Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben ergänz
 | Testdauer             |              |
 | Anzahl Wiederholungen |              |
 
-## Bewertung des Systemverhaltens
+##### Bewertung des Systemverhaltens
 
 | Funktion               | Ergebnis |
 | ---------------------- | -------- |
@@ -3311,7 +3312,7 @@ Systemtests am realen Prototyp werden zusätzlich durch folgende Angaben ergänz
 | Sicherheitsfunktionen  |          |
 | Fehlerbehandlung       |          |
 
-# B.16 Zusammenfassung
+### Zusammenfassung
 
 Die in diesem Anhang dargestellten Testprotokoll-Vorlagen ermöglichen eine einheitliche Dokumentation aller Testaktivitäten des Coasterbot-Projekts.
 
@@ -3319,11 +3320,9 @@ Durch die strukturierte Erfassung von Voraussetzungen, Durchführung, Ergebnisse
 
 Die Vorlagen unterstützen sowohl manuelle Tests am physischen Prototyp als auch automatisierte Tests innerhalb der Simulationsumgebung und stellen damit eine Grundlage für die technische Bewertung des Systems dar.
 
-### Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft → Testfälle
+## Traceability-Matrix Lastenheft → Pflichtenheft → Testfälle
 
-# Anhang C: Traceability-Matrix Lastenheft → Pflichtenheft → Testfälle
-
-## C.1 Zweck der Traceability-Matrix
+### Zweck der Traceability-Matrix
 
 Die Traceability-Matrix stellt die Nachverfolgbarkeit zwischen den Anforderungen des Lastenhefts, den technischen Umsetzungen des Pflichtenhefts und den definierten Testfällen sicher.
 
@@ -3335,7 +3334,7 @@ Ziel ist es, nachzuweisen, dass jede relevante Anforderung:
 
 Die Matrix unterstützt damit die systematische Verifikation des Coasterbot-Prototyps und ermöglicht eine transparente Bewertung der Anforderungserfüllung.
 
-# C.2 Struktur der Traceability-Matrix
+### Struktur der Traceability-Matrix
 
 Die Matrix verwendet folgende Zuordnung:
 
@@ -3348,78 +3347,78 @@ Die Matrix verwendet folgende Zuordnung:
 | Testebene               | Komponenten-, Integrations-, Simulations- oder Systemtest |
 | Status                  | Bewertung der Umsetzung                                   |
 
-# C.3 Navigation und Lokalisierung
+### Navigation und Lokalisierung
 
-| ID      | Lastenheft-Anforderung                     | Pflichtenheft-Umsetzung                                   | Test-ID                                         | Testebene                                       | Status  |
-| ------- | ------------------------------------------ | --------------------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- | ------- |
-| NAV-001 | Der Bot muss Hindernisse erkennen          | Integration einer Abstandssensorik mit Hinderniserkennung | CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002, SYS-003 | Komponenten / Integration / Simulation / System | geprüft |
-| NAV-002 | Der Bot muss Hindernissen ausweichen       | Dynamische Anpassung der Navigationsroute                 | CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002          | Komponenten / Integration / Simulation          | geprüft |
-| NAV-003 | Der Bot muss Tischende erkennen            | Implementierung einer Tischkantenerkennung                | ST-SIM-003, SYS-004                             | Simulation / System                             | geprüft |
-| NAV-004 | Der Bot muss auf dem Tisch bleiben         | Sicherheitslogik verhindert Verlassen der Tischfläche     | SYS-004                                         | System                                          | geprüft |
-| NAV-005 | Der Bot muss Fahrroute dynamisch anpassen  | Navigationsmodul mit Routenneuberechnung                  | CT-NAV-001, ST-SIM-002                          | Komponenten / Simulation                        | geprüft |
-| NAV-006 | Der Bot muss Position bestimmen können     | Lokalisierungskomponente verarbeitet Positionsdaten       | CT-LOC-001, IT-LOC-NAV-001                      | Komponenten / Integration                       | geprüft |
-| NAV-007 | Der Bot muss Orientierung bestimmen können | Speicherung und Verarbeitung der Roboterorientierung      | CT-LOC-001, IT-LOC-NAV-001                      | Komponenten / Integration                       | geprüft |
-| NAV-008 | Der Bot muss Zielpunkt erreichen           | Navigation und Bewegungssteuerung führen Zielanfahrt aus  | CT-NAV-001, SYS-002                             | Komponenten / System                            | geprüft |
-| NAV-009 | Der Bot muss sich kontrolliert bewegen     | Bewegungssteuerung mit Geschwindigkeitsbegrenzung         | CT-MOT-001, IT-NAV-MOT-001                      | Komponenten / Integration                       | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status  |
+|:---|------------------------|-------------------------|:--------|:----------|:--------|
+| NAV-001 | Der Bot muss Hindernisse erkennen | Integration einer Abstandssensorik mit Hinderniserkennung | CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002, SYS-003 | Kompo-nenten, Integration, Simulation, System | geprüft |
+| NAV-002 | Der Bot muss Hindernissen ausweichen | Dynamische Anpassung der Navigationsroute | CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002 | Kompo-nenten, Integration, Simulation | geprüft |
+| NAV-003 | Der Bot muss Tischende erkennen | Implementierung einer Tischkantenerkennung | ST-SIM-003, SYS-004 | Simulation, System | geprüft |
+| NAV-004 | Der Bot muss auf dem Tisch bleiben | Sicherheitslogik verhindert Verlassen der Tischfläche | SYS-004 | System | geprüft |
+| NAV-005 | Der Bot muss Fahrroute dynamisch anpassen | Navigationsmodul mit Routenneuberechnung | CT-NAV-001, ST-SIM-002 | Kompo-nenten, Simulation | geprüft |
+| NAV-006 | Der Bot muss Position bestimmen können | Lokalisierungs-komponente verarbeitet Positionsdaten | CT-LOC-001, IT-LOC-NAV-001 | Kompo-nenten, Integration | geprüft |
+| NAV-007 | Der Bot muss Orientierung bestimmen können | Speicherung und Verarbeitung der Roboterorientierung | CT-LOC-001, IT-LOC-NAV-001 | Kompo-nenten, Integration | geprüft |
+| NAV-008 | Der Bot muss Zielpunkt erreichen | Navigation und Bewegungssteuerung führen Zielanfahrt aus | CT-NAV-001, SYS-002 | Kompon-enten, System | geprüft |
+| NAV-009 | Der Bot muss sich kontrolliert bewegen | Bewegungssteuerung mit Geschwindigkeitsbegrenzung | CT-MOT-001, IT-NAV-MOT-001 | Kompo-nenten, Integration | geprüft |
 
-# C.4 Anforderungen Getränkeuntersetzer
+### Anforderungen Getränkeuntersetzer
 
-| ID      | Lastenheft-Anforderung                                 | Pflichtenheft-Umsetzung                                   | Test-ID                         | Testebene                         | Status  |
-| ------- | ------------------------------------------------------ | --------------------------------------------------------- | ------------------------------- | --------------------------------- | ------- |
-| CST-001 | Der Bot muss einen Untersetzer aufnehmen können        | Mechanismus zur Aufnahme und Erkennung eines Untersetzers | CT-CST-001, ST-SIM-007, SYS-005 | Komponenten / Simulation / System | geprüft |
-| CST-002 | Der Bot muss einen Untersetzer transportieren können   | Interne Zustandsverwaltung für aufgenommenen Untersetzer  | ST-SIM-007, SYS-010             | Simulation / System               | geprüft |
-| CST-003 | Der Bot muss einen Untersetzer präzise platzieren      | Platzierungsmechanismus mit Positionskontrolle            | SYS-006                         | System                            | geprüft |
-| CST-004 | Der Bot muss einen Untersetzer wieder aufnehmen können | Aufnahmeprozess mit Zustandserkennung                     | CT-CST-001                      | Komponenten                       | geprüft |
-| CST-005 | Der Bot muss erfolgreiche Aufnahme erkennen            | Sensorbasierte Zustandsprüfung                            | CT-CST-001, CT-CST-002          | Komponenten                       | geprüft |
-| CST-006 | Der Bot muss erfolgreiche Platzierung erkennen         | Statusprüfung nach Ablagevorgang                          | SYS-006                         | System                            | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status |
+|:------|---------------------|-------------------------|:--------|:----------|:-------|
+| CST-001 | Der Bot muss einen Untersetzer aufnehmen können | Mechanismus zur Aufnahme und Erkennung eines Untersetzers | CT-CST-001, ST-SIM-007, SYS-005 | Kompo-nenten, Simulation, System | geprüft |
+| CST-002 | Der Bot muss einen Untersetzer transportieren können | Interne Zustandsverwaltung für aufgenommenen Untersetzer | ST-SIM-007, SYS-010 | Simu-lation, System | geprüft |
+| CST-003 | Der Bot muss einen Untersetzer präzise platzieren | Platzierungsmechanismus mit Positionskontrolle | SYS-006 | System | geprüft |
+| CST-004 | Der Bot muss einen Untersetzer wieder aufnehmen können | Aufnahmeprozess mit Zustandserkennung | CT-CST-001 | Kompo-nenten | geprüft |
+| CST-005 | Der Bot muss erfolgreiche Aufnahme erkennen | Sensorbasierte Zustandsprüfung | CT-CST-001, CT-CST-002 | Kompo-nenten | geprüft |
+| CST-006 | Der Bot muss erfolgreiche Platzierung erkennen | Statusprüfung nach Ablagevorgang | SYS-006 | System | geprüft |
 
-# C.5 Sicherheitsanforderungen
+### Sicherheitsanforderungen
 
-| ID      | Lastenheft-Anforderung                                   | Pflichtenheft-Umsetzung                    | Test-ID                             | Testebene                          | Status  |
-| ------- | -------------------------------------------------------- | ------------------------------------------ | ----------------------------------- | ---------------------------------- | ------- |
-| SAF-001 | Der Bot muss bei Gefahr sofort anhalten                  | Sicherheitskomponente mit Stoppsignal      | CT-SAF-001, IT-SAF-MOT-001, SYS-007 | Komponenten / Integration / System | geprüft |
-| SAF-002 | Der Bot muss bei Sensorfehler sicheren Zustand einnehmen | Fehlerüberwachung und Sicherheitszustand   | ST-SIM-005                          | Simulation                         | geprüft |
-| SAF-003 | Der Bot darf Tisch nicht verlassen                       | Tischkantenerkennung und Bewegungsstopp    | SYS-004                             | System                             | geprüft |
-| SAF-004 | Der Bot darf nicht mit hoher Geschwindigkeit kollidieren | Begrenzung der Bewegungsparameter          | CT-MOT-001, IT-NAV-MOT-001          | Komponenten / Integration          | geprüft |
-| SAF-005 | Der Bot muss Kollisionen vermeiden                       | Hinderniserkennung und Navigation          | SYS-003                             | System                             | geprüft |
-| SAF-006 | Der Bot muss Not-Aus unterstützen                        | Not-Aus-Schnittstelle und Sicherheitslogik | CT-SAF-001, SYS-007                 | Komponenten / System               | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status |
+|:---|------------------------|-------------------------|---------|:----------|:-------|
+| SAF-001 | Der Bot muss bei Gefahr sofort anhalten | Sicherheitskomponente mit Stoppsignal | CT-SAF-001, IT-SAF-MOT-001, SYS-007 | Kompo-nenten, Integration, System | geprüft |
+| SAF-002 | Der Bot muss bei Sensorfehler sicheren Zustand einnehmen | Fehlerüberwachung und Sicherheitszustand | ST-SIM-005 | Simulation | geprüft |
+| SAF-003 | Der Bot darf Tisch nicht verlassen | Tischkantenerkennung und Bewegungsstopp | SYS-004 | System | geprüft |
+| SAF-004 | Der Bot darf nicht mit hoher Geschwindigkeit kollidieren | Begrenzung der Bewegungsparameter | CT-MOT-001, IT-NAV-MOT-001 | Komp-onenten, Integration | geprüft |
+| SAF-005 | Der Bot muss Kollisionen vermeiden | Hinderniserkennung und Navigation | SYS-003 | System | geprüft |
+| SAF-006 | Der Bot muss Not-Aus unterstützen | Not-Aus-Schnittstelle und Sicherheitslogik | CT-SAF-001, SYS-007 | Kompo-nenten, System | geprüft |
 
-# C.6 Systemüberwachung
+### Systemüberwachung
 
-| ID      | Lastenheft-Anforderung          | Pflichtenheft-Umsetzung                       | Test-ID                         | Testebene                          | Status  |
-| ------- | ------------------------------- | --------------------------------------------- | ------------------------------- | ---------------------------------- | ------- |
-| MON-001 | Fehler erkennen                 | Diagnosekomponente überwacht Systemzustände   | CT-MON-001, IT-MON-001, SYS-008 | Komponenten / Integration / System | geprüft |
-| MON-002 | Fehler protokollieren           | Fehlerlogging innerhalb der Systemüberwachung | CT-MON-001, IT-MON-001          | Komponenten / Integration          | geprüft |
-| MON-003 | Betriebszustand anzeigen        | Statusverwaltung und Anzeige                  | SYS-001                         | System                             | geprüft |
-| MON-004 | Erfolg einer Aufgabe erkennen   | Zustandsmanagement der Arbeitsabläufe         | SYS-010                         | System                             | geprüft |
-| MON-005 | Fehlgeschlagene Aufgaben melden | Fehlerstatus und Meldesystem                  | CT-CST-002, SYS-008             | Komponenten / System               | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status |
+|:---|------------------------|-------------------------|---------|-----------|:-------|
+| MON-001 | Fehler erkennen | Diagnosekomponente überwacht Systemzustände | CT-MON-001, IT-MON-001, SYS-008 | Kompo-nenten, Integration, System | geprüft |
+| MON-002 | Fehler protokollieren | Fehlerlogging innerhalb der Systemüberwachung | CT-MON-001, IT-MON-001 | Kompo-nenten, Integration | geprüft |
+| MON-003 | Betriebszustand anzeigen | Statusverwaltung und Anzeige | SYS-001 | System | geprüft |
+| MON-004 | Erfolg einer Aufgabe erkennen | Zustandsmanagement der Arbeitsabläufe | SYS-010 | System | geprüft |
+| MON-005 | Fehlgeschlagene Aufgaben melden | Fehlerstatus und Meldesystem | CT-CST-002, SYS-008 | Kompo-nenten, System | geprüft |
 
-# C.7 Nichtfunktionale Anforderungen
+### Nichtfunktionale Anforderungen
 
-| ID      | Lastenheft-Anforderung                             | Pflichtenheft-Umsetzung                              | Test-ID                   | Testebene                 | Status  |
-| ------- | -------------------------------------------------- | ---------------------------------------------------- | ------------------------- | ------------------------- | ------- |
-| NFR-001 | Bot muss modular aufgebaut sein                    | Komponentenbasierte Systemarchitektur                | IT-HW-SIM-001             | Integration               | geprüft |
-| NFR-002 | Software muss komponentenbasiert entwickelt werden | Trennung der Softwaremodule                          | CT-HW-001 bis CT-MON-001  | Komponenten               | geprüft |
-| NFR-003 | Softwarearchitektur muss erweiterbar sein          | Erweiterbare Schnittstellenstruktur                  | IT-HW-SIM-001             | Integration               | geprüft |
-| NFR-004 | Software muss simuliert werden können              | Hardwareabstraktion und Simulationsmodelle           | IT-HW-SIM-001, ST-SIM-001 | Integration / Simulation  | geprüft |
-| NFR-005 | Software muss testbar sein                         | Automatisierte Testmöglichkeiten                     | CT-Tests                  | Komponenten               | geprüft |
-| NFR-006 | Kernfunktionen müssen automatisiert testbar sein   | Testframework und automatisierte Testfälle           | CT-Tests                  | Komponenten               | geprüft |
-| NFR-007 | Sensoren und Aktoren müssen austauschbar sein      | Hardwareabstraktionsschicht                          | CT-HW-001, IT-HW-SIM-001  | Komponenten / Integration | geprüft |
-| NFR-008 | Hardwareabstraktion unterstützen                   | Abstrakte Schnittstellen zwischen Hard- und Software | CT-HW-001                 | Komponenten               | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status |
+|:---|------------------------|-------------------------|---------|:----------|:-------|
+| NFR-001 | Bot muss modular aufgebaut sein | Komponentenbasierte Systemarchitektur | IT-HW-SIM-001 | Integration | geprüft |
+| NFR-002 | Software muss komponentenbasiert entwickelt werden | Trennung der Softwaremodule | CT-HW-001 bis CT-MON-001 | Kompo-nenten | geprüft |
+| NFR-003 | Softwarearchitektur muss erweiterbar sein | Erweiterbare Schnittstellenstruktur | IT-HW-SIM-001 | Integration | geprüft |
+| NFR-004 | Software muss simuliert werden können | Hardwareabstraktion und Simulationsmodelle | IT-HW-SIM-001, ST-SIM-001 | Integration, Simulation | geprüft |
+| NFR-005 | Software muss testbar sein | Automatisierte Testmöglichkeiten | CT-Tests | Kompo-nenten | geprüft |
+| NFR-006 | Kernfunktionen müssen automatisiert testbar sein | Testframework und automatisierte Testfälle | CT-Tests | Kompo-nenten | geprüft |
+| NFR-007 | Sensoren und Aktoren müssen austauschbar sein | Hardwareabstraktions-schicht | CT-HW-001, IT-HW-SIM-001 | Kompo-nenten, Integration | geprüft |
+| NFR-008 | Hardwareabstraktion unterstützen | Abstrakte Schnittstellen zwischen Hard- und Software | CT-HW-001 | Kompo-nenten | geprüft |
 
-# C.8 Simulationsanforderungen
+### Simulationsanforderungen
 
-| ID      | Lastenheft-Anforderung                               | Pflichtenheft-Umsetzung                  | Test-ID                | Testebene   | Status  |
-| ------- | ---------------------------------------------------- | ---------------------------------------- | ---------------------- | ----------- | ------- |
-| SIM-001 | Fahrmanöver müssen reproduzierbar sein               | Definierte Simulationsszenarien          | ST-SIM-004             | Simulation  | geprüft |
-| SIM-002 | Sensoren müssen modellierbar sein                    | Virtuelle Sensormodelle                  | IT-HW-SIM-001          | Integration | geprüft |
-| SIM-003 | Aktoren müssen modellierbar sein                     | Virtuelle Aktormodelle                   | ST-SIM-006             | Simulation  | geprüft |
-| SIM-004 | Hindernisse müssen berücksichtigt werden             | Virtuelle Umgebungsmodelle               | ST-SIM-002             | Simulation  | geprüft |
-| SIM-005 | Fehlersituationen müssen simulierbar sein            | Fehlerinjektion in Simulation            | ST-SIM-005, ST-SIM-006 | Simulation  | geprüft |
-| SIM-006 | Simulation unterstützt Testfälle                     | Testautomatisierung innerhalb Simulation | ST-SIM-007             | Simulation  | geprüft |
-| SIM-007 | Simulationsverhalten entspricht erwartetem Verhalten | Vergleich Simulation und Prototyp        | ST-SIM-008             | Simulation  | geprüft |
+| ID | Lastenheft-Anforderung | Pflichtenheft-Umsetzung | Test-ID | Testebene | Status |
+|:-------|--------------------|-------------------------|:--------|:----------|:-------|
+| SIM-001 | Fahrmanöver müssen reproduzierbar sein | Definierte Simulationsszenarien | ST-SIM-004 | Simulation | geprüft |
+| SIM-002 | Sensoren müssen modellierbar sein | Virtuelle Sensormodelle | IT-HW-SIM-001 | Integration | geprüft |
+| SIM-003 | Aktoren müssen modellierbar sein | Virtuelle Aktormodelle | ST-SIM-006 | Simulation | geprüft |
+| SIM-004 | Hindernisse müssen berücksichtigt werden | Virtuelle Umgebungsmodelle | ST-SIM-002 | Simulation | geprüft |
+| SIM-005 | Fehlersituationen müssen simulierbar sein | Fehlerinjektion in Simulation | ST-SIM-005, ST-SIM-006 | Simulation | geprüft |
+| SIM-006 | Simulation unterstützt Testfälle | Testautomatisierung innerhalb Simulation | ST-SIM-007 | Simulation | geprüft |
+| SIM-007 | Simulationsverhalten entspricht erwartetem Verhalten | Vergleich Simulation und Prototyp | ST-SIM-008 | Simulation | geprüft |
 
-# C.9 Anforderungen außerhalb des Projektumfangs
+### Anforderungen außerhalb des Projektumfangs
 
 Die folgenden Anforderungen wurden bewusst nicht umgesetzt und sind daher nicht Bestandteil der Testabdeckung:
 
@@ -3432,7 +3431,7 @@ Die folgenden Anforderungen wurden bewusst nicht umgesetzt und sind daher nicht 
 | Schwarmverhalten                     | Nicht Bestandteil des Einzelroboters      |
 | EMV-Betrachtungen                    | Nicht Bestandteil der Prototypentwicklung |
 
-# C.10 Zusammenfassung
+### Zusammenfassung
 
 Die Traceability-Matrix zeigt die vollständige Verbindung zwischen Anforderungen, technischer Umsetzung und Testfällen.
 
@@ -3447,11 +3446,10 @@ Die Matrix ermöglicht:
 
 Damit stellt sie einen wichtigen Bestandteil der technischen Dokumentation des Projekts dar.
 
-### Anhang D: Risikoanalyse und Testpriorisierung.
 
-# Anhang D: Risikoanalyse und Testpriorisierung
+## Risikoanalyse und Testpriorisierung
 
-## D.1 Zweck der Risikoanalyse
+### Zweck der Risikoanalyse
 
 Die Risikoanalyse dient der systematischen Identifikation, Bewertung und Behandlung potenzieller Risiken während der Entwicklung, Integration und Validierung des Coasterbot-Prototyps.
 
@@ -3471,11 +3469,11 @@ Die Bewertung orientiert sich an den Kriterien:
 * Risikopriorität
 * erforderliche Maßnahmen
 
-# D.2 Bewertungsmethode
+### Bewertungsmethode
 
 Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 
-## Eintrittswahrscheinlichkeit
+### Eintrittswahrscheinlichkeit
 
 | Wert | Beschreibung          |
 | ---- | --------------------- |
@@ -3485,7 +3483,7 @@ Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 | 4    | Wahrscheinlich        |
 | 5    | Sehr wahrscheinlich   |
 
-## Auswirkung
+### Auswirkung
 
 | Wert | Beschreibung                                    |
 | ---- | ----------------------------------------------- |
@@ -3495,7 +3493,7 @@ Die Risikobewertung erfolgt anhand einer qualitativen Bewertungsskala.
 | 4    | Wesentliche Beeinträchtigung                    |
 | 5    | Kritischer Systemausfall oder Sicherheitsrisiko |
 
-## Risikopriorität
+### Risikopriorität
 
 Die Risikopriorität ergibt sich aus:
 
@@ -3511,133 +3509,133 @@ Die Bewertung erfolgt nach:
 | 6–12  | Mittleres Risiko |
 | 13–25 | Hohes Risiko     |
 
-# D.3 Technische Risikoanalyse
+### Technische Risikoanalyse
 
-| ID    | Risiko                                        | Ursache                                       | Eintritt | Auswirkung | RPZ | Bewertung |
-| ----- | --------------------------------------------- | --------------------------------------------- | -------- | ---------- | --- | --------- |
-| R-001 | Roboter verlässt Tischfläche                  | Fehlerhafte Kantenerkennung oder Sensorfehler | 2        | 5          | 10  | Mittel    |
-| R-002 | Kollision mit Hindernissen                    | Unzureichende Hinderniserkennung              | 3        | 5          | 15  | Hoch      |
-| R-003 | Ungenaue Positionierung                       | Fehlerhafte Lokalisierung                     | 3        | 4          | 12  | Mittel    |
-| R-004 | Untersetzer kann nicht aufgenommen werden     | Mechanischer Fehler                           | 3        | 3          | 9   | Mittel    |
-| R-005 | Kommunikationsfehler zwischen Softwaremodulen | Fehlerhafte Schnittstellen                    | 2        | 4          | 8   | Mittel    |
-| R-006 | Sensor liefert fehlerhafte Daten              | Defekter oder falsch konfigurierter Sensor    | 3        | 4          | 12  | Mittel    |
-| R-007 | Bewegungssteuerung reagiert fehlerhaft        | Fehler in Motorsteuerung                      | 2        | 5          | 10  | Mittel    |
-| R-008 | Simulation entspricht nicht der Realität      | Ungenaue Modellierung                         | 3        | 3          | 9   | Mittel    |
-| R-009 | Unzureichende Akkukapazität                   | Falsche Dimensionierung                       | 2        | 3          | 6   | Mittel    |
-| R-010 | Softwarefehler führt zu undefiniertem Zustand | Fehlerhafte Zustandsverwaltung                | 2        | 5          | 10  | Mittel    |
+| ID | Risiko | Ursache | Eintritt | Aus-wirkung | RPZ | Bewertung |
+|:------|-------------------------|------------------|---------:|-----------:|----:|--------------|
+| R-001 | Roboter verlässt Tischfläche | Fehlerhafte Kantenerkennung oder Sensorfehler | 2 | 5 | 10 | Mittel |
+| R-002 | Kollision mit Hindernissen | Unzureichende Hinderniserkennung | 3 | 5 | 15 | Hoch |
+| R-003 | Ungenaue Positionierung | Fehlerhafte Lokalisierung | 3 | 4 | 12 | Mittel |
+| R-004 | Untersetzer kann nicht aufgenommen werden | Mechanischer Fehler | 3 | 3 | 9 | Mittel |
+| R-005 | Kommunikationsfehler zwischen Softwaremodulen | Fehlerhafte Schnittstellen | 2 | 4 | 8 | Mittel |
+| R-006 | Sensor liefert fehlerhafte Daten | Defekter oder falsch konfigurierter Sensor | 3 | 4 | 12 | Mittel |
+| R-007 | Bewegungssteuerung reagiert fehlerhaft | Fehler in Motorsteuerung | 2 | 5 | 10 | Mittel |
+| R-008 | Simulation entspricht nicht der Realität | Ungenaue Modellierung | 3 | 3 | 9 | Mittel |
+| R-009 | Unzureichende Akkukapazität | Falsche Dimensionierung | 2 | 3 | 6 | Mittel |
+| R-010 | Softwarefehler führt zu undefiniertem Zustand | Fehlerhafte Zustandsverwaltung | 2 | 5 | 10 | Mittel |
 
-# D.4 Sicherheitsrisiken
+### Sicherheitsrisiken
 
-## D.4.1 Verlust der Tischsicherheit
+#### Verlust der Tischsicherheit
 
-### Beschreibung
+##### Beschreibung
 
 Ein wesentliches Risiko besteht darin, dass der Roboter aufgrund fehlerhafter Sensorinformationen oder einer falschen Bewegungsplanung die Tischfläche verlässt.
 
-### Auswirkungen
+##### Auswirkungen
 
 * Beschädigung des Prototyps
 * Unterbrechung des Betriebs
 * Potenzielle Gefährdung in realer Umgebung
 
-### Gegenmaßnahmen
+##### Gegenmaßnahmen
 
 * redundante Prüfung kritischer Sensordaten
 * Begrenzung der Geschwindigkeit
 * Sicherheitsabstand zur Tischkante
 * Simulation verschiedener Grenzsituationen
 
-### Zugeordnete Tests
+##### Zugeordnete Tests
 
 * SYS-004: Schutz vor Herunterfallen vom Tisch
 * ST-SIM-003: Simulation der Tischkantenerkennung
 * SYS-007: Sicherheitsstopp
 
-## D.4.2 Kollision mit Objekten oder Personen
+#### Kollision mit Objekten oder Personen
 
-### Beschreibung
+##### Beschreibung
 
 Der Coasterbot bewegt sich in einer Umgebung mit wechselnden Hindernissen und potenziellen Kontaktpunkten.
 
-### Auswirkungen
+##### Auswirkungen
 
 * Beschädigung von Gegenständen
 * Fehlfunktion des Arbeitsablaufs
 * Sicherheitsrisiko
 
-### Gegenmaßnahmen
+##### Gegenmaßnahmen
 
 * Hinderniserkennung
 * Geschwindigkeitsbegrenzung
 * Kollisionsvermeidung
 * Sicherheitsabschaltung
 
-### Zugeordnete Tests
+##### Zugeordnete Tests
 
 * SYS-003: Hinderniserkennung und Umfahrung
 * CT-NAV-002: Hinderniserkennung
 * SYS-007: Not-Aus
 
-# D.5 Softwarerisiken
+### Softwarerisiken
 
-## D.5.1 Fehlerhafte Systemzustände
+#### Fehlerhafte Systemzustände
 
-### Beschreibung
+##### Beschreibung
 
 Komplexe Robotersysteme besitzen zahlreiche Betriebszustände. Fehlerhafte Übergänge können zu unerwartetem Verhalten führen.
 
-### Auswirkungen
+##### Auswirkungen
 
 * Blockierte Arbeitsabläufe
 * Falsche Bewegungsbefehle
 * Verlust der Systemzuverlässigkeit
 
-### Gegenmaßnahmen
+##### Gegenmaßnahmen
 
 * Zustandsautomat für Betriebsabläufe
 * definierte Fehlerzustände
 * automatisierte Softwaretests
 * Fehlerprotokollierung
 
-### Zugeordnete Tests
+##### Zugeordnete Tests
 
 * CT-MON-001
 * IT-MON-001
 * SYS-008
 
-## D.5.2 Fehlende Hardwareabstraktion
+#### Fehlende Hardwareabstraktion
 
-### Beschreibung
+##### Beschreibung
 
 Eine unzureichende Trennung zwischen Hard- und Software kann spätere Erweiterungen erschweren.
 
-### Auswirkungen
+##### Auswirkungen
 
 * Erhöhter Entwicklungsaufwand
 * Schlechtere Testbarkeit
 * Eingeschränkte Austauschbarkeit von Komponenten
 
-### Gegenmaßnahmen
+##### Gegenmaßnahmen
 
 * modulare Architektur
 * definierte Schnittstellen
 * simulierte Hardwarekomponenten
 
-### Zugeordnete Tests
+##### Zugeordnete Tests
 
 * CT-HW-001
 * IT-HW-SIM-001
 
-# D.6 Projektrisiken
+### Projektrisiken
 
-| ID     | Risiko                                     | Ursache                                  | Auswirkung                  | Gegenmaßnahme                            |
-| ------ | ------------------------------------------ | ---------------------------------------- | --------------------------- | ---------------------------------------- |
-| PR-001 | Verzögerung im Hardwareaufbau              | Lieferprobleme oder Fertigungsfehler     | Reduzierte Testzeit         | Frühzeitige Beschaffung und Planung      |
-| PR-002 | Umfangsüberschreitung                      | Erweiterung um nicht geplante Funktionen | Projektverzögerung          | Klare Abgrenzung des Projektumfangs      |
-| PR-003 | Fehlende Testdaten                         | Unzureichende Vorbereitung               | Eingeschränkte Validierung  | Frühzeitige Definition der Testszenarien |
-| PR-004 | Integration funktioniert nicht rechtzeitig | Unterschiedliche Entwicklungsstände      | Verzögerung der Systemtests | Regelmäßige Integrationstests            |
+| ID | Risiko | Ursache | Auswirkung | Gegenmaßnahme |
+|:---|--------|---------|------------|---------------|
+| PR-001 | Verzögerung im Hardwareaufbau | Lieferprobleme oder Fertigungsfehler | Reduzierte Testzeit | Frühzeitige Beschaffung und Planung |
+| PR-002 | Umfangsüber-schreitung | Erweiterung um nicht geplante Funktionen | Projektverzögerung | Klare Abgrenzung des Projektumfangs |
+| PR-003 | Fehlende Testdaten | Unzureichende Vorbereitung | Eingeschränkte Validierung | Frühzeitige Definition der Testszenarien |
+| PR-004 | Integration funktioniert nicht rechtzeitig | Unterschiedliche Entwicklungsstände | Verzögerung der Systemtests | Regelmäßige Integrationstests |
 
-# D.7 Testpriorisierung
+### Testpriorisierung
 
 Die Testpriorisierung erfolgt anhand der Kritikalität der Anforderungen.
 
@@ -3648,9 +3646,9 @@ Dabei werden folgende Kriterien berücksichtigt:
 * technische Abhängigkeiten
 * Auswirkung bei Fehlern
 
-# D.8 Prioritätsstufen der Tests
+#### Prioritätsstufen der Tests
 
-## Priorität P1 – Kritische Tests
+##### Priorität P1 – Kritische Tests
 
 Diese Tests besitzen höchste Priorität und müssen vor allen weiteren Tests erfolgreich abgeschlossen werden.
 
@@ -3669,7 +3667,7 @@ Begründung:
 
 Diese Funktionen stellen die grundlegende Sicherheit und Betriebsfähigkeit des Roboters sicher.
 
-## Priorität P2 – Kernfunktionstests
+##### Priorität P2 – Kernfunktionstests
 
 Diese Tests überprüfen die eigentliche Zielanwendung des Coasterbots.
 
@@ -3686,7 +3684,7 @@ Begründung:
 
 Diese Funktionen bestimmen den praktischen Nutzen des Prototyps.
 
-## Priorität P3 – Erweiterungstests
+##### Priorität P3 – Erweiterungstests
 
 Diese Tests betreffen optionale oder zukünftige Funktionen.
 
@@ -3700,32 +3698,32 @@ Beispiele:
 
 Diese Funktionen sind nicht Bestandteil des aktuellen Projektumfangs.
 
-# D.9 Maßnahmen zur Risikoreduzierung
+### Maßnahmen zur Risikoreduzierung
 
 Zur Minimierung technischer Risiken werden folgende Maßnahmen eingesetzt:
 
-## Entwicklung
+#### Entwicklung
 
 * modulare Softwarearchitektur
 * klare Schnittstellendefinition
 * kontinuierliche Integration
 * frühzeitige Simulation
 
-## Test
+#### Test
 
 * automatisierte Komponententests
 * reproduzierbare Simulationstests
 * schrittweise Systemintegration
 * Fehlerprotokollierung
 
-## Sicherheit
+#### Sicherheit
 
 * Begrenzung kritischer Bewegungen
 * definierte sichere Zustände
 * Not-Aus-Funktion
 * Überwachung wichtiger Systemparameter
 
-# D.10 Zusammenfassung
+### Zusammenfassung
 
 Die Risikoanalyse zeigt die wesentlichen technischen und organisatorischen Herausforderungen bei der Entwicklung des Coasterbot-Prototyps.
 

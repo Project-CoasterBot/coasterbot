@@ -2838,6 +2838,145 @@ SYS-005 & Sicherheitsstopp & Roboter stoppt bei Gefahr \\
 SYS-006 & Fehleranzeige & Fehler wird erkannt und gemeldet \\
 \end{longtable}
 
+\subsection{Abnahmetests}\label{abnahmetests}
+
+\subsubsection{Ziel}\label{ziel-4}
+
+Die Abnahmetests bilden die abschließende Testebene und dienen dem
+formalen Nachweis gegenüber dem Auftraggeber, dass der
+Coasterbot-Prototyp die im Lastenheft definierten Anforderungen des
+Maturity Level 1 vollständig erfüllt.
+
+Während die vorangegangenen Testebenen der internen Qualitätssicherung
+durch den Auftragnehmer dienen, bildet die Abnahme die Grundlage für die
+formale Freigabe des Prototyps durch den Auftraggeber.
+
+\subsubsection{Abgrenzung zu den
+Systemtests}\label{abgrenzung-zu-den-systemtests}
+
+Die Abnahmetests führen keine neuen Testinhalte ein, sondern greifen auf
+die bereits durchgeführten Simulations- und Systemtests zurück. Der
+Unterschied liegt nicht im Testinhalt, sondern in der Perspektive und
+der formalen Wirkung:
+
+\begin{itemize}
+\tightlist
+\item
+  Systemtests werden vom Auftragnehmer zur internen Verifikation
+  durchgeführt.
+\item
+  Abnahmetests werden dem Auftraggeber vorgeführt bzw. anhand der
+  dokumentierten Testergebnisse nachvollzogen und münden in eine formale
+  Freigabeentscheidung.
+\end{itemize}
+
+Voraussetzung für die Durchführung der Abnahmetests ist der erfolgreiche
+Abschluss aller Systemtests.
+
+\subsubsection{Auswahl der Testfälle}\label{auswahl-der-testfuxe4lle}
+
+Für die Abnahme wird eine Teilmenge der bereits definierten Simulations-
+und Systemtests herangezogen, die jeweils eine im Lastenheft explizit
+geforderte Kernfunktion demonstrieren:
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.1029}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4118}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.4853}}@{}}
+\toprule\noalign{}
+\begin{minipage}[b]{\linewidth}\raggedright
+ID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Test
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+Nachgewiesene Anforderung
+\end{minipage} \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+SYS-002 & Navigation auf Tischfläche & Autonome Bewegung im
+Arbeitsbereich \\
+SYS-003 & Hindernisvermeidung & Kollisionsvermeidung \\
+SYS-004 & Untersetzertransport & Aufnahme, Transport und
+Positionierung \\
+SYS-005 & Sicherheitsstopp & Sicherheitslogik \\
+SIM-003 & Erkennung der Tischkante & Absturzvermeidung \\
+\end{longtable}
+
+\subsubsection{Ablauf des
+Abnahmeverfahrens}\label{ablauf-des-abnahmeverfahrens}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Der Auftragnehmer beantragt die Abnahme, sobald alle Systemtests
+  erfolgreich abgeschlossen und dokumentiert sind.
+\item
+  Die ausgewählten Testfälle werden dem Auftraggeber vorgeführt oder
+  anhand der Testdokumentation nachvollzogen.
+\item
+  Ist- und Sollzustand werden je Testfall im Abnahmeprotokoll
+  gegenübergestellt.
+\item
+  Der Auftraggeber bewertet das Ergebnis mit einer der folgenden
+  Feststellungen:
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Abnahme ohne Einschränkung,
+  \item
+    Abnahme unter Vorbehalt (geringfügige, nicht kritische Mängel mit
+    Nachbesserungsfrist),
+  \item
+    Ablehnung der Abnahme (kritische Mängel, z. B. Ausfall der
+    Sicherheitslogik).
+  \end{itemize}
+\item
+  Das Abnahmeprotokoll wird von Auftraggeber und Auftragnehmer
+  unterzeichnet.
+\end{enumerate}
+
+\subsubsection{Abnahmekriterien}\label{abnahmekriterien}
+
+Die Abnahme gilt aus Sicht des Auftragnehmers als erfolgreich, wenn:
+
+\begin{itemize}
+\tightlist
+\item
+  alle für die Abnahme ausgewählten Testfälle das erwartete Ergebnis
+  liefern,
+\item
+  keine kritischen Mängel offen sind,
+\item
+  die Rückverfolgbarkeit zwischen Anforderung, Umsetzung und Test
+  lückenlos nachgewiesen ist (siehe Kapitel Rückverfolgbarkeit).
+\end{itemize}
+
+\subsubsection{Abnahmeprotokoll}\label{abnahmeprotokoll}
+
+Das Abnahmeprotokoll dokumentiert das Ergebnis der Abnahme und enthält
+mindestens:
+
+\begin{itemize}
+\tightlist
+\item
+  Datum und Ort der Abnahme,
+\item
+  geprüfte Testfälle mit Ergebnis,
+\item
+  festgestellte Mängel inklusive Schweregrad,
+\item
+  Abnahmeentscheidung,
+\item
+  Unterschrift von Auftraggeber und Auftragnehmer.
+\end{itemize}
+
+Mit der unterzeichneten Abnahme gilt der Prototyp als vom Auftraggeber
+freigegeben.
+
 \subsection{Verifikation der nichtfunktionalen
 Anforderungen}\label{verifikation-der-nichtfunktionalen-anforderungen}
 

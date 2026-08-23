@@ -1684,6 +1684,65 @@ Dabei werden Hardware, Software und mechanische Komponenten gemeinsam betrachtet
 | SYS-005       | Sicherheitsstopp           | Roboter stoppt bei Gefahr                              |
 | SYS-006       | Fehleranzeige              | Fehler wird erkannt und gemeldet                       |
 
+## Abnahmetests
+
+### Ziel
+
+Die Abnahmetests bilden die abschließende Testebene und dienen dem formalen Nachweis gegenüber dem Auftraggeber, dass der Coasterbot-Prototyp die im Lastenheft definierten Anforderungen des Maturity Level 1 vollständig erfüllt.
+
+Während die vorangegangenen Testebenen der internen Qualitätssicherung durch den Auftragnehmer dienen, bildet die Abnahme die Grundlage für die formale Freigabe des Prototyps durch den Auftraggeber.
+
+### Abgrenzung zu den Systemtests
+
+Die Abnahmetests führen keine neuen Testinhalte ein, sondern greifen auf die bereits durchgeführten Simulations- und Systemtests zurück. Der Unterschied liegt nicht im Testinhalt, sondern in der Perspektive und der formalen Wirkung:
+
+* Systemtests werden vom Auftragnehmer zur internen Verifikation durchgeführt.
+* Abnahmetests werden dem Auftraggeber vorgeführt bzw. anhand der dokumentierten Testergebnisse nachvollzogen und münden in eine formale Freigabeentscheidung.
+
+Voraussetzung für die Durchführung der Abnahmetests ist der erfolgreiche Abschluss aller Systemtests.
+
+### Auswahl der Testfälle
+
+Für die Abnahme wird eine Teilmenge der bereits definierten Simulations- und Systemtests herangezogen, die jeweils eine im Lastenheft explizit geforderte Kernfunktion demonstrieren:
+
+| ID      | Test                        | Nachgewiesene Anforderung        |
+| ------- | ---------------------------- | --------------------------------- |
+| SYS-002 | Navigation auf Tischfläche  | Autonome Bewegung im Arbeitsbereich |
+| SYS-003 | Hindernisvermeidung         | Kollisionsvermeidung              |
+| SYS-004 | Untersetzertransport        | Aufnahme, Transport und Positionierung |
+| SYS-005 | Sicherheitsstopp            | Sicherheitslogik                  |
+| SIM-003 | Erkennung der Tischkante    | Absturzvermeidung                 |
+
+### Ablauf des Abnahmeverfahrens
+
+1. Der Auftragnehmer beantragt die Abnahme, sobald alle Systemtests erfolgreich abgeschlossen und dokumentiert sind.
+2. Die ausgewählten Testfälle werden dem Auftraggeber vorgeführt oder anhand der Testdokumentation nachvollzogen.
+3. Ist- und Sollzustand werden je Testfall im Abnahmeprotokoll gegenübergestellt.
+4. Der Auftraggeber bewertet das Ergebnis mit einer der folgenden Feststellungen:
+   * Abnahme ohne Einschränkung,
+   * Abnahme unter Vorbehalt (geringfügige, nicht kritische Mängel mit Nachbesserungsfrist),
+   * Ablehnung der Abnahme (kritische Mängel, z. B. Ausfall der Sicherheitslogik).
+5. Das Abnahmeprotokoll wird von Auftraggeber und Auftragnehmer unterzeichnet.
+
+### Abnahmekriterien
+
+Die Abnahme gilt aus Sicht des Auftragnehmers als erfolgreich, wenn:
+
+* alle für die Abnahme ausgewählten Testfälle das erwartete Ergebnis liefern,
+* keine kritischen Mängel offen sind,
+* die Rückverfolgbarkeit zwischen Anforderung, Umsetzung und Test lückenlos nachgewiesen ist (siehe Kapitel Rückverfolgbarkeit).
+
+### Abnahmeprotokoll
+
+Das Abnahmeprotokoll dokumentiert das Ergebnis der Abnahme und enthält mindestens:
+
+* Datum und Ort der Abnahme,
+* geprüfte Testfälle mit Ergebnis,
+* festgestellte Mängel inklusive Schweregrad,
+* Abnahmeentscheidung,
+* Unterschrift von Auftraggeber und Auftragnehmer.
+
+Mit der unterzeichneten Abnahme gilt der Prototyp als vom Auftraggeber freigegeben.
 
 
 ## Verifikation der nichtfunktionalen Anforderungen

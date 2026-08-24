@@ -214,4 +214,3 @@ Temporary Items
 .venv/pyvenv.cfg
 .gitignore
 .venv/*
-.vscode/*

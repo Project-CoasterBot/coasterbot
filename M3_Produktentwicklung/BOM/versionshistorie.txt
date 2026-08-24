@@ -1,0 +1,3 @@
+# Versionshistorie BOM CoasterBot, wird automatisch in das pdf eingebunden
+
+1 | 24.08.2026 | Such | Erstfassung der Stückliste, Merge von Elekronik und Mechanik

@@ -6,8 +6,8 @@
 	(paper "A4")
 	(title_block
 		(title "Coasterbot Prototyp Komponenten")
-		(date "2026-08-24")
-		(rev "1")
+		(date "2026-08-25")
+		(rev "2")
 		(company "WBH Projektgruppe Coasterbot")
 	)
 	(lib_symbols
@@ -544,6 +544,280 @@
 					(at 0 -3.81 90)
 					(length 2.794)
 					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Device:R"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R"
+				(at 0 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "R res resistor"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "R_0_1"
+				(rectangle
+					(start -1.016 -2.54)
+					(end 1.016 2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "Switch:SW_Push"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 1.016)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "SW"
+				(at 1.27 2.54 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "SW_Push"
+				(at 0 -1.524 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "~"
+				(at 0 5.08 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Push button switch, generic, two pins"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "switch normally-open pushbutton push-button"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "SW_Push_0_1"
+				(circle
+					(center -2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 1.27) (xy 0 3.048)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.032 0)
+					(radius 0.508)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 1.27) (xy -2.54 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin passive line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 5.08 0 180)
+					(length 2.54)
+					(name "2"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -1367,16 +1641,16 @@
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "U"
-				(at 0 -27.432 0)
+			(property "Reference" "U2"
+				(at 0 29.21 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Value" ""
-				(at 0 0 0)
+			(property "Value" "Raspi Pico2 Controller Board"
+				(at 0 26.67 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -1413,7 +1687,7 @@
 			(symbol "MicrocontrollerAbstract_0_1"
 				(rectangle
 					(start -15.24 24.13)
-					(end 15.24 -29.21)
+					(end 15.24 -34.29)
 					(stroke
 						(width 0.254)
 						(type default)
@@ -1425,7 +1699,7 @@
 			)
 			(symbol "MicrocontrollerAbstract_1_1"
 				(text "Microcontroller"
-					(at 0.254 -24.892 0)
+					(at 0.254 -32.258 0)
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -1666,6 +1940,78 @@
 						)
 					)
 				)
+				(pin output line
+					(at -17.78 -19.05 0)
+					(length 2.54)
+					(name "RGBLED_R"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 -21.59 0)
+					(length 2.54)
+					(name "RGBLED_G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at -17.78 -24.13 0)
+					(length 2.54)
+					(name "RGBLED_B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -17.78 -27.94 0)
+					(length 2.54)
+					(name "USERSW"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
 				(pin power_in line
 					(at 17.78 21.59 180)
 					(length 2.54)
@@ -1695,6 +2041,150 @@
 						)
 					)
 					(number "21"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "components:RGBLed"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 -9.652 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "RGBLed_0_1"
+				(rectangle
+					(start -7.62 8.89)
+					(end 7.62 -11.43)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+			)
+			(symbol "RGBLed_1_1"
+				(text "RGB LED\nKY-016"
+					(at 0 5.588 0)
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 1.27 180)
+					(length 2.54)
+					(name "R"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -1.27 180)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -3.81 180)
+					(length 2.54)
+					(name "B"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 10.16 -6.35 180)
+					(length 2.54)
+					(name "GND"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -2443,6 +2933,12 @@
 		(uuid "80cf9dec-c7d6-4b91-89d9-def0fe761c32")
 	)
 	(junction
+		(at 82.55 157.48)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b9516904-8e67-4712-adaf-a4ec94f827b6")
+	)
+	(junction
 		(at 54.61 39.37)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -2692,6 +3188,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 138.43) (xy 73.66 138.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e19b65f-224f-481f-817f-04e3f7ddfbd7")
+	)
+	(wire
+		(pts
 			(xy 185.42 86.36) (xy 190.5 86.36)
 		)
 		(stroke
@@ -2699,6 +3205,16 @@
 			(type default)
 		)
 		(uuid "401dc889-a991-4091-b11d-8d9e16182b24")
+	)
+	(wire
+		(pts
+			(xy 71.12 144.78) (xy 82.55 144.78)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "41abdd20-6a02-4afc-aeb6-590e1d9e4429")
 	)
 	(wire
 		(pts
@@ -2872,6 +3388,16 @@
 	)
 	(wire
 		(pts
+			(xy 71.12 135.89) (xy 73.66 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "608570f0-9368-45a2-929c-9dc4a469c251")
+	)
+	(wire
+		(pts
 			(xy 105.41 39.37) (xy 107.95 39.37)
 		)
 		(stroke
@@ -2879,6 +3405,16 @@
 			(type default)
 		)
 		(uuid "63ce1e09-73f5-48d3-92c4-4aa5b347b450")
+	)
+	(wire
+		(pts
+			(xy 82.55 157.48) (xy 82.55 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64aacddc-fdda-4d2b-bf5a-6635bdc9397d")
 	)
 	(wire
 		(pts
@@ -2939,6 +3475,16 @@
 			(type default)
 		)
 		(uuid "6c2717c3-f5d9-40aa-9db2-1fd54bf92515")
+	)
+	(wire
+		(pts
+			(xy 96.52 157.48) (xy 100.33 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e8b4fdb-ae0c-4916-8b7c-9e0f00cf2ed4")
 	)
 	(wire
 		(pts
@@ -3162,6 +3708,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 57.15) (xy 195.58 57.15)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8dcd25a5-715f-4b88-a678-90e4d21be3a4")
+	)
+	(wire
+		(pts
 			(xy 54.61 54.61) (xy 54.61 57.15)
 		)
 		(stroke
@@ -3292,6 +3848,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 59.69) (xy 195.58 59.69)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b14994ec-1d56-4aba-9e1f-de52c4e53076")
+	)
+	(wire
+		(pts
 			(xy 240.03 115.57) (xy 242.57 115.57)
 		)
 		(stroke
@@ -3339,6 +3905,16 @@
 			(type default)
 		)
 		(uuid "c4f87ddf-ff7e-4078-937f-9108eb42708a")
+	)
+	(wire
+		(pts
+			(xy 71.12 140.97) (xy 73.66 140.97)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c748f7b1-c790-4f02-965b-5788204cd2ad")
 	)
 	(wire
 		(pts
@@ -3412,6 +3988,16 @@
 	)
 	(wire
 		(pts
+			(xy 193.04 62.23) (xy 195.58 62.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcbc227a-fb6a-4f6b-9126-d6947a42671a")
+	)
+	(wire
+		(pts
 			(xy 127 135.89) (xy 127 146.05)
 		)
 		(stroke
@@ -3419,6 +4005,26 @@
 			(type default)
 		)
 		(uuid "de0f15b8-af6e-4ea6-9244-b3484eddd87f")
+	)
+	(wire
+		(pts
+			(xy 193.04 54.61) (xy 195.58 54.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df013f52-b056-4acc-8718-2e9f096af461")
+	)
+	(wire
+		(pts
+			(xy 82.55 144.78) (xy 82.55 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df0e7476-5375-4dd1-bfbf-e6b96f2fbf61")
 	)
 	(wire
 		(pts
@@ -3532,6 +4138,16 @@
 	)
 	(wire
 		(pts
+			(xy 82.55 157.48) (xy 86.36 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f76ab822-1669-4a0a-af0f-3f9bb740cabe")
+	)
+	(wire
+		(pts
 			(xy 185.42 140.97) (xy 185.42 129.54)
 		)
 		(stroke
@@ -3559,6 +4175,16 @@
 			(type default)
 		)
 		(uuid "ff1cee16-835c-4a81-8adf-8f1aa3539860")
+	)
+	(wire
+		(pts
+			(xy 82.55 171.45) (xy 82.55 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ff2472a7-9b99-4ec9-93ee-f5197e44de8c")
 	)
 	(wire
 		(pts
@@ -3620,6 +4246,28 @@
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED_G"
+		(shape input)
+		(at 73.66 138.43 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "21ead207-8ccf-48ba-830e-e512e33d8d24")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.3299 138.43 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -3866,6 +4514,28 @@
 			)
 		)
 	)
+	(global_label "LED_R"
+		(shape input)
+		(at 73.66 135.89 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "805597a0-7f2d-4dec-bba8-08cf20904508")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.3299 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "EDGEFR"
 		(shape input)
 		(at 190.5 29.21 180)
@@ -3888,6 +4558,50 @@
 			)
 		)
 	)
+	(global_label "LED_G"
+		(shape input)
+		(at 193.04 57.15 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "9818ba0c-4789-4431-836d-b049ba1bc5a5")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 184.3701 57.15 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED_B"
+		(shape input)
+		(at 73.66 140.97 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "a1523e3f-0e6e-443b-a851-679143c89660")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 82.3299 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "PWM"
 		(shape input)
 		(at 139.7 105.41 180)
@@ -3901,6 +4615,28 @@
 		(uuid "a3d743c2-51a2-4588-9e4b-dd7e7d892ab6")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 132.542 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED_R"
+		(shape input)
+		(at 193.04 54.61 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "af2fcafd-f240-4a25-bdb5-023e2f5df054")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 184.3701 54.61 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4077,6 +4813,28 @@
 		(uuid "e7a643a4-9a6e-4389-bd2a-03935f754f36")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 225.01 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "LED_B"
+		(shape input)
+		(at 193.04 59.69 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "e8a0a139-abf8-42dd-ab43-92fd4540f709")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 184.3701 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4327,6 +5085,76 @@
 			(project "coasterbot_prototyp_schematic"
 				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
 					(reference "#PWR026")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 82.55 167.64 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0fabb709-f4f8-4a37-a7a1-e84999d8770f")
+		(property "Reference" "R1"
+			(at 85.09 166.3699 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "47k"
+			(at 85.09 168.9099 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 80.772 167.64 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 82.55 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 82.55 167.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4398f6d4-7e6a-4066-b5a9-b095e6ca0d69")
+		)
+		(pin "1"
+			(uuid "42cc7e93-796b-48e9-b325-51d6761539bc")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -5440,6 +6268,72 @@
 	)
 	(symbol
 		(lib_id "power:VCC")
+		(at 82.55 173.99 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "63470d01-4ac1-49bb-bc4a-a8522265b2bd")
+		(property "Reference" "#PWR030"
+			(at 82.55 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VCC"
+			(at 82.55 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 82.55 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 82.55 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 82.55 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1165d8fd-3786-4a65-b0d8-d61778204c9b")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "#PWR030")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:VCC")
 		(at 234.95 29.21 90)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5500,6 +6394,83 @@
 			(project "coasterbot_prototyp_schematic"
 				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
 					(reference "#PWR022")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "components:RGBLed")
+		(at 205.74 55.88 0)
+		(mirror y)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "6a74576d-7b93-495e-bf29-ce61e0a701f8")
+		(property "Reference" "U15"
+			(at 214.63 55.8799 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Value" "~"
+			(at 214.63 58.4199 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 205.74 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 205.74 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 205.74 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "1238c7c6-fa8f-407a-8771-24c5f7ab8f53")
+		)
+		(pin "1"
+			(uuid "ad743016-7e20-42b9-a254-074092373ab5")
+		)
+		(pin "2"
+			(uuid "de65f0f8-5163-40ff-acaf-143340fc8103")
+		)
+		(pin "3"
+			(uuid "69e1fad3-825f-4d39-9332-3537862b0585")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "U15")
 					(unit 1)
 				)
 			)
@@ -5602,6 +6573,18 @@
 		)
 		(pin "10"
 			(uuid "0a675a1a-ee88-4d1b-bf0d-a4ab4295477b")
+		)
+		(pin "13"
+			(uuid "5a443bcd-d16a-4a36-9077-eaeb02bc4d35")
+		)
+		(pin "14"
+			(uuid "924bcc11-16de-485c-a53e-d56dadb4bd60")
+		)
+		(pin "15"
+			(uuid "259a5f18-1f8c-4e7f-907f-5f8165f04c82")
+		)
+		(pin "16"
+			(uuid "15773274-b754-4dde-8437-faafba95f138")
 		)
 		(instances
 			(project "coasterbot_prototyp_schematic"
@@ -5812,6 +6795,141 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 193.04 62.23 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "71ec9541-b267-441a-9102-bb506a765cb7")
+		(property "Reference" "#PWR029"
+			(at 186.69 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 189.23 62.2299 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 193.04 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 193.04 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 193.04 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8860fd94-d05a-41b0-bd6f-38a7a054a200")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "#PWR029")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Switch:SW_Push")
+		(at 91.44 157.48 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7b6e2546-bfe7-4246-a91d-c5aa19108566")
+		(property "Reference" "SW2"
+			(at 91.44 149.86 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "User Button"
+			(at 91.44 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 91.44 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 91.44 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Push button switch, generic, two pins"
+			(at 91.44 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "811081fa-1b7d-443f-9e8f-0ce54905082a")
+		)
+		(pin "1"
+			(uuid "586003b0-4e3e-4be2-b915-9b1b9578663e")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 33.02 97.79 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -5939,6 +7057,73 @@
 			(project "coasterbot_prototyp_schematic"
 				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
 					(reference "#PWR020")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 100.33 157.48 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "87086214-ce70-4d43-8466-e4d8d523e6db")
+		(property "Reference" "#PWR031"
+			(at 106.68 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 104.14 157.4799 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+			)
+		)
+		(property "Footprint" ""
+			(at 100.33 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 100.33 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 100.33 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "360d46cc-2959-477f-9cfa-bb3653446b85")
+		)
+		(instances
+			(project "coasterbot_prototyp_schematic"
+				(path "/eaf3b5d0-071d-4d14-8ed8-2bfc6560b869"
+					(reference "#PWR031")
 					(unit 1)
 				)
 			)

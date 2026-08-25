@@ -381,6 +381,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \midrule
 1 & 19.08.2026 & Etringer & Erstfassung der Alternativenbeschreibung\\
 2 & 23.08.2026 & Etringer & Formatierung und Kapitelstruktur\\
+3 & 25.08.2026 & Etringer & Anpassung der Tabellen im Anhang\\
 \bottomrule
 \end{tabularx}
 
@@ -5203,6 +5204,9 @@ SYS & System Test (Systemtest) \\
 
 Die Nummerierung erfolgt fortlaufend innerhalb der jeweiligen Kategorie.
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Komponententests}\label{komponententests-2}
 
 \begin{longtable}[]{@{}
@@ -5230,7 +5234,7 @@ Status
 \endhead
 \bottomrule\noalign{}
 \endlastfoot
-CT-HW-001 & Verarbeitung von Sensordaten & Hardware-abstraktion &
+CT-HW-001 & Verarbeitung von Sensordaten & Hardwareabstraktion &
 NFR-007, NFR-008 & P1 & geplant \\
 CT-LOC-001 & Positionsaktualisierung & Lokalisierung & NAV-006, NAV-007
 & P1 & geplant \\
@@ -5238,18 +5242,22 @@ CT-NAV-001 & Berechnung einer gültigen Route & Navigation & NAV-005,
 NAV-008 & P1 & geplant \\
 CT-NAV-002 & Hinderniserkennung & Navigation & NAV-001, NAV-002 & P1 &
 geplant \\
-CT-MOT-001 & Umsetzung von Bewegungsbefehlen & Bewegungs-steuerung &
+CT-MOT-001 & Umsetzung von Bewegungsbefehlen & Bewegungssteuerung &
 NAV-009, SAF-004 & P1 & geplant \\
-CT-CST-001 & Aufnahme eines Getränkeuntersetzers & Untersetzer-handling
+CT-CST-001 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling
 & CST-001, CST-005 & P2 & geplant \\
-CT-CST-002 & Fehler bei Untersetzeraufnahme & Untersetzer-handling &
+CT-CST-002 & Fehler bei Untersetzeraufnahme & Untersetzerhandling &
 CST-005, MON-005 & P2 & geplant \\
-CT-SAF-001 & Sicherheitsstopp & Sicherheits-komponente & SAF-001,
+CT-SAF-001 & Sicherheitsstopp & Sicherheitskomponente & SAF-001,
 SAF-006 & P1 & geplant \\
-CT-MON-001 & Fehlererkennung und Protokollierung & System-überwachung &
+CT-MON-001 & Fehlererkennung und Protokollierung & Systemüberwachung &
 MON-001, MON-002 & P1 & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Integrationstests}\label{integrationstests-2}
 
 \begin{longtable}[]{@{}
@@ -5295,13 +5303,17 @@ IT-HW-SIM-001 & Austausch Hardware durch Simulation &
 Hardwareabstraktion, Simulation & NFR-003, NFR-004, NFR-007 & P2 &
 geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Simulationstests}\label{simulationstests-2}
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1343}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1493}}
-  >{\raggedleft\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.3134}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2239}}
+  >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1343}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.2239}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.0597}}
   >{\raggedright\arraybackslash}p{(\linewidth - 10\tabcolsep) * \real{0.1194}}@{}}
@@ -5311,7 +5323,7 @@ Test-ID
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Testname
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedleft
-Simulationsbereich
+Simulations-bereich
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 Zugeord. AFOs
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -5336,12 +5348,16 @@ SAF-002, MON-001, SIM-005 & P1 & geplant \\
 ST-SIM-006 & Verhalten bei fehlerhafter Motorsteuerung & Aktormodell &
 MON-001, MON-005, SIM-003 & P2 & geplant \\
 ST-SIM-007 & Aufnahme und Platzierung eines Untersetzers &
-Untersetzerhandling & CST-001, CST-003, CST-005, SIM-006 & P2 &
+Untersetzer-handling & CST-001, CST-003, CST-005, SIM-006 & P2 &
 geplant \\
 ST-SIM-008 & Vergleich Simulation und Systemverhalten & Validierung &
 SIM-007 & P2 & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Systemtests}\label{systemtests-2}
 
 \begin{longtable}[]{@{}
@@ -5377,19 +5393,22 @@ SYS-003 & Erkennung und Umfahrung eines Hindernisses & Navigation,
 Sicherheit & NAV-001, NAV-002, SAF-005 & P1 & geplant \\
 SYS-004 & Schutz vor Herunterfallen vom Tisch & Sicherheit & NAV-003,
 NAV-004, SAF-003 & P1 & geplant \\
-SYS-005 & Aufnahme eines Getränkeuntersetzers & Untersetzer-handling &
+SYS-005 & Aufnahme eines Getränkeuntersetzers & Untersetzerhandling &
 CST-001, CST-005 & P2 & geplant \\
-SYS-006 & Platzierung eines Untersetzers & Untersetzer-handling &
+SYS-006 & Platzierung eines Untersetzers & Untersetzerhandling &
 CST-003, CST-006 & P2 & geplant \\
 SYS-007 & Aktivierung des Not-Aus & Sicherheit & SAF-001, SAF-006 & P1 &
 geplant \\
 SYS-008 & Verhalten bei Systemfehler & Monitoring & MON-001, MON-002,
 MON-005 & P1 & geplant \\
-SYS-009 & Überwachung des Akkuzustands & Energie-versorgung & EN-001,
+SYS-009 & Überwachung des Akkuzustands & Energieversorgung & EN-001,
 EN-002, EN-003 & P2 & geplant \\
 SYS-010 & Vollständiger Coasterbot-Arbeitsablauf & Gesamtsystem &
 Navigation, Untersetzerhandling, Monitoring & P1 & geplant \\
 \end{longtable}
+\end{landscape}
+
+\newpage
 
 \subsubsection{Testabdeckung nach
 Anforderungsbereich}\label{testabdeckung-nach-anforderungsbereich}
@@ -5678,12 +5697,11 @@ Beschreibung des beobachteten Verhaltens:
 Testergebnisses}\label{bewertung-des-testergebnisses}
 
 \paragraph{Testergebnis}\label{testergebnis}
-
-{[} {]} Bestanden
-
-{[} {]} Fehlgeschlagen
-
-{[} {]} Nicht ausführbar
+\begin{itemize}
+  \item Bestanden
+  \item Fehlgeschlagen
+  \item Nicht ausführbar
+\end{itemize}
 
 \paragraph{Begründung}\label{begruxfcndung}
 
@@ -5946,6 +5964,7 @@ Testebene & Komponenten-, Integrations-, Simulations- oder Systemtest \\
 Status & Bewertung der Umsetzung \\
 \end{longtable}
 
+\begin{landscape}
 \subsubsection{Navigation und
 Lokalisierung}\label{navigation-und-lokalisierung-1}
 
@@ -5976,33 +5995,37 @@ Status
 \endlastfoot
 NAV-001 & Der Bot muss Hindernisse erkennen & Integration einer
 Abstandssensorik mit Hinderniserkennung & CT-NAV-002, IT-SEN-NAV-001,
-ST-SIM-002, SYS-003 & Kompo-nenten, Integration, Simulation, System &
-geprüft \\
+ST-SIM-002, SYS-003 & Komponenten, Integration, Simulation, System &
+geplant \\
 NAV-002 & Der Bot muss Hindernissen ausweichen & Dynamische Anpassung
 der Navigationsroute & CT-NAV-002, IT-SEN-NAV-001, ST-SIM-002 &
-Kompo-nenten, Integration, Simulation & geprüft \\
+Komponenten, Integration, Simulation & geplant \\
 NAV-003 & Der Bot muss Tischende erkennen & Implementierung einer
 Tischkantenerkennung & ST-SIM-003, SYS-004 & Simulation, System &
-geprüft \\
+geplant \\
 NAV-004 & Der Bot muss auf dem Tisch bleiben & Sicherheitslogik
-verhindert Verlassen der Tischfläche & SYS-004 & System & geprüft \\
+verhindert Verlassen der Tischfläche & SYS-004 & System & geplant \\
 NAV-005 & Der Bot muss Fahrroute dynamisch anpassen & Navigationsmodul
-mit Routenneuberechnung & CT-NAV-001, ST-SIM-002 & Kompo-nenten,
-Simulation & geprüft \\
+mit Routenneuberechnung & CT-NAV-001, ST-SIM-002 & Komponenten,
+Simulation & geplant \\
 NAV-006 & Der Bot muss Position bestimmen können &
 Lokalisierungs-komponente verarbeitet Positionsdaten & CT-LOC-001,
-IT-LOC-NAV-001 & Kompo-nenten, Integration & geprüft \\
+IT-LOC-NAV-001 & Komponenten, Integration & geplant \\
 NAV-007 & Der Bot muss Orientierung bestimmen können & Speicherung und
 Verarbeitung der Roboterorientierung & CT-LOC-001, IT-LOC-NAV-001 &
-Kompo-nenten, Integration & geprüft \\
+Komponenten, Integration & geplant \\
 NAV-008 & Der Bot muss Zielpunkt erreichen & Navigation und
 Bewegungssteuerung führen Zielanfahrt aus & CT-NAV-001, SYS-002 &
-Kompon-enten, System & geprüft \\
+Komponenten, System & geplant \\
 NAV-009 & Der Bot muss sich kontrolliert bewegen & Bewegungssteuerung
 mit Geschwindigkeitsbegrenzung & CT-MOT-001, IT-NAV-MOT-001 &
-Kompo-nenten, Integration & geprüft \\
+Komponenten, Integration & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Anforderungen
 Getränkeuntersetzer}\label{anforderungen-getruxe4nkeuntersetzer}
 
@@ -6033,22 +6056,26 @@ Status
 \endlastfoot
 CST-001 & Der Bot muss einen Untersetzer aufnehmen können & Mechanismus
 zur Aufnahme und Erkennung eines Untersetzers & CT-CST-001, ST-SIM-007,
-SYS-005 & Kompo-nenten, Simulation, System & geprüft \\
+SYS-005 & Komponenten, Simulation, System & geplant \\
 CST-002 & Der Bot muss einen Untersetzer transportieren können & Interne
 Zustandsverwaltung für aufgenommenen Untersetzer & ST-SIM-007, SYS-010 &
-Simu-lation, System & geprüft \\
+Simu-lation, System & geplant \\
 CST-003 & Der Bot muss einen Untersetzer präzise platzieren &
 Platzierungsmechanismus mit Positionskontrolle & SYS-006 & System &
-geprüft \\
+geplant \\
 CST-004 & Der Bot muss einen Untersetzer wieder aufnehmen können &
-Aufnahmeprozess mit Zustandserkennung & CT-CST-001 & Kompo-nenten &
-geprüft \\
+Aufnahmeprozess mit Zustandserkennung & CT-CST-001 & Komponenten &
+geplant \\
 CST-005 & Der Bot muss erfolgreiche Aufnahme erkennen & Sensorbasierte
-Zustandsprüfung & CT-CST-001, CT-CST-002 & Kompo-nenten & geprüft \\
+Zustandsprüfung & CT-CST-001, CT-CST-002 & Komponenten & geplant \\
 CST-006 & Der Bot muss erfolgreiche Platzierung erkennen & Statusprüfung
-nach Ablagevorgang & SYS-006 & System & geprüft \\
+nach Ablagevorgang & SYS-006 & System & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Sicherheitsanforderungen}\label{sicherheitsanforderungen}
 
 \begin{longtable}[]{@{}
@@ -6078,22 +6105,26 @@ Status
 \endlastfoot
 SAF-001 & Der Bot muss bei Gefahr sofort anhalten &
 Sicherheitskomponente mit Stoppsignal & CT-SAF-001, IT-SAF-MOT-001,
-SYS-007 & Kompo-nenten, Integration, System & geprüft \\
+SYS-007 & Komponenten, Integration, System & geplant \\
 SAF-002 & Der Bot muss bei Sensorfehler sicheren Zustand einnehmen &
 Fehlerüberwachung und Sicherheitszustand & ST-SIM-005 & Simulation &
-geprüft \\
+geplant \\
 SAF-003 & Der Bot darf Tisch nicht verlassen & Tischkantenerkennung und
-Bewegungsstopp & SYS-004 & System & geprüft \\
+Bewegungsstopp & SYS-004 & System & geplant \\
 SAF-004 & Der Bot darf nicht mit hoher Geschwindigkeit kollidieren &
 Begrenzung der Bewegungsparameter & CT-MOT-001, IT-NAV-MOT-001 &
-Komp-onenten, Integration & geprüft \\
+Komp-onenten, Integration & geplant \\
 SAF-005 & Der Bot muss Kollisionen vermeiden & Hinderniserkennung und
-Navigation & SYS-003 & System & geprüft \\
+Navigation & SYS-003 & System & geplant \\
 SAF-006 & Der Bot muss Not-Aus unterstützen & Not-Aus-Schnittstelle und
-Sicherheitslogik & CT-SAF-001, SYS-007 & Kompo-nenten, System &
-geprüft \\
+Sicherheitslogik & CT-SAF-001, SYS-007 & Komponenten, System &
+geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Systemüberwachung}\label{systemuxfcberwachung-1}
 
 \begin{longtable}[]{@{}
@@ -6122,19 +6153,23 @@ Status
 \bottomrule\noalign{}
 \endlastfoot
 MON-001 & Fehler erkennen & Diagnosekomponente überwacht Systemzustände
-& CT-MON-001, IT-MON-001, SYS-008 & Kompo-nenten, Integration, System &
-geprüft \\
+& CT-MON-001, IT-MON-001, SYS-008 & Komponenten, Integration, System &
+geplant \\
 MON-002 & Fehler protokollieren & Fehlerlogging innerhalb der
-Systemüberwachung & CT-MON-001, IT-MON-001 & Kompo-nenten, Integration &
-geprüft \\
+Systemüberwachung & CT-MON-001, IT-MON-001 & Komponenten, Integration &
+geplant \\
 MON-003 & Betriebszustand anzeigen & Statusverwaltung und Anzeige &
-SYS-001 & System & geprüft \\
+SYS-001 & System & geplant \\
 MON-004 & Erfolg einer Aufgabe erkennen & Zustandsmanagement der
-Arbeitsabläufe & SYS-010 & System & geprüft \\
+Arbeitsabläufe & SYS-010 & System & geplant \\
 MON-005 & Fehlgeschlagene Aufgaben melden & Fehlerstatus und Meldesystem
-& CT-CST-002, SYS-008 & Kompo-nenten, System & geprüft \\
+& CT-CST-002, SYS-008 & Komponenten, System & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Nichtfunktionale
 Anforderungen}\label{nichtfunktionale-anforderungen}
 
@@ -6164,27 +6199,31 @@ Status
 \bottomrule\noalign{}
 \endlastfoot
 NFR-001 & Bot muss modular aufgebaut sein & Komponentenbasierte
-Systemarchitektur & IT-HW-SIM-001 & Integration & geprüft \\
+Systemarchitektur & IT-HW-SIM-001 & Integration & geplant \\
 NFR-002 & Software muss komponentenbasiert entwickelt werden & Trennung
-der Softwaremodule & CT-HW-001 bis CT-MON-001 & Kompo-nenten &
-geprüft \\
+der Softwaremodule & CT-HW-001 bis CT-MON-001 & Komponenten &
+geplant \\
 NFR-003 & Softwarearchitektur muss erweiterbar sein & Erweiterbare
-Schnittstellenstruktur & IT-HW-SIM-001 & Integration & geprüft \\
+Schnittstellenstruktur & IT-HW-SIM-001 & Integration & geplant \\
 NFR-004 & Software muss simuliert werden können & Hardwareabstraktion
 und Simulationsmodelle & IT-HW-SIM-001, ST-SIM-001 & Integration,
-Simulation & geprüft \\
+Simulation & geplant \\
 NFR-005 & Software muss testbar sein & Automatisierte Testmöglichkeiten
-& CT-Tests & Kompo-nenten & geprüft \\
+& CT-Tests & Komponenten & geplant \\
 NFR-006 & Kernfunktionen müssen automatisiert testbar sein &
-Testframework und automatisierte Testfälle & CT-Tests & Kompo-nenten &
-geprüft \\
+Testframework und automatisierte Testfälle & CT-Tests & Komponenten &
+geplant \\
 NFR-007 & Sensoren und Aktoren müssen austauschbar sein &
-Hardwareabstraktions-schicht & CT-HW-001, IT-HW-SIM-001 & Kompo-nenten,
-Integration & geprüft \\
+Hardwareabstraktions-schicht & CT-HW-001, IT-HW-SIM-001 & Komponenten,
+Integration & geplant \\
 NFR-008 & Hardwareabstraktion unterstützen & Abstrakte Schnittstellen
-zwischen Hard- und Software & CT-HW-001 & Kompo-nenten & geprüft \\
+zwischen Hard- und Software & CT-HW-001 & Komponenten & geplant \\
 \end{longtable}
+\end{landscape}
 
+\newpage
+
+\begin{landscape}
 \subsubsection{Simulationsanforderungen}\label{simulationsanforderungen}
 
 \begin{longtable}[]{@{}
@@ -6213,20 +6252,23 @@ Status
 \bottomrule\noalign{}
 \endlastfoot
 SIM-001 & Fahrmanöver müssen reproduzierbar sein & Definierte
-Simulationsszenarien & ST-SIM-004 & Simulation & geprüft \\
+Simulationsszenarien & ST-SIM-004 & Simulation & geplant \\
 SIM-002 & Sensoren müssen modellierbar sein & Virtuelle Sensormodelle &
-IT-HW-SIM-001 & Integration & geprüft \\
+IT-HW-SIM-001 & Integration & geplant \\
 SIM-003 & Aktoren müssen modellierbar sein & Virtuelle Aktormodelle &
-ST-SIM-006 & Simulation & geprüft \\
+ST-SIM-006 & Simulation & geplant \\
 SIM-004 & Hindernisse müssen berücksichtigt werden & Virtuelle
-Umgebungsmodelle & ST-SIM-002 & Simulation & geprüft \\
+Umgebungsmodelle & ST-SIM-002 & Simulation & geplant \\
 SIM-005 & Fehlersituationen müssen simulierbar sein & Fehlerinjektion in
-Simulation & ST-SIM-005, ST-SIM-006 & Simulation & geprüft \\
+Simulation & ST-SIM-005, ST-SIM-006 & Simulation & geplant \\
 SIM-006 & Simulation unterstützt Testfälle & Testautomatisierung
-innerhalb Simulation & ST-SIM-007 & Simulation & geprüft \\
+innerhalb Simulation & ST-SIM-007 & Simulation & geplant \\
 SIM-007 & Simulationsverhalten entspricht erwartetem Verhalten &
-Vergleich Simulation und Prototyp & ST-SIM-008 & Simulation & geprüft \\
+Vergleich Simulation und Prototyp & ST-SIM-008 & Simulation & geplant \\
 \end{longtable}
+\end{landscape}
+
+\newpage
 
 \subsubsection{Anforderungen außerhalb des
 Projektumfangs}\label{anforderungen-auuxdferhalb-des-projektumfangs}

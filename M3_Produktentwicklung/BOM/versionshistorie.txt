@@ -1,3 +1,5 @@
 # Versionshistorie BOM CoasterBot, wird automatisch in das pdf eingebunden
 
 1 | 24.08.2026 | Such | Erstfassung der Stückliste, Merge von Elekronik und Mechanik
+2 | 25.08.2026 | Such | RGB LED und Taster eingefügt
+

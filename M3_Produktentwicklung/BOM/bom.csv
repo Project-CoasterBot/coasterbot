@@ -1,21 +1,25 @@
 Position,Menge,Einheit,Benennung,Sachnummer,Bemerkung,Einzelpreis,Gesamtpreis
-1,1,Stk.,GehÑuse und Coaster,,"420g PLA im 3D Druck, Einzelpreis ist kg Preis",9.74’,4.09’
-2,24,Stk.,Gewindeschraube,M2.3x8,Verbindung der Teile,0.02’,0.48’
-3,2,Stk.,Gewindeschraube,M2.3x10,Drehpunkt des Schiebers,0.02’,0.04’
-4,40,Stk.,Neodymium Magnete,,Wzone 5x2mm Small Magnet; FÅr Coaster und Heber,0.06’,2.40’
-5,1,Stk.,Microcontroller,U2,Raspberry Pi Pico2 Microcontroller Dev-Board,14.00’,14.00’
-6,1,Stk. ,DC/DC Step Up converter,U1,VISSQH; Akku 3.7V nach 5V Vcc,0.60’,0.60’
-7,2,Stk.,DC Motor Treiber,"U3, U4",TB6612FNG Entwicklungsboard,4.20’,8.40’
-8,4,Stk.,TT Motor,"U5, U6, U7, U8",GUUZI DC Motor 3-6V mit 1:48 Getriebe und Rad,3.25’,12.99’
-9,2,Stk. ,Tischkanten-Sensor,"U9, U10",EBKSQS IR Infrared Obstacle Sensor zur Tischkantenerkennung vor Frontantrieb,1.50’,3.00’
-10,1,Stk.,Hindernis-Sensor,U11,"HC-SR04, Ultraschall Sensor zur Montage in Fahrtrichtung",1.50’,1.50’
-11,1,Stk.,Inertialsensor,U12,ICQUANZX GY-521 MPU6050; Navigationssensor,5.59’,5.59’
-12,2,Stk.,Auswurf/Aufnahme Servo,"U13, U14",MT90 Servo,2.20’,4.40’
-13,1,Stk.,Li-Ion Akku,BT1,18650 3.7V 1200mAh Akku inkl. Charger,3.00’,3.00’
-14,1,Stk.,VM-Elko,C1,470uF Elektrolyt Kondensator,0.30’,0.30’
-15,1,Stk.,VCC-Elko,C2,100uF Elektrolyt Kondensator,0.10’,0.10’
-16,4,Stk.,Motor-Entstîr Kondensator,"C3, C4, C5, C6",100nF Keramik Kondensator zur Verhinderung von Induktionen beim éndern der Antriebsrichtung,0.04’,0.16’
-17,1,Stk.,Hauptschalter,SW1,GehÑusemontage Schalter,0.15’,0.15’
-18,1,Stk.,Hauptplatine,,"Lochrasterplatine zur Kombination von Microcontroller, Leistungselektronik und Steckverbindern",0.89’,0.89’
-19,9,Stk.,Steckverbinder,,Leitungen von Hauptplatine zu Sensorik,0.05’,0.45’
-20,1,Stk.,Pfostenleiste,,"1x40 Pol 2.54mm gerade, Verbindung von Modulplatinen mit Hauptplatine",0.60’,0.60’
+1,1,Stk.,Geh√§use und Coaster,,"420g PLA im 3D Druck, Einzelpreis ist kg Preis",9.74‚Ç¨,4.09‚Ç¨
+2,24,Stk.,Gewindeschraube,M2.3x8,Verbindung der Teile,0.02‚Ç¨,0.48‚Ç¨
+3,2,Stk.,Gewindeschraube,M2.3x10,Drehpunkt des Schiebers,0.02‚Ç¨,0.04‚Ç¨
+4,40,Stk.,Neodymium Magnete,,Wzone 5x2mm Small Magnet; F√ºr Coaster und Heber,0.06‚Ç¨,2.40‚Ç¨
+5,1,Stk.,Microcontroller,U2,Raspberry Pi Pico2 Microcontroller Dev-Board,14.00‚Ç¨,14.00‚Ç¨
+6,1,Stk. ,DC/DC Step Up converter,U1,VISSQH; Akku 3.7V nach 5V Vcc,0.60‚Ç¨,0.60‚Ç¨
+7,2,Stk.,DC Motor Treiber,"U3, U4",TB6612FNG Entwicklungsboard,4.20‚Ç¨,8.40‚Ç¨
+8,4,Stk.,TT Motor,"U5, U6, U7, U8",GUUZI DC Motor 3-6V mit 1:48 Getriebe und Rad,3.25‚Ç¨,12.99‚Ç¨
+9,2,Stk. ,Tischkanten-Sensor,"U9, U10",EBKSQS IR Infrared Obstacle Sensor zur Tischkantenerkennung vor Frontantrieb,1.50‚Ç¨,3.00‚Ç¨
+10,1,Stk.,Hindernis-Sensor,U11,"HC-SR04, Ultraschall Sensor zur Montage in Fahrtrichtung",1.50‚Ç¨,1.50‚Ç¨
+11,1,Stk.,Inertialsensor,U12,ICQUANZX GY-521 MPU6050; Navigationssensor,5.59‚Ç¨,5.59‚Ç¨
+12,2,Stk.,Auswurf/Aufnahme Servo,"U13, U14",MT90 Servo,2.20‚Ç¨,4.40‚Ç¨
+13,1,Stk.,Li-Ion Akku,BT1,18650 3.7V 1200mAh Akku inkl. Charger,3.00‚Ç¨,3.00‚Ç¨
+14,1,Stk.,VM-Elko,C1,470uF Elektrolyt Kondensator,0.30‚Ç¨,0.30‚Ç¨
+15,1,Stk.,VCC-Elko,C2,100uF Elektrolyt Kondensator,0.10‚Ç¨,0.10‚Ç¨
+16,4,Stk.,Motor-Entst√∂r Kondensator,"C3, C4, C5, C6",100nF Keramik Kondensator zur Verhinderung von Induktionen beim √Ñndern der Antriebsrichtung,0.04‚Ç¨,0.16‚Ç¨
+17,1,Stk. ,Entprell Kondensator,C7,100nF Keramik Kondensator zum Entprellen des Nutzer-Tasters und Verhindern Einstreuung der Motoren,0.054‚Ç¨,0.04‚Ç¨
+18,1,Stk.,Taster,SW2,Geh√§usemontage Taster,0.50‚Ç¨,0.50‚Ç¨
+19,1,Stk.,Widerstand,R1,Pullup Widerstand,0.01‚Ç¨,0.01‚Ç¨
+20,1,Stk.,RGB LED,U15,"KY-016 RGB LED zur Status Anzeige, Modul zur einfacheren Montage gew√§hlt",0.78‚Ç¨,0.78‚Ç¨
+21,1,Stk.,Hauptschalter,SW1,Geh√§usemontage Schalter,0.15‚Ç¨,0.15‚Ç¨
+22,1,Stk.,Hauptplatine,,"Lochrasterplatine zur Kombination von Microcontroller, Leistungselektronik und Steckverbindern",0.89‚Ç¨,0.89‚Ç¨
+23,9,Stk.,Steckverbinder,,Leitungen von Hauptplatine zu Sensorik,0.05‚Ç¨,0.45‚Ç¨
+24,1,Stk.,Pfostenleiste,,"1x40 Pol 2.54mm gerade, Verbindung von Modulplatinen mit Hauptplatine",0.60‚Ç¨,0.60‚Ç¨

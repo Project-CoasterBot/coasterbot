@@ -1,0 +1,244 @@
+\documentclass[11pt,a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[german]{babel}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{placeins}
+\usepackage{array}
+\usepackage{url}
+\usepackage{footnote}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{mdframed}
+\usepackage{xcolor}
+
+\newmdenv[
+    linecolor=red,
+    linewidth=2pt,
+    backgroundcolor=red!5,
+    frametitle=VORSICHT!,
+    frametitlebackgroundcolor=red!20,
+    frametitlefont=\bfseries,
+]{warnbox}
+\geometry{a4paper,left=25mm,right=25mm,top=30mm,bottom=25mm}
+\setlength{\parindent}{0pt}
+\pagestyle{plain}
+\begin{document}
+\begin{titlepage}
+  \begin{center}
+    {\large Wilhelm Büchner University of Applied Sciences} \\[0.3em]
+
+    {\normalsize Projektseminar Master}
+\vspace{5em}
+
+    {\LARGE\bfseries Coasterbot} \\[0.5em]
+
+    {\large Aufbauanleitung} \\[1em]
+
+    {\includegraphics[width=0.38\textwidth]{coasterbot.png}} \\[1em]
+
+\vspace{4em}
+
+    {\normalsize
+\begin{tabular}{ll}
+Dennis Borutta, B. Eng & dennis.borutta@outlook.com\\
+Stefan Etringer, B. Eng & mail@stefan.works\\
+Gereon Such, M. Sc. & gereonsuch@gmail.com\\
+\end{tabular}
+    }
+  \end{center}
+\end{titlepage}
+
+\section*{Versionshistorie}
+\begin{tabular}{@{}p{1.6cm}p{2.4cm}p{3.0cm}>{\raggedright\arraybackslash}p{7.0cm}@{}}
+\toprule
+\textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderung}\\
+\midrule
+1 & 28.08.2026 & Such & Erstfassung, zunächst nur Elektronik \\
+\bottomrule
+\end{tabular}
+\clearpage
+
+
+\section{Allgemeines}
+
+Dieses Dokument beschreibt die Schritte zum Aufbau eines funktionsfähigen Prototypen aus den Komponenten laut Stückliste. Die Einzelkomponenten sowie die Firmware werden in separaten Dokumenten beschrieben. 
+
+Folgende Fähigkeiten und Werkzeuge werden für die Montage vorausgesetzt:
+
+\begin{enumerate}
+\item 3D Drucker für den Druck des Chassis
+\item Grundlegende Erfahrung im Umgang mit dem genutzten 3D Drucker
+\item Montagewerkzeug für die Chassis Schrauben
+\item Grundlegende Fähigkeiten in der Feinmechanik
+\item Lötwerkzeug
+\item Fortgeschrittene Fähigkeiten im Umgang mit Elektronik und Lochrasterplatinenmontage
+
+\end{enumerate}
+
+
+Abbildung \ref{fig:schematic} zeigt die Gesamtschaltung der Elektronik. Die Komponenten sind weitestgehend als Dev-Boards integriert und auch als solche im Schaltplan aufgeführt. Das Dokument BOM beschreibt die jeweiligen Komponenten sowie die Bezugsquelle. 
+
+\begin{landscape}
+\begin{figure}
+    \centering
+    \includegraphics[width=\linewidth]{schematic.png}
+    \caption{Gesamtschaltung}
+    \label{fig:schematic}
+\end{figure}
+\end{landscape}
+
+
+\FloatBarrier
+
+\section{Montage}
+
+\subsection{3D Druck des Chassis}
+
+Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl als FreeCAD Projekt als auch fertigen \texttt{.stl} Dateien im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main}} bereitgestellt. Für den einfachen 3D Druck genügen hier die \texttt{.stl} Dateien. 
+
+Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer \footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden. 
+
+TODO Bild slicing software
+TODO Bild Druck
+TODO Bild Resultat
+
+\subsection{Coaster montieren}
+
+TODO Magneten einführen
+TODO Coaster verschließen
+
+\subsection{Chassis Grundgerüst montieren}
+
+TODO
+
+\subsection{Coastermechanismus Montieren}
+
+TODO
+
+\subsection{Coasteraufnahme Servos montieren}
+
+\subsection{Sensorik montieren}
+
+TODO
+
+TODO Kabelführung in den Innenraum legen
+
+\subsection{Antriebs-Aktorik montieren}
+
+Falls noch nicht erfolgt werden zunächst an den TT Motoren über die Lötfahnen die 100nF Kondensatoren zum Entstören gelötet. 
+
+TODO Bild
+
+TODO Montage im Chassis
+
+TODO Kabelführung in den Innenraum legen
+
+
+
+\FloatBarrier
+\subsection{Hauptplatine vorbereiten}
+
+Die Hauptplatine fasst die zentralen Elektronikkomponenten zusammen und wird auf Lochraster verbunden. Die folgenden Hauptkomponenten werden somit zusammengefasst:
+
+\begin{itemize}
+\item DC/DC Step Up Converter Board
+\item Microprocessorboard Raspberry Pi Pico 2
+\item 2 mal TB6612FNG Motor Treiber Board
+\item \textit{(Inertialsensor)}
+\end{itemize}
+
+Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich für eine Lochrastermontage damit der Aufbau gemäß der Abbildungen \ref{fig:protoboard_mask_combined}, \ref{fig:lochraster_top}, \ref{fig:protoboard_mask}. Im Einzelnen stellen diese folgende Ansichten dar:
+
+\begin{itemize}
+\item \ref{fig:protoboard_mask_combined} Kombinierte Ansicht aus Komponenten und Lötbrücken
+\item \ref{fig:lochraster_top} Reine Komponenten und Jumper-Wire Ansicht
+\item \ref{fig:protoboard_mask} Reine Ansicht der Lötbrücken auf der Lochraster Unterseite
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{protoboard_mask_combined.png}
+    \caption{Kombinierte Ansicht Komponenten und Lötbrücken}
+    \label{fig:protoboard_mask_combined}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{protoboard.png}
+    \caption{Komponentenansicht}
+    \label{fig:lochraster_top}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.8\linewidth]{protoboard_mask.png}
+    \caption{Lötbrücken auf Boardunterseite}
+    \label{fig:protoboard_mask}
+\end{figure}
+
+Das Lochraster Layout wurde mittels der Software DIYLC \footnote{\url{https://github.com/bancika/diy-layout-creator}} erstellt und die Source Dateien finden sich im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/blob/main/M4_Test-und-Validierung/aufbauanleitung/protoboard.diy}}. 
+
+
+\FloatBarrier
+
+\subsection{Programmierung des Microcontrollers}
+
+\begin{warnbox}
+Während der Microcontroller über den USB Port verbunden ist muss die Spannungsversorgung des Coasterbots getrennt werden. Falls der Akku montiert ist muss dieser entfernt werden, andernfalls droht eine Beschädigung des Microcontrollers. 
+\end{warnbox}
+
+
+Das Microcontroller Board über die boardeigene Micro USB Buchse mit dem Host-PC verbunden.
+
+Die Firmware befindet sich im Github Repository des Projekts\footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main/src}} und kann von dort bezogen werden.
+
+Die Software wird in der Build Umgebung mit den folgenden Befehlen kompiliert und an den Microcontroller übertragen. 
+
+\begin{verbatim}
+$ cd PROJDIR
+$ cmake .
+$ make
+$ ... TODO
+\end{verbatim}
+
+Anschließend kann das USB Kabel wieder entfernt werden. 
+
+
+
+
+
+
+\subsection{Montage der Hauptplatine im Chassis}
+
+TODO
+
+
+\subsection{Verbinden der Aktorik und Sensorik mit Hauptplatine}
+
+Die Aktorik und Sensorik Module werden zunächst entsprechend dem Schaltplan bzw. Lochrasterplan mit den korrekten Pin Headern verbunden. Dabei ist auf eine korrekte Kabelführung zu achten, sodass die Aktorik nicht durch die Verbinder gestört wird. 
+
+TODO Bild
+
+\subsection{Verbinden des Akkus mit der Hauptplatine}
+
+Der geladene Akku wird nun zunächst in die Akku Aufnahme des Chassis gesteckt. Anschließend wird er korrekt gepolt an den Pin Header des Lochrasters für den Batterieanschluss verbunden. 
+
+TODO Bild
+
+
+\subsection{Schließen des Chassis}
+
+TODO
+
+
+
+
+
+
+\end{document}

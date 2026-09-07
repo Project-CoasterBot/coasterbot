@@ -1,0 +1,365 @@
+#VRML_SIM R2023b utf8
+# Coasterbot.proto
+#
+# Automatisch aus "Coasterbot-Assembly.step" abgeleitetes Webots-Robotermodell.
+# Koordinatensystem-Konvention dieses PROTOs (Webots ist Y-up):
+#   lokale +X  = links/rechts   (X<0 links, X>0 rechts)
+#   lokale +Y  = oben
+#   lokale +Z  = vorne/hinten   (Z<0 vorne, Z>0 hinten)
+#
+# Räder: Skid-Steer-Antrieb (alle 4 Räder drehen um die lokale X-Achse).
+#   -> linke Räder (X<0) und rechte Räder (X>0) jeweils gemeinsam ansteuern,
+#      Lenken durch unterschiedliche Drehzahl links/rechts.
+#
+# Sensoren:
+#   - "ultrasonic"                : Abstandssensor vorne mittig (sonar), schaut nach -Z
+#   - "edge_front_left/right"     : Abstandssensoren an der vorderen Kante, schauen nach unten (-Y)
+#   - "edge_rear_left/right"      : Abstandssensoren an der hinteren Kante, schauen nach unten (-Y)
+#   - "inertial_unit"/"gyro"/"accelerometer" : IMU nahe dem Schwerpunkt
+#
+# WICHTIG: Die exakten Ausrichtungen/Positionen wurden aus der CAD-Geometrie
+# berechnet, aber nicht in einer laufenden Webots-Instanz nachgeprueft. Bitte
+# nach dem Import ueberpruefen (Sensor-Rays einblenden: View / Optional
+# Rendering / Show Distance Sensor Rays) und ggf. leicht nachjustieren.
+
+PROTO Coasterbot [
+  field SFVec3f     translation      0 0 0
+  field SFRotation  rotation         0 1 0 0
+  field SFString    name             "Coasterbot"
+  field SFString    controller       "<generic>"
+  field MFString    controllerArgs   []
+  field SFString    customData       ""
+  field SFBool      supervisor       FALSE
+  field SFBool      synchronization  TRUE
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    name IS name
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    children [
+      # ---------------------------------------------------------------
+      # Chassis (alle statischen Teile zu einem Mesh zusammengefasst:
+      # Base, Motorhalter, Aussenwaende, Ultraschallhalter, KantenErkhalter,
+      # Kantenabdeckung, Gear Motors, CoasterMechanism, Deckel)
+      # ---------------------------------------------------------------
+      DEF CHASSIS_SHAPE Shape {
+        appearance PBRAppearance {
+          baseColor 0.82 0.83 0.85
+          roughness 0.65
+          metalness 0.1
+        }
+        geometry Mesh {
+          url "meshes/chassis.stl"
+        }
+      }
+
+      # ---------------------------------------------------------------
+      # Raeder (je ein HingeJoint, Achse = lokale X-Achse)
+      # ---------------------------------------------------------------
+      DEF WHEEL_FRONT_LEFT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor -0.101 0.0345 -0.0566
+          
+        }
+        device [
+          RotationalMotor {
+            name "wheel_front_left_motor"
+            maxVelocity 20
+            maxTorque 0.6
+          }
+          PositionSensor {
+            name "wheel_front_left_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation -0.101 0.0345 -0.0566
+          rotation 0 0 1 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.05 0.05 0.05
+                roughness 0.9
+              }
+              geometry Mesh {
+                url "meshes/wheel_fl.stl"
+              }
+            }
+          ]
+          name "wheel_front_left"
+          boundingObject Transform {
+            rotation 0 1 0 1.57
+            children [ Cylinder { radius 0.035 height 0.031 } ]
+          }
+          physics Physics {
+            density -1
+            mass 0.05
+          }
+        }
+      }
+
+      DEF WHEEL_REAR_LEFT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor -0.101 0.0345 0.0566
+        }
+        device [
+          RotationalMotor {
+            name "wheel_rear_left_motor"
+            maxVelocity 20
+            maxTorque 0.6
+          }
+          PositionSensor {
+            name "wheel_rear_left_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation -0.101 0.0345 0.0566
+          rotation 0 0 1 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.05 0.05 0.05
+                roughness 0.9
+              }
+              geometry Mesh {
+                url "meshes/wheel_rl.stl"
+              }
+            }
+          ]
+          name "wheel_rear_left"
+          boundingObject Transform {
+            rotation 0 1 0 1.57
+            children [ Cylinder { radius 0.035 height 0.031 } ]
+          }
+          physics Physics {
+            density -1
+            mass 0.05
+          }
+        }
+      }
+
+      DEF WHEEL_REAR_RIGHT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor 0.101 0.0345 0.0566
+        }
+        device [
+          RotationalMotor {
+            name "wheel_rear_right_motor"
+            maxVelocity 20
+            maxTorque 0.6
+          }
+          PositionSensor {
+            name "wheel_rear_right_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0.101 0.0345 0.0566
+          rotation 0 0 1 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.05 0.05 0.05
+                roughness 0.9
+              }
+              geometry Mesh {
+                url "meshes/wheel_rr.stl"
+              }
+            }
+          ]
+          name "wheel_rear_right"
+          boundingObject Transform {
+            rotation 0 1 0 1.57
+            children [ Cylinder { radius 0.035 height 0.031 } ]
+          }
+          physics Physics {
+            density -1
+            mass 0.05
+          }
+        }
+      }
+
+      DEF WHEEL_FRONT_RIGHT HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 1 0 0
+          anchor 0.1012 0.0345 -0.0566
+        }
+        device [
+          RotationalMotor {
+            name "wheel_front_right_motor"
+            maxVelocity 20
+            maxTorque 0.6
+          }
+          PositionSensor {
+            name "wheel_front_right_sensor"
+          }
+        ]
+        endPoint Solid {
+          translation 0.1012 0.0345 -0.0566
+          rotation 0 0 1 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 0.05 0.05 0.05
+                roughness 0.9
+              }
+              geometry Mesh {
+                url "meshes/wheel_fr.stl"
+              }
+            }
+          ]
+          name "wheel_front_right"
+          boundingObject Transform {
+            rotation 0 1 0 1.57
+            children [ Cylinder { radius 0.035 height 0.031 } ]
+          }
+          physics Physics {
+            density -1
+            mass 0.05
+          }
+        }
+      }
+
+      # ---------------------------------------------------------------
+      # Ultraschallsensor (vorne, mittig) - "Ultraschallhalter"
+      # ---------------------------------------------------------------
+      DistanceSensor {
+        translation 0 0.057 -0.093
+        rotation 0 1 0 1.5708
+        name "ultrasonic"
+        # Generischer Typ (nicht "sonar"): liefert die Distanz zum naechsten
+        # Objekt unabhaengig vom Auftreffwinkel - "sonar" reflektiert nur an
+        # (nahezu) senkrechten Flaechen und uebersieht duenne, runde Objekte
+        # wie die Flaschen bis kurz vor der Beruehrung.
+        lookupTable [
+          0 0 0
+          4 4 0.02
+        ]
+        numberOfRays 7
+        aperture 0.6
+      }
+
+      # ---------------------------------------------------------------
+      # Kanten-/Abstandssensoren (KantenErkhalter vorne + hinten),
+      # je ein Sensor pro Ecke, nach unten gerichtet (-Y)
+      # ---------------------------------------------------------------
+      DistanceSensor {
+        translation -0.09 0.041 -0.0915
+        rotation 0 0 1 -1.5708
+        name "edge_front_left"
+        type "infra-red"
+        # Calibrated for the robot standing on a surface: the sensor face sits
+        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
+        # missing floor (table edge, ray flies past max range) reads ~1000.
+        lookupTable [
+          0    0    0
+          0.09 0    0
+          0.20 1000 0
+        ]
+      }
+      DistanceSensor {
+        translation 0.09 0.041 -0.0915
+        rotation 0 0 1 -1.5708
+        name "edge_front_right"
+        type "infra-red"
+        # Calibrated for the robot standing on a surface: the sensor face sits
+        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
+        # missing floor (table edge, ray flies past max range) reads ~1000.
+        lookupTable [
+          0    0    0
+          0.09 0    0
+          0.20 1000 0
+        ]
+      }
+      DistanceSensor {
+        translation -0.09 0.041 0.0914
+        rotation 0 0 1 -1.5708
+        name "edge_rear_left"
+        type "infra-red"
+        # Calibrated for the robot standing on a surface: the sensor face sits
+        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
+        # missing floor (table edge, ray flies past max range) reads ~1000.
+        lookupTable [
+          0    0    0
+          0.09 0    0
+          0.20 1000 0
+        ]
+      }
+      DistanceSensor {
+        translation 0.09 0.041 0.0914
+        rotation 0 0 1 -1.5708
+        name "edge_rear_right"
+        type "infra-red"
+        # Calibrated for the robot standing on a surface: the sensor face sits
+        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
+        # missing floor (table edge, ray flies past max range) reads ~1000.
+        lookupTable [
+          0    0    0
+          0.09 0    0
+          0.20 1000 0
+        ]
+      }
+
+      # ---------------------------------------------------------------
+      # Inertialsensor (IMU) nahe dem Schwerpunkt
+      # ---------------------------------------------------------------
+      InertialUnit {
+        translation 0 0.05 0
+        name "inertial_unit"
+      }
+      Gyro {
+        translation 0 0.05 0
+        name "gyro"
+      }
+      Accelerometer {
+        translation 0 0.05 0
+        name "accelerometer"
+      }
+    ]
+    # ---------------------------------------------------------------
+    # Kollisionsgeometrie des Chassis, zusammengesetzt aus zwei Boxen,
+    # damit sie sich NICHT mit den Raedern ueberschneidet (das
+    # urspruengliche einteilige Box-boundingObject war breiter/tiefer
+    # als der Freiraum zwischen den Raedern und ueberlappte deren
+    # Kollisionszylinder in X und Y -> staendige Durchdringung ->
+    # der Roboter "tanzte"/zitterte beim Fahren):
+    #   1) unterer, schmaler Teil: passt zwischen die vier Raeder
+    #      (|x| <= 0.082, unterhalb bleibt Freiraum fuer die Raeder)
+    #   2) oberer, breiter Teil: liegt oberhalb der Raeder
+    #      (y >= Rad-Oberkante ~0.070) und darf die volle Chassisbreite
+    #      haben, da er dort nicht mehr mit den Raedern kollidiert
+    # ---------------------------------------------------------------
+    boundingObject Group {
+      children [
+        Transform {
+          translation 0 0.0607 0
+          children [
+            Box {
+              size 0.164 0.090 0.216
+            }
+          ]
+        }
+        Transform {
+          translation 0 0.084 0
+          children [
+            Box {
+              size 0.236 0.020 0.216
+            }
+          ]
+        }
+      ]
+    }
+    physics Physics {
+      density -1
+      mass 0.4
+      centerOfMass [ 0 0.0507 0 ]
+    }
+  }
+}

@@ -1,0 +1,94 @@
+#VRML_SIM R2025b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/robots/gctronic/e-puck/protos/E-puck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/drinks/protos/BeerBottle.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/drinks/protos/Can.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/chairs/protos/WoodenChair.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/humans/pedestrian/protos/Pedestrian.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/plants/protos/FlowerPot.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/toys/protos/RubberDuck.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/fruits/protos/Orange.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/lights/protos/CeilingLight.proto"
+EXTERNPROTO "../protos/coasterbot/Coasterbot.proto"
+
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation 0.25741549259246116 0.1592449257947567 -0.9530888299534325 1.8912051873998195
+  position 1.8267472670325573 6.656254557629651 4.439174649901625
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+  luminosity 0
+  castShadows FALSE
+}
+CeilingLight {
+  pointLightIntensity 2
+}
+E-puck {
+  translation 0.04 0 0.74
+}
+Coasterbot {
+  # PROTO is authored Y-up; this rotation stands it upright in the Z-up world.
+  # Placed on the table, clear of the E-puck and the obstacles.
+  translation 0.28 -0.28 0.75
+  rotation 1 0 0 1.5708
+  controller "coasterbot"
+}
+Table {
+}
+BeerBottle {
+  translation -0.03 -0.71 0.74
+  name "beer bottle(1)"
+}
+BeerBottle {
+  translation -0.33 0 0.74
+  name "beer bottle(3)"
+}
+BeerBottle {
+  translation 0.23 0.17 0.74
+  name "beer bottle(2)"
+}
+Can {
+  translation 0 0.72 0.8
+}
+WoodenChair {
+  translation 0.56 1.00837e-06 0
+  rotation 0 0 1 3.14159
+}
+WoodenChair {
+  translation -0.56 0 0
+  name "wooden chair(2)"
+}
+WoodenChair {
+  translation 0.04 -0.92 0
+  rotation 0 0 1 1.5708
+  name "wooden chair(1)"
+}
+WoodenChair {
+  translation -0.0300044 0.99 0
+  rotation 0 0 1 -1.5707953071795862
+  name "wooden chair(3)"
+}
+Floor {
+}
+RubberDuck {
+  translation 0.195 0.4633 0.76
+  rotation 0 0 1 0.523599
+}
+FlowerPot {
+  translation 0 -0.31 0.73
+}
+Orange {
+  translation -0.15 0.47 0.79
+}
+Pedestrian {
+  translation 2.22694 1.66102 1.27
+  rotation 0 0 1 -2.6179953071795863
+}

@@ -1,0 +1,29 @@
+#VRML_SIM R2025b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "../protos/coasterbot/Coasterbot.proto"
+
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -0.35 0.36 0.86 1.72
+  position 1.6 -1.6 1.4
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 4 4
+  tileSize 0.25 0.25
+}
+Coasterbot {
+  # Open floor, no obstacles — for navigation-stack bring-up (odometry, A*, DWA).
+  # PROTO is Y-up; this rotation stands it upright in the Z-up world.
+  translation 0 0 0.05
+  rotation 1 0 0 1.5708
+  controller "coasterbot"
+}

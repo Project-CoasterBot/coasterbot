@@ -1,0 +1,119 @@
+#include "webots_hal.h"
+#include <cmath>
+#include <limits>
+
+// Device-Namen muessen exakt zu den "name"-Feldern im Coasterbot.proto passen.
+WebotsHAL::WebotsHAL() {
+    timeStep_ = static_cast<int>(robot_.getBasicTimeStep());
+
+    motorFL_ = robot_.getMotor("wheel_front_left_motor");
+    motorFR_ = robot_.getMotor("wheel_front_right_motor");
+    motorRL_ = robot_.getMotor("wheel_rear_left_motor");
+    motorRR_ = robot_.getMotor("wheel_rear_right_motor");
+
+    // Position auf +unendlich -> Motor laeuft im Geschwindigkeitsmodus
+    const double inf = std::numeric_limits<double>::infinity();
+    motorFL_->setPosition(inf);
+    motorFR_->setPosition(inf);
+    motorRL_->setPosition(inf);
+    motorRR_->setPosition(inf);
+    motorFL_->setVelocity(0.0);
+    motorFR_->setVelocity(0.0);
+    motorRL_->setVelocity(0.0);
+    motorRR_->setVelocity(0.0);
+
+    encFL_ = robot_.getPositionSensor("wheel_front_left_sensor");
+    encFR_ = robot_.getPositionSensor("wheel_front_right_sensor");
+    encRL_ = robot_.getPositionSensor("wheel_rear_left_sensor");
+    encRR_ = robot_.getPositionSensor("wheel_rear_right_sensor");
+    encFL_->enable(timeStep_);
+    encFR_->enable(timeStep_);
+    encRL_->enable(timeStep_);
+    encRR_->enable(timeStep_);
+
+    ultrasonic_ = robot_.getDistanceSensor("ultrasonic");
+    edgeFL_ = robot_.getDistanceSensor("edge_front_left");
+    edgeFR_ = robot_.getDistanceSensor("edge_front_right");
+    edgeRL_ = robot_.getDistanceSensor("edge_rear_left");
+    edgeRR_ = robot_.getDistanceSensor("edge_rear_right");
+
+    ultrasonic_->enable(timeStep_);
+    edgeFL_->enable(timeStep_);
+    edgeFR_->enable(timeStep_);
+    edgeRL_->enable(timeStep_);
+    edgeRR_->enable(timeStep_);
+
+    imu_ = robot_.getInertialUnit("inertial_unit");
+    imu_->enable(timeStep_);
+    gyro_ = robot_.getGyro("gyro");
+    gyro_->enable(timeStep_);
+}
+
+WebotsHAL::~WebotsHAL() {}
+
+bool WebotsHAL::step() {
+    return robot_.step(timeStep_) != -1;
+}
+
+void WebotsHAL::setWheelSpeed(WheelId wheel, float radPerSec) {
+    // HAL-Konvention: positiv = vorwaerts (Front = -Z, die Seite mit dem
+    // Ultraschallhalter). Bei positiver Motorgeschwindigkeit rollt das
+    // Radmodell aus dem PROTO den Roboter jedoch nach +Z (hinten), daher
+    // hier das Vorzeichen umdrehen.
+    const double v = -static_cast<double>(radPerSec);
+    switch (wheel) {
+        case WHEEL_FL: motorFL_->setVelocity(v); break;
+        case WHEEL_FR: motorFR_->setVelocity(v); break;
+        case WHEEL_RL: motorRL_->setVelocity(v); break;
+        case WHEEL_RR: motorRR_->setVelocity(v); break;
+    }
+}
+
+void WebotsHAL::setLeftSpeed(float radPerSec) {
+    setWheelSpeed(WHEEL_FL, radPerSec);
+    setWheelSpeed(WHEEL_RL, radPerSec);
+}
+
+void WebotsHAL::setRightSpeed(float radPerSec) {
+    setWheelSpeed(WHEEL_FR, radPerSec);
+    setWheelSpeed(WHEEL_RR, radPerSec);
+}
+
+float WebotsHAL::getUltrasonicDistance() {
+    // lookupTable im PROTO ist bereits auf Meter gemappt
+    return static_cast<float>(ultrasonic_->getValue());
+}
+
+float WebotsHAL::getEdgeFrontLeft()  { return static_cast<float>(edgeFL_->getValue()); }
+float WebotsHAL::getEdgeFrontRight() { return static_cast<float>(edgeFR_->getValue()); }
+float WebotsHAL::getEdgeRearLeft()   { return static_cast<float>(edgeRL_->getValue()); }
+float WebotsHAL::getEdgeRearRight()  { return static_cast<float>(edgeRR_->getValue()); }
+
+float WebotsHAL::getYaw() {
+    const double* rpy = imu_->getRollPitchYaw();
+    return static_cast<float>(rpy[2]);
+}
+
+float WebotsHAL::getGyroZ() {
+    // Das PROTO ist Y-up und wird in der Z-up-Welt mit rotation "1 0 0 1.5708"
+    // aufgestellt -> die Welt-Hochachse faellt mit der lokalen +Y-Achse des
+    // Gyros zusammen. Die Yaw-Rate ist daher die Y-Komponente (v[1]).
+    const double* v = gyro_->getValues();
+    return static_cast<float>(v[1]);
+}
+
+float WebotsHAL::getWheelAngle(WheelId wheel) {
+    // Vorzeichen wie setWheelSpeed(): positiv = vorwaerts. Der PositionSensor
+    // dreht mit dem (invertierten) Motor mit, daher hier ebenfalls negieren.
+    switch (wheel) {
+        case WHEEL_FL: return -static_cast<float>(encFL_->getValue());
+        case WHEEL_FR: return -static_cast<float>(encFR_->getValue());
+        case WHEEL_RL: return -static_cast<float>(encRL_->getValue());
+        case WHEEL_RR: return -static_cast<float>(encRR_->getValue());
+    }
+    return 0.0f;
+}
+
+float WebotsHAL::getTime() {
+    return static_cast<float>(robot_.getTime());
+}

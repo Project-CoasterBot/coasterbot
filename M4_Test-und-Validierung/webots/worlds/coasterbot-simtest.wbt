@@ -1,0 +1,65 @@
+#VRML_SIM R2025b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/drinks/protos/BeerBottle.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/plants/protos/FlowerPot.proto"
+EXTERNPROTO "../protos/coasterbot/Coasterbot.proto"
+
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation -0.02 0.02 0.999 1.62
+  position 0.02 -4.7 3.3
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 6 6
+}
+# --- Combined simulation test on the "lavender pot + beer bottles" table ---
+# Table PROTO size 1.6 x 2.0 x 0.74 -> top surface z ~ 0.715,
+# footprint x[-0.8,0.8] y[-1.0,1.0]. MUST match sim_scenario in main.cpp.
+Table {
+  size 1.6 2.0 0.74
+}
+Coasterbot {
+  translation 0 -0.8 0.72
+  rotation 1 0 0 1.5708
+  controller "coasterbot"
+}
+# Known table layout (in the controller's map): a beer bottle mid-table on the
+# route (D* Lite plans around it) plus a pot and a second bottle in the corners.
+BeerBottle {
+  translation 0 0 0.72
+  name "beer bottle mid"
+}
+FlowerPot {
+  translation -0.68 0.7 0.715
+}
+BeerBottle {
+  translation 0.68 -0.7 0.72
+  name "beer bottle corner"
+}
+# Goal marker (visual only) at (0, 0.80) on the table
+Solid {
+  translation 0 0.8 0.717
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.85 0.3
+        emissiveColor 0.05 0.4 0.15
+      }
+      geometry Cylinder {
+        height 0.004
+        radius 0.055
+      }
+    }
+  ]
+  name "goal marker"
+}

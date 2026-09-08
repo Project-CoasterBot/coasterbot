@@ -15,7 +15,9 @@
 // RobotLogic (robot_logic.h/.cpp) verwendet NUR dieses Interface und
 // kann daher unveraendert von Webots auf Arduino uebernommen werden.
 // ---------------------------------------------------------------------
-// Rad-Indizes fuer setWheelSpeed() - einzeln ansteuerbar zum Debuggen.
+// Rad-Indizes - nur zum Auslesen der Encoder (getWheelAngle). Angesteuert
+// werden die Raeder nur seitenweise: die zwei Motoren einer Seite sind
+// gekoppelt und laufen immer zusammen (wie beim realen Coasterbot).
 enum WheelId {
     WHEEL_FL = 0,
     WHEEL_FR = 1,
@@ -32,12 +34,9 @@ public:
     // Arduino: kann z.B. einfach "return true;" liefern
     virtual bool step() = 0;
 
-    // Grundprimitiv: EIN Rad einzeln ansteuern (rad/s, positiv = vorwaerts-
-    // drehend). Damit laesst sich jedes Rad separat testen/debuggen.
-    virtual void setWheelSpeed(WheelId wheel, float radPerSec) = 0;
-
-    // Komfort-Funktionen: linke/rechte Seite gemeinsam (Skid-Steer).
-    // Rufen intern jeweils setWheelSpeed() fuer beide Raeder der Seite auf.
+    // Antrieb: linke bzw. rechte Seite (rad/s, positiv = vorwaerts-drehend).
+    // Beide Raeder der jeweiligen Seite laufen zwangslaeufig zusammen
+    // (Skid-Steer, gekoppelte Motoren). Lenken ueber die Drehzahldifferenz.
     virtual void setLeftSpeed(float radPerSec) = 0;
     virtual void setRightSpeed(float radPerSec) = 0;
 
@@ -55,8 +54,8 @@ public:
     virtual float getYaw() = 0;    // Rotation um die Hochachse [rad]
     virtual float getGyroZ() = 0;  // Winkelgeschwindigkeit um Hochachse [rad/s]
 
-    // Odometrie: akkumulierter Drehwinkel EINES Rades [rad], Vorzeichen wie
-    // setWheelSpeed() (positiv = vorwaerts). Webots: PositionSensor am Radgelenk.
+    // Odometrie: akkumulierter Drehwinkel EINES Rades [rad], positiv =
+    // vorwaerts. Webots: PositionSensor am Radgelenk.
     // Arduino: akkumulierte Encoder-Ticks * (2*pi / Ticks-pro-Umdrehung).
     virtual float getWheelAngle(WheelId wheel) = 0;
 

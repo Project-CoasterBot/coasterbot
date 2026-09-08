@@ -8,8 +8,13 @@
 #   lokale +Z  = vorne/hinten   (Z<0 vorne, Z>0 hinten)
 #
 # Räder: Skid-Steer-Antrieb (alle 4 Räder drehen um die lokale X-Achse).
-#   -> linke Räder (X<0) und rechte Räder (X>0) jeweils gemeinsam ansteuern,
-#      Lenken durch unterschiedliche Drehzahl links/rechts.
+#   Die zwei Motoren je Seite sind gekoppelt (Webots "coupled motors",
+#   gleicher Name vor "::"): ein Fahrbefehl an eine Seite treibt beide
+#   Räder dieser Seite gemeinsam - wie beim realen Coasterbot.
+#   Motoren: "wheel_left::front" + "wheel_left::rear" (Seite links, gekoppelt),
+#            "wheel_right::front" + "wheel_right::rear" (Seite rechts, gekoppelt).
+#   Encoder: "wheel_{front,rear}_{left,right}_sensor" (je Rad einzeln lesbar).
+#   Lenken durch unterschiedliche Drehzahl links/rechts.
 #
 # Sensoren:
 #   - "ultrasonic"                : Abstandssensor vorne mittig (sonar), schaut nach -Z
@@ -61,18 +66,26 @@ PROTO Coasterbot [
 
       # ---------------------------------------------------------------
       # Raeder (je ein HingeJoint, Achse = lokale X-Achse)
+      #
+      # Die beiden Motoren einer Seite sind ueber Webots "coupled motors"
+      # (gleicher Name vor "::") gekoppelt: ein Fahrbefehl an einen der
+      # beiden treibt automatisch auch den anderen. Das bildet den realen
+      # Coasterbot ab, bei dem die zwei TT-Motoren einer Seite gemeinsam
+      # angesteuert werden. Der Controller kennt nur "wheel_left" bzw.
+      # "wheel_right".
       # ---------------------------------------------------------------
       DEF WHEEL_FRONT_LEFT HingeJoint {
         jointParameters HingeJointParameters {
           axis 1 0 0
           anchor -0.101 0.0345 -0.0566
-          
+
         }
         device [
           RotationalMotor {
-            name "wheel_front_left_motor"
+            name "wheel_left::front"
             maxVelocity 20
             maxTorque 0.6
+            multiplier 1
           }
           PositionSensor {
             name "wheel_front_left_sensor"
@@ -111,9 +124,10 @@ PROTO Coasterbot [
         }
         device [
           RotationalMotor {
-            name "wheel_rear_left_motor"
+            name "wheel_left::rear"
             maxVelocity 20
             maxTorque 0.6
+            multiplier 1
           }
           PositionSensor {
             name "wheel_rear_left_sensor"
@@ -152,9 +166,10 @@ PROTO Coasterbot [
         }
         device [
           RotationalMotor {
-            name "wheel_rear_right_motor"
+            name "wheel_right::rear"
             maxVelocity 20
             maxTorque 0.6
+            multiplier 1
           }
           PositionSensor {
             name "wheel_rear_right_sensor"
@@ -193,9 +208,10 @@ PROTO Coasterbot [
         }
         device [
           RotationalMotor {
-            name "wheel_front_right_motor"
+            name "wheel_right::front"
             maxVelocity 20
             maxTorque 0.6
+            multiplier 1
           }
           PositionSensor {
             name "wheel_front_right_sensor"

@@ -54,9 +54,14 @@ any world.
   The current worlds are **Z-up (ENU)**, so instances need
   `rotation 1 0 0 1.5708` to stand upright (see `coasterbot-robot.wbt`).
 - Devices (names are the contract with the controller):
-  - Motors: `wheel_front_left_motor`, `wheel_front_right_motor`,
-    `wheel_rear_left_motor`, `wheel_rear_right_motor` (+ matching `*_sensor`
-    PositionSensors). All hinge about local X → skid-steer.
+  - Motors: **coupled per side** (Webots "coupled motors" — same name before
+    `::`): `wheel_left::front` + `wheel_left::rear`, `wheel_right::front` +
+    `wheel_right::rear`. A command to one drives both wheels of that side —
+    mirrors the real Coasterbot (two TT motors per side, driven together).
+    The controller only ever addresses `wheel_left::front` / `wheel_right::front`.
+    Individual wheel drive is not possible.
+  - Encoders: `wheel_{front,rear}_{left,right}_sensor` PositionSensors — still
+    per wheel (read individually for odometry). All hinges about local X → skid-steer.
   - `ultrasonic` DistanceSensor (sonar, forward). lookupTable returns **metres**
     (`0 0 0 / 4 4 0.02`) — matches `OBSTACLE_THRESHOLD_M`. (The original
     `4 4000` returned mm, so obstacle detection never fired — recalibrated.)
@@ -74,10 +79,13 @@ any world.
 Three-layer design, keep it that way:
 - `robot_hal.h` — pure abstract `RobotHAL` interface (no Webots, no Arduino).
 - `webots_hal.{h,cpp}` — `WebotsHAL : RobotHAL`, the only Webots-aware file.
-  Device name strings here must match the PROTO exactly. `setWheelSpeed()`
-  negates the motor command: the PROTO wheel model rolls the robot toward +Z
-  for a positive velocity, but the HAL contract is "positive = forward" and
-  the robot's front is -Z (the side with the ultrasonic-holder bump).
+  Device name strings here must match the PROTO exactly. Holds one motor handle
+  per side (`motorLeft_`/`motorRight_` = the coupled `::front` motors).
+  `setLeftSpeed`/`setRightSpeed` negate the command: the PROTO wheel model rolls
+  the robot toward +Z for a positive velocity, but the HAL contract is
+  "positive = forward" and the robot's front is -Z (the ultrasonic-holder bump).
+  The `RobotHAL` drive interface is per-side only (`setLeftSpeed`/`setRightSpeed`);
+  there is no single-wheel command — the motors are coupled.
 - `robot_logic.{h,cpp}` — behaviour (edge + obstacle avoidance state machine),
   talks only to `RobotHAL`. Intended to port unchanged to an Arduino `ArduinoHAL`.
 - `main.cpp` — has a compile-time `MODE` switch:

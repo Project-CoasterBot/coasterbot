@@ -16,9 +16,10 @@
 // MODE steuert, was main() tut. So ist immer klar nachvollziehbar,
 // welche Bewegung gerade WARUM passiert:
 //
-//   MODE_WHEEL_TEST : jedes Rad einzeln 2s drehen, Konsole zeigt an
-//                      welches -> zeigt, ob ein Rad falsch/gar nicht
-//                      dreht (Ursache fuer Kreisfahrt eingrenzen)
+//   MODE_WHEEL_TEST : je Seite 2s die Raeder drehen (links, dann rechts),
+//                      Konsole zeigt an welche -> zeigt, ob eine Seite
+//                      falsch/gar nicht dreht. Einzelne Raeder sind nicht
+//                      ansteuerbar (Motoren je Seite gekoppelt).
 //   MODE_MANUAL     : feste Befehlsfolge ueber die expliziten
 //                      RobotLogic-Methoden (forward/turnLeft/...)
 //   MODE_AUTONOMOUS : der Zustandsautomat aus robot_logic.cpp
@@ -47,24 +48,32 @@ static void printPose(const char* tag, float t, const PoseEstimator& pose) {
 }
 
 static void runWheelTest(WebotsHAL& hal) {
-    const char* names[4] = {"FL", "FR", "RL", "RR"};
-    const WheelId ids[4] = {WHEEL_FL, WHEEL_FR, WHEEL_RL, WHEEL_RR};
+    // Je Seite 2s drehen: die zwei Raeder einer Seite sind gekoppelt und
+    // laufen zusammen (wie beim realen Coasterbot).
+    const char* names[2] = {"LINKS", "RECHTS"};
     const float TEST_SPEED = 4.0f;   // rad/s
-    const float PHASE_TIME = 2.0f;   // s pro Rad
+    const float PHASE_TIME = 2.0f;   // s pro Seite
 
     int active = -1;
-
     while (hal.step()) {
-        float t = hal.getTime();
-        int phase = static_cast<int>(t / PHASE_TIME) % 4;
+        const float t = hal.getTime();
+        const int phase = static_cast<int>(t / PHASE_TIME) % 2;
         if (phase != active) {
             active = phase;
-            std::cout << "[WHEEL_TEST] t=" << t
-                      << "s -> teste Rad " << names[active]
-                      << " (" << TEST_SPEED << " rad/s)" << std::endl;
+            std::cout << "[WHEEL_TEST] t=" << t << "s -> teste Seite "
+                      << names[active] << " (" << TEST_SPEED << " rad/s, beide Raeder)"
+                      << std::endl;
         }
-        for (int i = 0; i < 4; i++) {
-            hal.setWheelSpeed(ids[i], (i == active) ? TEST_SPEED : 0.0f);
+        hal.setLeftSpeed(active == 0 ? TEST_SPEED : 0.0f);
+        hal.setRightSpeed(active == 1 ? TEST_SPEED : 0.0f);
+
+        static float lastEnc = -1.0f;
+        if (t - lastEnc >= 1.0f) {
+            std::cout << "           Encoder [FL " << hal.getWheelAngle(WHEEL_FL)
+                      << "  RL " << hal.getWheelAngle(WHEEL_RL)
+                      << "  FR " << hal.getWheelAngle(WHEEL_FR)
+                      << "  RR " << hal.getWheelAngle(WHEEL_RR) << "]" << std::endl;
+            lastEnc = t;
         }
     }
 }

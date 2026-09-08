@@ -6,21 +6,18 @@
 WebotsHAL::WebotsHAL() {
     timeStep_ = static_cast<int>(robot_.getBasicTimeStep());
 
-    motorFL_ = robot_.getMotor("wheel_front_left_motor");
-    motorFR_ = robot_.getMotor("wheel_front_right_motor");
-    motorRL_ = robot_.getMotor("wheel_rear_left_motor");
-    motorRR_ = robot_.getMotor("wheel_rear_right_motor");
+    // Ein Handle pro Seite. Im PROTO sind die zwei Motoren einer Seite
+    // gekoppelt ("coupled motors", gemeinsamer Name vor "::"); ein Befehl an
+    // "::front" treibt automatisch auch "::rear" derselben Seite.
+    motorLeft_  = robot_.getMotor("wheel_left::front");
+    motorRight_ = robot_.getMotor("wheel_right::front");
 
     // Position auf +unendlich -> Motor laeuft im Geschwindigkeitsmodus
     const double inf = std::numeric_limits<double>::infinity();
-    motorFL_->setPosition(inf);
-    motorFR_->setPosition(inf);
-    motorRL_->setPosition(inf);
-    motorRR_->setPosition(inf);
-    motorFL_->setVelocity(0.0);
-    motorFR_->setVelocity(0.0);
-    motorRL_->setVelocity(0.0);
-    motorRR_->setVelocity(0.0);
+    motorLeft_->setPosition(inf);
+    motorRight_->setPosition(inf);
+    motorLeft_->setVelocity(0.0);
+    motorRight_->setVelocity(0.0);
 
     encFL_ = robot_.getPositionSensor("wheel_front_left_sensor");
     encFR_ = robot_.getPositionSensor("wheel_front_right_sensor");
@@ -55,28 +52,16 @@ bool WebotsHAL::step() {
     return robot_.step(timeStep_) != -1;
 }
 
-void WebotsHAL::setWheelSpeed(WheelId wheel, float radPerSec) {
+void WebotsHAL::setLeftSpeed(float radPerSec) {
     // HAL-Konvention: positiv = vorwaerts (Front = -Z, die Seite mit dem
     // Ultraschallhalter). Bei positiver Motorgeschwindigkeit rollt das
     // Radmodell aus dem PROTO den Roboter jedoch nach +Z (hinten), daher
-    // hier das Vorzeichen umdrehen.
-    const double v = -static_cast<double>(radPerSec);
-    switch (wheel) {
-        case WHEEL_FL: motorFL_->setVelocity(v); break;
-        case WHEEL_FR: motorFR_->setVelocity(v); break;
-        case WHEEL_RL: motorRL_->setVelocity(v); break;
-        case WHEEL_RR: motorRR_->setVelocity(v); break;
-    }
-}
-
-void WebotsHAL::setLeftSpeed(float radPerSec) {
-    setWheelSpeed(WHEEL_FL, radPerSec);
-    setWheelSpeed(WHEEL_RL, radPerSec);
+    // hier das Vorzeichen umdrehen. Treibt beide linken Raeder (gekoppelt).
+    motorLeft_->setVelocity(-static_cast<double>(radPerSec));
 }
 
 void WebotsHAL::setRightSpeed(float radPerSec) {
-    setWheelSpeed(WHEEL_FR, radPerSec);
-    setWheelSpeed(WHEEL_RR, radPerSec);
+    motorRight_->setVelocity(-static_cast<double>(radPerSec));
 }
 
 float WebotsHAL::getUltrasonicDistance() {
@@ -103,8 +88,8 @@ float WebotsHAL::getGyroZ() {
 }
 
 float WebotsHAL::getWheelAngle(WheelId wheel) {
-    // Vorzeichen wie setWheelSpeed(): positiv = vorwaerts. Der PositionSensor
-    // dreht mit dem (invertierten) Motor mit, daher hier ebenfalls negieren.
+    // Konvention: positiv = vorwaerts. Der PositionSensor dreht mit dem
+    // (invertierten) Motor mit, daher hier ebenfalls negieren.
     switch (wheel) {
         case WHEEL_FL: return -static_cast<float>(encFL_->getValue());
         case WHEEL_FR: return -static_cast<float>(encFR_->getValue());

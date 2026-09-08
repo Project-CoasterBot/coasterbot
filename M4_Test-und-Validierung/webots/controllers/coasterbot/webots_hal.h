@@ -23,7 +23,6 @@ public:
     ~WebotsHAL() override;
 
     bool step() override;
-    void setWheelSpeed(WheelId wheel, float radPerSec) override;
     void setLeftSpeed(float radPerSec) override;
     void setRightSpeed(float radPerSec) override;
     float getUltrasonicDistance() override;
@@ -40,10 +39,11 @@ private:
     webots::Robot robot_;
     int timeStep_;
 
-    webots::Motor* motorFL_;
-    webots::Motor* motorFR_;
-    webots::Motor* motorRL_;
-    webots::Motor* motorRR_;
+    // Je ein Handle pro Seite. Die Motoren einer Seite sind im PROTO
+    // gekoppelt ("coupled motors"), ein Befehl an dieses Handle treibt
+    // beide Raeder der Seite.
+    webots::Motor* motorLeft_;
+    webots::Motor* motorRight_;
 
     webots::PositionSensor* encFL_;
     webots::PositionSensor* encFR_;

@@ -214,3 +214,7 @@ Temporary Items
 .venv/pyvenv.cfg
 .gitignore
 .venv/*
+
+
+# kicad lock files
+*.kicad*.lck

@@ -1,0 +1,27 @@
+Protoboard 30x24 Pinbelegung
+
+-- Vorsicht, das ist die Pinbelegung entsprechend dem Protoboard 30x24 schematic --
+
+
+
+Tischkantensensor: 	Vorne links 	GP0
+			Vorne rechts	GP1
+			Hinten links	GP2
+			Hinten rechts	GP3
+Abstandssensor:		Echo		GP4
+			Trigger		GP5
+Inertial MPU-6050: 	SCL		GP17 = I2C0 SCL
+			SDA		GP16 = I2C0 SDA
+User button:		GP10, active low(wenn gedrückt), sonst high Pegel
+Motor: 			PWM		GP18
+			STDBY		GP21
+			Rechts 1	GP20
+			Rechts 2	GP19
+			Links 1		GP27
+			Links 2		GP28
+LED 1 (Gehäuse Montage)	R		GP6
+			G		GP7
+			B		GP8
+LED 2 (Platine direkt)	R		GP12
+			G		GP13
+			B		GP14

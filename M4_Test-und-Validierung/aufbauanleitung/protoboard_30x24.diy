@@ -1050,78 +1050,6 @@
       <endingStyle>Round</endingStyle>
     </diylc.connectivity.CopperTrace>
     <diylc.connectivity.CopperTrace>
-      <id>509adec8-b379-4fc8-a3d3-4e6a613bfa2d</id>
-      <name>Trace18</name>
-      <alphaPercent>
-        <value>100</value>
-      </alphaPercent>
-      <points>
-        <point x="1.7" y="0.5"/>
-        <point x="1.7" y="0.6"/>
-        <point x="1.7" y="0.55"/>
-      </points>
-      <bodyColor hex="ffffff"/>
-      <borderColor hex="000000"/>
-      <labelColor hex="000000"/>
-      <leadColor hex="000000"/>
-      <display>NAME</display>
-      <flipStanding>false</flipStanding>
-      <labelOriantation>Directional</labelOriantation>
-      <moveLabel>false</moveLabel>
-      <hideShortLeads>false</hideShortLeads>
-      <thickness value="1.0" unit="mm"/>
-      <layer>_1</layer>
-      <endingStyle>Round</endingStyle>
-    </diylc.connectivity.CopperTrace>
-    <diylc.connectivity.CopperTrace>
-      <id>2d433b01-6138-4711-b055-95406da1e70f</id>
-      <name>Trace19</name>
-      <alphaPercent>
-        <value>100</value>
-      </alphaPercent>
-      <points>
-        <point x="1.6" y="0.5"/>
-        <point x="1.6" y="0.6"/>
-        <point x="1.6" y="0.55"/>
-      </points>
-      <bodyColor hex="ffffff"/>
-      <borderColor hex="000000"/>
-      <labelColor hex="000000"/>
-      <leadColor hex="000000"/>
-      <display>NAME</display>
-      <flipStanding>false</flipStanding>
-      <labelOriantation>Directional</labelOriantation>
-      <moveLabel>false</moveLabel>
-      <hideShortLeads>false</hideShortLeads>
-      <thickness value="1.0" unit="mm"/>
-      <layer>_1</layer>
-      <endingStyle>Round</endingStyle>
-    </diylc.connectivity.CopperTrace>
-    <diylc.connectivity.CopperTrace>
-      <id>ee7c22c7-2b53-41fa-ba2e-84a2f98356e4</id>
-      <name>Trace20</name>
-      <alphaPercent>
-        <value>100</value>
-      </alphaPercent>
-      <points>
-        <point x="1.5" y="0.5"/>
-        <point x="1.5" y="0.6"/>
-        <point x="1.5" y="0.55"/>
-      </points>
-      <bodyColor hex="ffffff"/>
-      <borderColor hex="000000"/>
-      <labelColor hex="000000"/>
-      <leadColor hex="000000"/>
-      <display>NAME</display>
-      <flipStanding>false</flipStanding>
-      <labelOriantation>Directional</labelOriantation>
-      <moveLabel>false</moveLabel>
-      <hideShortLeads>false</hideShortLeads>
-      <thickness value="1.0" unit="mm"/>
-      <layer>_1</layer>
-      <endingStyle>Round</endingStyle>
-    </diylc.connectivity.CopperTrace>
-    <diylc.connectivity.CopperTrace>
       <id>e58337ce-2678-462f-8c0f-c315c526da82</id>
       <name>Trace21</name>
       <alphaPercent>
@@ -1931,25 +1859,6 @@
       <shroudColor hex="595959"/>
     </diylc.electromechanical.PinHeader>
     <diylc.electromechanical.PinHeader>
-      <id>ed8fae92-1375-4610-b979-9b51be5aed04</id>
-      <name>PH11</name>
-      <alphaPercent>
-        <value>100</value>
-      </alphaPercent>
-      <orientation>_270</orientation>
-      <controlPoints>
-        <point x="1.5" y="0.5"/>
-        <point x="1.6" y="0.5"/>
-        <point x="1.7" y="0.5"/>
-      </controlPoints>
-      <rowCount>1</rowCount>
-      <columnCount>3</columnCount>
-      <spacing value="0.1" unit="in"/>
-      <shrouded>false</shrouded>
-      <bodyColor hex="808080"/>
-      <shroudColor hex="595959"/>
-    </diylc.electromechanical.PinHeader>
-    <diylc.electromechanical.PinHeader>
       <id>bbb6bcbc-4d15-48a3-968b-05289914e396</id>
       <name>PH5</name>
       <alphaPercent>
@@ -2227,39 +2136,6 @@
       <point x="1.9" y="0.5"/>
       <text>eT</text>
       <font name="Dialog.plain" size="14" style="0"/>
-      <color hex="000000"/>
-      <horizontalAlignment>CENTER</horizontalAlignment>
-      <verticalAlignment>CENTER</verticalAlignment>
-      <orientation>DEFAULT</orientation>
-    </diylc.misc.Label>
-    <diylc.misc.Label>
-      <id>9ca6380f-4f49-45a0-8f86-b12ee353d304</id>
-      <name>LAB97</name>
-      <point x="1.7" y="0.5"/>
-      <text>R</text>
-      <font name="Dialog.plain" size="14" style="0"/>
-      <color hex="000000"/>
-      <horizontalAlignment>CENTER</horizontalAlignment>
-      <verticalAlignment>CENTER</verticalAlignment>
-      <orientation>DEFAULT</orientation>
-    </diylc.misc.Label>
-    <diylc.misc.Label>
-      <id>42612781-2814-4b0b-9319-78d46c35d656</id>
-      <name>LAB98</name>
-      <point x="1.6" y="0.5"/>
-      <text>G</text>
-      <font name="Dialog.plain" size="14" style="0"/>
-      <color hex="000000"/>
-      <horizontalAlignment>CENTER</horizontalAlignment>
-      <verticalAlignment>CENTER</verticalAlignment>
-      <orientation>DEFAULT</orientation>
-    </diylc.misc.Label>
-    <diylc.misc.Label>
-      <id>f01f8511-8622-4d9c-82de-c706800d7c32</id>
-      <name>LAB99</name>
-      <point x="1.5" y="0.5"/>
-      <text>B</text>
-      <font reference="../../diylc.misc.Label[19]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -3181,6 +3057,54 @@
       <hideShortLeads>false</hideShortLeads>
       <style>SOLID</style>
     </diylc.connectivity.Jumper>
+    <diylc.connectivity.CopperTrace>
+      <id>9fc3febe-5b0a-40c4-b25c-95ea17b628a4</id>
+      <name>Trace18</name>
+      <alphaPercent>
+        <value>100</value>
+      </alphaPercent>
+      <points>
+        <point x="1.6" y="0.6"/>
+        <point x="1.6" y="0.5"/>
+        <point x="1.6" y="0.55"/>
+      </points>
+      <bodyColor hex="ffffff"/>
+      <borderColor hex="000000"/>
+      <labelColor hex="000000"/>
+      <leadColor hex="000000"/>
+      <display>NAME</display>
+      <flipStanding>false</flipStanding>
+      <labelOriantation>Directional</labelOriantation>
+      <moveLabel>false</moveLabel>
+      <hideShortLeads>false</hideShortLeads>
+      <thickness value="1.0" unit="mm"/>
+      <layer>_1</layer>
+      <endingStyle>Round</endingStyle>
+    </diylc.connectivity.CopperTrace>
+    <diylc.connectivity.CopperTrace>
+      <id>dfb7e534-2e1c-416b-b1e5-e5cbcadbd955</id>
+      <name>Trace19</name>
+      <alphaPercent>
+        <value>100</value>
+      </alphaPercent>
+      <points>
+        <point x="1.7" y="0.6"/>
+        <point x="1.7" y="0.5"/>
+        <point x="1.7" y="0.55"/>
+      </points>
+      <bodyColor hex="ffffff"/>
+      <borderColor hex="000000"/>
+      <labelColor hex="000000"/>
+      <leadColor hex="000000"/>
+      <display>NAME</display>
+      <flipStanding>false</flipStanding>
+      <labelOriantation>Directional</labelOriantation>
+      <moveLabel>false</moveLabel>
+      <hideShortLeads>false</hideShortLeads>
+      <thickness value="1.0" unit="mm"/>
+      <layer>_1</layer>
+      <endingStyle>Round</endingStyle>
+    </diylc.connectivity.CopperTrace>
     <diylc.electromechanical.PinHeader>
       <id>df377b52-b972-4fe3-a3a9-8a38fa9b8f1f</id>
       <name>PH6</name>
@@ -3864,7 +3788,7 @@
       <name>LAB47</name>
       <point x="1.5" y="0.9"/>
       <text>Raspberry Pi Pico2 Board</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="fefefe"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -3903,7 +3827,7 @@
       <name>LAB1</name>
       <point x="3.1" y="0.9"/>
       <text>OUT+</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -3947,7 +3871,7 @@
       <name>LAB5</name>
       <point x="2.9" y="1.1"/>
       <text>DC/DC</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="ffffff"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4015,12 +3939,30 @@
       <bodyColor hex="808080"/>
       <shroudColor hex="595959"/>
     </diylc.electromechanical.PinHeader>
+    <diylc.electromechanical.PinHeader>
+      <id>d239689c-2dd7-4379-a497-aeb5df5c81fd</id>
+      <name>PH8</name>
+      <alphaPercent>
+        <value>100</value>
+      </alphaPercent>
+      <orientation>_270</orientation>
+      <controlPoints>
+        <point x="1.6" y="0.5"/>
+        <point x="1.7" y="0.5"/>
+      </controlPoints>
+      <rowCount>1</rowCount>
+      <columnCount>2</columnCount>
+      <spacing value="0.1" unit="in"/>
+      <shrouded>false</shrouded>
+      <bodyColor hex="808080"/>
+      <shroudColor hex="595959"/>
+    </diylc.electromechanical.PinHeader>
     <diylc.misc.Label>
       <id>f7ed251a-97b9-4b00-8bab-ee586c56636b</id>
       <name>LAB48</name>
       <point x="3.1" y="2.5"/>
       <text>BAT</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4064,7 +4006,7 @@
       <name>LAB70</name>
       <point x="2.4" y="1.8"/>
       <text>PWMA</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4262,7 +4204,7 @@
       <name>LAB52</name>
       <point x="1.5" y="1.8"/>
       <text>PWMA</text>
-      <font reference="../../diylc.misc.Label[32]/font"/>
+      <font reference="../../diylc.misc.Label[29]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4273,7 +4215,7 @@
       <name>LAB53</name>
       <point x="1.4" y="1.8"/>
       <text>AIN2</text>
-      <font reference="../../diylc.misc.Label[84]/font"/>
+      <font reference="../../diylc.misc.Label[81]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4284,7 +4226,7 @@
       <name>LAB54</name>
       <point x="1.3" y="1.8"/>
       <text>AIN1</text>
-      <font reference="../../diylc.misc.Label[85]/font"/>
+      <font reference="../../diylc.misc.Label[82]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4295,7 +4237,7 @@
       <name>LAB55</name>
       <point x="1.2" y="1.8"/>
       <text>STDBY</text>
-      <font reference="../../diylc.misc.Label[86]/font"/>
+      <font reference="../../diylc.misc.Label[83]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4306,7 +4248,7 @@
       <name>LAB56</name>
       <point x="1.1" y="1.8"/>
       <text>BIN1</text>
-      <font reference="../../diylc.misc.Label[87]/font"/>
+      <font reference="../../diylc.misc.Label[84]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4317,7 +4259,7 @@
       <name>LAB57</name>
       <point x="1.0" y="1.8"/>
       <text>BIN2</text>
-      <font reference="../../diylc.misc.Label[88]/font"/>
+      <font reference="../../diylc.misc.Label[85]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4328,7 +4270,7 @@
       <name>LAB58</name>
       <point x="0.9" y="1.8"/>
       <text>PWMB</text>
-      <font reference="../../diylc.misc.Label[89]/font"/>
+      <font reference="../../diylc.misc.Label[86]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4339,7 +4281,7 @@
       <name>LAB59</name>
       <point x="0.8" y="1.8"/>
       <text>GND</text>
-      <font reference="../../diylc.misc.Label[90]/font"/>
+      <font reference="../../diylc.misc.Label[87]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4350,7 +4292,7 @@
       <name>LAB60</name>
       <point x="1.5" y="2.2"/>
       <text>VM</text>
-      <font reference="../../diylc.misc.Label[91]/font"/>
+      <font reference="../../diylc.misc.Label[88]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4361,7 +4303,7 @@
       <name>LAB61</name>
       <point x="1.4" y="2.2"/>
       <text>VCC</text>
-      <font reference="../../diylc.misc.Label[92]/font"/>
+      <font reference="../../diylc.misc.Label[89]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4372,7 +4314,7 @@
       <name>LAB62</name>
       <point x="1.3" y="2.2"/>
       <text>GND</text>
-      <font reference="../../diylc.misc.Label[93]/font"/>
+      <font reference="../../diylc.misc.Label[90]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4383,7 +4325,7 @@
       <name>LAB63</name>
       <point x="1.2" y="2.2"/>
       <text>AO1</text>
-      <font reference="../../diylc.misc.Label[94]/font"/>
+      <font reference="../../diylc.misc.Label[91]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4394,7 +4336,7 @@
       <name>LAB64</name>
       <point x="1.1" y="2.2"/>
       <text>AO2</text>
-      <font reference="../../diylc.misc.Label[95]/font"/>
+      <font reference="../../diylc.misc.Label[92]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4405,7 +4347,7 @@
       <name>LAB65</name>
       <point x="1.0" y="2.2"/>
       <text>BO2</text>
-      <font reference="../../diylc.misc.Label[96]/font"/>
+      <font reference="../../diylc.misc.Label[93]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4416,7 +4358,7 @@
       <name>LAB66</name>
       <point x="0.9" y="2.2"/>
       <text>BO1</text>
-      <font reference="../../diylc.misc.Label[97]/font"/>
+      <font reference="../../diylc.misc.Label[94]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4427,7 +4369,7 @@
       <name>LAB67</name>
       <point x="0.8" y="2.2"/>
       <text>GND</text>
-      <font reference="../../diylc.misc.Label[98]/font"/>
+      <font reference="../../diylc.misc.Label[95]/font"/>
       <color hex="000000"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4438,7 +4380,7 @@
       <name>LAB68</name>
       <point x="0.9" y="2.0"/>
       <text>TB6612</text>
-      <font reference="../../diylc.misc.Label[99]/font"/>
+      <font reference="../../diylc.misc.Label[96]/font"/>
       <color hex="ffffff"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4449,7 +4391,7 @@
       <name>LAB69</name>
       <point x="1.4" y="2.0"/>
       <text>Driver</text>
-      <font reference="../../diylc.misc.Label[100]/font"/>
+      <font reference="../../diylc.misc.Label[97]/font"/>
       <color hex="ffffff"/>
       <horizontalAlignment>CENTER</horizontalAlignment>
       <verticalAlignment>CENTER</verticalAlignment>
@@ -4499,6 +4441,28 @@
       <verticalAlignment>CENTER</verticalAlignment>
       <orientation>DEFAULT</orientation>
     </diylc.misc.Label>
+    <diylc.misc.Label>
+      <id>37137fc0-3096-449f-ab72-5531966f6ecc</id>
+      <name>LAB97</name>
+      <point x="1.6" y="0.5"/>
+      <text>sv2</text>
+      <font name="Dialog.plain" size="14" style="0"/>
+      <color hex="000000"/>
+      <horizontalAlignment>CENTER</horizontalAlignment>
+      <verticalAlignment>CENTER</verticalAlignment>
+      <orientation>DEFAULT</orientation>
+    </diylc.misc.Label>
+    <diylc.misc.Label>
+      <id>1a7cde95-67c5-4d6c-aafc-fc39e60821ca</id>
+      <name>LAB98</name>
+      <point x="1.7" y="0.5"/>
+      <text>sv1</text>
+      <font name="Dialog.plain" size="14" style="0"/>
+      <color hex="000000"/>
+      <horizontalAlignment>CENTER</horizontalAlignment>
+      <verticalAlignment>CENTER</verticalAlignment>
+      <orientation>DEFAULT</orientation>
+    </diylc.misc.Label>
   </components>
   <groups/>
   <groupsEx>
@@ -4508,6 +4472,81 @@
         <uuid>0686c0bb-501b-4b59-83f1-a2d92c62bf81</uuid>
       </componentIds>
       <name>gndconn</name>
+    </group>
+    <group>
+      <componentIds>
+        <uuid>4c2451bc-230f-4db7-bb21-66eb683d0807</uuid>
+        <uuid>fe915fd9-49d3-41b4-b6a9-80bd455d1a15</uuid>
+      </componentIds>
+      <name>pwr_sw</name>
+    </group>
+    <group>
+      <componentIds>
+        <uuid>0711126a-26f9-45c5-ac7b-aa0f8518a4ab</uuid>
+        <uuid>bc0d53b2-daed-4755-aea2-365947bab382</uuid>
+        <uuid>fd1a8eec-ff19-4e8c-8913-8d0671dbf429</uuid>
+        <uuid>9e365199-b7b0-42e6-ad3f-c55852982780</uuid>
+        <uuid>ed4617a2-8361-42f6-80e9-ca7ff3e4d2c9</uuid>
+        <uuid>c68bfa5a-85a2-4c5c-bc02-1c8770b6e614</uuid>
+        <uuid>d95f2ce6-e7e9-4c45-8adc-453f48e5761b</uuid>
+        <uuid>ae0fdbb3-7a88-4428-ade3-33ee27d0da08</uuid>
+        <uuid>566e3fbe-6395-49d5-b02e-5ba330472ed3</uuid>
+        <uuid>b084929a-bc45-4576-abd5-b532f350fe50</uuid>
+        <uuid>914ddcf9-007f-407d-8df7-bc7c8e0dc47b</uuid>
+        <uuid>4999a610-83ce-431c-a59f-6fd5f9e1a03d</uuid>
+        <uuid>23ee437a-e103-491c-9502-7244b4fa78ba</uuid>
+        <uuid>f7e5ace6-1364-4643-ad5a-9e60e8f40aa5</uuid>
+        <uuid>d0d88da1-1f00-4c5b-8c66-0bee46ea1b0f</uuid>
+        <uuid>a7b1a3d5-ca5a-410f-a974-5d34a6b0ba51</uuid>
+        <uuid>a89701f5-259f-4a3b-9696-156aca889be2</uuid>
+        <uuid>5025d53a-3ea8-4547-be22-9a44903a537f</uuid>
+        <uuid>23f94265-14c9-4575-958b-8e04386c6a57</uuid>
+        <uuid>b1de27a6-ea37-403a-acc7-fa8292a39d46</uuid>
+        <uuid>8d5f4a22-6ca5-416e-9fa3-f43eaa37a485</uuid>
+        <uuid>9e45a984-ebff-459e-8d08-4b12b0afd10f</uuid>
+        <uuid>4071f21d-bc35-46c8-a4d0-3940a4ec68f6</uuid>
+        <uuid>c5fbf658-053a-495e-bcb3-bd872f2bc105</uuid>
+        <uuid>2c13c05d-07d2-4279-a3f4-c66b707c2258</uuid>
+        <uuid>75e69082-bff8-41ff-b09d-6bec32f5eb79</uuid>
+        <uuid>8da7c7af-38e2-4cd0-bdac-e9ca6813d450</uuid>
+        <uuid>dff2d566-db6c-4401-a7d2-6d16a10e1fd3</uuid>
+        <uuid>228d80b9-ff48-45f9-a2a5-32713b97e026</uuid>
+        <uuid>7e97c3f3-2d5d-4b77-af58-64eed1bff5a6</uuid>
+        <uuid>2fe0d366-ef2d-4402-b810-20af4b6d5a98</uuid>
+        <uuid>9df67074-cf62-4f66-9060-2a60b5689280</uuid>
+        <uuid>1fd16cd3-51b3-4523-8a3e-b26de68bc8e5</uuid>
+        <uuid>fdd553bc-0efe-4e17-bf49-67e4ecb7f8aa</uuid>
+        <uuid>bccb35d1-5ff7-4669-ac40-5e192f62becf</uuid>
+        <uuid>b3282d61-6147-4fa0-a805-c2dd90224ce5</uuid>
+        <uuid>55896efa-bb4e-428e-baec-34deefc715b5</uuid>
+        <uuid>e6def504-a922-484c-98cb-59636ed6bbbe</uuid>
+        <uuid>4dda66ea-a4b1-4eac-9720-a0878102f6be</uuid>
+        <uuid>9a01a0dd-2650-41c6-9b29-9888d1327f63</uuid>
+        <uuid>fddb22e8-fd77-4238-8fb0-a4556928ff0a</uuid>
+        <uuid>c66a5bc0-1cff-4996-86b9-228a0fba3ab5</uuid>
+      </componentIds>
+      <name>Raspberry Pi Pico 2</name>
+    </group>
+    <group>
+      <componentIds>
+        <uuid>23da65c9-8f0d-4fd6-9c33-18879af68c1a</uuid>
+        <uuid>45468974-f581-40e1-a9fc-12f68b43384a</uuid>
+        <uuid>93c5ca54-3531-43a2-833d-8a871a54222e</uuid>
+        <uuid>04772bde-062f-4034-9b92-7a126fe82aa9</uuid>
+        <uuid>5f8c0ff1-a905-4e53-9e60-540a65cf0cda</uuid>
+        <uuid>220d3c87-f660-4c86-bc88-63a1ad7c373e</uuid>
+        <uuid>b66d99f6-784b-46c9-a22b-b4adbbdce9af</uuid>
+      </componentIds>
+      <name>dcdc_stepup_converter</name>
+    </group>
+    <group>
+      <componentIds>
+        <uuid>f7ed251a-97b9-4b00-8bab-ee586c56636b</uuid>
+        <uuid>5c9ee45c-fa2a-4bc8-a376-6ab363c99f4d</uuid>
+        <uuid>b872c589-10b5-435b-b838-23b4ca0c8f96</uuid>
+        <uuid>457c51a5-1d4b-43fd-830a-b718bfa443ad</uuid>
+      </componentIds>
+      <name>batconn</name>
     </group>
     <group>
       <componentIds>
@@ -4563,81 +4602,6 @@
         <uuid>b41be772-9d8c-4050-85d4-8b0577a98632</uuid>
       </componentIds>
       <name>tb6612fng motor driver</name>
-    </group>
-    <group>
-      <componentIds>
-        <uuid>23da65c9-8f0d-4fd6-9c33-18879af68c1a</uuid>
-        <uuid>45468974-f581-40e1-a9fc-12f68b43384a</uuid>
-        <uuid>93c5ca54-3531-43a2-833d-8a871a54222e</uuid>
-        <uuid>04772bde-062f-4034-9b92-7a126fe82aa9</uuid>
-        <uuid>5f8c0ff1-a905-4e53-9e60-540a65cf0cda</uuid>
-        <uuid>220d3c87-f660-4c86-bc88-63a1ad7c373e</uuid>
-        <uuid>b66d99f6-784b-46c9-a22b-b4adbbdce9af</uuid>
-      </componentIds>
-      <name>dcdc_stepup_converter</name>
-    </group>
-    <group>
-      <componentIds>
-        <uuid>f7ed251a-97b9-4b00-8bab-ee586c56636b</uuid>
-        <uuid>5c9ee45c-fa2a-4bc8-a376-6ab363c99f4d</uuid>
-        <uuid>b872c589-10b5-435b-b838-23b4ca0c8f96</uuid>
-        <uuid>457c51a5-1d4b-43fd-830a-b718bfa443ad</uuid>
-      </componentIds>
-      <name>batconn</name>
-    </group>
-    <group>
-      <componentIds>
-        <uuid>0711126a-26f9-45c5-ac7b-aa0f8518a4ab</uuid>
-        <uuid>bc0d53b2-daed-4755-aea2-365947bab382</uuid>
-        <uuid>fd1a8eec-ff19-4e8c-8913-8d0671dbf429</uuid>
-        <uuid>9e365199-b7b0-42e6-ad3f-c55852982780</uuid>
-        <uuid>ed4617a2-8361-42f6-80e9-ca7ff3e4d2c9</uuid>
-        <uuid>c68bfa5a-85a2-4c5c-bc02-1c8770b6e614</uuid>
-        <uuid>d95f2ce6-e7e9-4c45-8adc-453f48e5761b</uuid>
-        <uuid>ae0fdbb3-7a88-4428-ade3-33ee27d0da08</uuid>
-        <uuid>566e3fbe-6395-49d5-b02e-5ba330472ed3</uuid>
-        <uuid>b084929a-bc45-4576-abd5-b532f350fe50</uuid>
-        <uuid>914ddcf9-007f-407d-8df7-bc7c8e0dc47b</uuid>
-        <uuid>4999a610-83ce-431c-a59f-6fd5f9e1a03d</uuid>
-        <uuid>23ee437a-e103-491c-9502-7244b4fa78ba</uuid>
-        <uuid>f7e5ace6-1364-4643-ad5a-9e60e8f40aa5</uuid>
-        <uuid>d0d88da1-1f00-4c5b-8c66-0bee46ea1b0f</uuid>
-        <uuid>a7b1a3d5-ca5a-410f-a974-5d34a6b0ba51</uuid>
-        <uuid>a89701f5-259f-4a3b-9696-156aca889be2</uuid>
-        <uuid>5025d53a-3ea8-4547-be22-9a44903a537f</uuid>
-        <uuid>23f94265-14c9-4575-958b-8e04386c6a57</uuid>
-        <uuid>b1de27a6-ea37-403a-acc7-fa8292a39d46</uuid>
-        <uuid>8d5f4a22-6ca5-416e-9fa3-f43eaa37a485</uuid>
-        <uuid>9e45a984-ebff-459e-8d08-4b12b0afd10f</uuid>
-        <uuid>4071f21d-bc35-46c8-a4d0-3940a4ec68f6</uuid>
-        <uuid>c5fbf658-053a-495e-bcb3-bd872f2bc105</uuid>
-        <uuid>2c13c05d-07d2-4279-a3f4-c66b707c2258</uuid>
-        <uuid>75e69082-bff8-41ff-b09d-6bec32f5eb79</uuid>
-        <uuid>8da7c7af-38e2-4cd0-bdac-e9ca6813d450</uuid>
-        <uuid>dff2d566-db6c-4401-a7d2-6d16a10e1fd3</uuid>
-        <uuid>228d80b9-ff48-45f9-a2a5-32713b97e026</uuid>
-        <uuid>7e97c3f3-2d5d-4b77-af58-64eed1bff5a6</uuid>
-        <uuid>2fe0d366-ef2d-4402-b810-20af4b6d5a98</uuid>
-        <uuid>9df67074-cf62-4f66-9060-2a60b5689280</uuid>
-        <uuid>1fd16cd3-51b3-4523-8a3e-b26de68bc8e5</uuid>
-        <uuid>fdd553bc-0efe-4e17-bf49-67e4ecb7f8aa</uuid>
-        <uuid>bccb35d1-5ff7-4669-ac40-5e192f62becf</uuid>
-        <uuid>b3282d61-6147-4fa0-a805-c2dd90224ce5</uuid>
-        <uuid>55896efa-bb4e-428e-baec-34deefc715b5</uuid>
-        <uuid>e6def504-a922-484c-98cb-59636ed6bbbe</uuid>
-        <uuid>4dda66ea-a4b1-4eac-9720-a0878102f6be</uuid>
-        <uuid>9a01a0dd-2650-41c6-9b29-9888d1327f63</uuid>
-        <uuid>fddb22e8-fd77-4238-8fb0-a4556928ff0a</uuid>
-        <uuid>c66a5bc0-1cff-4996-86b9-228a0fba3ab5</uuid>
-      </componentIds>
-      <name>Raspberry Pi Pico 2</name>
-    </group>
-    <group>
-      <componentIds>
-        <uuid>4c2451bc-230f-4db7-bb21-66eb683d0807</uuid>
-        <uuid>fe915fd9-49d3-41b4-b6a9-80bd455d1a15</uuid>
-      </componentIds>
-      <name>pwr_sw</name>
     </group>
     <group>
       <componentIds>

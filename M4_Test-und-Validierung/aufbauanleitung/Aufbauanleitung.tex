@@ -104,40 +104,149 @@ Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl als Fre
 
 Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer \footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden. 
 
-TODO Bild slicing software
-TODO Bild Druck
-TODO Bild Resultat
+\includegraphics[scale=1.]{montage_gereon/IMG-20260912-WA0000.jpg}
 
-\subsection{Coaster montieren}
 
-TODO Magneten einführen
-TODO Coaster verschließen
+
+%\subsection{Coaster montieren}
+%TODO Magneten einführen
+%TODO Coaster verschließen
 
 \subsection{Chassis Grundgerüst montieren}
 
-TODO
+Zunächst wird hier das Coaster Reservoir auf die Grundplatte montiert:
+
+\includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073241241.jpg}
+
+Anschließend werden die Träger an den Ecken angebracht:
+
+\includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073304730.jpg}
+\includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073227706.jpg}
+
+
 
 \subsection{Coastermechanismus Montieren}
 
-TODO
+Nun wird der Mechanismus zur Coasteraufnahme montiert:
+
+\includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073450774.jpg}
+
+Dazu muss der Träger zunächst ohne die Führungsachsen in die Coasteraufnahme eingelegt werden, anschließend werden die Führungsachsen von außen auf der Coasteraufnahme verschraubt. Die Coasteraufnahme hat dazu auf der Oberseite Löcher zum durchführen eines Schraubenziehers. 
+
+\includegraphics[scale=0.06]{montage_gereon/basis_konstrukt/PXL_20260909_073617594.jpg}
+\includegraphics[scale=0.05]{montage_gereon/basis_konstrukt/PXL_20260909_073721737.jpg}
+
+Dieser Vorgang wird für alle 5 Führungsachsen wiederholt:
+
+\includegraphics[scale=0.05]{montage_gereon/basis_konstrukt/PXL_20260909_074029247.jpg}
+
+
+\begin{warnbox}
+Wenn in den Öffnungen für die Führungsachsen wie in der nachfolgenden Darstellung gezeigt noch Reste des 3D-Drucks sind müssen diese nun entfernt werden, andernfalls ist die Bewegung des Coasterträgers nicht flüßig. 
+
+\includegraphics[scale=0.10]{montage_gereon/basis_konstrukt/PXL_20260909_074048115.jpg}
+\end{warnbox}
+
 
 \subsection{Coasteraufnahme Servos montieren}
 
+Nun werden die Servos auf der Coasteraufnahme montiert. Zunächst wird der obere Servo eingesetzt und beidseitig verschraubt.
+
+\includegraphics[scale=0.07]{montage_gereon/servo_montage/PXL_20260909_074828749.jpg}
+
+An diesem wird nun der Zugträger des Coasteraufnahmemechanimus befestigt:
+
+\includegraphics[scale=0.07]{montage_gereon/servo_montage/PXL_20260909_075115487.jpg}
+
+
+Nun muss der zweite Servo in der seitlichen Halteschiene eingesetzt werden. Abhängig vom Servomodell und der zuweilen unterschiedlichen Kabelausführung aus dem Gehäuse kann dies etwas eng werden, ist aber auch in diesen Fällen möglich. Der Servo wird hier ebenfalls fixiert. 
+
+
+\includegraphics[scale=0.07]{montage_gereon/servo_montage/PXL_20260909_075226995.jpg}
+\includegraphics[scale=0.06]{montage_gereon/servo_montage/PXL_20260909_080007064.jpg}
+
+Anschließend muss der Arm zum Ausschunb der Coaster noch aufgesetzt und verschraubt werden:
+
+\includegraphics[scale=0.09]{montage_gereon/servo_montage/PXL_20260909_080331090.jpg}
+
+
+
 \subsection{Sensorik montieren}
 
-TODO
+Nun erfolgt die Montage der Sensorik Module
 
-TODO Kabelführung in den Innenraum legen
+\subsubsection{Tischkantenerkennung}
+
+Zur Montage der 4 Tischkantensensoren bedarf es jeweils einer Infrarot Abstandsmessungsplatine und für die Gehäuse einer Grundplatte und der Abdeckung:
+
+\includegraphics[scale=0.08]{montage_gereon/tischkantensensor/PXL_20260907_153310192.jpg}
+
+Hier wird zunächst das dreiadrige Flachbandkabel mit den Steckverbindern montiert.
+
+\includegraphics[scale=0.08]{montage_gereon/tischkantensensor/PXL_20260907_153358087.jpg}
+
+Anschließend wird die Sensorplatine im Gehäuse platziert:
+
+\includegraphics[scale=0.08]{montage_gereon/tischkantensensor/PXL_20260907_153439687.jpg}
+
+Nun wird die Abdeckplatte auf dem Träger platziert und rückseitig verschraubt. Das Poti zur Empfindlichkeitsregelung muss dabei in der Aussparung sichtbar sein.
+
+\includegraphics[scale=0.08]{montage_gereon/tischkantensensor/PXL_20260912_182526907.jpg}
+
+
+
+\subsubsection{Kollisionserkennung}
+
+Zur montage des Ultraschall Sensors wird dieser zunächst im Gehäuse platziert und fixiert
+
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260907_152931739.jpg}
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260907_152946157.jpg}
+
+Anschließend wird das vieradrige Flachbandlabel mit der Sensorplatine verbunden:
+
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260907_153137301.jpg}
+
+Nun wird das Ultraschallmodul auf der Frontplatte montiert.
+
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185729773.jpg}
+
+Dazu wird das Gehäuse rückseitig mit der mittleren Lochreihe verschraubt. Das Gehäuse des Ultraschall Sensors sollte nun bündig mit der Unterseite der vorderen Außenwand sein, unmittelbar vor der Kabeldurchfürung. 
+
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185912814.jpg}
+\includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185907017.jpg}
+
+
+
+
+
 
 \subsection{Antriebs-Aktorik montieren}
 
-Falls noch nicht erfolgt werden zunächst an den TT Motoren über die Lötfahnen die 100nF Kondensatoren zum Entstören gelötet. 
+Nun erfolgt die Montage der DC Antriebsmotoren
 
-TODO Bild
+\includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260907_162144293.jpg}
 
-TODO Montage im Chassis
+Falls noch nicht erfolgt bzw. im genutzten Motormodell nicht ohnehin vorhanden werden zunächst an den TT Motoren über die Lötfahnen die 100nF Kondensatoren zum Entstören gelötet. 
 
-TODO Kabelführung in den Innenraum legen
+\includegraphics[scale=0.1]{montage_gereon/antrieb_montage/PXL_20260909_081137444.jpg}
+
+
+\begin{warnbox}
+Die Kondensatoren müssen nach oben gerichtet werden, ansonsten lässt sich der Motor nicht bündig am gehäuse fixieren.
+
+\includegraphics[scale=0.10]{montage_gereon/antrieb_montage/PXL_20260907_170730140.jpg}
+\end{warnbox}
+
+
+Nun wird jeder Motor mit den Streben auf den Seitenplatten montiert und außenseitig verschraubt. 
+
+\includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081306481.jpg}
+\includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081443479.jpg}
+
+So wird für beide Seitenwände verfahren. 
+
+\includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_083634794.jpg}
+
 
 
 
@@ -153,39 +262,30 @@ Die Hauptplatine fasst die zentralen Elektronikkomponenten zusammen und wird auf
 \item \textit{(Inertialsensor)}
 \end{itemize}
 
-Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich für eine Lochrastermontage damit der Aufbau gemäß der Abbildungen \ref{fig:protoboard_mask_combined}, \ref{fig:lochraster_top}, \ref{fig:protoboard_mask}. Im Einzelnen stellen diese folgende Ansichten dar:
-
-\begin{itemize}
-\item \ref{fig:protoboard_mask_combined} Kombinierte Ansicht aus Komponenten und Lötbrücken
-\item \ref{fig:lochraster_top} Reine Komponenten und Jumper-Wire Ansicht
-\item \ref{fig:protoboard_mask} Reine Ansicht der Lötbrücken auf der Lochraster Unterseite
-\end{itemize}
+Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich für eine Lochrastermontage damit der Aufbau gemäß der Abbildung \ref{fig:protoboard_mask_combined}. Im Einzelnen stellen diese folgende Ansichten dar:
 
 \begin{figure}
     \centering
-    \includegraphics[width=0.8\linewidth]{protoboard_mask_combined.png}
+    \includegraphics[width=0.8\linewidth]{protoboard_30x24_all.png}
     \caption{Kombinierte Ansicht Komponenten und Lötbrücken}
     \label{fig:protoboard_mask_combined}
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{protoboard.png}
-    \caption{Komponentenansicht}
-    \label{fig:lochraster_top}
-\end{figure}
-
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\linewidth]{protoboard_mask.png}
-    \caption{Lötbrücken auf Boardunterseite}
-    \label{fig:protoboard_mask}
-\end{figure}
-
 Das Lochraster Layout wurde mittels der Software DIYLC \footnote{\url{https://github.com/bancika/diy-layout-creator}} erstellt und die Source Dateien finden sich im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/blob/main/M4_Test-und-Validierung/aufbauanleitung/protoboard.diy}}. 
 
-
 \FloatBarrier
+
+Die Platine wird nun bestückt und verdrahtet:
+
+\includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172856294.jpg}
+\includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172906337.jpg}
+
+Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter montiert. Dabei ist zu beachten, dass der Batterieanschluss (+- BAT) der Platine an der Seite des Batterieträgers montiert wird. 
+
+\includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_173108019.jpg}
+
+
+
 
 \subsection{Programmierung des Microcontrollers}
 
@@ -212,24 +312,18 @@ Anschließend kann das USB Kabel wieder entfernt werden.
 
 
 
-
-
-\subsection{Montage der Hauptplatine im Chassis}
-
-TODO
-
-
 \subsection{Verbinden der Aktorik und Sensorik mit Hauptplatine}
 
 Die Aktorik und Sensorik Module werden zunächst entsprechend dem Schaltplan bzw. Lochrasterplan mit den korrekten Pin Headern verbunden. Dabei ist auf eine korrekte Kabelführung zu achten, sodass die Aktorik nicht durch die Verbinder gestört wird. 
 
-TODO Bild
+Bei den vorderen Verbindern ist zu beachten, dass aufgrund der Größe des Gehäuses die Verbinder möglicherweise zu kurz sind, dies wurde hier für die Antriebsmotoren links und rechts durchgeführt, sowie Akku und Hauptschalter montiert:
 
-\subsection{Verbinden des Akkus mit der Hauptplatine}
 
-Der geladene Akku wird nun zunächst in die Akku Aufnahme des Chassis gesteckt. Anschließend wird er korrekt gepolt an den Pin Header des Lochrasters für den Batterieanschluss verbunden. 
 
-TODO Bild
+\includegraphics[scale=0.12]{montage_gereon/gesamt_montage/PXL_20260912_192509719.jpg}
+
+
+
 
 
 \subsection{Schließen des Chassis}

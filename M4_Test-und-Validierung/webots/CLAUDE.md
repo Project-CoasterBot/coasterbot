@@ -60,16 +60,25 @@ any world.
     mirrors the real Coasterbot (two TT motors per side, driven together).
     The controller only ever addresses `wheel_left::front` / `wheel_right::front`.
     Individual wheel drive is not possible.
-  - Encoders: `wheel_{front,rear}_{left,right}_sensor` PositionSensors — still
-    per wheel (read individually for odometry). All hinges about local X → skid-steer.
-  - `ultrasonic` DistanceSensor (sonar, forward). lookupTable returns **metres**
-    (`0 0 0 / 4 4 0.02`) — matches `OBSTACLE_THRESHOLD_M`. (The original
-    `4 4000` returned mm, so obstacle detection never fired — recalibrated.)
+  - Encoders: `wheel_{front,rear}_{left,right}_sensor` PositionSensors — the
+    PROTO still exposes 4 (one per wheel joint), but the real electronics only
+    has **one encoder per side** (2026-09-14 hardware feedback), so
+    `RobotHAL::WheelId` only has `WHEEL_LEFT`/`WHEEL_RIGHT`; `WebotsHAL`
+    averages front+rear per side internally before exposing it. All hinges
+    about local X → skid-steer.
+  - `ultrasonic` DistanceSensor (sonar, forward, **analog**). lookupTable
+    returns **metres** (`0 0 0 / 4 4 0.02`) — matches `OBSTACLE_THRESHOLD_M`.
+    (The original `4 4000` returned mm, so obstacle detection never fired —
+    recalibrated.)
   - `edge_front_left/right`, `edge_rear_left/right` DistanceSensors (infra-red,
-    point down). lookupTable recalibrated (`0 0 / 0.09 0 / 0.20 1000`) so the
-    robot standing on a surface reads ~0 and only a missing floor (table edge)
-    reads ~1000; pair with `EDGE_THRESHOLD = 500`. (Original `0.05 500`
-    saturated at ~410 on flat ground → robot stuck reversing from step 1.)
+    point down, **digital** — 2026-09-14 hardware feedback: real sensor module
+    has a built-in comparator, no analog voltage). lookupTable is a near-step
+    function (`0 0 / 0.098 0 / 0.10 1 / 4 1`, 2mm transition) returning a
+    clean 0/1, not the earlier analog 0..1000 ramp. `WebotsHAL::digitalEdge()`
+    maps that through `EDGE_ACTIVE_HIGH` to the semantic `bool` — the only
+    place the sensor's electrical polarity is known. `RobotHAL::getEdge*()`
+    return `bool` (not `float`); `RobotLogic`/`SafetyMonitor` no longer have
+    their own `EDGE_THRESHOLD` — that calibration lives solely in `WebotsHAL`.
   - `inertial_unit`, `gyro`, `accelerometer` near the CoM.
 - Chassis `boundingObject` is deliberately two stacked boxes (narrow lower part
   fits between the wheels) to stop the robot jittering — don't "simplify" it back
@@ -105,7 +114,16 @@ Three-layer design, keep it that way:
 `MODE_NAVIGATE_DSTAR` = `DStarLite` → `DwaPlanner`, with the ultrasonic feeding
 newly-seen obstacles back into the grid + planner.
 - `OccupancyGrid` — static world-frame grid (X-Y, Z up). `addObstacleRect` inflates
-  by the robot half-width. `buildDistanceField()` (chamfer) → `clearance(p)` for DWA.
+  by the robot half-width (used for a priori known obstacles — hard, immediate).
+  `buildDistanceField()` (chamfer) → `clearance(p)` for DWA. `reportOccupied(c,
+  smoothingFactor)` (2026-09-14) is the smoothed counterpart for *live* sensor
+  hits: exponentially tracks a per-cell confidence, only calls `setOccupied`
+  once it crosses `OCC_COMMIT_THRESHOLD` (0.8) — a single noisy reading no
+  longer flips the map / triggers a D* Lite replan (needs ~3 consistent ticks
+  at the default 0.5 smoothing factor). `main.cpp`'s `markRect()` helpers (both
+  `dstar_scenario` and `sim_scenario`) use this now instead of `setOccupied`
+  directly. `DwaPlanner`'s own raw-ultrasonic reflex avoidance is untouched —
+  only the deliberative D* Lite replan decision is smoothed.
 - `astarPlan(grid, start, goal)` — 8-connected A\*, euclidean heuristic, no
   corner-cutting, then line-of-sight "string pulling". World-coord waypoints; `{}` = no path.
 - `smoothPath()` (string-pulling) + `centerPath()` — the latter shifts interior
@@ -251,7 +269,13 @@ Nav stack (steps 1–4) is functionally complete.
 Follow-ups: soft (gradient) costmap so one grid serves planner + DWA (would
 retire `centerPath` and the dual grids); incremental D\* Lite repair for the
 fully-severed case; ST-SIM-005/006 fault injection (sensor/actuator failure);
-the mission state machine (IDLE→…→DONE); the coaster arm (IK + RRT\*).
+the mission state machine (IDLE→…→DONE); the coaster arm (IK + RRT\*); an
+**initial table-exploration behaviour** (2026-09-14 idea, not implemented) —
+drive to all four table corners, place a coaster at each, return to start, so
+later placement/pickup can target known coaster positions instead of object
+detection. Blocked on the coaster-handling stack (out of scope so far) and
+needs care around `SafetyMonitor`'s edge reaction near the corners. See
+`Softwaredokumentation.tex` §16.1 for the write-up.
 
 Odometry geometry: wheel radius ≈ 0.035 m, track width (L↔R anchors `x = ±0.101`)
 = 0.202 m, wheelbase (F↔R anchors `z = ±0.0566`) = 0.113 m.

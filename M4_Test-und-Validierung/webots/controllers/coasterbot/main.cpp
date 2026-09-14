@@ -237,14 +237,17 @@ namespace dstar_scenario {
         return g;
     }
 
-    // Zellen in einem Weltrechteck belegen; geaenderte Zellen zurueckgeben.
+    // Zellen in einem Weltrechteck als Hindernis MELDEN (geglaettet, siehe
+    // OccupancyGrid::reportOccupied); geaenderte (tatsaechlich belegte)
+    // Zellen zurueckgeben. Erst mehrere konsistente Treffer in Folge fuehren
+    // wirklich zu einer Kartenaenderung, ein einzelner Ausreisser nicht.
     std::vector<Cell> markRect(OccupancyGrid& g, float x0, float y0, float x1, float y1) {
         std::vector<Cell> changed;
         const float step = g.resolution() * 0.5f;
         for (float y = y0; y <= y1; y += step)
             for (float x = x0; x <= x1; x += step) {
                 const Cell c = g.worldToCell({x, y});
-                if (g.setOccupied(c, true)) changed.push_back(c);
+                if (g.reportOccupied(c)) changed.push_back(c);
             }
         return changed;
     }
@@ -385,13 +388,15 @@ namespace sim_scenario {
         return g;
     }
 
+    // Geglaettete Hindernismeldung (OccupancyGrid::reportOccupied) - siehe
+    // Kommentar bei dstar_scenario::markRect.
     std::vector<Cell> markRect(OccupancyGrid& g, float x0, float y0, float x1, float y1) {
         std::vector<Cell> changed;
         const float s = g.resolution() * 0.5f;
         for (float y = y0; y <= y1; y += s)
             for (float x = x0; x <= x1; x += s) {
                 const Cell c = g.worldToCell({x, y});
-                if (g.setOccupied(c, true)) changed.push_back(c);
+                if (g.reportOccupied(c)) changed.push_back(c);
             }
         return changed;
     }

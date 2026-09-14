@@ -40,13 +40,20 @@ public:
     virtual void setRightSpeed(float radPerSec) = 0;
 
     // Distanzsensoren.
-    //   getUltrasonicDistance() -> Meter, kleiner = naeher
+    //   getUltrasonicDistance() -> Meter, kleiner = naeher (analoger Sensor)
     //   getEdge*()              -> true = Kante erkannt (kein Boden unter dem
-    //                              Sensor). Die Kalibrierung des Rohsignals
-    //                              (Schwellenwert, sensorspezifisch) ist
-    //                              Aufgabe der jeweiligen HAL-Implementierung,
-    //                              nicht der Anwendungslogik - siehe die
-    //                              Kommentare in webots_hal.cpp.
+    //                              Sensor). Die Kantensensoren liefern ein
+    //                              DIGITALES Signal (das reale Modul hat
+    //                              einen eingebauten Komparator, keine
+    //                              analoge Rohspannung). Ob "Kante" am
+    //                              Sensor/Pin elektrisch HIGH oder LOW
+    //                              bedeutet (aktiv-high/aktiv-low je nach
+    //                              Sensormodul), ist Aufgabe der jeweiligen
+    //                              HAL-Implementierung und wird dort auf
+    //                              dieses semantische bool abgebildet - die
+    //                              Anwendungslogik sieht nur noch "Kante
+    //                              ja/nein". Siehe die Kommentare in
+    //                              webots_hal.cpp.
     virtual float getUltrasonicDistance() = 0;
     virtual bool  getEdgeFrontLeft() = 0;
     virtual bool  getEdgeFrontRight() = 0;

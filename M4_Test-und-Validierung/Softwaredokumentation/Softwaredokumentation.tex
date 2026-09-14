@@ -402,6 +402,8 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 3 & 13.09.2026 & Etringer & Offene Punkte aus der Hardware-Rückmeldung zu \texttt{RobotHAL} ergänzt (Abschnitt~4.3)\\
 4 & 13.09.2026 & Etringer & Entscheidung umgesetzt: Kantensensoren liefern jetzt \texttt{bool} statt \texttt{float}; Kalibrierung in \texttt{WebotsHAL} gekapselt\\
 5 & 13.09.2026 & Etringer & Entscheidung umgesetzt: \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (reale Elektronik hat nur einen Encoder je Seite)\\
+6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung (\texttt{OccupancyGrid::reportOccupied}), digitales Kantensignal (\texttt{EDGE\_ACTIVE\_HIGH}) umgesetzt; Ausblick \enquote{initiale Tischerkundung} ergänzt\\
+7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (0--7) ausgearbeitet\\
 \bottomrule
 \end{tabularx}
 
@@ -862,6 +864,17 @@ Aufgaben:
   Simulation trotzdem vier unabhängige \texttt{PositionSensor} bereit (je
   Rad); \texttt{getWheelAngle()} mittelt Front- und Heckrad je Seite, um
   nach außen dieselbe Information wie der eine reale Encoder zu liefern.
+\item
+  \textbf{Digitales Kantensignal:} Die \texttt{lookupTable} der vier
+  Kantensensoren im PROTO liefert bereits ein digitales Signal (\num{0}
+  oder \num{1}, kein analoger Rohwert -- siehe
+  Abschnitt~\ref{proto}). \texttt{digitalEdge()} liest diesen Pegel und
+  bildet ihn über die private Konstante \texttt{EDGE\_ACTIVE\_HIGH} auf
+  das semantische \texttt{bool} ab. Das ist die einzige Stelle im Code,
+  an der bekannt sein muss, ob \enquote{Kante} am Sensor elektrisch HIGH
+  oder LOW bedeutet; eine \texttt{ArduinoHAL}, die tatsächlich
+  \texttt{digitalRead()} an einem Pin aufruft, bildet dort genauso ab und
+  passt bei einem aktiv-low-Sensormodul nur diese eine Konstante an.
 \end{itemize}
 
 Die coupled motors von Webots setzen einen Befehl an
@@ -916,6 +929,13 @@ Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}); eine künftige
 entfällt zugleich die doppelte Ablage derselben Schwelle in
 \texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp} -- beide fragen
 jetzt nur noch \texttt{hal.getEdgeFrontLeft() || \ldots} ab.
+
+\emph{Nachtrag:} Die Kalibrierung wurde seither noch einen Schritt
+weitergeführt -- die vier Kantensensoren liefern in der Simulation nun ein
+echtes \emph{digitales} Signal statt eines analogen Rohwerts mit
+Schwellenwertvergleich, und die Sensor-Polarität (HIGH/LOW) ist über eine
+einzige Konstante abstrahiert. Details in
+Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 
 \paragraph{Gyro-Schnittstelle.}
 Ob \texttt{getGyroZ()} -- ein einzelner Skalar, Giergeschwindigkeit um die
@@ -1106,7 +1126,8 @@ und ist die gemeinsame Eingabe für A*, D* Lite und DWA. Es setzt
 \midrule
 \endhead
 \texttt{addObstacleRect(\ldots,\,infl)} & Rechteck-Hindernis, um \texttt{infl} Meter aufgebläht eintragen (Roboter-Halbbreite $\Rightarrow$ Punktroboter-Planung, erfüllt \texttt{NAV-010})\\
-\texttt{setOccupied(Cell,bool)} & einzelne Zelle setzen; Rückgabe \texttt{true} bei Änderung (für inkrementelle Neuplanung)\\
+\texttt{setOccupied(Cell,bool)} & einzelne Zelle HART setzen; Rückgabe \texttt{true} bei Änderung (für inkrementelle Neuplanung)\\
+\texttt{reportOccupied(Cell,\allowbreak smoothingFactor)} & einzelne Zelle GEGLÄTTET melden (Abschnitt~\ref{grid-glaettung})\\
 \texttt{buildDistanceField()} & Chamfer-Distanzfeld über zwei Rasterdurchläufe berechnen\\
 \texttt{clearance(Vec2)} & Abstand eines Weltpunkts zum nächsten Hindernis [m]\\
 \texttt{worldToCell / cellToWorld} & Umrechnung Welt $\leftrightarrow$ Zelle\\
@@ -1120,6 +1141,51 @@ werden \emph{zwei} Gitter geführt: ein großzügig aufgeblähtes
 Planer-Gitter (hält den Pfad von Ecken fern) und ein nur um den
 Roboterradius aufgeblähtes DWA-Gitter (Kollisionsbewertung). Beide
 werden bei Sensortreffern gemeinsam aktualisiert.
+
+\subsection{Geglättete Live-Hindernismeldung}\label{grid-glaettung}
+
+\texttt{addObstacleRect()} trägt a priori bekannte Hindernisse hart und
+sofort ein (z.\,B. die bekannte Bierflasche im Simulationstest) -- das ist
+gerechtfertigt, weil diese Eingabe nicht verrauscht ist. Ein per
+Ultraschall oder Kantensensor während der Fahrt \emph{live} erkanntes
+Hindernis ist dagegen eine einzelne Sensormessung und kann durch Rauschen
+oder eine kurze Fehlmessung verursacht sein. Bis Version~5 dieses
+Dokuments hätte bereits ein einzelner solcher Treffer die Karte sofort
+verändert (\texttt{setOccupied(c, true)}) und damit eine D*-Lite-Umplanung
+ausgelöst.
+
+\texttt{reportOccupied(Cell, smoothingFactor)} glättet das: statt die
+Zelle sofort zu belegen, wird eine Belegungs-\emph{Konfidenz}
+$\mathrm{conf} \in [0,1]$ je Zelle exponentiell nachgeführt,
+\[
+\mathrm{conf} \mathrel{+}= \text{smoothingFactor} \cdot (1 - \mathrm{conf}),
+\]
+und die Zelle erst dann tatsächlich belegt (wie \texttt{setOccupied}),
+wenn $\mathrm{conf} \ge \texttt{OCC\_COMMIT\_THRESHOLD}$ (Anhang~B). Mit
+dem Standardwert \texttt{smoothingFactor} $= 0{,}5$ genügen bereits drei
+aufeinanderfolgende Treffer an derselben Zelle (bei \SI{32}{\milli\second}
+Regelzyklus also $\approx \SI{100}{\milli\second}$), ein einzelner
+Ausreißer reicht dagegen nicht. \texttt{main.cpp} verwendet
+\texttt{reportOccupied()} inzwischen überall dort, wo bisher
+\texttt{setOccupied()} für Live-Sensortreffer aufgerufen wurde
+(\texttt{dstar\_scenario::markRect}, \texttt{sim\_scenario::markRect}).
+
+Die schnelle Reflexbewegung bleibt davon unberührt: \texttt{DwaPlanner}
+bewertet die Kollisionsfreiheit einer Trajektorie weiterhin \emph{jeden}
+Zyklus direkt aus dem rohen Ultraschallwert als virtuellem Hindernispunkt
+(Abschnitt~\ref{dwa-hindernisse}), ungeglättet. Geglättet wird
+ausschließlich die \emph{deliberative} Entscheidung, ob D* Lite die
+globale Karte dauerhaft ändert und umplant -- die sofortige Ausweich\-reaktion
+bei akuter Kollisionsgefahr bleibt so unverzögert.
+
+Verifiziert: \texttt{MODE\_SIM\_TEST} und die Hinderniserkennung in
+\texttt{MODE\_NAVIGATE\_DSTAR} liefern nach der Umstellung dieselben
+Ergebnisse wie zuvor (ST-SIM-001..004 weiterhin BESTANDEN,
+byte-identisch über zwei Läufe; D*-Lite-Umplanung in
+\texttt{coasterbot-dstar.wbt} weiterhin bei $t \approx \SI{3.8}{\second}$,
+Ziel nach \SI{24}{\second} mit \SI{1.5}{\centi\meter} Restfehler) -- die
+zusätzliche Latenz durch die Glättung liegt unterhalb der Auflösung dieser
+Szenarien.
 
 % =====================================================================
 \section{Globale Pfadplanung -- A*}\label{astar}
@@ -1496,9 +1562,12 @@ CAD-Baugruppe abgeleitet.
 \item
   \textbf{Sensoren:} vier \texttt{PositionSensor} an den Radgelenken
   (Encoder); \texttt{ultrasonic} (\texttt{DistanceSensor}, sonar,
-  \texttt{lookupTable} in Metern); vier \texttt{edge\_*}
-  (\texttt{DistanceSensor}, infrarot, nach unten; \texttt{lookupTable}
-  $0\,0\ /\ 0{,}09\,0\ /\ 0{,}20\,1000$); \texttt{inertial\_unit},
+  \texttt{lookupTable} in Metern, \textbf{analoges} Distanzsignal); vier
+  \texttt{edge\_*} (\texttt{DistanceSensor}, infrarot, nach unten,
+  \textbf{digitales} Signal: \texttt{lookupTable}
+  $0\,0\ /\ 0{,}098\,0\ /\ 0{,}10\,1\ /\ 4\,1$ -- reine \num{0}/\num{1}-Stufe
+  mit \SI{2}{\milli\meter} numerischer Übergangszone statt einer analogen
+  Rampe, siehe Abschnitt~\ref{webotshal}); \texttt{inertial\_unit},
   \texttt{gyro}, \texttt{accelerometer}.
 \item
   \textbf{Kollisionskörper:} bewusst zwei gestapelte Boxen (schmaler
@@ -1506,10 +1575,12 @@ CAD-Baugruppe abgeleitet.
 \end{itemize}
 
 Die \texttt{lookupTable}s der Distanzsensoren wurden so kalibriert, dass
-die Software mit denselben Schwellen wie auf der Zielhardware arbeitet:
-Ultraschall liefert Meter (Vergleich mit \texttt{OBSTACLE\_THRESHOLD\_M}),
-Kantensensoren liefern $\approx 0$ auf der Fläche und $\approx 1000$ über
-der Kante (Vergleich mit \texttt{EDGE\_THRESHOLD} $= 500$).
+die Software mit demselben Signaltyp wie auf der Zielhardware arbeitet:
+Ultraschall liefert weiterhin ein analoges Distanzsignal in Metern
+(Vergleich mit \texttt{OBSTACLE\_THRESHOLD\_M}); die Kantensensoren
+liefern ein digitales \num{0}/\num{1}-Signal, das \texttt{WebotsHAL} nur
+noch auf seine Polarität hin abfragt (\texttt{EDGE\_ACTIVE\_HIGH}, siehe
+Abschnitt~\ref{webotshal}) -- kein analoger Schwellenwert mehr im Code.
 
 \subsection{Welten}\label{welten}
 
@@ -1695,6 +1766,113 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
   als \texttt{bool}-Schnittstelle).
 \end{itemize}
 
+\subsection{Ausblick: initiale Tischerkundung}\label{ausblick-tischerkundung}
+
+Als nächster funktionaler Ausbauschritt ist eine \textbf{initiale
+Tischerkundung} vorgesehen (Rückmeldung 14.09.2026): Der Coasterbot fährt
+einmalig -- vor dem eigentlichen Bedienbetrieb -- der Reihe nach alle vier
+Ecken der Tischfläche an, legt an jeder Ecke einen Getränkeuntersetzer ab
+und kehrt anschließend zu seinem Ausgangspunkt zurück. Ziel ist es, damit
+für den nachfolgenden Betrieb \emph{bekannte} Untersetzerpositionen zu
+schaffen, sodass Untersetzer gezielt (an einer bekannten Position statt
+per Objekterkennung) abgelegt und wieder aufgenommen werden können.
+
+Diese Funktion ist noch \textbf{nicht implementiert}. Der nachfolgende
+Stufenplan (Stand 14.09.2026) beschreibt, was für eine Umsetzung
+erforderlich wäre; er dient als Grundlage für die spätere Umsetzung, nicht
+als bereits getroffene Architekturentscheidung.
+
+\paragraph{Stufe 0 -- vorab zu klärende Entscheidungen.}
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Realitätsgrad der Ablage:} entweder ein tatsächlich in der
+  Szene erscheinendes \texttt{Coaster}-Objekt (Supervisor-basiert,
+  empfohlen -- konsistent zu Blumentopf/Flaschen, die bereits als echte
+  Szenenobjekte behandelt werden) oder zunächst nur ein protokolliertes
+  Ablage-\emph{Ereignis} ohne sichtbare Änderung der Szene.
+\item
+  \textbf{Reihenfolge der Ecken:} feste Abfolge (empfohlen -- deterministisch,
+  passt zum Determinismus-Anspruch aus \texttt{ST-SIM-004}) oder
+  Nächster-Nachbar-Heuristik.
+\item
+  \textbf{Welt:} eine neue, aufgeräumte \texttt{coasterbot-explore.wbt}
+  (Tisch ohne die Bierflasche/den Blumentopf aus
+  \texttt{coasterbot-simtest.wbt}) statt einer weiteren Überladung der
+  bestehenden Simulationstest-Welt.
+\end{itemize}
+
+\paragraph{Stufe 1 -- \texttt{Coaster}-PROTO.}
+Ein neues, einfaches PROTO (\texttt{protos/coaster/Coaster.proto}): eine
+dünne Scheibe mit definierten Abmessungen (Lastenheft-Anforderung an
+Untersetzer), ohne Kollisionskörper -- das Objekt wird per Supervisor
+platziert, nicht angefahren.
+
+\paragraph{Stufe 2 -- Schnittstelle \texttt{CoasterHandling}.}
+Eine \emph{eigene}, von \texttt{RobotHAL} getrennte Abstraktion -- \enquote{Objekt
+in der Szene erzeugen/verschieben} hat keine Entsprechung auf realer
+Hardware, gehört also nicht in die HAL, die portierbar bleiben soll.
+Entspricht der im Pflichtenheft ohnehin separat geführten Komponente
+\enquote{Untersetzerhandling}.
+
+\begin{lstlisting}[style=cpp]
+class CoasterHandling {
+public:
+    virtual ~CoasterHandling() {}
+    // Legt einen (virtuellen) Untersetzer an der Position ab.
+    // Rueckgabe: false, wenn kein Untersetzer mehr verfuegbar ist.
+    virtual bool placeCoaster(Vec2 at) = 0;
+    // Fuer eine spaetere Aufnahme-Phase; in dieser Stufe ungenutzt.
+    virtual bool pickUpCoaster(Vec2 at) = 0;
+};
+\end{lstlisting}
+
+\texttt{WebotsCoasterHandling} implementiert dies über die
+Webots-Supervisor-API (\texttt{importMFNodeFromString} auf den
+Szenenwurzelknoten, das zurückgegebene \texttt{Node*} je Ecke für eine
+spätere Aufnahme gemerkt). Dafür muss \texttt{WebotsHAL} intern von
+\texttt{webots::Robot} auf \texttt{webots::Supervisor} wechseln (Supervisor
+\emph{ist} ein Robot, rein additiv -- die \texttt{RobotHAL}-Schnittstelle
+selbst ändert sich nicht) und die jeweilige \texttt{Coasterbot}-Instanz in
+der Welt \texttt{supervisor TRUE} setzen -- ein Feld, das das PROTO bereits
+besitzt, aber bislang ungenutzt lässt (Abschnitt~\ref{proto}).
+
+\paragraph{Stufe 3 -- Eckpunkt-Geometrie.}
+Neuer Namensraum \texttt{explore\_scenario} in \texttt{main.cpp}: vier
+Zielposen, von jeder Tischkante um den Montageversatz der Kantensensoren
+im PROTO ($x=\pm 0{,}09$, $z=\mp 0{,}09$) plus einen Sicherheitspuffer nach
+innen versetzt, jeweils mit Blick zur Tischmitte ausgerichtet -- so ist
+nie gleichzeitig eine Kante vorne \emph{und} hinten in Reichweite, was
+\texttt{SafetyMonitor} sonst in den Zustand \texttt{PINNED}
+(Abschnitt~\ref{sicherheitskomponente}) treiben könnte. Der genaue
+Versatz muss empirisch ermittelt und nicht nur rechnerisch festgelegt
+werden.
+
+\paragraph{Stufe 4 -- Ablaufsteuerung.}
+Eine neue Funktion \texttt{runExploreTable()}, nach demselben Muster wie
+die Phasenschleife in \texttt{runSimTest()}
+(Abschnitt~\ref{ablauf-simtest}): eine Liste der vier Eckpunkte plus
+Ausgangspunkt, je Ziel D*-Lite-Planung + \texttt{DwaPlanner}, bei
+Zielerreichung \texttt{placeCoaster()} (nur an den ersten vier Zielen,
+nicht auf dem Rückweg), danach das nächste Ziel. \texttt{SafetyMonitor}
+bleibt wie gehabt vorrangig; ein Auslösen nahe einer Ecke sollte in dieser
+frühen Stufe zunächst protokolliert statt hart als Fehlschlag gewertet
+werden, um Stufe 3 iterativ nachjustieren zu können.
+
+\paragraph{Stufe 5 -- Anbindung.} Neuer Wert \texttt{MODE\_EXPLORE\_TABLE}
+im \texttt{Mode}-Enum, die Welt \texttt{coasterbot-explore.wbt}, sowie
+\texttt{webots\_coaster\_handling.cpp} im \texttt{Makefile}.
+
+\paragraph{Stufe 6 -- Test und Rückverfolgbarkeit.} Ein neuer Testfall
+(z.\,B. \texttt{ST-SIM-009}, im Testkonzept bislang nicht definiert) und
+die ersten Umsetzungsreferenzen für \texttt{CST-001}/\texttt{CST-003} in
+Tabelle~\ref{tab:trace}.
+
+\paragraph{Stufe 7 -- Verifikation.} Zweifacher kopfloser Lauf
+(Reproduzierbarkeit), Kontrolle, dass \texttt{SafetyMonitor} an keiner
+Ecke ungewollt auslöst, dass alle vier Untersetzer erscheinen und der
+Roboter innerhalb der Toleranz zum Ausgangspunkt zurückkehrt.
+
 % =====================================================================
 \section{Anhang A -- Schnittstelle \texttt{RobotHAL}}\label{anhang-hal}
 % =====================================================================
@@ -1738,6 +1916,8 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & Radstand & \SI{0.113}{\meter}\\
 \texttt{PoseEstimator} & \texttt{HEADING\_ODO\_WEIGHT} & 0{,}05\\
 \texttt{OccupancyGrid} & Auflösung & \SI{0.05}{\meter}\\
+ & \texttt{OCC\_COMMIT\_THRESHOLD} (Abschnitt~\ref{grid-glaettung}) & 0{,}8\\
+ & \texttt{DEFAULT\_SMOOTHING} & 0{,}5\\
 \texttt{astar} & \texttt{centerPath maxShift} & \SI{0.20}{\meter}\\
 \texttt{DwaPlanner} & \texttt{MAX\_V} / \texttt{MAX\_W} & \SI{0.18}{\meter\per\second} / \SI{2.6}{\radian\per\second}\\
  & \texttt{ACC\_V} / \texttt{ACC\_W} & \SI{0.5}{\meter\per\second\squared} / \SI{6}{\radian\per\second\squared}\\
@@ -1745,7 +1925,7 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & Gewichte $w_h,w_p,w_c,w_v$ & 1{,}0 / 2{,}0 / 1{,}5 / 0{,}3\\
  & \texttt{CARROT\_DIST} / \texttt{GOAL\_TOL} & \SI{0.30}{\meter} / \SI{0.05}{\meter}\\
  & \texttt{ROBOT\_RADIUS} & \SI{0.14}{\meter}\\
-\texttt{WebotsHAL} & \texttt{EDGE\_THRESHOLD} (Kantensensor-Kalibrierung) & 500\\
+\texttt{WebotsHAL} & \texttt{EDGE\_ACTIVE\_HIGH} (Kantensensor-Polarität) & wahr\\
 \texttt{SafetyMonitor} & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\
  & \texttt{PAUSE\_TIME} & \SI{0.3}{\second}\\
 \texttt{RobotLogic} & \texttt{OBSTACLE\_THRESHOLD\_M} & \SI{0.22}{\meter}\\

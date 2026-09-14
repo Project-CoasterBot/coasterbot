@@ -63,11 +63,16 @@ private:
     webots::InertialUnit* imu_;
     webots::Gyro* gyro_;
 
-    // Kalibrierter Schwellenwert fuer die Kantensensoren (Rohwert der
-    // Coasterbot.proto-lookupTable: ~0 auf einer Flaeche, ~1000 ueber einer
-    // Kante). Die Kalibrierung ist hardwarespezifisch und bleibt deshalb
-    // hier gekapselt - RobotHAL gibt nach aussen nur noch bool zurueck.
-    static constexpr double EDGE_THRESHOLD = 500.0;
+    // Die Kantensensoren liefern in der Simulation bereits ein digitales
+    // Signal (siehe Coasterbot.proto-lookupTable: 0 oder 1, kein analoger
+    // Rohwert mehr). digitalEdge() liest diesen Pegel und bildet ihn ueber
+    // EDGE_ACTIVE_HIGH auf das semantische bool ab - die einzige Stelle, an
+    // der die Polaritaet des Sensors bekannt sein muss. Eine ArduinoHAL, die
+    // tatsaechlich digitalRead() an einem Pin aufruft, braucht dieselbe
+    // Abbildung (z.B. digitalRead(pin) == HIGH) und passt ggf. nur diese
+    // Konstante an, falls das reale Sensormodul aktiv-low ist.
+    static constexpr bool EDGE_ACTIVE_HIGH = true;
+    bool digitalEdge(webots::DistanceSensor* sensor) const;
 };
 
 #endif  // WEBOTS_HAL_H

@@ -271,13 +271,18 @@ PROTO Coasterbot [
         rotation 0 0 1 -1.5708
         name "edge_front_left"
         type "infra-red"
-        # Calibrated for the robot standing on a surface: the sensor face sits
-        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
-        # missing floor (table edge, ray flies past max range) reads ~1000.
+        # Digitales Kantensignal (kein analoges Distanzsignal): das reale
+        # Sensormodul hat einen eingebauten Komparator und liefert bereits
+        # 0/1 an seinem Ausgangspin, keine Rohspannung. Der Uebergang liegt
+        # hier bei 0.099 m (Sensor sitzt ~0.041 m ueber dem Boden) - darunter
+        # "Boden vorhanden" -> 0, darueber (auch "unendlich" ueber der
+        # Tischkante) -> 1. Die 2 mm Rampe zwischen 0.098 und 0.10 m ist nur
+        # numerische Interpolation, kein simuliertes Analogverhalten.
         lookupTable [
-          0    0    0
-          0.09 0    0
-          0.20 1000 0
+          0     0 0
+          0.098 0 0
+          0.10  1 0
+          4     1 0
         ]
       }
       DistanceSensor {
@@ -285,13 +290,12 @@ PROTO Coasterbot [
         rotation 0 0 1 -1.5708
         name "edge_front_right"
         type "infra-red"
-        # Calibrated for the robot standing on a surface: the sensor face sits
-        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
-        # missing floor (table edge, ray flies past max range) reads ~1000.
+        # Digitales Kantensignal - siehe Kommentar bei "edge_front_left".
         lookupTable [
-          0    0    0
-          0.09 0    0
-          0.20 1000 0
+          0     0 0
+          0.098 0 0
+          0.10  1 0
+          4     1 0
         ]
       }
       DistanceSensor {
@@ -299,13 +303,12 @@ PROTO Coasterbot [
         rotation 0 0 1 -1.5708
         name "edge_rear_left"
         type "infra-red"
-        # Calibrated for the robot standing on a surface: the sensor face sits
-        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
-        # missing floor (table edge, ray flies past max range) reads ~1000.
+        # Digitales Kantensignal - siehe Kommentar bei "edge_front_left".
         lookupTable [
-          0    0    0
-          0.09 0    0
-          0.20 1000 0
+          0     0 0
+          0.098 0 0
+          0.10  1 0
+          4     1 0
         ]
       }
       DistanceSensor {
@@ -313,13 +316,12 @@ PROTO Coasterbot [
         rotation 0 0 1 -1.5708
         name "edge_rear_right"
         type "infra-red"
-        # Calibrated for the robot standing on a surface: the sensor face sits
-        # ~0.041 m above the ground, so "floor present" reads ~0 and only a
-        # missing floor (table edge, ray flies past max range) reads ~1000.
+        # Digitales Kantensignal - siehe Kommentar bei "edge_front_left".
         lookupTable [
-          0    0    0
-          0.09 0    0
-          0.20 1000 0
+          0     0 0
+          0.098 0 0
+          0.10  1 0
+          4     1 0
         ]
       }
 

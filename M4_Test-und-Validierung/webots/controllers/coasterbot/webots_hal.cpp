@@ -69,14 +69,24 @@ float WebotsHAL::getUltrasonicDistance() {
     return static_cast<float>(ultrasonic_->getValue());
 }
 
-// Kalibrierung (Schwellenwert EDGE_THRESHOLD) findet bewusst HIER statt, nicht
-// in RobotLogic/SafetyMonitor: die Anwendungslogik interessiert nur "Kante
-// erkannt oder nicht", die konkrete Umrechnung ist hardwarespezifisch (siehe
-// robot_hal.h). Eine ArduinoHAL kalibriert ihren eigenen Rohwert ebenso hier.
-bool WebotsHAL::getEdgeFrontLeft()  { return edgeFL_->getValue() > EDGE_THRESHOLD; }
-bool WebotsHAL::getEdgeFrontRight() { return edgeFR_->getValue() > EDGE_THRESHOLD; }
-bool WebotsHAL::getEdgeRearLeft()   { return edgeRL_->getValue() > EDGE_THRESHOLD; }
-bool WebotsHAL::getEdgeRearRight()  { return edgeRR_->getValue() > EDGE_THRESHOLD; }
+// Liest das digitale Kantensignal eines Sensors und bildet es auf das
+// semantische bool ab. Die Coasterbot.proto-lookupTable liefert bereits nur
+// 0 oder 1 (kein analoger Rohwert, siehe dortiger Kommentar) - die einzige
+// verbleibende Aufgabe hier ist, ob HIGH oder LOW "Kante erkannt" bedeutet
+// (EDGE_ACTIVE_HIGH). Diese Abbildung findet bewusst HIER statt, nicht in
+// RobotLogic/SafetyMonitor: die Anwendungslogik interessiert nur "Kante
+// erkannt oder nicht", nicht die Pin-Polaritaet des verbauten Sensormoduls
+// (siehe robot_hal.h). Eine ArduinoHAL bildet ihren digitalRead() ebenso hier
+// ab und muss dafuer nur EDGE_ACTIVE_HIGH auf ihr reales Sensormodul anpassen.
+bool WebotsHAL::digitalEdge(webots::DistanceSensor* sensor) const {
+    const bool high = sensor->getValue() > 0.5;
+    return high == EDGE_ACTIVE_HIGH;
+}
+
+bool WebotsHAL::getEdgeFrontLeft()  { return digitalEdge(edgeFL_); }
+bool WebotsHAL::getEdgeFrontRight() { return digitalEdge(edgeFR_); }
+bool WebotsHAL::getEdgeRearLeft()   { return digitalEdge(edgeRL_); }
+bool WebotsHAL::getEdgeRearRight()  { return digitalEdge(edgeRR_); }
 
 float WebotsHAL::getYaw() {
     const double* rpy = imu_->getRollPitchYaw();

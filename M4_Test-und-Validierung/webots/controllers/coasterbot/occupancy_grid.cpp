@@ -8,6 +8,7 @@ OccupancyGrid::OccupancyGrid(float minX, float minY, float maxX, float maxY, flo
     cols_ = std::max(1, static_cast<int>(std::ceil((maxX - minX) / res_)));
     rows_ = std::max(1, static_cast<int>(std::ceil((maxY - minY) / res_)));
     occ_.assign(static_cast<size_t>(cols_) * rows_, 0);
+    confidence_.assign(static_cast<size_t>(cols_) * rows_, 0.0f);
 }
 
 void OccupancyGrid::addObstacleRect(float ax, float ay, float bx, float by, float inflation) {
@@ -41,6 +42,18 @@ bool OccupancyGrid::setOccupied(Cell c, bool value) {
     cell = v;
     dist_.clear();  // Distanzfeld ist jetzt veraltet
     return true;
+}
+
+bool OccupancyGrid::reportOccupied(Cell c, float smoothingFactor) {
+    if (!inBounds(c)) return false;
+    float& conf = confidence_[idx(c.cx, c.cy)];
+    // Exponentielle Glaettung: naehert sich 1 an, erreicht es aber nie in
+    // einem Schritt - ein einzelner Ausreisser reicht damit nicht, um die
+    // Schwelle zu ueberschreiten.
+    conf += smoothingFactor * (1.0f - conf);
+    if (conf >= OCC_COMMIT_THRESHOLD)
+        return setOccupied(c, true);
+    return false;
 }
 
 void OccupancyGrid::buildDistanceField() {

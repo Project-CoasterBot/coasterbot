@@ -33,6 +33,26 @@ public:
     // geaendert hat (fuer inkrementelle Replanung mit D* Lite).
     bool setOccupied(Cell c, bool value);
 
+    // Weiche, geglaettete Hindernismeldung fuer LIVE-Sensortreffer (Ultraschall/
+    // Kantensensor waehrend der Fahrt). Erhoeht die Belegungs-"Konfidenz" der
+    // Zelle um smoothingFactor * (1 - Konfidenz) statt sie wie setOccupied()
+    // sofort hart zu belegen; erst wenn die Konfidenz OCC_COMMIT_THRESHOLD
+    // uebersteigt, wird die Zelle tatsaechlich belegt. Ein einzelner
+    // verrauschter Treffer aendert die Karte damit noch nicht - erst
+    // mehrere konsistente Treffer in Folge. Die schnelle Reflexbewegung bei
+    // Annaeherung an ein Hindernis bleibt trotzdem erhalten: die bewertet
+    // DwaPlanner weiterhin ungefiltert direkt aus dem rohen Sensorwert
+    // (siehe dwa_planner.h); nur die Entscheidung, ob D* Lite umplant, wird
+    // geglaettet.
+    // Fuer bereits bekannte (a priori kartierte) Hindernisse weiterhin
+    // addObstacleRect() verwenden - das ist keine verrauschte Live-Messung.
+    // Rueckgabe wie setOccupied(): true, wenn sich die Belegung dadurch
+    // AENDERTE (fuer inkrementelle Replanung).
+    bool reportOccupied(Cell c, float smoothingFactor = DEFAULT_SMOOTHING);
+
+    static constexpr float OCC_COMMIT_THRESHOLD = 0.8f;  // Konfidenz -> belegt
+    static constexpr float DEFAULT_SMOOTHING     = 0.5f; // Anteil pro Treffer
+
     int   cols() const { return cols_; }
     int   rows() const { return rows_; }
     float resolution() const { return res_; }
@@ -54,6 +74,7 @@ private:
     int   cols_, rows_;
     std::vector<unsigned char> occ_;       // 0 = frei, 1 = belegt
     std::vector<float>         dist_;      // [m], leer bis buildDistanceField()
+    std::vector<float>         confidence_;// [0..1] Belegungs-Konfidenz fuer reportOccupied()
 
     int idx(int cx, int cy) const { return cy * cols_ + cx; }
 };

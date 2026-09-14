@@ -390,7 +390,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 % einleitung preambel etc.
 
 
-% Versionshistorie des Dokuments -- eigene Seite direkt nach dem Titelblatt
+% Versionshistorie des Dokuments: eigene Seite direkt nach dem Titelblatt
 \section*{Versionshistorie}
 
 \begin{tabularx}{\textwidth}{@{}clp{2.6cm}X@{}}
@@ -403,7 +403,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 4 & 13.09.2026 & Etringer & Entscheidung umgesetzt: Kantensensoren liefern jetzt \texttt{bool} statt \texttt{float}; Kalibrierung in \texttt{WebotsHAL} gekapselt\\
 5 & 13.09.2026 & Etringer & Entscheidung umgesetzt: \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (reale Elektronik hat nur einen Encoder je Seite)\\
 6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung (\texttt{OccupancyGrid::reportOccupied}), digitales Kantensignal (\texttt{EDGE\_ACTIVE\_HIGH}) umgesetzt; Ausblick \enquote{initiale Tischerkundung} ergänzt\\
-7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (0--7) ausgearbeitet\\
+7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (Stufe 0 bis 7) ausgearbeitet\\
 \bottomrule
 \end{tabularx}
 
@@ -435,19 +435,19 @@ Anforderungs- und Testdokumente:
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Lastenheft} -- funktionale und nichtfunktionale Anforderungen
+  \textbf{Lastenheft}: funktionale und nichtfunktionale Anforderungen
   des Auftraggebers (Kennungen \texttt{NAV-*}, \texttt{SAF-*},
   \texttt{MON-*}, \texttt{NFA-*}, \texttt{SIM-*}).
 \item
-  \textbf{Pflichtenheft} -- geplante technische Umsetzung,
+  \textbf{Pflichtenheft}: die geplante technische Umsetzung, insbesondere
   die geschichtete System- und Softwarearchitektur (Hardwaretreiber,
   Hardwareabstraktion, Systemdienste, Funktionskomponenten,
   Anwendungsebene, Simulationsebene).
 \item
-  \textbf{Testkonzept} -- Teststrategie und Simulationstestfälle
+  \textbf{Testkonzept}: Teststrategie und Simulationstestfälle
   (\texttt{ST-SIM-001} bis \texttt{ST-SIM-008}).
 \item
-  \textbf{Alternativenbeschreibung} -- Auswahl der Navigations- und
+  \textbf{Alternativenbeschreibung}: Auswahl der Navigations- und
   Lokalisierungsalgorithmen (A*, D* Lite, DWA, Sensorfusion).
 \end{itemize}
 
@@ -563,14 +563,14 @@ die Anforderungen \texttt{NFA-ARC-005}, \texttt{NFA-MAI-001/002} und
   sim/.style={draw, rounded corners=1pt, minimum width=11.8cm,
               minimum height=0.9cm, align=center, fill=green!5}]
 \node[layer] (app) {\textbf{Anwendungs-/Ablaufsteuerung} \\
-  \texttt{main.cpp} -- Betriebsart (\texttt{MODE}), Szenario, Hauptschleife};
+  \texttt{main.cpp}: Betriebsart (\texttt{MODE}), Szenario, Hauptschleife};
 \node[layer, below=2mm of app] (fun) {\textbf{Funktionskomponenten} \\
   \texttt{PoseEstimator}, \texttt{astarPlan}, \texttt{DStarLite}, \texttt{DwaPlanner}, \\
   \texttt{SafetyMonitor}, \texttt{RobotLogic}};
 \node[layer, below=2mm of fun] (svc) {\textbf{Systemdienste / Modelle} \\
   \texttt{OccupancyGrid} (Umgebungsmodell, Distanzfeld)};
 \node[layer, below=2mm of svc] (hal) {\textbf{Hardwareabstraktion} \\
-  \texttt{RobotHAL} -- rein abstraktes Interface (Sensoren, Aktoren, Zeit)};
+  \texttt{RobotHAL}: rein abstraktes Interface (Sensoren, Aktoren, Zeit)};
 \node[layer, below=2mm of hal] (drv) {\textbf{Hardwaretreiberebene} \\
   \texttt{WebotsHAL} (Webots-C++-API) \quad$|$\quad künftig \texttt{ArduinoHAL}};
 \node[sim, below=2mm of drv] (webots) {\textbf{Simulationsebene} \\
@@ -608,7 +608,7 @@ des Simulations-Controllers zu.
 \endhead
 \bottomrule
 \endfoot
-Hardware\-treiber\-ebene & \texttt{webots\_hal.cpp} (Geräte-Handles) & --\\
+Hardware\-treiber\-ebene & \texttt{webots\_hal.cpp} (Geräte-Handles) & keine\\
 Hardware\-abstraktions\-ebene & \texttt{robot\_hal.h} (\texttt{RobotHAL}), \texttt{webots\_hal} (\texttt{WebotsHAL}) & NFA-ARC-005\\
 Systemdienste / Umgebungs\-modell & \texttt{occupancy\_grid} (\texttt{OccupancyGrid}) & SIM-004\\
 Navigations\-komponente & \texttt{astar} (A*), \texttt{dstar\_lite} (D* Lite) & NAV-005/008/009\\
@@ -616,7 +616,7 @@ Lokalisierungs\-komponente & \texttt{pose\_estimator} (\texttt{PoseEstimator}) &
 Bewegungs\-steuerung & \texttt{dwa\_planner} (\texttt{DwaPlanner::driveVW}), \texttt{robot\_hal.h} & HW-ACT-002/003, SAF-004\\
 Sicherheits\-komponente / Sicherheits\-logik & \texttt{safety\_monitor} (\texttt{SafetyMonitor}) & NAV-003/004, SAF-001..005\\
 Systemüberwachung & Konsolenprotokoll je Betriebsart in \texttt{main.cpp} & MON-001..005\\
-Anwendungsebene & \texttt{main.cpp} (\texttt{MODE}, Szenarien, Hauptschleifen) & --\\
+Anwendungsebene & \texttt{main.cpp} (\texttt{MODE}, Szenarien, Hauptschleifen) & keine\\
 Simulationsebene & \texttt{worlds/*.wbt}, \texttt{Coasterbot.proto} & NFA-SIM-001..005\\
 Reaktive Verhaltenslogik (Bring-up) & \texttt{robot\_logic} (\texttt{RobotLogic}) & NAV-001/002, SAF-003\\
 \end{longtable}
@@ -677,24 +677,24 @@ Ablauf eines Regelzyklus:
 \begin{enumerate}
 \tightlist
 \item
-  \texttt{hal.step()} -- Simulationsschritt, neue Sensorwerte.
+  \texttt{hal.step()}: Simulationsschritt, neue Sensorwerte.
 \item
-  \texttt{pose.update()} -- Pose aus Radwinkeln und Gyro fortschreiben.
+  \texttt{pose.update()}: Pose aus Radwinkeln und Gyro fortschreiben.
 \item
-  \texttt{safety.update()} -- Kantensensoren prüfen; hält die
+  \texttt{safety.update()}: Kantensensoren prüfen; hält die
   Sicherheitskomponente die Aktorik, endet der Zyklus hier.
 \item
-  Kartenpflege -- ein per Ultraschall erkanntes, unkartiertes Hindernis
+  Kartenpflege: Ein per Ultraschall erkanntes, unkartiertes Hindernis
   bzw.\ eine erkannte Kante wird in die Belegungskarte eingetragen und
   \texttt{DStarLite} benachrichtigt.
 \item
-  \texttt{planner.setStart()} / \texttt{computeShortestPath()} -- Pfad
+  \texttt{planner.setStart()} / \texttt{computeShortestPath()}: Pfad
   inkrementell aktualisieren.
 \item
-  \texttt{smoothPath()} + \texttt{centerPath()} -- Pfad glätten und in
+  \texttt{smoothPath()} + \texttt{centerPath()}: Pfad glätten und in
   Korridormitte schieben.
 \item
-  \texttt{dwa.update()} -- kollisionsfreies Geschwindigkeitspaar wählen
+  \texttt{dwa.update()}: kollisionsfreies Geschwindigkeitspaar wählen
   und als Radgeschwindigkeiten ausgeben.
 \end{enumerate}
 
@@ -750,14 +750,14 @@ $WEBOTS_HOME/webots --mode=fast --no-rendering --stdout --stderr \
 \bottomrule
 \endfoot
 \texttt{robot\_hal.h} & abstraktes Interface \texttt{RobotHAL}, \texttt{enum WheelId}\\
-\texttt{webots\_hal.\{h,cpp\}} & \texttt{WebotsHAL : RobotHAL} -- einzige Webots-abhängige Datei\\
-\texttt{pose\_estimator.\{h,cpp\}} & \texttt{PoseEstimator} -- Odometrie + Gyro-Fusion\\
-\texttt{occupancy\_grid.\{h,cpp\}} & \texttt{OccupancyGrid} -- Rasterkarte, Distanzfeld\\
+\texttt{webots\_hal.\{h,cpp\}} & \texttt{WebotsHAL : RobotHAL}, einzige Webots-abhängige Datei\\
+\texttt{pose\_estimator.\{h,cpp\}} & \texttt{PoseEstimator}, Odometrie- und Gyro-Fusion\\
+\texttt{occupancy\_grid.\{h,cpp\}} & \texttt{OccupancyGrid}, Rasterkarte mit Distanzfeld\\
 \texttt{astar.\{h,cpp\}} & \texttt{astarPlan}, \texttt{smoothPath}, \texttt{centerPath}\\
-\texttt{dstar\_lite.\{h,cpp\}} & \texttt{DStarLite} -- inkrementeller Neuplaner\\
-\texttt{dwa\_planner.\{h,cpp\}} & \texttt{DwaPlanner} -- lokale Planung, Bewegungssteuerung\\
-\texttt{safety\_monitor.\{h,cpp\}} & \texttt{SafetyMonitor} -- Sicherheitskomponente\\
-\texttt{robot\_logic.\{h,cpp\}} & \texttt{RobotLogic} -- reaktiver Zustandsautomat\\
+\texttt{dstar\_lite.\{h,cpp\}} & \texttt{DStarLite}, inkrementeller Neuplaner\\
+\texttt{dwa\_planner.\{h,cpp\}} & \texttt{DwaPlanner}, lokale Planung und Bewegungssteuerung\\
+\texttt{safety\_monitor.\{h,cpp\}} & \texttt{SafetyMonitor}, Sicherheitskomponente\\
+\texttt{robot\_logic.\{h,cpp\}} & \texttt{RobotLogic}, reaktiver Zustandsautomat\\
 \texttt{main.cpp} & Betriebsarten, Szenarien, Hauptschleifen\\
 \texttt{Makefile} & Liste der zu übersetzenden Quelldateien\\
 \bottomrule
@@ -771,7 +771,7 @@ $WEBOTS_HOME/webots --mode=fast --no-rendering --stdout --stderr \
 
 \texttt{RobotHAL} (Datei \texttt{robot\_hal.h}) ist eine rein abstrakte
 Klasse. Sie beschreibt ausschließlich, \emph{welche} Fähigkeiten der
-Roboter besitzt -- nicht, wie sie technisch realisiert werden. Sie
+Roboter besitzt, nicht wie sie technisch realisiert werden. Sie
 erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
 \texttt{NFA-ARC-005} (Hardwareabstraktion).
 
@@ -811,16 +811,16 @@ erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
   gekoppelt und laufen stets gemeinsam (wie beim realen Coasterbot: zwei
   Getriebemotoren je Seite, gemeinsam angesteuert). Es gibt daher
   \emph{keinen} Einzelrad-Befehl; \texttt{enum WheelId} hat entsprechend
-  nur die zwei Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} --
-  die reale Elektronik besitzt ebenfalls nur einen Encoder je Seite, nicht
+  nur die zwei Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}.
+  Die reale Elektronik besitzt ebenfalls nur einen Encoder je Seite, nicht
   einen je Rad (siehe Abschnitt~\ref{hal-offene-punkte}).
 \item
   \textbf{Kantensensoren:} \texttt{RobotHAL} gibt bereits ein kalibriertes
   \texttt{bool} zurück (\texttt{true} = Kante). Die Umrechnung des
   Rohwerts (in der Simulation $\approx 0$ auf einer Fläche, $\approx 1000$
   über einer Kante; Schwelle \num{500}) ist Aufgabe der jeweiligen
-  HAL-Implementierung und bleibt dort gekapselt -- siehe
-  Abschnitt~\ref{hal-offene-punkte}.
+  HAL-Implementierung und bleibt dort gekapselt (siehe
+  Abschnitt~\ref{hal-offene-punkte}).
 \end{itemize}
 
 \subsection{Implementierung \texttt{WebotsHAL}}\label{webotshal}
@@ -867,7 +867,7 @@ Aufgaben:
 \item
   \textbf{Digitales Kantensignal:} Die \texttt{lookupTable} der vier
   Kantensensoren im PROTO liefert bereits ein digitales Signal (\num{0}
-  oder \num{1}, kein analoger Rohwert -- siehe
+  oder \num{1}, kein analoger Rohwert; siehe
   Abschnitt~\ref{proto}). \texttt{digitalEdge()} liest diesen Pegel und
   bildet ihn über die private Konstante \texttt{EDGE\_ACTIVE\_HIGH} auf
   das semantische \texttt{bool} ab. Das ist die einzige Stelle im Code,
@@ -891,10 +891,10 @@ sind weiterhin \textbf{offene Fragen} und hier dokumentiert, damit sie bei
 der Portierung auf die Zielhardware (\texttt{ArduinoHAL}) nicht verloren
 gehen.
 
-\paragraph{Radgranularität (\texttt{enum WheelId}) -- entschieden.}
+\paragraph{Radgranularität: \texttt{enum WheelId} (entschieden).}
 Auch diese Frage ist geklärt: Die reale Elektronik besitzt je
-Fahrzeugseite nur \emph{einen} Encoder (und ohnehin nur eine Ansteuerung
--- vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
+Fahrzeugseite nur \emph{einen} Encoder (und ohnehin nur eine Ansteuerung;
+vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
 gleich schnell, was \texttt{setLeftSpeed}/\texttt{setRightSpeed} bereits
 korrekt abbildet, siehe \enquote{Radpaarung} oben). \texttt{enum WheelId}
 wurde deshalb von vier Werten (\texttt{WHEEL\_FL/FR/RL/RR}) auf zwei
@@ -907,16 +907,16 @@ CAD-Modells, kein Beleg für vier reale Messpunkte), mittelt
 \texttt{WebotsHAL} Front- und Heckrad je Seite intern, um nach außen
 exakt die Information eines einzelnen realen Encoders je Seite zu
 liefern (Abschnitt~\ref{robothal}). Für eine künftige \texttt{ArduinoHAL}
-entfällt dieser Mittelungsschritt -- sie liest ohnehin nur einen Encoder
-je Seite.
+entfällt dieser Mittelungsschritt, da sie ohnehin nur einen Encoder
+je Seite liest.
 
-\paragraph{Kantensensoren: \texttt{float} oder \texttt{bool}? -- entschieden.}
+\paragraph{Kantensensoren: \texttt{float} oder \texttt{bool}? (entschieden).}
 Diese Frage wurde inzwischen entschieden: \texttt{RobotHAL} liefert die
 vier Kantensensoren seit Version~3 dieses Dokuments als \texttt{bool}
 (\texttt{true} = Kante). Zuvor lieferte die Schnittstelle einen rohen
 \texttt{float}, den \texttt{RobotLogic} \emph{und} \texttt{SafetyMonitor}
 unabhängig voneinander gegen dieselbe Konstante
-\texttt{EDGE\_THRESHOLD = 500} auswerteten -- für die Algorithmik ist aber
+\texttt{EDGE\_THRESHOLD = 500} auswerteten. Für die Algorithmik ist aber
 tatsächlich nur die boolesche Aussage \enquote{Kante / kein Boden}
 relevant, und die Kalibrierung eines IR-Kantensensors (Reflexionsgrad des
 Untergrunds, Umgebungslicht, Sensorabstand) ist Hardwarewissen, das laut
@@ -927,19 +927,19 @@ Format}). Die Kalibrierung sitzt jetzt ausschließlich in
 Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}); eine künftige
 \texttt{ArduinoHAL} kalibriert ihren eigenen Rohwert ebenso dort. Damit
 entfällt zugleich die doppelte Ablage derselben Schwelle in
-\texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp} -- beide fragen
+\texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp}: Beide fragen
 jetzt nur noch \texttt{hal.getEdgeFrontLeft() || \ldots} ab.
 
 \emph{Nachtrag:} Die Kalibrierung wurde seither noch einen Schritt
-weitergeführt -- die vier Kantensensoren liefern in der Simulation nun ein
+weitergeführt: die vier Kantensensoren liefern in der Simulation nun ein
 echtes \emph{digitales} Signal statt eines analogen Rohwerts mit
 Schwellenwertvergleich, und die Sensor-Polarität (HIGH/LOW) ist über eine
 einzige Konstante abstrahiert. Details in
 Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 
 \paragraph{Gyro-Schnittstelle.}
-Ob \texttt{getGyroZ()} -- ein einzelner Skalar, Giergeschwindigkeit um die
-Hochachse in rad/s -- unverändert zu einer realen IMU passt, ist mangels
+Ob \texttt{getGyroZ()} (ein einzelner Skalar, Giergeschwindigkeit um die
+Hochachse in rad/s) unverändert zu einer realen IMU passt, ist mangels
 Hardwareerfahrung noch nicht bewertet. Die Simulation modelliert weder
 Bias noch Rauschen des Gyros; ob die in Abschnitt~\ref{lokalisierung}
 beschriebene Komplementärfilter-Fusion damit auf der Zielhardware ebenso
@@ -947,7 +947,7 @@ funktioniert, muss dort geprüft werden.
 
 \paragraph{Erreichbarkeit einer definierten Winkelgeschwindigkeit.}
 Die Schnittstelle \texttt{setLeftSpeed}/\texttt{setRightSpeed(float radPerSec)}
-setzt -- wie das geschwindigkeitsgeregelte Webots-Motormodell -- eine
+setzt, wie das geschwindigkeitsgeregelte Webots-Motormodell, eine
 gesteuerte (open-loop) Geschwindigkeitsvorgabe voraus. Ob sich damit auf
 den realen Getriebemotoren tatsächlich ein definiertes rad/s einstellt,
 ist offen; erste Erfahrungen zeigen ein unstetiges Ansprechverhalten der
@@ -955,7 +955,7 @@ Motoren. Falls nötig, müsste \texttt{ArduinoHAL::setLeftSpeed}/
 \texttt{setRightSpeed} intern eine Regelschleife führen (Vorwärtsbefehl
 setzen, Ist-Geschwindigkeit über Encoder und/oder Gyro schätzen,
 Motoransteuerung nachführen), sodass die \texttt{RobotHAL}-Schnittstelle
-für alle aufrufenden Komponenten unverändert bliebe -- die Regelung wäre
+für alle aufrufenden Komponenten unverändert bliebe. Die Regelung wäre
 vollständig in der Hardwaretreiberebene gekapselt. Diese Regelschleife ist
 noch nicht umgesetzt.
 
@@ -972,7 +972,7 @@ Roboters in der Tischebene und erfüllt \texttt{NAV-006}
 
 Der Coasterbot \emph{misst} seine Position nicht, sondern \textbf{führt
 sie durch Koppelnavigation (Dead Reckoning) fort}. Es gibt keine externe
-Referenz -- kein GPS, keine Bake, keine kamerabasierte Lokalisierung.
+Referenz: kein GPS, keine Bake, keine kamerabasierte Lokalisierung.
 Die Pose entsteht in vier Schritten:
 
 \begin{enumerate}
@@ -985,13 +985,13 @@ Die Pose entsteht in vier Schritten:
 \item
   \textbf{Radodometrie.} In jedem Regelzyklus wird über
   \texttt{RobotHAL::getWheelAngle} je ein Encoderwert pro Seite gelesen
-  (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} -- die reale Elektronik hat
+  (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}, die reale Elektronik hat
   nur einen Encoder je Seite) und mit dem Radradius in eine gefahrene
   Strecke umgerechnet.
 \item
   \textbf{Kursfusion.} Die Kursänderung wird aus der Radodometrie
   \emph{und} der integrierten Gyro-Giergeschwindigkeit über einen
-  Komplementärfilter bestimmt -- überwiegend aus dem Gyro.
+  Komplementärfilter bestimmt, überwiegend aus dem Gyro.
 \item
   \textbf{Integration.} Strecke und Kurs werden zur neuen Pose
   $(x, y, \theta)$ aufsummiert.
@@ -1012,7 +1012,7 @@ Kovarianzschätzung auskommt und deterministisch ist (wichtig für
 Aus dem Encoderwert je Seite folgt die gefahrene Strecke dieser Seite
 (in der Simulation mittelt \texttt{WebotsHAL} dafür intern die zwei
 PositionSensor von Front- und Heckrad derselben Seite, um dieselbe
-Information wie der eine reale Encoder je Seite nachzubilden -- siehe
+Information wie der eine reale Encoder je Seite nachzubilden; siehe
 Abschnitt~\ref{hal-offene-punkte}):
 \[
 \Delta s_L = \big(\varphi_L - \varphi_{L,\mathrm{prev}}\big)\,r,
@@ -1083,7 +1083,7 @@ Gimbal-Lock in der Nickachse bringt.
 \item
   \textbf{Manuelles Umsetzen.} Wird der Roboter körperlich angehoben und
   versetzt, ist die Schätzung anschließend falsch, bis \texttt{reset()}
-  erneut eine bekannte Pose vorgibt -- entsprechend der Einschränkung in
+  erneut eine bekannte Pose vorgibt, entsprechend der Einschränkung in
   \texttt{NAV-006} (\enquote{solange er nicht manuell umgesetzt wurde}).
 \item
   \textbf{Verifikation.} \texttt{MODE\_ODOMETRY\_TEST} auf
@@ -1145,7 +1145,7 @@ werden bei Sensortreffern gemeinsam aktualisiert.
 \subsection{Geglättete Live-Hindernismeldung}\label{grid-glaettung}
 
 \texttt{addObstacleRect()} trägt a priori bekannte Hindernisse hart und
-sofort ein (z.\,B. die bekannte Bierflasche im Simulationstest) -- das ist
+sofort ein (z.\,B. die bekannte Bierflasche im Simulationstest). Das ist
 gerechtfertigt, weil diese Eingabe nicht verrauscht ist. Ein per
 Ultraschall oder Kantensensor während der Fahrt \emph{live} erkanntes
 Hindernis ist dagegen eine einzelne Sensormessung und kann durch Rauschen
@@ -1175,7 +1175,7 @@ bewertet die Kollisionsfreiheit einer Trajektorie weiterhin \emph{jeden}
 Zyklus direkt aus dem rohen Ultraschallwert als virtuellem Hindernispunkt
 (Abschnitt~\ref{dwa-hindernisse}), ungeglättet. Geglättet wird
 ausschließlich die \emph{deliberative} Entscheidung, ob D* Lite die
-globale Karte dauerhaft ändert und umplant -- die sofortige Ausweich\-reaktion
+globale Karte dauerhaft ändert und umplant. Die sofortige Ausweich\-reaktion
 bei akuter Kollisionsgefahr bleibt so unverzögert.
 
 Verifiziert: \texttt{MODE\_SIM\_TEST} und die Hinderniserkennung in
@@ -1183,12 +1183,12 @@ Verifiziert: \texttt{MODE\_SIM\_TEST} und die Hinderniserkennung in
 Ergebnisse wie zuvor (ST-SIM-001..004 weiterhin BESTANDEN,
 byte-identisch über zwei Läufe; D*-Lite-Umplanung in
 \texttt{coasterbot-dstar.wbt} weiterhin bei $t \approx \SI{3.8}{\second}$,
-Ziel nach \SI{24}{\second} mit \SI{1.5}{\centi\meter} Restfehler) -- die
+Ziel nach \SI{24}{\second} mit \SI{1.5}{\centi\meter} Restfehler). Die
 zusätzliche Latenz durch die Glättung liegt unterhalb der Auflösung dieser
 Szenarien.
 
 % =====================================================================
-\section{Globale Pfadplanung -- A*}\label{astar}
+\section{Globale Pfadplanung mit A*}\label{astar}
 % =====================================================================
 
 \texttt{astarPlan(grid, start, goal)} (Dateien \texttt{astar.\{h,cpp\}})
@@ -1234,7 +1234,7 @@ weniger Knoten als Dijkstra. Für die kleine Tischkarte
 einer Millisekunde abgeschlossen.
 
 % =====================================================================
-\section{Dynamische Neuplanung -- D* Lite}\label{dstar}
+\section{Dynamische Neuplanung mit D* Lite}\label{dstar}
 % =====================================================================
 
 \texttt{DStarLite} (Dateien \texttt{dstar\_lite.\{h,cpp\}}) repariert den
@@ -1276,8 +1276,8 @@ Implementiert ist D* Lite nach Koenig \& Likhachev (2002):
 \item
   Ist der gesamte geplante Korridor durchtrennt (inkrementelle Reparatur
   liefert keinen Pfad), setzt \texttt{main.cpp} D* Lite aus der aktuellen
-  Pose vollständig neu auf -- immer noch günstiger als eine Neuplanung
-  in jedem Zyklus.
+  Pose vollständig neu auf, was immer noch günstiger ist als eine
+  Neuplanung in jedem Zyklus.
 \end{itemize}
 
 Alternative laut Alternativenbeschreibung war LPA*; D* Lite ist die auf
@@ -1285,7 +1285,7 @@ bewegliche Startpositionen zugeschnittene Variante von LPA* und daher
 für einen fahrenden Roboter die passende Wahl.
 
 % =====================================================================
-\section{Lokale Kollisionsvermeidung und Bewegungssteuerung -- DWA}\label{dwa}
+\section{Lokale Kollisionsvermeidung und Bewegungssteuerung mit DWA}\label{dwa}
 % =====================================================================
 
 \texttt{DwaPlanner} (Dateien \texttt{dwa\_planner.\{h,cpp\}}) folgt dem
@@ -1348,12 +1348,12 @@ DWA bezieht Hindernisse aus \emph{zwei} Quellen:
 \begin{itemize}
 \tightlist
 \item
-  dem \textbf{Distanzfeld} der (bereits aufgeblähten) Belegungskarte --
+  dem \textbf{Distanzfeld} der (bereits aufgeblähten) Belegungskarte:
   hier wird nur ein kleiner Restpuffer \texttt{GRID\_MARGIN}
   $= \SI{0.03}{\meter}$ abgezogen;
 \item
   dem \textbf{aktuellen Ultraschallwert} als virtuellem Hindernispunkt
-  vor dem Roboter -- ein roher Punkt, von dem der volle Roboterradius
+  vor dem Roboter: ein roher Punkt, von dem der volle Roboterradius
   $\SI{0.14}{\meter}$ abgezogen wird. Damit werden unkartierte bzw.\
   dynamische Hindernisse abgedeckt (\texttt{NAV-001}).
 \end{itemize}
@@ -1396,7 +1396,7 @@ Anforderungen: \texttt{NAV-003}, \texttt{NAV-004}, \texttt{SAF-001},
 
 \subsection{Funktion}\label{safety-funktion}
 
-In jedem Regelzyklus -- \emph{vor} der Navigation -- wertet der Monitor
+In jedem Regelzyklus (\emph{vor} der Navigation) wertet der Monitor
 die vier Kantensensoren aus. Erkennt ein Sensor die Tischkante, hält er
 sofort an, übernimmt die Aktorik und führt eine Ausweichbewegung aus:
 
@@ -1414,7 +1414,7 @@ Kante vorne \emph{und} hinten & Stillstand (Zustand \texttt{PINNED})\\
 Zustandsautomat: \texttt{CLEAR} $\to$ \texttt{EVADE} $\to$ \texttt{PAUSE}
 ($\SI{0.3}{\second}$) $\to$ \texttt{CLEAR}; bei beidseitiger Kante
 \texttt{PINNED}. Solange \texttt{overriding()} wahr ist, darf die
-Navigation \emph{keine} eigenen Fahrbefehle geben -- das stellt
+Navigation \emph{keine} eigenen Fahrbefehle geben. Das stellt
 \texttt{main.cpp} sicher, indem der Regelzyklus nach einem
 haltenden \texttt{safety.update()} vorzeitig endet.
 
@@ -1565,7 +1565,7 @@ CAD-Baugruppe abgeleitet.
   \texttt{lookupTable} in Metern, \textbf{analoges} Distanzsignal); vier
   \texttt{edge\_*} (\texttt{DistanceSensor}, infrarot, nach unten,
   \textbf{digitales} Signal: \texttt{lookupTable}
-  $0\,0\ /\ 0{,}098\,0\ /\ 0{,}10\,1\ /\ 4\,1$ -- reine \num{0}/\num{1}-Stufe
+  $0\,0\ /\ 0{,}098\,0\ /\ 0{,}10\,1\ /\ 4\,1$, eine reine \num{0}/\num{1}-Stufe
   mit \SI{2}{\milli\meter} numerischer Übergangszone statt einer analogen
   Rampe, siehe Abschnitt~\ref{webotshal}); \texttt{inertial\_unit},
   \texttt{gyro}, \texttt{accelerometer}.
@@ -1580,7 +1580,8 @@ Ultraschall liefert weiterhin ein analoges Distanzsignal in Metern
 (Vergleich mit \texttt{OBSTACLE\_THRESHOLD\_M}); die Kantensensoren
 liefern ein digitales \num{0}/\num{1}-Signal, das \texttt{WebotsHAL} nur
 noch auf seine Polarität hin abfragt (\texttt{EDGE\_ACTIVE\_HIGH}, siehe
-Abschnitt~\ref{webotshal}) -- kein analoger Schwellenwert mehr im Code.
+Abschnitt~\ref{webotshal}); ein analoger Schwellenwert steht dafür nicht
+mehr im Code.
 
 \subsection{Welten}\label{welten}
 
@@ -1681,12 +1682,12 @@ NAV-007 & \texttt{PoseEstimator} (Gyro-Fusion) & ST-SIM-001\\
 NAV-008 & \texttt{astarPlan} / \texttt{DStarLite} + \texttt{DwaPlanner} & ST-SIM-001\\
 NAV-009 & gesamter Navigationsstapel & ST-SIM-001/002\\
 NAV-010 & \texttt{OccupancyGrid}-Inflation, DWA-\texttt{clearance}, \texttt{SafetyMonitor} & ST-SIM-002 (min.\ Abstand)\\
-NAV-011 & \emph{nicht umgesetzt} (keine Getränkeerkennung) & --\\
+NAV-011 & \emph{nicht umgesetzt} (keine Getränkeerkennung) & keine\\
 SAF-001 & \texttt{SafetyMonitor} (sofortiger \texttt{drive(0)}) & ST-SIM-003\\
 SAF-002 & \texttt{SafetyMonitor}-Struktur; Fehlerinjektion offen & (ST-SIM-005)\\
 SAF-003 & \texttt{DwaPlanner} (Kollisions-/Bremsprüfung), \texttt{SafetyMonitor} & ST-SIM-002/003\\
 SAF-004 & \texttt{DwaPlanner}: \texttt{MAX\_V} + Bremsbedingung & ST-SIM-002\\
-SAF-005 & \texttt{SafetyMonitor}-Übernahme; Taster über HAL-Ereignis & --\\
+SAF-005 & \texttt{SafetyMonitor}-Übernahme; Taster über HAL-Ereignis & keine\\
 MON-001 & Konsolenprotokoll, \enquote{KEIN PFAD}, Wächter, Zeitüberschreitung & ST-SIM-*\\
 MON-002 & \texttt{stdout}-Protokoll (keine Datei) & ST-SIM-*\\
 MON-003 & \texttt{getStateName()} / \texttt{stateName()}, Pose-Ausgabe & ST-SIM-*\\
@@ -1759,7 +1760,7 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
   \textbf{Hardware-Realisierbarkeit von \texttt{RobotHAL}:} Eignung von
   \texttt{getGyroZ()} sowie die offene Frage, ob
   \texttt{setLeftSpeed}/\texttt{setRightSpeed} auf realen Motoren eine
-  Regelschleife benötigen -- siehe die Rückmeldung des Hardware-Teams in
+  Regelschleife benötigen; siehe die Rückmeldung des Hardware-Teams in
   Abschnitt~\ref{hal-offene-punkte} (Radgranularität und Kantensensoren
   sind aus derselben Rückmeldung bereits umgesetzt: \texttt{enum WheelId}
   auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert, Kantensensoren
@@ -1770,7 +1771,7 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
 
 Als nächster funktionaler Ausbauschritt ist eine \textbf{initiale
 Tischerkundung} vorgesehen (Rückmeldung 14.09.2026): Der Coasterbot fährt
-einmalig -- vor dem eigentlichen Bedienbetrieb -- der Reihe nach alle vier
+einmalig (vor dem eigentlichen Bedienbetrieb) der Reihe nach alle vier
 Ecken der Tischfläche an, legt an jeder Ecke einen Getränkeuntersetzer ab
 und kehrt anschließend zu seinem Ausgangspunkt zurück. Ziel ist es, damit
 für den nachfolgenden Betrieb \emph{bekannte} Untersetzerpositionen zu
@@ -1782,17 +1783,17 @@ Stufenplan (Stand 14.09.2026) beschreibt, was für eine Umsetzung
 erforderlich wäre; er dient als Grundlage für die spätere Umsetzung, nicht
 als bereits getroffene Architekturentscheidung.
 
-\paragraph{Stufe 0 -- vorab zu klärende Entscheidungen.}
+\paragraph{Stufe 0: Vorab zu klärende Entscheidungen.}
 \begin{itemize}
 \tightlist
 \item
   \textbf{Realitätsgrad der Ablage:} entweder ein tatsächlich in der
   Szene erscheinendes \texttt{Coaster}-Objekt (Supervisor-basiert,
-  empfohlen -- konsistent zu Blumentopf/Flaschen, die bereits als echte
+  empfohlen, konsistent zu Blumentopf/Flaschen, die bereits als echte
   Szenenobjekte behandelt werden) oder zunächst nur ein protokolliertes
   Ablage-\emph{Ereignis} ohne sichtbare Änderung der Szene.
 \item
-  \textbf{Reihenfolge der Ecken:} feste Abfolge (empfohlen -- deterministisch,
+  \textbf{Reihenfolge der Ecken:} feste Abfolge (empfohlen, deterministisch,
   passt zum Determinismus-Anspruch aus \texttt{ST-SIM-004}) oder
   Nächster-Nachbar-Heuristik.
 \item
@@ -1802,14 +1803,14 @@ als bereits getroffene Architekturentscheidung.
   bestehenden Simulationstest-Welt.
 \end{itemize}
 
-\paragraph{Stufe 1 -- \texttt{Coaster}-PROTO.}
+\paragraph{Stufe 1: \texttt{Coaster}-PROTO.}
 Ein neues, einfaches PROTO (\texttt{protos/coaster/Coaster.proto}): eine
 dünne Scheibe mit definierten Abmessungen (Lastenheft-Anforderung an
-Untersetzer), ohne Kollisionskörper -- das Objekt wird per Supervisor
-platziert, nicht angefahren.
+Untersetzer), ohne Kollisionskörper, da das Objekt per Supervisor
+platziert und nicht angefahren wird.
 
-\paragraph{Stufe 2 -- Schnittstelle \texttt{CoasterHandling}.}
-Eine \emph{eigene}, von \texttt{RobotHAL} getrennte Abstraktion -- \enquote{Objekt
+\paragraph{Stufe 2: Schnittstelle \texttt{CoasterHandling}.}
+Eine \emph{eigene}, von \texttt{RobotHAL} getrennte Abstraktion: \enquote{Objekt
 in der Szene erzeugen/verschieben} hat keine Entsprechung auf realer
 Hardware, gehört also nicht in die HAL, die portierbar bleiben soll.
 Entspricht der im Pflichtenheft ohnehin separat geführten Komponente
@@ -1832,23 +1833,23 @@ Webots-Supervisor-API (\texttt{importMFNodeFromString} auf den
 Szenenwurzelknoten, das zurückgegebene \texttt{Node*} je Ecke für eine
 spätere Aufnahme gemerkt). Dafür muss \texttt{WebotsHAL} intern von
 \texttt{webots::Robot} auf \texttt{webots::Supervisor} wechseln (Supervisor
-\emph{ist} ein Robot, rein additiv -- die \texttt{RobotHAL}-Schnittstelle
+\emph{ist} ein Robot, rein additiv; die \texttt{RobotHAL}-Schnittstelle
 selbst ändert sich nicht) und die jeweilige \texttt{Coasterbot}-Instanz in
-der Welt \texttt{supervisor TRUE} setzen -- ein Feld, das das PROTO bereits
-besitzt, aber bislang ungenutzt lässt (Abschnitt~\ref{proto}).
+der Welt \texttt{supervisor TRUE} setzen (ein Feld, das das PROTO bereits
+besitzt, aber bislang ungenutzt lässt, siehe Abschnitt~\ref{proto}).
 
-\paragraph{Stufe 3 -- Eckpunkt-Geometrie.}
+\paragraph{Stufe 3: Eckpunkt-Geometrie.}
 Neuer Namensraum \texttt{explore\_scenario} in \texttt{main.cpp}: vier
 Zielposen, von jeder Tischkante um den Montageversatz der Kantensensoren
 im PROTO ($x=\pm 0{,}09$, $z=\mp 0{,}09$) plus einen Sicherheitspuffer nach
-innen versetzt, jeweils mit Blick zur Tischmitte ausgerichtet -- so ist
-nie gleichzeitig eine Kante vorne \emph{und} hinten in Reichweite, was
+innen versetzt, jeweils mit Blick zur Tischmitte ausgerichtet, sodass
+nie gleichzeitig eine Kante vorne \emph{und} hinten in Reichweite ist, was
 \texttt{SafetyMonitor} sonst in den Zustand \texttt{PINNED}
 (Abschnitt~\ref{sicherheitskomponente}) treiben könnte. Der genaue
 Versatz muss empirisch ermittelt und nicht nur rechnerisch festgelegt
 werden.
 
-\paragraph{Stufe 4 -- Ablaufsteuerung.}
+\paragraph{Stufe 4: Ablaufsteuerung.}
 Eine neue Funktion \texttt{runExploreTable()}, nach demselben Muster wie
 die Phasenschleife in \texttt{runSimTest()}
 (Abschnitt~\ref{ablauf-simtest}): eine Liste der vier Eckpunkte plus
@@ -1859,22 +1860,22 @@ bleibt wie gehabt vorrangig; ein Auslösen nahe einer Ecke sollte in dieser
 frühen Stufe zunächst protokolliert statt hart als Fehlschlag gewertet
 werden, um Stufe 3 iterativ nachjustieren zu können.
 
-\paragraph{Stufe 5 -- Anbindung.} Neuer Wert \texttt{MODE\_EXPLORE\_TABLE}
+\paragraph{Stufe 5: Anbindung.} Neuer Wert \texttt{MODE\_EXPLORE\_TABLE}
 im \texttt{Mode}-Enum, die Welt \texttt{coasterbot-explore.wbt}, sowie
 \texttt{webots\_coaster\_handling.cpp} im \texttt{Makefile}.
 
-\paragraph{Stufe 6 -- Test und Rückverfolgbarkeit.} Ein neuer Testfall
+\paragraph{Stufe 6: Test und Rückverfolgbarkeit.} Ein neuer Testfall
 (z.\,B. \texttt{ST-SIM-009}, im Testkonzept bislang nicht definiert) und
 die ersten Umsetzungsreferenzen für \texttt{CST-001}/\texttt{CST-003} in
 Tabelle~\ref{tab:trace}.
 
-\paragraph{Stufe 7 -- Verifikation.} Zweifacher kopfloser Lauf
+\paragraph{Stufe 7: Verifikation.} Zweifacher kopfloser Lauf
 (Reproduzierbarkeit), Kontrolle, dass \texttt{SafetyMonitor} an keiner
 Ecke ungewollt auslöst, dass alle vier Untersetzer erscheinen und der
 Roboter innerhalb der Toleranz zum Ausgangspunkt zurückkehrt.
 
 % =====================================================================
-\section{Anhang A -- Schnittstelle \texttt{RobotHAL}}\label{anhang-hal}
+\section{Anhang A: Schnittstelle \texttt{RobotHAL}}\label{anhang-hal}
 % =====================================================================
 
 \begin{lstlisting}[style=cpp]
@@ -1903,7 +1904,7 @@ public:
 \end{lstlisting}
 
 % =====================================================================
-\section{Anhang B -- wesentliche Parameter}\label{anhang-parameter}
+\section{Anhang B: Wesentliche Parameter}\label{anhang-parameter}
 % =====================================================================
 
 \begin{longtable}[]{@{}p{0.24\textwidth}p{0.34\textwidth}p{0.34\textwidth}@{}}

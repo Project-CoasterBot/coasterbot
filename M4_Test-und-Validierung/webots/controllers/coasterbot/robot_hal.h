@@ -15,14 +15,13 @@
 // RobotLogic (robot_logic.h/.cpp) verwendet NUR dieses Interface und
 // kann daher unveraendert von Webots auf Arduino uebernommen werden.
 // ---------------------------------------------------------------------
-// Rad-Indizes - nur zum Auslesen der Encoder (getWheelAngle). Angesteuert
-// werden die Raeder nur seitenweise: die zwei Motoren einer Seite sind
-// gekoppelt und laufen immer zusammen (wie beim realen Coasterbot).
+// Seiten-Index - fuer Encoder (getWheelAngle). Angesteuert UND gemessen wird
+// nur seitenweise: die zwei Motoren einer Seite sind gekoppelt und laufen
+// immer zusammen (wie beim realen Coasterbot), und die reale Elektronik
+// besitzt ebenfalls nur EINEN Encoder je Seite, nicht einen je Rad.
 enum WheelId {
-    WHEEL_FL = 0,
-    WHEEL_FR = 1,
-    WHEEL_RL = 2,
-    WHEEL_RR = 3
+    WHEEL_LEFT = 0,
+    WHEEL_RIGHT = 1
 };
 
 class RobotHAL {
@@ -40,22 +39,28 @@ public:
     virtual void setLeftSpeed(float radPerSec) = 0;
     virtual void setRightSpeed(float radPerSec) = 0;
 
-    // Distanzsensoren. Rueckgabewert-Semantik ist bewusst simpel gehalten
-    // (siehe Kommentare in der jeweiligen HAL-Implementierung):
+    // Distanzsensoren.
     //   getUltrasonicDistance() -> Meter, kleiner = naeher
-    //   getEdge*()              -> groesser = "kein Boden erkannt" (Kante!)
+    //   getEdge*()              -> true = Kante erkannt (kein Boden unter dem
+    //                              Sensor). Die Kalibrierung des Rohsignals
+    //                              (Schwellenwert, sensorspezifisch) ist
+    //                              Aufgabe der jeweiligen HAL-Implementierung,
+    //                              nicht der Anwendungslogik - siehe die
+    //                              Kommentare in webots_hal.cpp.
     virtual float getUltrasonicDistance() = 0;
-    virtual float getEdgeFrontLeft() = 0;
-    virtual float getEdgeFrontRight() = 0;
-    virtual float getEdgeRearLeft() = 0;
-    virtual float getEdgeRearRight() = 0;
+    virtual bool  getEdgeFrontLeft() = 0;
+    virtual bool  getEdgeFrontRight() = 0;
+    virtual bool  getEdgeRearLeft() = 0;
+    virtual bool  getEdgeRearRight() = 0;
 
     // IMU
     virtual float getYaw() = 0;    // Rotation um die Hochachse [rad]
     virtual float getGyroZ() = 0;  // Winkelgeschwindigkeit um Hochachse [rad/s]
 
-    // Odometrie: akkumulierter Drehwinkel EINES Rades [rad], positiv =
-    // vorwaerts. Webots: PositionSensor am Radgelenk.
+    // Odometrie: akkumulierter Drehwinkel EINER Seite [rad], positiv =
+    // vorwaerts. Webots: WebotsHAL mittelt intern die zwei PositionSensor
+    // dieser Seite (das PROTO bietet sie kostenlos); real liest dies genau
+    // einen Encoder pro Seite.
     // Arduino: akkumulierte Encoder-Ticks * (2*pi / Ticks-pro-Umdrehung).
     virtual float getWheelAngle(WheelId wheel) = 0;
 

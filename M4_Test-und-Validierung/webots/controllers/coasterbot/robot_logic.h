@@ -47,9 +47,10 @@ private:
     float stateEnteredAt_ = 0.0f;
     float turnDirection_ = -1.0f;  // +1 = links drehen, -1 = rechts drehen
 
-    // Schwellenwerte / Parameter - an reale Sensorwerte (lookupTable)
-    // und Motor-/Getriebeuebersetzung anpassen.
-    static constexpr float EDGE_THRESHOLD = 500.0f;    // Rohwert Kantensensor (~0 auf Boden, ~1000 ueber Kante)
+    // Schwellenwerte / Parameter - an reale Sensorwerte und
+    // Motor-/Getriebeuebersetzung anpassen. Die Kantensensoren liefern
+    // bereits ein kalibriertes bool (siehe RobotHAL::getEdgeFrontLeft() &
+    // Co.) - hier braucht es dafuer keinen eigenen Schwellenwert mehr.
     static constexpr float OBSTACLE_THRESHOLD_M = 0.22f; // Meter (> Wende-Schwenkradius ~0.16 m)
     static constexpr float CRUISE_SPEED = 6.0f;        // rad/s
     static constexpr float TURN_SPEED = 4.0f;          // rad/s

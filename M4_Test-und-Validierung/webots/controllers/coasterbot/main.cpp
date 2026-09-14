@@ -38,7 +38,7 @@
 // ---------------------------------------------------------------------
 enum Mode { MODE_WHEEL_TEST, MODE_MANUAL, MODE_AUTONOMOUS, MODE_ODOMETRY_TEST,
             MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST };
-static const Mode MODE = MODE_NAVIGATE_DSTAR;  // <-- hier umschalten
+static const Mode MODE = MODE_SIM_TEST;  // <-- hier umschalten
 
 static void printPose(const char* tag, float t, const PoseEstimator& pose) {
     std::cout << tag << " t=" << t << "s  pose x=" << pose.getX()
@@ -69,10 +69,10 @@ static void runWheelTest(WebotsHAL& hal) {
 
         static float lastEnc = -1.0f;
         if (t - lastEnc >= 1.0f) {
-            std::cout << "           Encoder [FL " << hal.getWheelAngle(WHEEL_FL)
-                      << "  RL " << hal.getWheelAngle(WHEEL_RL)
-                      << "  FR " << hal.getWheelAngle(WHEEL_FR)
-                      << "  RR " << hal.getWheelAngle(WHEEL_RR) << "]" << std::endl;
+            // Nur ein Encoderwert je Seite - die reale Elektronik hat
+            // ebenfalls nur einen Encoder je Seite (siehe RobotHAL::WheelId).
+            std::cout << "           Encoder [L " << hal.getWheelAngle(WHEEL_LEFT)
+                      << "  R " << hal.getWheelAngle(WHEEL_RIGHT) << "]" << std::endl;
             lastEnc = t;
         }
     }

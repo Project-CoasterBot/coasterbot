@@ -41,7 +41,8 @@ private:
     int    eventCount_ = 0;
     float  evadeDir_ = -1.0f;   // -1 = rueckwaerts, +1 = vorwaerts
 
-    static constexpr float EDGE_THRESHOLD = 500.0f;  // wie PROTO-lookupTable
+    // Kantensensoren liefern bereits ein kalibriertes bool (siehe
+    // RobotHAL::getEdgeFrontLeft() & Co.) - kein eigener Schwellenwert noetig.
     static constexpr float EVADE_RADS     = 3.0f;    // rad/s (~0.10 m/s)
     static constexpr float EVADE_TIME     = 0.7f;    // s
     static constexpr float PAUSE_TIME     = 0.3f;    // s

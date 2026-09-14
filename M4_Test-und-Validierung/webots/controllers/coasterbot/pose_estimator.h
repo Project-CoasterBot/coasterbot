@@ -6,9 +6,10 @@
 // ---------------------------------------------------------------------
 // Schaetzt die Pose (x, y, theta) des Roboters auf der Tischebene.
 //
-// Grundlage: Differential-/Skid-Steer-Odometrie aus den vier Radwinkeln
-// (RobotHAL::getWheelAngle) plus Fusion des Kurses mit der integrierten
-// Gyro-Drehrate (RobotHAL::getGyroZ) ueber einen Komplementaerfilter.
+// Grundlage: Differential-/Skid-Steer-Odometrie aus den zwei seitenweisen
+// Radwinkeln (RobotHAL::getWheelAngle, ein Wert je Seite) plus Fusion des
+// Kurses mit der integrierten Gyro-Drehrate (RobotHAL::getGyroZ) ueber
+// einen Komplementaerfilter.
 //
 // Kennt NUR das RobotHAL-Interface -> unveraendert auf einen Arduino
 // portierbar (dort liefern Radencoder die Winkel, ein MPU-6050 die

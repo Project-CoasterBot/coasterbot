@@ -69,10 +69,14 @@ float WebotsHAL::getUltrasonicDistance() {
     return static_cast<float>(ultrasonic_->getValue());
 }
 
-float WebotsHAL::getEdgeFrontLeft()  { return static_cast<float>(edgeFL_->getValue()); }
-float WebotsHAL::getEdgeFrontRight() { return static_cast<float>(edgeFR_->getValue()); }
-float WebotsHAL::getEdgeRearLeft()   { return static_cast<float>(edgeRL_->getValue()); }
-float WebotsHAL::getEdgeRearRight()  { return static_cast<float>(edgeRR_->getValue()); }
+// Kalibrierung (Schwellenwert EDGE_THRESHOLD) findet bewusst HIER statt, nicht
+// in RobotLogic/SafetyMonitor: die Anwendungslogik interessiert nur "Kante
+// erkannt oder nicht", die konkrete Umrechnung ist hardwarespezifisch (siehe
+// robot_hal.h). Eine ArduinoHAL kalibriert ihren eigenen Rohwert ebenso hier.
+bool WebotsHAL::getEdgeFrontLeft()  { return edgeFL_->getValue() > EDGE_THRESHOLD; }
+bool WebotsHAL::getEdgeFrontRight() { return edgeFR_->getValue() > EDGE_THRESHOLD; }
+bool WebotsHAL::getEdgeRearLeft()   { return edgeRL_->getValue() > EDGE_THRESHOLD; }
+bool WebotsHAL::getEdgeRearRight()  { return edgeRR_->getValue() > EDGE_THRESHOLD; }
 
 float WebotsHAL::getYaw() {
     const double* rpy = imu_->getRollPitchYaw();
@@ -90,11 +94,22 @@ float WebotsHAL::getGyroZ() {
 float WebotsHAL::getWheelAngle(WheelId wheel) {
     // Konvention: positiv = vorwaerts. Der PositionSensor dreht mit dem
     // (invertierten) Motor mit, daher hier ebenfalls negieren.
+    //
+    // Die reale Elektronik hat nur EINEN Encoder je Seite (siehe RobotHAL).
+    // Das PROTO liefert in der Simulation trotzdem vier unabhaengige
+    // PositionSensor (einen je Rad) - das ist der Rasteraufbau des CAD-
+    // Modells, kein Hinweis auf die reale Sensorbestueckung. Um dieselbe
+    // Information wie die reale Elektronik nach aussen zu geben, wird hier
+    // je Seite gemittelt: das naehert die Drehung der (real gekoppelten)
+    // Seitenwelle an und daempft nebenbei simulationsbedingtes Radschlupf-
+    // Rauschen zwischen den zwei Sensoren derselben Seite.
     switch (wheel) {
-        case WHEEL_FL: return -static_cast<float>(encFL_->getValue());
-        case WHEEL_FR: return -static_cast<float>(encFR_->getValue());
-        case WHEEL_RL: return -static_cast<float>(encRL_->getValue());
-        case WHEEL_RR: return -static_cast<float>(encRR_->getValue());
+        case WHEEL_LEFT:
+            return -0.5f * (static_cast<float>(encFL_->getValue())
+                           + static_cast<float>(encRL_->getValue()));
+        case WHEEL_RIGHT:
+            return -0.5f * (static_cast<float>(encFR_->getValue())
+                           + static_cast<float>(encRR_->getValue()));
     }
     return 0.0f;
 }

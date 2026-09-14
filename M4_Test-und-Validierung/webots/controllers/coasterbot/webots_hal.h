@@ -26,10 +26,10 @@ public:
     void setLeftSpeed(float radPerSec) override;
     void setRightSpeed(float radPerSec) override;
     float getUltrasonicDistance() override;
-    float getEdgeFrontLeft() override;
-    float getEdgeFrontRight() override;
-    float getEdgeRearLeft() override;
-    float getEdgeRearRight() override;
+    bool  getEdgeFrontLeft() override;
+    bool  getEdgeFrontRight() override;
+    bool  getEdgeRearLeft() override;
+    bool  getEdgeRearRight() override;
     float getYaw() override;
     float getGyroZ() override;
     float getWheelAngle(WheelId wheel) override;
@@ -45,6 +45,10 @@ private:
     webots::Motor* motorLeft_;
     webots::Motor* motorRight_;
 
+    // Vier PositionSensor, weil das PROTO sie je Rad bereitstellt - die
+    // reale Elektronik hat nur einen Encoder je Seite. getWheelAngle()
+    // mittelt Front/Heck je Seite und gibt nur noch WHEEL_LEFT/WHEEL_RIGHT
+    // nach aussen; diese vier Handles sind reines Simulationsdetail.
     webots::PositionSensor* encFL_;
     webots::PositionSensor* encFR_;
     webots::PositionSensor* encRL_;
@@ -58,6 +62,12 @@ private:
 
     webots::InertialUnit* imu_;
     webots::Gyro* gyro_;
+
+    // Kalibrierter Schwellenwert fuer die Kantensensoren (Rohwert der
+    // Coasterbot.proto-lookupTable: ~0 auf einer Flaeche, ~1000 ueber einer
+    // Kante). Die Kalibrierung ist hardwarespezifisch und bleibt deshalb
+    // hier gekapselt - RobotHAL gibt nach aussen nur noch bool zurueck.
+    static constexpr double EDGE_THRESHOLD = 500.0;
 };
 
 #endif  // WEBOTS_HAL_H

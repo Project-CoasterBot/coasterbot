@@ -398,6 +398,10 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 08.09.2026 & Etringer & Erstfassung der Softwaredokumentation der Simulationssoftware\\
+2 & 08.09.2026 & Etringer & Abschnitt 5 (Lokalisierung) um Prinzip (Koppelnavigation) und Grenzen der Lokalisierung ergänzt\\
+3 & 13.09.2026 & Etringer & Offene Punkte aus der Hardware-Rückmeldung zu \texttt{RobotHAL} ergänzt (Abschnitt~4.3)\\
+4 & 13.09.2026 & Etringer & Entscheidung umgesetzt: Kantensensoren liefern jetzt \texttt{bool} statt \texttt{float}; Kalibrierung in \texttt{WebotsHAL} gekapselt\\
+5 & 13.09.2026 & Etringer & Entscheidung umgesetzt: \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (reale Elektronik hat nur einen Encoder je Seite)\\
 \bottomrule
 \end{tabularx}
 
@@ -785,10 +789,10 @@ erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
 \texttt{void setLeftSpeed(float)} & Sollgeschwindigkeit linke Seite [rad/s], positiv = vorwärts\\
 \texttt{void setRightSpeed(float)} & Sollgeschwindigkeit rechte Seite [rad/s]\\
 \texttt{float getUltrasonicDistance()} & Abstand nach vorn [m], kleiner = näher\\
-\texttt{float getEdgeFrontLeft()} \ldots & vier Kantensensoren; großer Wert = \enquote{kein Boden}\\
+\texttt{bool getEdgeFrontLeft()} \ldots & vier Kantensensoren; \texttt{true} = \enquote{kein Boden} (Kante), bereits kalibriert\\
 \texttt{float getYaw()} & Gierwinkel um die Hochachse [rad]\\
 \texttt{float getGyroZ()} & Giergeschwindigkeit um die Hochachse [rad/s]\\
-\texttt{float getWheelAngle(WheelId)} & akkumulierter Radwinkel [rad], positiv = vorwärts\\
+\texttt{float getWheelAngle(WheelId)} & akkumulierter Radwinkel EINER SEITE [rad], positiv = vorwärts\\
 \texttt{float getTime()} & Laufzeit seit Programmstart [s]\\
 \bottomrule
 \end{longtable}
@@ -804,11 +808,17 @@ erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
   \textbf{Radpaarung:} Die beiden Räder einer Seite sind mechanisch
   gekoppelt und laufen stets gemeinsam (wie beim realen Coasterbot: zwei
   Getriebemotoren je Seite, gemeinsam angesteuert). Es gibt daher
-  \emph{keinen} Einzelrad-Befehl. \texttt{enum WheelId} dient nur dem
-  Auslesen der vier Encoder.
+  \emph{keinen} Einzelrad-Befehl; \texttt{enum WheelId} hat entsprechend
+  nur die zwei Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} --
+  die reale Elektronik besitzt ebenfalls nur einen Encoder je Seite, nicht
+  einen je Rad (siehe Abschnitt~\ref{hal-offene-punkte}).
 \item
-  \textbf{Kantensensoren:} Rohwert $\approx 0$ auf einer Fläche,
-  $\approx 1000$ über einer Kante; Schwelle \num{500}.
+  \textbf{Kantensensoren:} \texttt{RobotHAL} gibt bereits ein kalibriertes
+  \texttt{bool} zurück (\texttt{true} = Kante). Die Umrechnung des
+  Rohwerts (in der Simulation $\approx 0$ auf einer Fläche, $\approx 1000$
+  über einer Kante; Schwelle \num{500}) ist Aufgabe der jeweiligen
+  HAL-Implementierung und bleibt dort gekapselt -- siehe
+  Abschnitt~\ref{hal-offene-punkte}.
 \end{itemize}
 
 \subsection{Implementierung \texttt{WebotsHAL}}\label{webotshal}
@@ -826,11 +836,11 @@ Aufgaben:
 \item
   Beschaffung der Geräte-Handles über die im PROTO vergebenen Namen: die
   gekoppelten Motoren \texttt{wheel\_left::front} und
-  \texttt{wheel\_right::front}, die vier Encoder
-  \texttt{wheel\_*\_sensor}, der Ultraschall \texttt{ultrasonic}, die vier
-  Kantensensoren \texttt{edge\_*}, sowie \texttt{inertial\_unit} und
-  \texttt{gyro}. Die Namensstrings sind der Vertrag zwischen PROTO und
-  Software.
+  \texttt{wheel\_right::front}, die vier PositionSensor
+  \texttt{wheel\_*\_sensor} (je zwei pro Seite, siehe unten), der
+  Ultraschall \texttt{ultrasonic}, die vier Kantensensoren \texttt{edge\_*},
+  sowie \texttt{inertial\_unit} und \texttt{gyro}. Die Namensstrings sind
+  der Vertrag zwischen PROTO und Software.
 \item
   Betrieb der Antriebsmotoren im Geschwindigkeitsmodus
   (\texttt{setPosition(\ensuremath{\infty})}).
@@ -845,12 +855,89 @@ Aufgaben:
   \texttt{rotation 1 0 0 1.5708} aufgestellt. Die Welt-Hochachse fällt
   daher mit der lokalen $+Y$-Achse des Gyros zusammen; \texttt{getGyroZ()}
   liefert die $Y$-Komponente des Gyrovektors.
+\item
+  \textbf{Encoder-Aggregation:} Die reale Elektronik besitzt nur einen
+  Encoder je Seite (\texttt{RobotHAL::WheelId} kennt entsprechend nur
+  \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}). Das PROTO stellt in der
+  Simulation trotzdem vier unabhängige \texttt{PositionSensor} bereit (je
+  Rad); \texttt{getWheelAngle()} mittelt Front- und Heckrad je Seite, um
+  nach außen dieselbe Information wie der eine reale Encoder zu liefern.
 \end{itemize}
 
 Die coupled motors von Webots setzen einen Befehl an
 \texttt{wheel\_left::front} automatisch auch auf
 \texttt{wheel\_left::rear} um (Faktor \texttt{multiplier} $= 1$), sodass
 die Software je Seite nur ein Handle benötigt.
+
+\subsection{Offene Punkte aus der Hardware-Rückmeldung}\label{hal-offene-punkte}
+
+Die folgenden Punkte wurden vom Hardware-Team am 13.09.2026 zur
+Schnittstelle \texttt{RobotHAL} zurückgemeldet. Zwei Punkte (Radgranularität,
+Kantensensoren) wurden inzwischen entschieden und umgesetzt; die übrigen
+sind weiterhin \textbf{offene Fragen} und hier dokumentiert, damit sie bei
+der Portierung auf die Zielhardware (\texttt{ArduinoHAL}) nicht verloren
+gehen.
+
+\paragraph{Radgranularität (\texttt{enum WheelId}) -- entschieden.}
+Auch diese Frage ist geklärt: Die reale Elektronik besitzt je
+Fahrzeugseite nur \emph{einen} Encoder (und ohnehin nur eine Ansteuerung
+-- vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
+gleich schnell, was \texttt{setLeftSpeed}/\texttt{setRightSpeed} bereits
+korrekt abbildet, siehe \enquote{Radpaarung} oben). \texttt{enum WheelId}
+wurde deshalb von vier Werten (\texttt{WHEEL\_FL/FR/RL/RR}) auf zwei
+reduziert (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}), und
+\texttt{PoseEstimator} (Abschnitt~\ref{lokalisierung}) liest seither
+direkt den Seitenwert statt einen Mittelwert aus zwei (zuvor fiktiven)
+Einzelmessungen zu bilden. Da das PROTO in der Simulation weiterhin vier
+unabhängige \texttt{PositionSensor} bereitstellt (ein Rasteraufbau des
+CAD-Modells, kein Beleg für vier reale Messpunkte), mittelt
+\texttt{WebotsHAL} Front- und Heckrad je Seite intern, um nach außen
+exakt die Information eines einzelnen realen Encoders je Seite zu
+liefern (Abschnitt~\ref{robothal}). Für eine künftige \texttt{ArduinoHAL}
+entfällt dieser Mittelungsschritt -- sie liest ohnehin nur einen Encoder
+je Seite.
+
+\paragraph{Kantensensoren: \texttt{float} oder \texttt{bool}? -- entschieden.}
+Diese Frage wurde inzwischen entschieden: \texttt{RobotHAL} liefert die
+vier Kantensensoren seit Version~3 dieses Dokuments als \texttt{bool}
+(\texttt{true} = Kante). Zuvor lieferte die Schnittstelle einen rohen
+\texttt{float}, den \texttt{RobotLogic} \emph{und} \texttt{SafetyMonitor}
+unabhängig voneinander gegen dieselbe Konstante
+\texttt{EDGE\_THRESHOLD = 500} auswerteten -- für die Algorithmik ist aber
+tatsächlich nur die boolesche Aussage \enquote{Kante / kein Boden}
+relevant, und die Kalibrierung eines IR-Kantensensors (Reflexionsgrad des
+Untergrunds, Umgebungslicht, Sensorabstand) ist Hardwarewissen, das laut
+Pflichtenheft in die Hardwareabstraktion gehört
+(\enquote{Umwandlung hardwareabhängiger Daten in ein einheitliches
+Format}). Die Kalibrierung sitzt jetzt ausschließlich in
+\texttt{WebotsHAL} (\texttt{EDGE\_THRESHOLD} als private Konstante,
+Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}); eine künftige
+\texttt{ArduinoHAL} kalibriert ihren eigenen Rohwert ebenso dort. Damit
+entfällt zugleich die doppelte Ablage derselben Schwelle in
+\texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp} -- beide fragen
+jetzt nur noch \texttt{hal.getEdgeFrontLeft() || \ldots} ab.
+
+\paragraph{Gyro-Schnittstelle.}
+Ob \texttt{getGyroZ()} -- ein einzelner Skalar, Giergeschwindigkeit um die
+Hochachse in rad/s -- unverändert zu einer realen IMU passt, ist mangels
+Hardwareerfahrung noch nicht bewertet. Die Simulation modelliert weder
+Bias noch Rauschen des Gyros; ob die in Abschnitt~\ref{lokalisierung}
+beschriebene Komplementärfilter-Fusion damit auf der Zielhardware ebenso
+funktioniert, muss dort geprüft werden.
+
+\paragraph{Erreichbarkeit einer definierten Winkelgeschwindigkeit.}
+Die Schnittstelle \texttt{setLeftSpeed}/\texttt{setRightSpeed(float radPerSec)}
+setzt -- wie das geschwindigkeitsgeregelte Webots-Motormodell -- eine
+gesteuerte (open-loop) Geschwindigkeitsvorgabe voraus. Ob sich damit auf
+den realen Getriebemotoren tatsächlich ein definiertes rad/s einstellt,
+ist offen; erste Erfahrungen zeigen ein unstetiges Ansprechverhalten der
+Motoren. Falls nötig, müsste \texttt{ArduinoHAL::setLeftSpeed}/
+\texttt{setRightSpeed} intern eine Regelschleife führen (Vorwärtsbefehl
+setzen, Ist-Geschwindigkeit über Encoder und/oder Gyro schätzen,
+Motoransteuerung nachführen), sodass die \texttt{RobotHAL}-Schnittstelle
+für alle aufrufenden Komponenten unverändert bliebe -- die Regelung wäre
+vollständig in der Hardwaretreiberebene gekapselt. Diese Regelschleife ist
+noch nicht umgesetzt.
 
 % =====================================================================
 \section{Lokalisierungskomponente}\label{lokalisierung}
@@ -876,10 +963,11 @@ Die Pose entsteht in vier Schritten:
   Szenario/in der Welt definierte Startposition. Alles Weitere ist
   relativ zu diesem Punkt.
 \item
-  \textbf{Radodometrie.} In jedem Regelzyklus werden die vier
-  Radencoder (\texttt{wheel\_*\_sensor}) über
-  \texttt{RobotHAL::getWheelAngle} gelesen, je Seite gemittelt und mit
-  dem Radradius in eine gefahrene Strecke umgerechnet.
+  \textbf{Radodometrie.} In jedem Regelzyklus wird über
+  \texttt{RobotHAL::getWheelAngle} je ein Encoderwert pro Seite gelesen
+  (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} -- die reale Elektronik hat
+  nur einen Encoder je Seite) und mit dem Radradius in eine gefahrene
+  Strecke umgerechnet.
 \item
   \textbf{Kursfusion.} Die Kursänderung wird aus der Radodometrie
   \emph{und} der integrierten Gyro-Giergeschwindigkeit über einen
@@ -891,20 +979,25 @@ Die Pose entsteht in vier Schritten:
 
 \subsection{Verfahren}\label{lokalisierung-verfahren}
 
-Verwendet wird eine \textbf{Skid-Steer-Odometrie} aus den vier
-Radwinkeln, deren Kurs mit der integrierten Gyro-Giergeschwindigkeit
-über einen \textbf{Komplementärfilter} fusioniert wird. Die
+Verwendet wird eine \textbf{Skid-Steer-Odometrie} aus den zwei
+seitenweisen Radwinkeln, deren Kurs mit der integrierten
+Gyro-Giergeschwindigkeit über einen \textbf{Komplementärfilter}
+fusioniert wird. Die
 Alternativenbeschreibung nennt hierfür grundsätzlich EKF/UKF; für den
 Prototyp auf einer ebenen Tischfläche mit nur zwei Sensorquellen genügt
 der wesentlich einfachere Komplementärfilter, der ohne
 Kovarianzschätzung auskommt und deterministisch ist (wichtig für
 \texttt{ST-SIM-004}).
 
-Je Seite werden die beiden Radwinkel gemittelt (dämpft Einzelrad\-schlupf):
+Aus dem Encoderwert je Seite folgt die gefahrene Strecke dieser Seite
+(in der Simulation mittelt \texttt{WebotsHAL} dafür intern die zwei
+PositionSensor von Front- und Heckrad derselben Seite, um dieselbe
+Information wie der eine reale Encoder je Seite nachzubilden -- siehe
+Abschnitt~\ref{hal-offene-punkte}):
 \[
-\Delta s_L = \big(\bar\varphi_L - \bar\varphi_{L,\mathrm{prev}}\big)\,r,
+\Delta s_L = \big(\varphi_L - \varphi_{L,\mathrm{prev}}\big)\,r,
 \qquad
-\Delta s_R = \big(\bar\varphi_R - \bar\varphi_{R,\mathrm{prev}}\big)\,r
+\Delta s_R = \big(\varphi_R - \varphi_{R,\mathrm{prev}}\big)\,r
 \]
 mit Radradius $r = \SI{0.035}{\meter}$. Daraus folgen der
 Vorschub des Zentrums und die odometrische Kursänderung:
@@ -1591,6 +1684,15 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
 \item
   \textbf{Validierung gegen den Prototyp:} \texttt{ST-SIM-008} erfordert
   den realen Coasterbot.
+\item
+  \textbf{Hardware-Realisierbarkeit von \texttt{RobotHAL}:} Eignung von
+  \texttt{getGyroZ()} sowie die offene Frage, ob
+  \texttt{setLeftSpeed}/\texttt{setRightSpeed} auf realen Motoren eine
+  Regelschleife benötigen -- siehe die Rückmeldung des Hardware-Teams in
+  Abschnitt~\ref{hal-offene-punkte} (Radgranularität und Kantensensoren
+  sind aus derselben Rückmeldung bereits umgesetzt: \texttt{enum WheelId}
+  auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert, Kantensensoren
+  als \texttt{bool}-Schnittstelle).
 \end{itemize}
 
 % =====================================================================
@@ -1598,7 +1700,7 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
 % =====================================================================
 
 \begin{lstlisting}[style=cpp]
-enum WheelId { WHEEL_FL = 0, WHEEL_FR = 1, WHEEL_RL = 2, WHEEL_RR = 3 };
+enum WheelId { WHEEL_LEFT = 0, WHEEL_RIGHT = 1 };  // ein Encoder je Seite
 
 class RobotHAL {
 public:
@@ -1610,14 +1712,14 @@ public:
     virtual void  setRightSpeed(float radPerSec) = 0;  // rechte Seite (gekoppelt)
 
     virtual float getUltrasonicDistance() = 0;   // [m]
-    virtual float getEdgeFrontLeft()  = 0;       // Rohwert, gross = Kante
-    virtual float getEdgeFrontRight() = 0;
-    virtual float getEdgeRearLeft()   = 0;
-    virtual float getEdgeRearRight()  = 0;
+    virtual bool  getEdgeFrontLeft()  = 0;       // true = Kante, kalibriert in der HAL
+    virtual bool  getEdgeFrontRight() = 0;
+    virtual bool  getEdgeRearLeft()   = 0;
+    virtual bool  getEdgeRearRight()  = 0;
 
     virtual float getYaw()    = 0;               // [rad]
     virtual float getGyroZ()  = 0;               // [rad/s]
-    virtual float getWheelAngle(WheelId wheel) = 0;   // [rad], + = vorwaerts
+    virtual float getWheelAngle(WheelId wheel) = 0;   // [rad] EINER SEITE, + = vorwaerts
     virtual float getTime()   = 0;               // [s]
 };
 \end{lstlisting}
@@ -1643,8 +1745,8 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & Gewichte $w_h,w_p,w_c,w_v$ & 1{,}0 / 2{,}0 / 1{,}5 / 0{,}3\\
  & \texttt{CARROT\_DIST} / \texttt{GOAL\_TOL} & \SI{0.30}{\meter} / \SI{0.05}{\meter}\\
  & \texttt{ROBOT\_RADIUS} & \SI{0.14}{\meter}\\
-\texttt{SafetyMonitor} & \texttt{EDGE\_THRESHOLD} & 500\\
- & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\
+\texttt{WebotsHAL} & \texttt{EDGE\_THRESHOLD} (Kantensensor-Kalibrierung) & 500\\
+\texttt{SafetyMonitor} & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\
  & \texttt{PAUSE\_TIME} & \SI{0.3}{\second}\\
 \texttt{RobotLogic} & \texttt{OBSTACLE\_THRESHOLD\_M} & \SI{0.22}{\meter}\\
  & \texttt{CRUISE\_SPEED} / \texttt{TURN\_SPEED} & \SI{6}{\radian\per\second} / \SI{4}{\radian\per\second}\\

@@ -4,10 +4,8 @@
 RobotLogic::RobotLogic(RobotHAL& hal) : hal_(hal) {}
 
 bool RobotLogic::edgeDetected() const {
-    return hal_.getEdgeFrontLeft()  > EDGE_THRESHOLD ||
-           hal_.getEdgeFrontRight() > EDGE_THRESHOLD ||
-           hal_.getEdgeRearLeft()   > EDGE_THRESHOLD ||
-           hal_.getEdgeRearRight()  > EDGE_THRESHOLD;
+    return hal_.getEdgeFrontLeft()  || hal_.getEdgeFrontRight() ||
+           hal_.getEdgeRearLeft()   || hal_.getEdgeRearRight();
 }
 
 void RobotLogic::enterState(State s) {

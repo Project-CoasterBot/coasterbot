@@ -18,9 +18,12 @@ void PoseEstimator::reset(float x, float y, float theta) {
 }
 
 void PoseEstimator::update() {
-    // Je Seite die beiden Raeder mitteln (daempft Schlupf einzelner Raeder).
-    const float left  = 0.5f * (hal_.getWheelAngle(WHEEL_FL) + hal_.getWheelAngle(WHEEL_RL));
-    const float right = 0.5f * (hal_.getWheelAngle(WHEEL_FR) + hal_.getWheelAngle(WHEEL_RR));
+    // Je ein Encoderwert pro Seite (RobotHAL::getWheelAngle) - real gibt es
+    // hier ohnehin nur einen Sensor je Seite; eine etwaige Mittelung ueber
+    // mehrere Raeder derselben Seite ist Sache der jeweiligen HAL-
+    // Implementierung (siehe WebotsHAL::getWheelAngle).
+    const float left  = hal_.getWheelAngle(WHEEL_LEFT);
+    const float right = hal_.getWheelAngle(WHEEL_RIGHT);
     const float now   = hal_.getTime();
 
     if (!initialized_) {

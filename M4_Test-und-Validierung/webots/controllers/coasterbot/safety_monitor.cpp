@@ -3,13 +3,11 @@
 SafetyMonitor::SafetyMonitor(RobotHAL& hal) : hal_(hal) {}
 
 bool SafetyMonitor::anyFront() const {
-    return hal_.getEdgeFrontLeft()  > EDGE_THRESHOLD ||
-           hal_.getEdgeFrontRight() > EDGE_THRESHOLD;
+    return hal_.getEdgeFrontLeft() || hal_.getEdgeFrontRight();
 }
 
 bool SafetyMonitor::anyRear() const {
-    return hal_.getEdgeRearLeft()  > EDGE_THRESHOLD ||
-           hal_.getEdgeRearRight() > EDGE_THRESHOLD;
+    return hal_.getEdgeRearLeft() || hal_.getEdgeRearRight();
 }
 
 bool SafetyMonitor::frontEdge() const { return anyFront(); }

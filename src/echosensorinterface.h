@@ -21,7 +21,7 @@ public:
         digitalWrite(pin_trigger, LOW);
     }
 
-    // Blocking read of the value in meter
+    /// Blocking read of the raw sensor value in meter
     double readCurrentValue() {
         digitalWrite(pin_trigger, LOW);
         delayMicroseconds(2);
@@ -35,6 +35,7 @@ public:
         return distance;
     }
 
+    /// Get the averaged value from the most recent measurements nonblockingly.
     double getAccumulatedValue() {
         if (! _curval.has_value()) {
             _curval = readCurrentValue();

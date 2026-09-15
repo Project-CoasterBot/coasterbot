@@ -218,3 +218,7 @@ Temporary Items
 
 # kicad lock files
 *.kicad*.lck
+
+# PlatformIO
+.pio/
+.vscode/

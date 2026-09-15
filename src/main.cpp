@@ -10,10 +10,17 @@
 #include "ledinterface.h"
 #include "buttoninterface.h"
 #include "motioninterface.h"
+#include "infraredsensorinterrface.h"
+#include "echosensorinterface.h"
 
 static LEDController<board::PIN_LED1_R, board::PIN_LED1_G, board::PIN_LED1_B> led_board;
 static ButtonController<board::PIN_USER_BUTTON> user_button;
 static MotionController<board::PIN_MOTOR_PWM, board::PIN_MOTOR_STANDBY, board::PIN_MOTOR_LEFT_1, board::PIN_MOTOR_LEFT_2, board::PIN_MOTOR_RIGHT_1, board::PIN_MOTOR_RIGHT_2> motion_ctrl;
+
+static EchosensorInterface<board::PIN_ULTRASONIC_ECHO, board::PIN_ULTRASONIC_TRIGGER> obstcl_sensor;
+
+static InfraredSensorControl<board::PIN_EDGE_REAR_LEFT> edge_det_rear_left;
+static InfraredSensorControl<board::PIN_EDGE_REAR_RIGHT> edge_det_rear_right;
 
 static unsigned long next_heartbeat = 0;
 
@@ -29,6 +36,11 @@ void setup() {
     motion_ctrl.begin();
     motion_ctrl.stop();
 
+    edge_det_rear_left.begin();
+    edge_det_rear_right.begin();
+
+    obstcl_sensor.begin();
+
     next_heartbeat = millis();
 }
 
@@ -41,7 +53,8 @@ void loop() {
 
     bool user_button_pressed = user_button.update(now, user_button_pressed_duration_millis);
 
-
+    bool edge_rear_left = ! edge_det_rear_left.obstacleDetected();
+    bool edge_rear_right = ! edge_det_rear_right.obstacleDetected();
 
     // 2. Internal logic
 
@@ -80,10 +93,21 @@ void loop() {
 
     led_board.update();
     motion_ctrl.update();
+    obstcl_sensor.update();
 
     if (static_cast<long>(now - next_heartbeat) >= 0) {
         next_heartbeat = now + 1000;
         Serial.printf("[HEARTBEAT] t=%lu ms\n", now);
+
+        if (edge_rear_left) Serial.printf("[SENSOR] edge rear left detected\n");
+        if (edge_rear_right) Serial.printf("[SENSOR] edge rear right detected\n");
+
+        // only read in heartbeat since it blocks
+        double distance = obstcl_sensor.getAccumulatedValue();
+
+        Serial.printf("[SENSOR] obstcl dist=");
+        Serial.print(distance, 3);
+        Serial.printf("\n");
     }
 
     delay(1); // Regelzyklus ~1 kHz. mit entsprechender logik besser von delta zu now() abhängig.

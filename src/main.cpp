@@ -12,18 +12,23 @@
 #include "motioninterface.h"
 #include "infraredsensorinterrface.h"
 #include "echosensorinterface.h"
+#include "servointerface.h"
 
 static LEDController<board::PIN_LED1_R, board::PIN_LED1_G, board::PIN_LED1_B> led_board;
 static ButtonController<board::PIN_USER_BUTTON> user_button;
-static MotionController<board::PIN_MOTOR_PWM, board::PIN_MOTOR_STANDBY, board::PIN_MOTOR_LEFT_1, board::PIN_MOTOR_LEFT_2, board::PIN_MOTOR_RIGHT_1, board::PIN_MOTOR_RIGHT_2> motion_ctrl;
 
 static EchosensorInterface<board::PIN_ULTRASONIC_ECHO, board::PIN_ULTRASONIC_TRIGGER> obstcl_sensor;
 
 static InfraredSensorControl<board::PIN_EDGE_REAR_LEFT> edge_det_rear_left;
 static InfraredSensorControl<board::PIN_EDGE_REAR_RIGHT> edge_det_rear_right;
 
-static unsigned long next_heartbeat = 0;
+static MotionController<board::PIN_MOTOR_PWM, board::PIN_MOTOR_STANDBY, board::PIN_MOTOR_LEFT_1, board::PIN_MOTOR_LEFT_2, board::PIN_MOTOR_RIGHT_1, board::PIN_MOTOR_RIGHT_2> motion_ctrl;
 
+static ServoController<board::PIN_COASTER_SERVO_1> servo1;
+static ServoController<board::PIN_COASTER_SERVO_2> servo2;
+
+
+static unsigned long next_heartbeat = 0;
 static int motion_state = 0;
 
 void setup() {
@@ -35,6 +40,9 @@ void setup() {
     user_button.begin();
     motion_ctrl.begin();
     motion_ctrl.stop();
+
+    servo1.begin();
+    servo2.begin();
 
     edge_det_rear_left.begin();
     edge_det_rear_right.begin();
@@ -62,6 +70,7 @@ void loop() {
         Serial.printf("[ACT] press dur=%lu ms\n", user_button_pressed_duration_millis);
         led_board.setModeToRainbow(user_button_pressed_duration_millis);
 
+        /*
         switch (motion_state % 5) {
         default:
         case 0:
@@ -84,6 +93,21 @@ void loop() {
             Serial.println("[Motion] Backward ");
             motion_ctrl.backward();
             break;
+        }*/
+
+        switch (motion_state % 4) {
+        default:
+        case 0:
+            break;
+        case 1:
+            servo2.moveTo(0, 1500);
+            break;
+        case 2:
+            servo2.moveTo(180, 1500);
+            break;
+        case 3:
+            servo2.moveTo(0, 1500);
+            break;
         }
 
         motion_state++;
@@ -94,6 +118,8 @@ void loop() {
     led_board.update();
     motion_ctrl.update();
     obstcl_sensor.update();
+    servo1.update();
+    servo2.update();
 
     if (static_cast<long>(now - next_heartbeat) >= 0) {
         next_heartbeat = now + 1000;

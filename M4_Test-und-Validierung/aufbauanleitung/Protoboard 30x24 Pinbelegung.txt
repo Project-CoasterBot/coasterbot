@@ -19,9 +19,8 @@ Motor: 			PWM		GP18
 			Rechts 2	GP19
 			Links 1		GP27
 			Links 2		GP28
-LED 1 (Gehäuse Montage)	R		GP6
-			G		GP7
-			B		GP8
+Coastermechanismus:	Servo 1		GP6
+			Servo 2		GP7
 LED 2 (Platine direkt)	R		GP12
 			G		GP13
 			B		GP14

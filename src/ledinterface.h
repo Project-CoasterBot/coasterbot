@@ -1,9 +1,16 @@
 #ifndef SRC_LEDINTERFACE_H
 #define SRC_LEDINTERFACE_H
 
+#include <array>
+#include <Arduino.h>
+
 /** This class is used in the coasterbot project to control the RGB LED with user mode indicators.
  *
- * Init an instance with the according GPIO numbers.
+ * Instantiate with the according GPIO numbers as template arguments.
+ *
+ * Call begin() once from setup(). The constructor deliberately keeps its hands
+ * off the hardware: global instances are constructed before the Arduino core
+ * has set up system clock, PWM and millis().
  *
  * In every main loop iteration, call the update() method.
  */
@@ -31,13 +38,16 @@ protected:
 
 public:
 
-    LedInterface() {
+    LEDController() {
         static_assert(r_pin >= 0 && g_pin >= 0 && b_pin >= 0);
         static_assert(r_pin != g_pin && r_pin != b_pin && g_pin != b_pin);
+    }
 
-        pinMode(r_pin, OUTPUT);
-        pinMode(g_pin, OUTPUT);
-        pinMode(b_pin, OUTPUT);
+    /// Configure the output pins and switch the LED off. Call once from setup().
+    void begin() {
+        for (const int pin: std::array<int,3>{r_pin, g_pin, b_pin}) {
+            pinMode(pin, OUTPUT);
+        }
 
         setModeToOff();
         setOutputValues();
@@ -69,7 +79,7 @@ public: // mode setters
     void setModeToConstantCyan(int v = 255) { setModeToConstant(0, v/2,v/2); }
     void setModeToConstantLightblue(int v = 255) { setModeToConstant(0, v/3,(v*2)/3); }
     void setModeToConstantPurple(int v = 255) { setModeToConstant(v/3, 0, (v*2)/3); }
-    void setModeToConstantPink(int v = 255) { setModeToConstant(0, v/2,v/2); }
+    void setModeToConstantPink(int v = 255) { setModeToConstant((v*2)/3, 0, v/3); }
 
     void setModeToBlink(int r, int g, int b, unsigned long duration = 500) {
         if (_mode == Blinking && colorsIdentical(r,g,b)) return; // nothing to do
@@ -77,7 +87,7 @@ public: // mode setters
         updateColors(r,g,b);
         setOutputValues();
         _blink_iter_duration = duration;
-        _next_action = millis() + _blink_iter_duration;
+        _next_action = now() + _blink_iter_duration;
     }
 
     void setModeToBlinkRed(int v = 255, unsigned long duration = 500) { setModeToBlink(v, 0,0, duration); }
@@ -89,12 +99,14 @@ public: // mode setters
     void setModeToBlinkCyan(int v = 255, unsigned long duration = 500) { setModeToBlink(0, v/2,v/2, duration); }
     void setModeToBlinkLightblue(int v = 255, unsigned long duration = 500) { setModeToBlink(0, v/3,(v*2)/3, duration); }
     void setModeToBlinkPurple(int v = 255, unsigned long duration = 500) { setModeToBlink(v/3, 0, (v*2)/3, duration); }
-    void setModeToBlinkPink(int v = 255, unsigned long duration = 500) { setModeToBlink(0, v/2,v/2, duration); }
+    void setModeToBlinkPink(int v = 255, unsigned long duration = 500) { setModeToBlink((v*2)/3, 0, v/3, duration); }
 
     void setModeToRainbow(unsigned long full_period_milliseconds = 3000) {
-        if (_mode == Rainbow) return;
+        if (_mode == Rainbow && _rainbow_duration == full_period_milliseconds) return;
+        _mode = Rainbow;
         setOutputValues(255,0,0); // start color
-        _rainbow_period_start = millis();
+        _rainbow_period_start = now();
+        _last_time = _rainbow_period_start;
         if (full_period_milliseconds < 50) // min 50 ms
             _rainbow_duration = 50;
         else if (full_period_milliseconds > 60*60*1000) // max 1 h
@@ -106,7 +118,7 @@ public: // mode setters
 
 public: // main loop repeated call
 
-    void update() { update(millis()); }
+    void update() { update(now()); }
 
     void update(unsigned long curtime) {
         switch (_mode) {
@@ -117,7 +129,7 @@ public: // main loop repeated call
             break;
 
         case Blinking:
-            if (curtime >= _next_action) {
+            if (static_cast<long>(curtime - _next_action) >= 0) {
                 if (_blink_iter % 2ull == 0) // was on, switch off
                     setOutputValues(0,0,0);
                 else
@@ -130,43 +142,49 @@ public: // main loop repeated call
         case Rainbow: {
             unsigned long delta = curtime - _last_time;
             if (delta > 10) { // max update every n milliseconds
+                _last_time = curtime;
+
                 unsigned long progress = curtime - _rainbow_period_start;
                 unsigned long nth_period = progress / _rainbow_duration;
                 unsigned long dt = progress % _rainbow_duration;
                 if (nth_period > 0)
                     _rainbow_period_start = curtime - dt;
 
-                const unsigned int v = (static_cast<int>(dt) * 3 * 256) / _rainbow_duration;
+                const unsigned int v = static_cast<unsigned int>( (static_cast<unsigned long long>(dt) * 3 * 256) / _rainbow_duration);
+
                 const unsigned int col = v / 256; // which color transition, 0 is red to green, 1 is green to blue, ...
                 const unsigned int p = v % 256; // progress inside the current color transition
 
                 switch (col) {
                 case 0:
-                    setOutputValues(p,255-p,0);
+                    setOutputValues(255-p,p,0);
                     break;
                 case 1:
-                    setOutputValues(0, p,255-p);
+                    setOutputValues(0, 255-p,p);
                     break;
                 default:
                 case 2:
-                    setOutputValues(255-p,0, p);
+                    setOutputValues(p,0, 255-p);
                     break;
                 }
             }
         }
             break;
         }
-
-        _last_time = curtime;
     }
 
 
 protected:
-    bool colorsIdentical(int r, int g, int b) const { return (r != _r) || (g != _g) || (b != _b); }
+    /// Milliseconds since program start. Wraps around, so only compare differences.
+    static unsigned long now() {
+        return millis();
+    }
+
+    bool colorsIdentical(int r, int g, int b) const { return (r == _r) && (g == _g) && (b == _b); }
 
     /// Check the internal color state and adapts the values if there is any change.
     bool updateColors(int r, int g, int b) {
-        if (! colorsIdentical(r,g,b)) return false;
+        if (colorsIdentical(r,g,b)) return false; // nothing changed
         _r = r;
         _g = g;
         _b = b;
@@ -186,12 +204,8 @@ protected:
     /// Write the valuee to the output pin without check for changes.
     template<int pin>
     void setOutputValue(int color) {
-        if (color <= 0)
-            analogWrite(pin, LOW);
-        else if (color >= 255)
-            analogWrite(pin, HIGH);
-        else
-            analogWrite(pin, color);
+        color = color < 0 ? 0 : (color > 255 ? 255 : color);
+        analogWrite(pin, color);
     }
 
 };

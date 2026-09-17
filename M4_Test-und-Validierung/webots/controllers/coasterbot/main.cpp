@@ -37,8 +37,8 @@
 //                      (nur mit worlds/coasterbot-simtest.wbt sinnvoll)
 // ---------------------------------------------------------------------
 enum Mode { MODE_WHEEL_TEST, MODE_MANUAL, MODE_AUTONOMOUS, MODE_ODOMETRY_TEST,
-            MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST };
-static const Mode MODE = MODE_SIM_TEST;  // <-- hier umschalten
+            MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST, MODE_LEARN_TABLE };
+static const Mode MODE = MODE_LEARN_TABLE;  // <-- hier umschalten
 
 static void printPose(const char* tag, float t, const PoseEstimator& pose) {
     std::cout << tag << " t=" << t << "s  pose x=" << pose.getX()
@@ -622,6 +622,150 @@ static void runSimTest(PoseEstimator& pose, WebotsHAL& hal) {
     std::cout << "===============================================" << std::endl;
 }
 
+
+static void runLearnTable(PoseEstimator& pose, WebotsHAL& hal, RobotLogic& logic) {
+    enum state { RESET, FORWARD, BACKWARD, CENTER, TURN, SET_POSE, EDGE_DETECTED, DONE, IDLE, DEFAULT};
+    state s = RESET;
+    state lastState = RESET;
+    static float speed = 5.0f;  // m/s
+    static float gap2Edge = 0.1f;
+
+    enum learning_phase { PHASE_X, PHASE_Y };
+    learning_phase phase = PHASE_X;
+
+    float distance = 0.0f;
+    static float lastOdo = 0.0f;
+
+    static float lastPosePrint = -1.0f;
+    static float tmpTime = -1.0f;
+    static bool printMsg = false;
+
+    while (hal.step()) {
+        pose.update();
+        logic.update();
+        const float t = hal.getTime();
+
+        switch (s) {
+            case RESET:
+                pose.reset(0.0f, 0.0f, 0.0f);
+                s = FORWARD;
+                break;
+            case FORWARD:
+                logic.forward(speed);
+                if (logic.edgeDetected()){ 
+                    std::cout << "[LEARN] Edge detected while moving forward." << std::endl;
+                    s = EDGE_DETECTED;
+                    lastState = FORWARD;
+                    lastOdo = pose.getOdometer();
+                }
+                break;
+            case BACKWARD:
+                logic.backward(speed);
+                if (logic.edgeDetected()){ 
+                    std::cout << "[LEARN] Edge detected while moving backward." << std::endl;
+                    s = EDGE_DETECTED;
+                    lastState = BACKWARD;
+                    lastOdo = pose.getOdometer();
+                }
+                break;
+            case CENTER:
+                logic.forward(speed);
+                switch (phase) {
+                    case PHASE_X:
+                        if (pose.getX() < 0.05f && pose.getX() > -0.05f) 
+                        {
+                            std::cout << "[LEARN] Reached center. Turn 90 degrees." 
+                            << "Start learning Y." << std::endl;
+                            logic.stop();
+                            phase = PHASE_Y;
+                            s = TURN;
+                        }
+                        break;
+                    case PHASE_Y:
+                        if (pose.getY() < 0.05f && pose.getY() > -0.05f) 
+                        {
+                            std::cout << "[LEARN] Reached center." << std::endl;
+                            logic.stop();
+                            s = DONE;
+                        }
+                        break;
+                    }
+                break;
+            case EDGE_DETECTED:
+                switch (lastState) {
+                    case FORWARD:
+                        if((pose.getOdometer()-lastOdo) < gap2Edge) {
+                            logic.backward(speed);
+                        }
+                        else {
+                            lastOdo = 0.0f;
+                            distance = pose.getOdometer();
+                            s = BACKWARD;
+                        }
+                        break;
+                    case BACKWARD:
+                        if((pose.getOdometer()-lastOdo) < gap2Edge) {
+                            logic.forward(speed);
+                        }
+                        else {
+                            lastOdo = 0.0f;
+                            distance = pose.getOdometer()-distance;
+                            s = SET_POSE;
+                            std::cout << "[LEARN] distance: " << distance << " m" << std::endl;
+                        }
+                        break;
+                    default:
+                        std::cout << "[LEARN] Edge detected in unknown state." << std::endl;
+                        s = DONE;
+                        break;
+                }
+                break;
+            case SET_POSE:
+                if(phase == PHASE_X) {
+                    pose.reset(distance/-2.0f, 0.0f, 0.0f);
+                    std::cout << "[LEARN] set x to: " << distance/-2.0f << " m" << std::endl;
+                    std::cout << "[LEARN] Move to center." << std::endl;
+                    s = CENTER;
+                } else if (phase == PHASE_Y) {
+                    pose.reset(pose.getX(), distance/-2.0f, 90.0f);
+                    std::cout << "[LEARN] set y to: " << distance/-2.0f << " m" << std::endl;
+                    s = CENTER;
+                }
+                break;
+            case TURN:
+                logic.turnLeft(speed);
+                if (pose.getTheta() > 1.56f && pose.getTheta() < 1.58f){
+                    std::cout << "[LEARN] Turned 90 degrees. Move forward." << std::endl;
+                    s = FORWARD;
+                }
+                break;
+            case DONE:
+                logic.stop();
+                std::cout << "[LEARN] Learning completed. Wait 10 seconds." << std::endl;
+                s = IDLE;
+                tmpTime = t;
+                break;
+
+            case IDLE:
+                logic.stop();
+                if (t - tmpTime >= 10.0f) {
+                    std::cout << "[LEARN] Transitioning to autonomous mode." << std::endl;
+                    s = DEFAULT;
+                }
+                break;
+            default:
+                runAutonomous(logic, pose, hal);
+                break;
+        }
+
+        if (t - lastPosePrint >= 2.0f) {
+            printPose("[POSE]", t, pose);
+            lastPosePrint = t;
+            }
+    }
+}
+
+
 int main() {
     WebotsHAL hal;
     RobotLogic logic(hal);
@@ -635,6 +779,8 @@ int main() {
         case MODE_NAVIGATE:        runNavigate(pose, hal); break;
         case MODE_NAVIGATE_DSTAR:  runNavigateDstar(pose, hal); break;
         case MODE_SIM_TEST:        runSimTest(pose, hal); break;
+        case MODE_LEARN_TABLE:     runLearnTable(pose, hal, logic); break;
+        default: std::cout << "Unbekannter MODE" << std::endl; break;
     }
     return 0;
 }

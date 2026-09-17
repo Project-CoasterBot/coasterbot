@@ -404,6 +404,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 5 & 13.09.2026 & Etringer & Entscheidung umgesetzt: \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (reale Elektronik hat nur einen Encoder je Seite)\\
 6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung (\texttt{OccupancyGrid::reportOccupied}), digitales Kantensignal (\texttt{EDGE\_ACTIVE\_HIGH}) umgesetzt; Ausblick \enquote{initiale Tischerkundung} ergänzt\\
 7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (Stufe 0 bis 7) ausgearbeitet\\
+8 & 16.09.2026 & Etringer & Abschnitt 4.3 (Gyro-Schnittstelle, Erreichbarkeit einer definierten Winkelgeschwindigkeit) um konkrete Hardware-Hinweise ergänzt (Kalibrierung, Arduino-Bibliotheken, Skid-Steer-Fahrverhalten)\\
 \bottomrule
 \end{tabularx}
 
@@ -940,10 +941,37 @@ Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 \paragraph{Gyro-Schnittstelle.}
 Ob \texttt{getGyroZ()} (ein einzelner Skalar, Giergeschwindigkeit um die
 Hochachse in rad/s) unverändert zu einer realen IMU passt, ist mangels
-Hardwareerfahrung noch nicht bewertet. Die Simulation modelliert weder
-Bias noch Rauschen des Gyros; ob die in Abschnitt~\ref{lokalisierung}
-beschriebene Komplementärfilter-Fusion damit auf der Zielhardware ebenso
-funktioniert, muss dort geprüft werden.
+Hardwareerfahrung noch nicht abschließend bewertet, folgende Leitplanken
+stehen aber inzwischen fest (Rückmeldung 16.09.2026).
+
+Ein Gyro liefert eine \emph{Winkelgeschwindigkeit}, keinen Winkel; die Pose
+ändert sich, indem diese Rate über die Zeit integriert wird, genau wie es
+\texttt{PoseEstimator::update()} bereits tut
+(\texttt{dThetaGyro = hal\_.getGyroZ() * dt}, Abschnitt~\ref{lokalisierung}).
+Auf realer Hardware wäre dieser Schritt unverändert, die Integration ist
+kontinuierlich: Anders als ein Encoder, der erst nach einer Mindestdrehung
+einen Tick meldet, geht jede noch so kleine reale Drehung sofort in den
+nächsten Integrationsschritt ein. Begrenzend sind nur das Rauschen bzw.\
+die Bias-Stabilität des Sensors und die Abtastrate der Regelschleife.
+
+Neu gegenüber der Simulation ist die \textbf{Kalibrierung}: Die Simulation
+modelliert weder Bias noch Rauschen des Gyros, ein echter MEMS-Gyro hat
+dagegen im Stillstand einen Rest-Offset ungleich null. Üblich ist eine
+kurze Startkalibrierung (Roboter für ein bis zwei Sekunden stillhalten,
+Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen). Für den
+verbreiteten MPU-6050 (I\textsuperscript{2}C, 6-Achsen Gyro und
+Beschleunigungssensor) existieren dafür fertige Arduino-Bibliotheken:
+\texttt{Adafruit\_MPU6050} mit \texttt{Adafruit\_Sensor} (einfache API,
+kalibrierte rad/s) oder die tiefer gehende \texttt{I2Cdevlib}-Bibliothek
+(nutzt den chipinternen DMP für Sensorfusion bereits auf dem IMU). Eine
+teurere Alternative wie der Bosch BNO055 erledigt die Sensorfusion
+vollständig on-chip und liefert direkt eine fertige absolute Orientierung;
+das könnte den Komplementärfilter in \texttt{PoseEstimator} überflüssig
+machen, ist aber eine Architekturentscheidung für den Moment, in dem der
+konkrete Chip feststeht. Ob die in Abschnitt~\ref{lokalisierung}
+beschriebene Komplementärfilter-Fusion mit einem MPU-6050-artigen Gyro auf
+der Zielhardware ebenso funktioniert, muss dort geprüft werden; in
+\texttt{ArduinoHAL} existiert noch keine dieser Bibliotheken.
 
 \paragraph{Erreichbarkeit einer definierten Winkelgeschwindigkeit.}
 Die Schnittstelle \texttt{setLeftSpeed}/\texttt{setRightSpeed(float radPerSec)}
@@ -951,13 +979,45 @@ setzt, wie das geschwindigkeitsgeregelte Webots-Motormodell, eine
 gesteuerte (open-loop) Geschwindigkeitsvorgabe voraus. Ob sich damit auf
 den realen Getriebemotoren tatsächlich ein definiertes rad/s einstellt,
 ist offen; erste Erfahrungen zeigen ein unstetiges Ansprechverhalten der
-Motoren. Falls nötig, müsste \texttt{ArduinoHAL::setLeftSpeed}/
-\texttt{setRightSpeed} intern eine Regelschleife führen (Vorwärtsbefehl
-setzen, Ist-Geschwindigkeit über Encoder und/oder Gyro schätzen,
-Motoransteuerung nachführen), sodass die \texttt{RobotHAL}-Schnittstelle
-für alle aufrufenden Komponenten unverändert bliebe. Die Regelung wäre
-vollständig in der Hardwaretreiberebene gekapselt. Diese Regelschleife ist
-noch nicht umgesetzt.
+Motoren.
+
+Zum tatsächlichen Fahrverhalten (Rückmeldung 16.09.2026): Der Coasterbot
+fährt Skid-Steer ohne separate Lenkung, Kurven entstehen ausschließlich
+über die Drehzahldifferenz zwischen linker und rechter Seite. Je Seite
+sind zwei TT-Getriebemotoren (Front und Heck) gekoppelt und werden wie ein
+einziger Kanal angesteuert, passend zu \texttt{setLeftSpeed}/
+\texttt{setRightSpeed}. Solche Getriebemotoren werden typischerweise über
+eine H-Brücke (z.\,B.\ L298N, TB6612FNG, DRV8833) per PWM angesteuert; der
+PWM-Tastgrad ist dabei \emph{kein} rad/s, sondern hängt zusätzlich von
+Akkuspannung, Last und Bodenreibung ab. Zwei Umsetzungen sind denkbar:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Open-loop:} einmalig eine Kennlinie Tastgrad zu rad/s ausmessen
+  und fest hinterlegen. Einfach, driftet aber mit sinkender Akkuspannung
+  und mit Fertigungsstreuung zwischen den Motoren, wodurch der Roboter bei
+  nominell gleichem Befehl links/rechts leicht kurvt statt geradeauszufahren.
+\item
+  \textbf{Closed-loop (empfohlen):} Falls nötig, müsste
+  \texttt{ArduinoHAL::setLeftSpeed}/\texttt{setRightSpeed} intern eine
+  Regelschleife führen, den einen Encoder je Seite lesen, die
+  Ist-Geschwindigkeit schätzen und die Motoransteuerung per P- oder
+  PI-Regler nachführen, sodass die \texttt{RobotHAL}-Schnittstelle für
+  alle aufrufenden Komponenten unverändert bliebe. Die Regelung wäre
+  vollständig in der Hardwaretreiberebene gekapselt.
+\end{itemize}
+
+Diese Regelschleife ist noch nicht umgesetzt, es gibt noch keine
+\texttt{ArduinoHAL}. Zu beachten bei der Verdrahtung: Hängen beide Motoren
+einer Seite an einem gemeinsamen H-Brücken-Kanal, addiert sich ihr
+Stromverbrauch, das Rating des Treiber-ICs muss dafür ausreichen.
+
+Der Zusammenhang zur Lokalisierung: Skid-Steer-Räder rollen beim Drehen
+nicht sauber ab, sie schrammen seitlich über den Boden. Genau deshalb
+vertraut \texttt{PoseEstimator} dem Gyro beim Kurs bereits deutlich stärker
+als der Radodometrie (\texttt{HEADING\_ODO\_WEIGHT} $= 0{,}05$, siehe
+Abschnitt~\ref{lokalisierung}).
 
 % =====================================================================
 \section{Lokalisierungskomponente}\label{lokalisierung}

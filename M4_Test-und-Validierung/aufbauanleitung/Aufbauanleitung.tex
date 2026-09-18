@@ -299,13 +299,12 @@ Das Microcontroller Board über die boardeigene Micro USB Buchse mit dem Host-PC
 
 Die Firmware befindet sich im Github Repository des Projekts\footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main/src}} und kann von dort bezogen werden.
 
-Die Software wird in der Build Umgebung mit den folgenden Befehlen kompiliert und an den Microcontroller übertragen. 
+Die Software wird in der Build-Umgebung mit den folgenden Befehlen der PlatformIO Softwareumgebung kompiliert und an den Microcontroller übertragen. 
 
 \begin{verbatim}
 $ cd PROJDIR
-$ cmake .
-$ make
-$ ... TODO
+$ pio run
+$ pio run --target upload
 \end{verbatim}
 
 Anschließend kann das USB Kabel wieder entfernt werden. 

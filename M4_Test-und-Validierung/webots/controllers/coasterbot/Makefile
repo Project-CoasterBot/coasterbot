@@ -3,7 +3,7 @@
 
 CXX_SOURCES = main.cpp robot_logic.cpp pose_estimator.cpp \
               occupancy_grid.cpp astar.cpp dstar_lite.cpp dwa_planner.cpp \
-              safety_monitor.cpp webots_hal.cpp
+              safety_monitor.cpp webots_hal.cpp coasterbot_functions.cpp
 
 ### Do not modify: this includes Webots global Makefile.include
 null :=

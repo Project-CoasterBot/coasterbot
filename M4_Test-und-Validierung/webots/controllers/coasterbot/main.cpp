@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "coasterbot_functions.h"
 
 // ---------------------------------------------------------------------
 // MODE steuert, was main() tut. So ist immer klar nachvollziehbar,
@@ -37,8 +38,9 @@
 //                      (nur mit worlds/coasterbot-simtest.wbt sinnvoll)
 // ---------------------------------------------------------------------
 enum Mode { MODE_WHEEL_TEST, MODE_MANUAL, MODE_AUTONOMOUS, MODE_ODOMETRY_TEST,
-            MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST, MODE_LEARN_TABLE };
-static const Mode MODE = MODE_LEARN_TABLE;  // <-- hier umschalten
+            MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST, MODE_LEARN_TABLE,
+            MODE_COASTERBOT_LEARN_TABLE};
+static const Mode MODE = MODE_COASTERBOT_LEARN_TABLE;  // <-- hier umschalten
 
 static void printPose(const char* tag, float t, const PoseEstimator& pose) {
     std::cout << tag << " t=" << t << "s  pose x=" << pose.getX()
@@ -638,7 +640,6 @@ static void runLearnTable(PoseEstimator& pose, WebotsHAL& hal, RobotLogic& logic
 
     static float lastPosePrint = -1.0f;
     static float tmpTime = -1.0f;
-    static bool printMsg = false;
 
     while (hal.step()) {
         pose.update();
@@ -770,6 +771,8 @@ int main() {
     WebotsHAL hal;
     RobotLogic logic(hal);
     PoseEstimator pose(hal);
+    SafetyMonitor safety(hal);
+    CoasterbotFunctions coasterbot(hal, pose, safety);
 
     switch (MODE) {
         case MODE_WHEEL_TEST:      runWheelTest(hal); break;
@@ -780,6 +783,16 @@ int main() {
         case MODE_NAVIGATE_DSTAR:  runNavigateDstar(pose, hal); break;
         case MODE_SIM_TEST:        runSimTest(pose, hal); break;
         case MODE_LEARN_TABLE:     runLearnTable(pose, hal, logic); break;
+        case MODE_COASTERBOT_LEARN_TABLE:
+            while (hal.step()) {
+                coasterbot.update();
+                if (!coasterbot.isTableLearned()) {
+                    coasterbot.runLearnTable();
+                } else {
+                    coasterbot.runNavigateTargets();
+                }
+            }
+            break;
         default: std::cout << "Unbekannter MODE" << std::endl; break;
     }
     return 0;

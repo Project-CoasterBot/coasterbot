@@ -8,6 +8,7 @@
 #include <webots/DistanceSensor.hpp>
 #include <webots/InertialUnit.hpp>
 #include <webots/Gyro.hpp>
+#include <random>
 
 // ---------------------------------------------------------------------
 // Implementiert RobotHAL mit der Webots-C++-API.
@@ -73,6 +74,37 @@ private:
     // Konstante an, falls das reale Sensormodul aktiv-low ist.
     static constexpr bool EDGE_ACTIVE_HIGH = true;
     bool digitalEdge(webots::DistanceSensor* sensor) const;
+
+    // ---------------------------------------------------------------
+    // GY-521/MPU-6050-Gyro-Simulation (BOM Pos. 11: "ICQUANZX GY-521
+    // MPU6050; Navigationssensor"). Webots' Solid-Physik liefert eine
+    // ideale, fehlerfreie Rate - Bias und Rauschen eines realen
+    // MPU-6050 werden deshalb hier in Software nachgebildet:
+    //   - GYRO_BIAS_RAD: simulierter Nullpunktfehler (Zero-Rate Output).
+    //     Laut Datenblatt bis zu +-20 deg/s Werkstoleranz ohne
+    //     Kalibrierung; als Demonstrationswert wird ein moderater fester
+    //     Bias von 3 deg/s angenommen (kein gemessener Wert eines
+    //     realen Exemplars - siehe Softwaredokumentation).
+    //   - GYRO_NOISE_STD_RAD: Datenblatt "Total RMS Noise" bei FS_SEL=0
+    //     (0.05 deg/s-rms), als Standardabweichung eines deterministisch
+    //     erzeugten Gauss-Rauschens (fester Seed -> ST-SIM-004 bleibt
+    //     reproduzierbar).
+    //   - Start-Kalibrierung: mittelt die ersten GYRO_CAL_SAMPLES Messungen
+    //     im Konstruktor (Annahme: Roboter steht zu Beginn still, wie auf
+    //     realer Hardware beim Einschalten, bevor der erste Fahrbefehl
+    //     kommt) und zieht diesen Schaetzwert von jeder folgenden Messung
+    //     ab - genau das in der Softwaredokumentation beschriebene
+    //     Kalibrierverfahren. calibrateGyro() ruft dafuer robot_.step()
+    //     direkt auf (nicht ueber das oeffentliche step()), noch bevor
+    //     main.cpp die erste eigene Bewegung anstossen kann.
+    static constexpr float GYRO_BIAS_RAD      = 0.0523599f;  // 3 deg/s
+    static constexpr float GYRO_NOISE_STD_RAD = 0.0008727f;  // 0.05 deg/s-rms
+    static constexpr int   GYRO_CAL_SAMPLES   = 32;          // ~0.5 s bei 16 ms
+
+    std::mt19937 gyroRng_{12345u};  // fester Seed: Determinismus/ST-SIM-004
+    std::normal_distribution<float> gyroNoise_{0.0f, GYRO_NOISE_STD_RAD};
+    float gyroBiasEstimate_ = 0.0f;
+    void calibrateGyro();
 };
 
 #endif  // WEBOTS_HAL_H

@@ -405,6 +405,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung (\texttt{OccupancyGrid::reportOccupied}), digitales Kantensignal (\texttt{EDGE\_ACTIVE\_HIGH}) umgesetzt; Ausblick \enquote{initiale Tischerkundung} ergänzt\\
 7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (Stufe 0 bis 7) ausgearbeitet\\
 8 & 16.09.2026 & Etringer & Abschnitt 4.3 (Gyro-Schnittstelle, Erreichbarkeit einer definierten Winkelgeschwindigkeit) um konkrete Hardware-Hinweise ergänzt (Kalibrierung, Arduino-Bibliotheken, Skid-Steer-Fahrverhalten)\\
+9 & 20.09.2026 & Etringer & Auf der Stückliste geführten Inertialsensor (ICQUANZX GY-521 MPU6050) simuliert und in \texttt{WebotsHAL::getGyroZ()} genutzt: Messbereich/Auflösung im PROTO, Bias und Rauschen mit fester Startkalibrierung in Software (Abschnitt 4.2, neuer Abschnitt~\ref{gyro-simulation}); \texttt{WorldInfo.randomSeed} in allen Welten fest gesetzt\\
 \bottomrule
 \end{tabularx}
 
@@ -450,6 +451,11 @@ Anforderungs- und Testdokumente:
 \item
   \textbf{Alternativenbeschreibung}: Auswahl der Navigations- und
   Lokalisierungsalgorithmen (A*, D* Lite, DWA, Sensorfusion).
+\item
+  \textbf{Stückliste (BOM)}: die für die reale Hardware festgelegten
+  Bauteile, z.\,B.\ der Inertialsensor (Position 11: \enquote{ICQUANZX
+  GY-521 MPU6050}), den die Simulation in Abschnitt~\ref{gyro-simulation}
+  nachbildet.
 \end{itemize}
 
 Die Software wurde entsprechend der im Pflichtenheft beschriebenen
@@ -876,12 +882,113 @@ Aufgaben:
   oder LOW bedeutet; eine \texttt{ArduinoHAL}, die tatsächlich
   \texttt{digitalRead()} an einem Pin aufruft, bildet dort genauso ab und
   passt bei einem aktiv-low-Sensormodul nur diese eine Konstante an.
+\item
+  \textbf{Gyro-Simulation (GY-521/MPU-6050):} \texttt{getGyroZ()} prägt
+  dem idealen, physikalisch simulierten Wert Bias und Rauschen des auf
+  der Stückliste geführten Inertialsensors auf und kalibriert diesen
+  Bias beim Start heraus. Details in Abschnitt~\ref{gyro-simulation}.
 \end{itemize}
 
 Die coupled motors von Webots setzen einen Befehl an
 \texttt{wheel\_left::front} automatisch auch auf
 \texttt{wheel\_left::rear} um (Faktor \texttt{multiplier} $= 1$), sodass
 die Software je Seite nur ein Handle benötigt.
+
+\subsection{Gyro-Simulation: GY-521/MPU-6050}\label{gyro-simulation}
+
+Die Stückliste (BOM) des Projekts führt unter Position 11 einen konkreten
+Inertialsensor: \enquote{ICQUANZX GY-521 MPU6050; Navigationssensor}
+(1~Stk., U12), ein GY-521-Breakout-Board mit dem
+InvenSense-MPU-6050-Chip (6-DOF Gyroskop und Beschleunigungssensor). Diese
+Festlegung gilt als gegeben für die reale Hardware; die Simulation bildet
+denselben Chip nach, statt einen idealen, fehlerfreien Sensor anzunehmen.
+
+\paragraph{Warum nicht über die PROTO-\texttt{lookupTable}.}
+Für die vier Kantensensoren und den Ultraschall genügt Webots' eingebauter
+\texttt{lookupTable}-Mechanismus (Abschnitt~\ref{proto}). Für den Gyro
+wurde dieser Weg geprüft und verworfen: Der dortige Rauschanteil skaliert
+mit dem Momentanwert der Messung und ist bei Stillstand (Messwert $= 0$)
+daher immer exakt null, ein realer Gyro rauscht aber auch im Stillstand
+messbar (Datenblattgröße \enquote{Total RMS Noise}). Dieses Verhalten
+wurde am simulierten Sensor überprüft (Roboter stationär: Rauschen exakt
+\num{0}; Roboter drehend: Rauschen proportional zum Momentanwert), bevor
+die Simulation stattdessen software-seitig in \texttt{WebotsHAL} realisiert
+wurde. Die PROTO-\texttt{lookupTable} des Gyros bildet deshalb nur noch
+Messbereich und Auflösung ab (siehe Abschnitt~\ref{proto}); Bias und
+Rauschen kommen aus \texttt{WebotsHAL::getGyroZ()}.
+
+\paragraph{Simulierte Fehlerquellen.} Alle Werte sind über das
+MPU-6050-Datenblatt begründet (Werksdefault \texttt{FS\_SEL} $=0$, also
+$\pm\SI{250}{\degree\per\second}$ Messbereich, 16-Bit-ADC):
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nullpunktfehler (Zero-Rate Output):} Das Datenblatt nennt bis zu
+  $\pm\SI{20}{\degree\per\second}$ Werkstoleranz ohne Kalibrierung. Da kein
+  vermessenes reales Exemplar vorliegt, wird ein moderater, fest
+  angenommener Demonstrationswert von \SI{3}{\degree\per\second}
+  ($\approx\SI{0.0524}{\radian\per\second}$) simuliert; dieser Wert ist
+  eine Annahme, kein Messergebnis.
+\item
+  \textbf{Rauschen:} Datenblattwert \enquote{Total RMS Noise}
+  $= \SI{0.05}{\degree\per\second\text{-}rms}$
+  ($\approx\SI{0.000873}{\radian\per\second}$), als Standardabweichung
+  eines Gauß-Rauschens mit festem statt zeitbasiertem Seed
+  (\texttt{std::mt19937}, Seed~12345), damit
+  \texttt{ST-SIM-004} reproduzierbar bleibt (siehe unten).
+\item
+  \textbf{Messbereich und Auflösung:} in der PROTO-\texttt{lookupTable}
+  (Abschnitt~\ref{proto}): $\pm\SI{4.363323}{\radian\per\second}$
+  ($=\pm\SI{250}{\degree\per\second}$), Auflösung
+  \SI{0.00013316}{\radian\per\second} (16-Bit-ADC-Schrittweite).
+\end{itemize}
+
+\paragraph{Start-Kalibrierung.} Ein reales MPU-6050-Modul wird üblicherweise
+beim Einschalten kalibriert, während das Gerät stillsteht (siehe
+Abschnitt~\ref{hal-offene-punkte}). \texttt{WebotsHAL} bildet das nach:
+\texttt{calibrateGyro()} läuft im Konstruktor, \emph{bevor} irgendein
+Fahrbefehl gegeben werden kann (die Motoren stehen zu diesem Zeitpunkt
+bereits auf \texttt{setVelocity(0.0)}), mittelt \texttt{GYRO\_CAL\_SAMPLES}
+$= 32$ Messwerte (bei \SI{16}{\milli\second} Regelzyklus $\approx
+\SI{0.5}{\second}$) und zieht diesen Schätzwert von jeder folgenden
+Messung ab.
+
+Diese Reihenfolge ist kein Detail, sondern notwendig: Ein früherer
+Entwurf kalibrierte stattdessen laufend während der ersten
+\texttt{getGyroZ()}-Aufrufe im laufenden Betrieb. In
+\texttt{MODE\_SIM\_TEST} beginnt die Navigation jedoch bereits im ersten
+Regelzyklus zu drehen; die echte, sich ändernde Drehung floss dabei
+fälschlich in den Bias-Schätzwert ein und verfälschte ihn dauerhaft,
+beobachtbar daran, dass der Roboter an einer falschen Pose hängen blieb
+und keinen Testfall mehr bestand. Die Kalibrierung \emph{vor} dem ersten
+möglichen Fahrbefehl behebt das; sie entspricht zugleich eher dem realen
+Vorbild (Kalibrierung beim Einschalten, nicht während der Fahrt).
+
+\paragraph{Folge für die Lokalisierung.} Weil nur \texttt{GYRO\_CAL\_SAMPLES}
+$= 32$ Messwerte gemittelt werden, bleibt ein kleiner Restfehler im
+Bias-Schätzwert zurück (Größenordnung
+$\sigma_\mathrm{Rauschen} / \sqrt{32} \approx \SI{1.5e-4}{\radian\per\second}$).
+Da dieser Restfehler danach fest bleibt statt weiter nachgeführt zu
+werden, integriert \texttt{PoseEstimator} ihn über die Zeit zu einer
+langsamen Kursdrift auf, auch wenn der Roboter steht: gemessen
+$\approx \SI{-0.012}{\degree\per\second}$ (Stillstandstest über
+\SI{220}{\second}, \texttt{MODE\_ODOMETRY\_TEST}). Für die kurzen
+Testläufe dieses Projekts (\SI{15}{} bis \SI{25}{\second}) ist das
+vernachlässigbar (siehe Abschnitt~\ref{lokalisierung-grenzen}); exakt
+stabil war nur der vorherige, ideale (unsimulierte) Gyro.
+
+\paragraph{Verifikation.} \texttt{MODE\_SIM\_TEST} wurde nach dieser
+Änderung erneut zweifach kopflos ausgeführt: ST-SIM-001 bis ST-SIM-003
+weiterhin BESTANDEN (Zielfehler \SI{5.79}{\centi\meter} statt zuvor
+\SI{5.78}{\centi\meter}, Zielzeit $t=\SI{14.144}{\second}$ statt
+\SI{13.632}{\second}, also $+\SI{0.512}{\second}$, exakt die
+Kalibrierungsdauer von 32 Zyklen), die beiden Läufe weiterhin
+byte-identisch (ST-SIM-004). \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
+weiterhin korrekt und erreicht das Ziel bei $t=\SI{24.496}{\second}$ mit
+\SI{1.52}{\centi\meter} Restfehler (zuvor \SI{24}{\second}/\SI{1.5}{\centi\meter}).
+Bias und Rauschen bleiben damit klein genug, um das bestehende
+Verhalten nicht zu verändern, machen die Simulation aber realitätsnäher.
 
 \subsection{Offene Punkte aus der Hardware-Rückmeldung}\label{hal-offene-punkte}
 
@@ -940,9 +1047,12 @@ Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 
 \paragraph{Gyro-Schnittstelle.}
 Ob \texttt{getGyroZ()} (ein einzelner Skalar, Giergeschwindigkeit um die
-Hochachse in rad/s) unverändert zu einer realen IMU passt, ist mangels
-Hardwareerfahrung noch nicht abschließend bewertet, folgende Leitplanken
-stehen aber inzwischen fest (Rückmeldung 16.09.2026).
+Hochachse in rad/s) unverändert zu einer realen IMU passt, lässt sich ohne
+ein vermessenes Exemplar der auf der Stückliste geführten Hardware
+(\enquote{ICQUANZX GY-521 MPU6050}) nicht abschließend beurteilen; die
+konkreten Bias-/Rauschwerte in Abschnitt~\ref{gyro-simulation} sind
+Datenblattwerte bzw.\ Annahmen, keine Messwerte eines realen Exemplars.
+Folgende Leitplanken stehen aber inzwischen fest (Rückmeldung 16.09.2026).
 
 Ein Gyro liefert eine \emph{Winkelgeschwindigkeit}, keinen Winkel; die Pose
 ändert sich, indem diese Rate über die Zeit integriert wird, genau wie es
@@ -954,11 +1064,12 @@ einen Tick meldet, geht jede noch so kleine reale Drehung sofort in den
 nächsten Integrationsschritt ein. Begrenzend sind nur das Rauschen bzw.\
 die Bias-Stabilität des Sensors und die Abtastrate der Regelschleife.
 
-Neu gegenüber der Simulation ist die \textbf{Kalibrierung}: Die Simulation
-modelliert weder Bias noch Rauschen des Gyros, ein echter MEMS-Gyro hat
-dagegen im Stillstand einen Rest-Offset ungleich null. Üblich ist eine
+Zur \textbf{Kalibrierung}: Die Simulation modelliert Bias und Rauschen des
+Gyros inzwischen (Abschnitt~\ref{gyro-simulation}), ein echter MEMS-Gyro
+hat im Stillstand ebenso einen Rest-Offset ungleich null. Üblich ist eine
 kurze Startkalibrierung (Roboter für ein bis zwei Sekunden stillhalten,
-Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen). Für den
+Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen), genau
+das simuliert \texttt{WebotsHAL::calibrateGyro()} bereits. Für den
 verbreiteten MPU-6050 (I\textsuperscript{2}C, 6-Achsen Gyro und
 Beschleunigungssensor) existieren dafür fertige Arduino-Bibliotheken:
 \texttt{Adafruit\_MPU6050} mit \texttt{Adafruit\_Sensor} (einfache API,
@@ -1150,7 +1261,10 @@ Gimbal-Lock in der Nickachse bringt.
   \texttt{coasterbot-testfield.wbt}: Geradeausfahrt \SI{0.699}{\meter}
   gegenüber \SI{0.70}{\meter} Soll, kein seitlicher Versatz;
   Drehung auf der Stelle wird vom Gyro sauber verfolgt; im Stillstand
-  bleibt die Pose stabil.
+  bleibt die Pose nahezu stabil, mit dem seit Abschnitt~\ref{gyro-simulation}
+  simulierten Gyro-Restfehler driftet der Kurs im Stillstand um
+  $\approx \SI{0.012}{\degree\per\second}$, für die kurzen Testläufe
+  dieses Projekts vernachlässigbar.
 \end{itemize}
 
 % =====================================================================
@@ -1627,8 +1741,13 @@ CAD-Baugruppe abgeleitet.
   \textbf{digitales} Signal: \texttt{lookupTable}
   $0\,0\ /\ 0{,}098\,0\ /\ 0{,}10\,1\ /\ 4\,1$, eine reine \num{0}/\num{1}-Stufe
   mit \SI{2}{\milli\meter} numerischer Übergangszone statt einer analogen
-  Rampe, siehe Abschnitt~\ref{webotshal}); \texttt{inertial\_unit},
-  \texttt{gyro}, \texttt{accelerometer}.
+  Rampe, siehe Abschnitt~\ref{webotshal}); \texttt{inertial\_unit};
+  \texttt{gyro} und \texttt{accelerometer} (beide modellieren den
+  laut Stückliste verbauten MPU-6050-Chip: \texttt{lookupTable}
+  begrenzt auf dessen Werksdefault-Messbereich, \texttt{resolution}
+  auf dessen 16-Bit-ADC-Schrittweite; Bias und Rauschen des Gyros
+  kommen zusätzlich aus \texttt{WebotsHAL}, siehe
+  Abschnitt~\ref{gyro-simulation}).
 \item
   \textbf{Kollisionskörper:} bewusst zwei gestapelte Boxen (schmaler
   unterer Teil zwischen den Rädern) gegen Zittern.
@@ -1673,11 +1792,18 @@ Hindernispositionen, Tischgrenzen).
 \subsection{Reproduzierbarkeit}\label{reproduzierbarkeit}
 
 \texttt{SIM-001} / \texttt{ST-SIM-004} werden erfüllt, weil alle
-Komponenten deterministisch sind: fester Zeitschritt, keine
-Zufallszahlen im Navigationsstapel (nur \texttt{RobotLogic} nutzt
-\texttt{std::rand} und ist an der Navigation nicht beteiligt),
-sortierte Prioritätswarteschlangen mit eindeutigem Schlüssel. Zwei
-kopflose Läufe von \texttt{MODE\_SIM\_TEST} liefern byte-identische
+Komponenten deterministisch sind: fester Zeitschritt, sortierte
+Prioritätswarteschlangen mit eindeutigem Schlüssel, und Zufallszahlen nur
+an zwei klar abgegrenzten Stellen: \texttt{RobotLogic} nutzt
+\texttt{std::rand} (an der Navigation nicht beteiligt), und die simulierte
+Gyro-Kalibrierung in \texttt{WebotsHAL} nutzt einen
+\texttt{std::mt19937}-Generator mit \textbf{festem} statt zeitbasiertem
+Seed (Abschnitt~\ref{gyro-simulation}); damit erzeugt jeder Lauf
+dieselbe Rauschfolge. \texttt{WorldInfo.randomSeed} wird in allen
+Coasterbot-Welten ebenfalls fest gesetzt statt auf dem Default~0
+(\enquote{aktuelle Zeit als Seed}) belassen, da Webots selbst ansonsten
+keine deterministische physikalische Simulation garantiert. Zwei kopflose
+Läufe von \texttt{MODE\_SIM\_TEST} liefern weiterhin byte-identische
 Protokolle.
 
 % =====================================================================
@@ -1987,6 +2113,9 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & \texttt{CARROT\_DIST} / \texttt{GOAL\_TOL} & \SI{0.30}{\meter} / \SI{0.05}{\meter}\\
  & \texttt{ROBOT\_RADIUS} & \SI{0.14}{\meter}\\
 \texttt{WebotsHAL} & \texttt{EDGE\_ACTIVE\_HIGH} (Kantensensor-Polarität) & wahr\\
+ & \texttt{GYRO\_BIAS\_RAD} (Abschnitt~\ref{gyro-simulation}) & \SI{0.0524}{\radian\per\second} ($\triangleq\SI{3}{\degree\per\second}$)\\
+ & \texttt{GYRO\_NOISE\_STD\_RAD} & \SI{0.000873}{\radian\per\second} ($\triangleq\SI{0.05}{\degree\per\second}$-rms)\\
+ & \texttt{GYRO\_CAL\_SAMPLES} & 32 ($\approx\SI{0.5}{\second}$)\\
 \texttt{SafetyMonitor} & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\
  & \texttt{PAUSE\_TIME} & \SI{0.3}{\second}\\
 \texttt{RobotLogic} & \texttt{OBSTACLE\_THRESHOLD\_M} & \SI{0.22}{\meter}\\

@@ -10,6 +10,7 @@ EXTERNPROTO "../protos/coasterbot/Coasterbot.proto"
 
 WorldInfo {
   basicTimeStep 16
+  randomSeed 1  # fest statt Default 0 ("aktuelle Zeit"), fuer Reproduzierbarkeit (ST-SIM-004)
 }
 Viewpoint {
   orientation -0.02 0.02 0.999 1.62

@@ -29,6 +29,7 @@ public:
     void turnLeft(float speed);   // dreht auf der Stelle nach links
     void turnRight(float speed);  // dreht auf der Stelle nach rechts
     void stop();
+    bool edgeDetected() const;
 
     // Name des aktuellen Zustands (fuer Debug-Ausgaben in main.cpp)
     const char* getStateName() const;
@@ -57,7 +58,7 @@ private:
     static constexpr float REVERSE_DURATION = 0.6f;    // s
     static constexpr float TURN_DURATION = 0.8f;        // s
 
-    bool edgeDetected() const;
+    
     void enterState(State s);
     void driveForward();
     void driveReverse();

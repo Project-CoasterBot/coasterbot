@@ -250,16 +250,15 @@ PROTO Coasterbot [
         translation 0 0.057 -0.093
         rotation 0 1 0 1.5708
         name "ultrasonic"
-        # Generischer Typ (nicht "sonar"): liefert die Distanz zum naechsten
-        # Objekt unabhaengig vom Auftreffwinkel - "sonar" reflektiert nur an
-        # (nahezu) senkrechten Flaechen und uebersieht duenne, runde Objekte
-        # wie die Flaschen bis kurz vor der Beruehrung.
+        # HC-SR04-like model: approximately 2 cm minimum range, 4 m maximum
+        # range, and a narrow acoustic beam of approximately 15 degrees.
+        type "sonar"
         lookupTable [
-          0 0 0
+          0.02 0.02 0
           4 4 0.02
         ]
-        numberOfRays 7
-        aperture 0.6
+        numberOfRays 5
+        aperture 0.26
       }
 
       # ---------------------------------------------------------------

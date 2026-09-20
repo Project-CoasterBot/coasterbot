@@ -60,6 +60,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderung}\\
 \midrule
 1 & 28.08.2026 & Such & Erstfassung, zunächst nur Elektronik \\
+2 & 18.09.2026 & Such & Gehäusemontage ergänzt \\
 \bottomrule
 \end{tabular}
 \clearpage
@@ -298,13 +299,12 @@ Das Microcontroller Board über die boardeigene Micro USB Buchse mit dem Host-PC
 
 Die Firmware befindet sich im Github Repository des Projekts\footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main/src}} und kann von dort bezogen werden.
 
-Die Software wird in der Build Umgebung mit den folgenden Befehlen kompiliert und an den Microcontroller übertragen. 
+Die Software wird in der Build-Umgebung mit den folgenden Befehlen der PlatformIO Softwareumgebung kompiliert und an den Microcontroller übertragen. 
 
 \begin{verbatim}
 $ cd PROJDIR
-$ cmake .
-$ make
-$ ... TODO
+$ pio run
+$ pio run --target upload
 \end{verbatim}
 
 Anschließend kann das USB Kabel wieder entfernt werden. 
@@ -340,12 +340,39 @@ Die Aktorik und Sensorik Module werden zunächst entsprechend dem Schaltplan bzw
 
 
 
-
-
-
 \subsection{Schließen des Chassis}
 
-TODO
+Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abdeckplatte geschlossen und fixiert. 
+
+\includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082828534.jpg}
+\includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082843487.jpg}
+
+
+
+\subsection{Montage der Räder}
+
+Anschließend werden die vier Räder auf die Motoren vorsichtig aufgesteckt. 
+
+\begin{warnbox}
+Vorsicht, der laterale Druck auf das Chassis darf nicht zu hoch sein, da sonst die Seitenwand aus den Stützen brechen können. 
+\end{warnbox}
+
+\includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_082942570.jpg}
+
+
+
+
+\subsection{Ergebnis}
+
+Beim fertigen Ergebnis sollte darauf geachtet werden, dass der Unterboden nicht schleift sowie der Abstand des Unterbodens bis zur Tischkante kleiner gleich 1.5cm beträgt, andernfalls können die Coaster nicht korrekt aufgenommen werden. 
+
+\includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_082957663.jpg}
+\includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_083006873.jpg}
+
+
+\includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_090534564.jpg}
+
+
 
 
 

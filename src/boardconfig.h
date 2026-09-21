@@ -40,8 +40,8 @@ constexpr int PIN_COASTER_SERVO_2 = 7; // GP7
 
 // UI
 constexpr int PIN_USER_BUTTON = 10; // GP10, active low (gedrueckt = LOW)
-constexpr int PIN_LED1_R = 12; // GP12
-constexpr int PIN_LED1_G = 13; // GP13
+constexpr int PIN_LED1_R = 13; // GP13
+constexpr int PIN_LED1_G = 15; // GP15
 constexpr int PIN_LED1_B = 14; // GP14
 
 } // namespace board

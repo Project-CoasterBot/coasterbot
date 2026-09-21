@@ -82,7 +82,12 @@ public: // mode setters
     void setModeToConstantPink(int v = 255) { setModeToConstant((v*2)/3, 0, v/3); }
 
     void setModeToBlink(int r, int g, int b, unsigned long duration = 500) {
-        if (_mode == Blinking && colorsIdentical(r,g,b)) return; // nothing to do
+        if (_mode == Blinking && colorsIdentical(r,g,b)) {
+            if (_blink_iter_duration != duration) // only update the time, no full color reset.
+                _blink_iter_duration = duration;
+            return;
+        }
+
         _mode = Blinking;
         updateColors(r,g,b);
         setOutputValues();

@@ -428,9 +428,9 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \subsection{Zweck des Dokuments}\label{zweck-des-dokuments}
 
 Dieses Dokument beschreibt die \textbf{Software der Simulation des
-Coasterbots} sowie deren Funktionen. Dokumentiert wird die
-Softwarearchitektur, die einzelnen Softwarekomponenten, ihre
-Schnittstellen und ihr Laufzeitverhalten in der Simulationsumgebung.
+Coasterbots} sowie deren Funktionen. Dokumentiert wird sowohl die
+Softwarearchitektur, als auch die einzelnen Softwarekomponenten, ihre
+Schnittstellen und das Laufzeitverhalten in der Simulationsumgebung.
 
 Grundlage der Dokumentation sind die im Projekt erstellten
 Anforderungs- und Testdokumente:
@@ -442,7 +442,7 @@ Anforderungs- und Testdokumente:
   des Auftraggebers (Kennungen \texttt{NAV-*}, \texttt{SAF-*},
   \texttt{MON-*}, \texttt{NFA-*}, \texttt{SIM-*}).
 \item
-  \textbf{Pflichtenheft}: die geplante technische Umsetzung, insbesondere
+  \textbf{Pflichtenheft}: die geplante technische Umsetzung,
   die geschichtete System- und Softwarearchitektur (Hardwaretreiber,
   Hardwareabstraktion, Systemdienste, Funktionskomponenten,
   Anwendungsebene, Simulationsebene).
@@ -454,17 +454,16 @@ Anforderungs- und Testdokumente:
   Lokalisierungsalgorithmen (A*, D* Lite, DWA, Sensorfusion).
 \item
   \textbf{Stückliste (BOM)}: die für die reale Hardware festgelegten
-  Bauteile, z.\,B.\ der Inertialsensor (Position 11: \enquote{ICQUANZX
+  Bauteile, u.a.\ der Inertialsensor (Position 11: \enquote{ICQUANZX
   GY-521 MPU6050}), den die Simulation in Abschnitt~\ref{gyro-simulation}
   nachbildet.
 \end{itemize}
 
-Die Software wurde entsprechend der im Pflichtenheft beschriebenen
-Abstraktion umgesetzt: Die eigentliche Systemlogik ist vollständig von
-der konkreten Hardware entkoppelt und kommuniziert über
+Die Software wurde anhand der im Pflichtenheft beschriebenen
+Abstraktion umgesetzt: Die Systemlogik ist vollständig von
+der Hardware entkoppelt und kommuniziert über
 eine Hardwareabstraktionsschicht. Dadurch sind die Funktionen im Quellcode sowohl
 in der Simulation (Webots) als auch auf der Zielhardware (Mikrocontroller)
-verwendbar.
 lauffähig.
 
 \subsection{Gegenstand und Abgrenzung}\label{gegenstand-und-abgrenzung}
@@ -498,27 +497,27 @@ Roboter steuert. Dokumentiert werden:
   das Simulationsmodell (Webots-Welten und \texttt{Coasterbot}-PROTO).
 \end{itemize}
 
-\textbf{Nicht} Bestandteil dieser Dokumentation bzw. der aktuellen
+\textbf{Nicht} Bestandteil dieser Dokumentation bzw.\ der aktuellen
 Umsetzung sind:
 
 \begin{itemize}
 \tightlist
 \item
   das Untersetzerhandling (Aufnahme/Ablage von Getränkeuntersetzern,
-  \texttt{CST-*}) einschließlich der Manipulationsplanung (IK + RRT*),
+  \texttt{CST-*}) inkl.\ der Manipulationsplanung (IK + RRT*),
 \item
   die missionsbezogene Ablaufsteuerung \texttt{IDLE} $\to$
   \texttt{SEARCH\_COASTER} $\to$ \texttt{PICK\_UP} $\to$ \texttt{TRANSPORT}
   $\to$ \texttt{PLACE} $\to$ \texttt{VERIFY} $\to$ \texttt{DONE},
 \item
-  eine probabilistische Sensorfusion (EKF/UKF), statt dessen wird ein
+  eine probabilistische Sensorfusion (EKF/UKF), es wird ein
   Komplementärfilter verwendet (siehe Abschnitt~\ref{lokalisierung}),
 \item
   die Fehlerinjektionstests \texttt{ST-SIM-005} (Sensorausfall) und
   \texttt{ST-SIM-006} (Aktorfehler).
 \end{itemize}
 
-Der Umsetzungsstand bezieht sich auf \textbf{Maturity Level~1}
+Der Umsetzungsstand bezieht sich auf den \textbf{Maturity Level~1}
 (Prototyp): autonome Navigation, Lokalisierung, sichere Bewegung und
 Tischkantenerkennung.
 
@@ -550,13 +549,13 @@ Regelzyklus & ein Simulationsschritt (\texttt{basicTimeStep}), typ.\ \SI{32}{\mi
 
 Die Software folgt dem im Pflichtenheft (Kapitel \enquote{Softwarekonzept})
 beschriebenen \textbf{geschichteten, komponentenbasierten}
-Architekturmodell. Jede Schicht hat eine klar abgegrenzte
-Verantwortlichkeit und kommuniziert über festgelegte
+Architekturmodell. Jede Schicht hat eine abgegrenzte
+Verantwortlichkeit und kommuniziert über
 Schnittstellen mit den benachbarten Schichten. Höhere Schichten kennen
 keine Hardware- oder Simulationsdetails.
 
 Die zentrale Abstraktion ist die Hardwareabstraktionsschicht
-\texttt{RobotHAL}. Sie ist ein rein abstraktes C++-Interface, das
+\texttt{RobotHAL}. Diese ist ein abstraktes C++ Interface, das lose gekoppelt
 \emph{weder} Webots \emph{noch} eine konkrete Mikrocontroller-Bibliothek
 kennt. Alle Funktionskomponenten (Lokalisierung, Planung, Sicherheit)
 sind gegen dieses Interface programmiert. Dadurch werden
@@ -596,9 +595,9 @@ greifen über \texttt{RobotHAL} auf Sensoren und Aktoren zu.}
 
 \subsection{Abbildung auf die Pflichtenheft-Architektur}\label{abbildung-pflichtenheft}
 
-Tabelle~\ref{tab:mapping-arch} ordnet die im Pflichtenheft definierten
-Architekturebenen und Funktionskomponenten den konkreten Quelldateien
-des Simulations-Controllers zu.
+Tabelle~\ref{tab:mapping-arch} ordnet die
+Architekturebenen und Funktionskomponenten aus dem Pflichtenheft den
+Quelldateien des Simulationscontrollers zu.
 
 \begin{longtable}[]{@{}
   >{\raggedright\arraybackslash}p{0.30\textwidth}
@@ -632,7 +631,7 @@ Reaktive Verhaltenslogik (Bring-up) & \texttt{robot\_logic} (\texttt{RobotLogic}
 \subsection{Datenfluss im kombinierten Betrieb}\label{datenfluss}
 
 Abbildung~\ref{fig:datenfluss} zeigt den Datenfluss der Betriebsart
-\texttt{MODE\_SIM\_TEST}, in der alle wesentlichen Komponenten
+\texttt{MODE\_SIM\_TEST}, in der die Komponenten
 zusammenwirken (Grundlage der Testfälle \texttt{ST-SIM-001} bis
 \texttt{ST-SIM-004}).
 
@@ -676,7 +675,7 @@ zusammenwirken (Grundlage der Testfälle \texttt{ST-SIM-001} bis
 \end{tikzpicture}}
 \caption{Datenfluss in \texttt{MODE\_SIM\_TEST}. Die Sicherheitskomponente
 wird in jedem Regelzyklus \emph{vor} der Navigation ausgewertet und
-übernimmt bei einem Kantenereignis sofort die Aktorik.}
+übernimmt bei einem Kantenereignis die Aktorik.}
 \label{fig:datenfluss}
 \end{figure}
 
@@ -689,18 +688,18 @@ Ablauf eines Regelzyklus:
 \item
   \texttt{pose.update()}: Pose aus Radwinkeln und Gyro fortschreiben.
 \item
-  \texttt{safety.update()}: Kantensensoren prüfen; hält die
-  Sicherheitskomponente die Aktorik, endet der Zyklus hier.
+  \texttt{safety.update()}: Kantensensoren prüfen. Beinhaltet die
+  Sicherheitskomponente der Aktorik, letzte Funktion im Regelzyklus.
 \item
-  Kartenpflege: Ein per Ultraschall erkanntes, unkartiertes Hindernis
+  Kartenpflege: Ein per Sensor erkanntes, unkartiertes Hindernis
   bzw.\ eine erkannte Kante wird in die Belegungskarte eingetragen und
-  \texttt{DStarLite} benachrichtigt.
+  \texttt{der DStarLite} Algorithmus erneuert.
 \item
   \texttt{planner.setStart()} / \texttt{computeShortestPath()}: Pfad
   inkrementell aktualisieren.
 \item
-  \texttt{smoothPath()} + \texttt{centerPath()}: Pfad glätten und in
-  Korridormitte schieben.
+  \texttt{smoothPath()} + \texttt{centerPath()}: Pfad glätten und die
+  Korridor erneuern.
 \item
   \texttt{dwa.update()}: kollisionsfreies Geschwindigkeitspaar wählen
   und als Radgeschwindigkeiten ausgeben.
@@ -721,7 +720,7 @@ Simulator & Webots R2025b (Nightly-Build, Commit \texttt{033dbaea\ldots})\\
 Sprache & C++ (objektorientiert, eine Klasse je Komponente)\\
 Build & Webots-\texttt{Makefile.include}, je Controller ein \texttt{Makefile}\\
 Robotermodell & \texttt{protos/coasterbot/Coasterbot.proto} (aus CAD abgeleitet)\\
-Controller & \texttt{controllers/coasterbot/} (dieser Quellcode)\\
+Controller & \texttt{controllers/coasterbot/} (Quellcode)\\
 \bottomrule
 \end{longtable}
 
@@ -734,9 +733,9 @@ export WEBOTS_HOME=~/Documents/webots/webots
 cd controllers/coasterbot && make
 
 # eine Welt starten (GUI)
-$WEBOTS_HOME/webots worlds/coasterbot-simtest.wbt
+$\$WEBOTS_HOME/webots worlds/coasterbot-simtest.wbt
 
-# kopflos / reproduzierbar
+# headless start
 $WEBOTS_HOME/webots --mode=fast --no-rendering --stdout --stderr \
     worlds/coasterbot-simtest.wbt
 \end{lstlisting}
@@ -758,7 +757,7 @@ $WEBOTS_HOME/webots --mode=fast --no-rendering --stdout --stderr \
 \bottomrule
 \endfoot
 \texttt{robot\_hal.h} & abstraktes Interface \texttt{RobotHAL}, \texttt{enum WheelId}\\
-\texttt{webots\_hal.\{h,cpp\}} & \texttt{WebotsHAL : RobotHAL}, einzige Webots-abhängige Datei\\
+\texttt{webots\_hal.\{h,cpp\}} & \texttt{WebotsHAL : RobotHAL}, einzige von Webots-abhängige Datei\\
 \texttt{pose\_estimator.\{h,cpp\}} & \texttt{PoseEstimator}, Odometrie- und Gyro-Fusion\\
 \texttt{occupancy\_grid.\{h,cpp\}} & \texttt{OccupancyGrid}, Rasterkarte mit Distanzfeld\\
 \texttt{astar.\{h,cpp\}} & \texttt{astarPlan}, \texttt{smoothPath}, \texttt{centerPath}\\
@@ -777,9 +776,9 @@ $WEBOTS_HOME/webots --mode=fast --no-rendering --stdout --stderr \
 
 \subsection{Interface \texttt{RobotHAL}}\label{robothal}
 
-\texttt{RobotHAL} (Datei \texttt{robot\_hal.h}) ist eine rein abstrakte
-Klasse. Sie beschreibt ausschließlich, \emph{welche} Fähigkeiten der
-Roboter besitzt, nicht wie sie technisch realisiert werden. Sie
+\texttt{RobotHAL} (Datei \texttt{robot\_hal.h}) ist eine abstrakte
+Klasse. Diese beschreibt  \emph{welche} Fähigkeiten der
+Roboter besitzt, jedoch nicht wie sie technisch realisiert werden. Die Klasse
 erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
 \texttt{NFA-ARC-005} (Hardwareabstraktion).
 
@@ -811,35 +810,35 @@ erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Vorzeichen:} \texttt{setLeftSpeed}/\texttt{setRightSpeed}
+  \textbf{Voraussetzung:} \texttt{setLeftSpeed}/\texttt{setRightSpeed}
   positiv $\Rightarrow$ Vorwärtsfahrt. Lenkung über die Drehzahl\-differenz
   (Skid-Steer).
 \item
   \textbf{Radpaarung:} Die beiden Räder einer Seite sind mechanisch
-  gekoppelt und laufen stets gemeinsam (wie beim realen Coasterbot: zwei
+  gekoppelt und laufen stets gemeinsam (wie der reale Coasterbot: zwei
   Getriebemotoren je Seite, gemeinsam angesteuert). Es gibt daher
-  \emph{keinen} Einzelrad-Befehl; \texttt{enum WheelId} hat entsprechend
-  nur die zwei Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}.
+  \emph{keinen} Einzelrad-Befehl, \texttt{enum WheelId} hat deshalb
+  nur die beiden Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}.
   Die reale Elektronik besitzt ebenfalls nur einen Encoder je Seite, nicht
   einen je Rad (siehe Abschnitt~\ref{hal-offene-punkte}).
 \item
   \textbf{Kantensensoren:} \texttt{RobotHAL} gibt bereits ein kalibriertes
-  \texttt{bool} zurück (\texttt{true} = Kante). Die Umrechnung des
+  \texttt{bool} zurück (\texttt{true} = Tischkante erreicht). Die Umrechnung des
   Rohwerts (in der Simulation $\approx 0$ auf einer Fläche, $\approx 1000$
   über einer Kante; Schwelle \num{500}) ist Aufgabe der jeweiligen
-  HAL-Implementierung und bleibt dort gekapselt (siehe
+  HAL-Implementierung und bleibt in dieser gekapselt (siehe
   Abschnitt~\ref{hal-offene-punkte}).
 \end{itemize}
 
 \subsection{Implementierung \texttt{WebotsHAL}}\label{webotshal}
 
-\texttt{WebotsHAL} (Datei \texttt{webots\_hal.cpp}) ist die einzige
-Datei, die die Webots-C++-API einbindet. Bei einer Portierung auf die
-Zielhardware wird nur diese Datei durch eine \texttt{ArduinoHAL} mit
-identischer Signatur ersetzt; die übrigen Komponenten bleiben
-unverändert.
+\texttt{WebotsHAL} (Datei \texttt{webots\_hal.cpp}) ist die
+Datei, welche die C++ API von Webots einbindet. Bei einer Portierung auf die
+Zielhardware kann diese Datei durch einen \texttt{ArduinoHAL} mit
+identischer Aufbau ersetzt werden, wobei die übrigen Komponenten
+unverändert bleiben.
 
-Aufgaben:
+Aufgaben de HAL:
 
 \begin{itemize}
 \tightlist
@@ -850,69 +849,69 @@ Aufgaben:
   \texttt{wheel\_*\_sensor} (je zwei pro Seite, siehe unten), der
   Ultraschall \texttt{ultrasonic}, die vier Kantensensoren \texttt{edge\_*},
   sowie \texttt{inertial\_unit} und \texttt{gyro}. Die Namensstrings sind
-  der Vertrag zwischen PROTO und Software.
+  der Kopplung zwischen PROTO und Software.
 \item
-  Betrieb der Antriebsmotoren im Geschwindigkeitsmodus
+  Betrieb der Antriebsmotoren über die Funktion
   (\texttt{setPosition(\ensuremath{\infty})}).
 \item
   \textbf{Vorzeichenkorrektur:} Das Radmodell des PROTO rollt den
   Roboter bei positiver Motordrehzahl nach $+Z$ (Rückseite). Da die
-  HAL-Konvention \enquote{positiv = vorwärts} lautet und die Vorderseite
-  bei $-Z$ liegt, negiert \texttt{WebotsHAL} die Motor- und
+  die Vorderseite bei $-Z$ liegt, negiert \texttt{WebotsHAL} die Motor- und
   Encoder-Werte.
 \item
   \textbf{Gierrate:} Das Y-up-PROTO wird in der Z-up-Welt mit
   \texttt{rotation 1 0 0 1.5708} aufgestellt. Die Welt-Hochachse fällt
-  daher mit der lokalen $+Y$-Achse des Gyros zusammen; \texttt{getGyroZ()}
-  liefert die $Y$-Komponente des Gyrovektors.
+  daher mit der lokalen $+Y$-Achse des Gyros zusammen. Die Funktion
+    \texttt{getGyroZ()} liefert die $Y$-Komponente des Gyrovektors.
 \item
   \textbf{Encoder-Aggregation:} Die reale Elektronik besitzt nur einen
-  Encoder je Seite (\texttt{RobotHAL::WheelId} kennt entsprechend nur
+  Encoder je Seite (\texttt{RobotHAL::WheelId} kennt deshalb nur
   \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}). Das PROTO stellt in der
   Simulation trotzdem vier unabhängige \texttt{PositionSensor} bereit (je
-  Rad); \texttt{getWheelAngle()} mittelt Front- und Heckrad je Seite, um
-  nach außen dieselbe Information wie der eine reale Encoder zu liefern.
+  Rad). Die Funktion \texttt{getWheelAngle()} mittelt Front- und Heckrad je
+  Seite, um nach außen dieselbe Information wie der einzelne reale Encoder zu
+  liefern.
 \item
   \textbf{Digitales Kantensignal:} Die \texttt{lookupTable} der vier
-  Kantensensoren im PROTO liefert bereits ein digitales Signal (\num{0}
-  oder \num{1}, kein analoger Rohwert; siehe
-  Abschnitt~\ref{proto}). \texttt{digitalEdge()} liest diesen Pegel und
-  bildet ihn über die private Konstante \texttt{EDGE\_ACTIVE\_HIGH} auf
-  das semantische \texttt{bool} ab. Das ist die einzige Stelle im Code,
-  an der bekannt sein muss, ob \enquote{Kante} am Sensor elektrisch HIGH
-  oder LOW bedeutet; eine \texttt{ArduinoHAL}, die tatsächlich
-  \texttt{digitalRead()} an einem Pin aufruft, bildet dort genauso ab und
-  passt bei einem aktiv-low-Sensormodul nur diese eine Konstante an.
+  Kantensensoren im PROTO liefert ein digitales Signal (\num{0}
+  oder \num{1}, keinen analogen Rohwert, siehe
+  Abschnitt~\ref{proto}). Die Funktion  \texttt{digitalEdge()} liest den Zustand und
+  bildet ihn über die Konstante \texttt{EDGE\_ACTIVE\_HIGH} auf
+  den  \texttt{bool} Wert ab. An dieser Stelle muss im Code
+  bekannt sein, ob die \enquote{Kante} am Sensor ein elektronisches  HIGH
+  oder LOW bedeutet. Die Funktion in \texttt{ArduinoHAL}, welche
+  \texttt{digitalRead()} an einem Pin aufruft, passt bei einem
+  aktiv-low-Sensormodul nur diese eine Konstante an.
 \item
-  \textbf{Gyro-Simulation (GY-521/MPU-6050):} \texttt{getGyroZ()} prägt
-  dem idealen, physikalisch simulierten Wert Bias und Rauschen des auf
-  der Stückliste geführten Inertialsensors auf und kalibriert diesen
+  \textbf{Gyro-Simulation (GY-521/MPU-6050):} \texttt{getGyroZ()} stellt
+  den idealen, physikalisch simulierten Wert Bias und das Rauschen des auf
+  der Stückliste genannten Inertialsensors auf und kalibriert diesen
   Bias beim Start heraus. Details in Abschnitt~\ref{gyro-simulation}.
 \item
   \textbf{Motorregelung Open-Loop/Closed-Loop:} \texttt{setLeftSpeed()}/
-  \texttt{setRightSpeed()} setzen nur noch das Kommando;
+  \texttt{setRightSpeed()} setzen lediglich den Zustand.
   \texttt{updateMotorControl()} steuert die Motoren davon abhängig entweder
   direkt (Open-Loop) oder per Encoder-Rückkopplung geregelt (Closed-Loop,
   Standardeinstellung) an. Details und Vergleich in
   Abschnitt~\ref{motor-control-vergleich}.
 \end{itemize}
 
-Die coupled motors von Webots setzen einen Befehl an
-\texttt{wheel\_left::front} automatisch auch auf
+Die gekoppelten Motoren (coupled motors) von Webots setzen einen Befehl an
+\texttt{wheel\_left::front}  auch auf
 \texttt{wheel\_left::rear} um (Faktor \texttt{multiplier} $= 1$), sodass
 die Software je Seite nur ein Handle benötigt.
 
 \subsection{Gyro-Simulation: GY-521/MPU-6050}\label{gyro-simulation}
 
-Die Stückliste (BOM) des Projekts führt unter Position 11 einen konkreten
+Die Stückliste (BOM) des Projekts führt unter Position 11 einen
 Inertialsensor: \enquote{ICQUANZX GY-521 MPU6050; Navigationssensor}
 (1~Stk., U12), ein GY-521-Breakout-Board mit dem
 InvenSense-MPU-6050-Chip (6-DOF Gyroskop und Beschleunigungssensor). Diese
-Festlegung gilt als gegeben für die reale Hardware; die Simulation bildet
-denselben Chip nach, statt einen idealen, fehlerfreien Sensor anzunehmen.
+Festlegung gilt als gegeben für die reale Hardware. Deshalb bilder die Simulation
+diesen Chip nach, statt einen idealen, fehlerfreien Sensor anzunehmen.
 
 \paragraph{Warum nicht über die PROTO-\texttt{lookupTable}.}
-Für die vier Kantensensoren und den Ultraschall genügt Webots' eingebauter
+Für die vier Kantensensoren und den Ultraschall genügt Webots eingebauter
 \texttt{lookupTable}-Mechanismus (Abschnitt~\ref{proto}). Für den Gyro
 wurde dieser Weg geprüft und verworfen: Der dortige Rauschanteil skaliert
 mit dem Momentanwert der Messung und ist bei Stillstand (Messwert $= 0$)
@@ -936,8 +935,8 @@ $\pm\SI{250}{\degree\per\second}$ Messbereich, 16-Bit-ADC):
   $\pm\SI{20}{\degree\per\second}$ Werkstoleranz ohne Kalibrierung. Da kein
   vermessenes reales Exemplar vorliegt, wird ein moderater, fest
   angenommener Demonstrationswert von \SI{3}{\degree\per\second}
-  ($\approx\SI{0.0524}{\radian\per\second}$) simuliert; dieser Wert ist
-  eine Annahme, kein Messergebnis.
+  ($\approx\SI{0.0524}{\radian\per\second}$) simuliert. Dieser Wert ist
+  eine Annahme und kein Messergebnis.
 \item
   \textbf{Rauschen:} Datenblattwert \enquote{Total RMS Noise}
   $= \SI{0.05}{\degree\per\second\text{-}rms}$
@@ -955,48 +954,48 @@ $\pm\SI{250}{\degree\per\second}$ Messbereich, 16-Bit-ADC):
 \paragraph{Start-Kalibrierung.} Ein reales MPU-6050-Modul wird üblicherweise
 beim Einschalten kalibriert, während das Gerät stillsteht (siehe
 Abschnitt~\ref{hal-offene-punkte}). \texttt{WebotsHAL} bildet das nach:
-\texttt{calibrateGyro()} läuft im Konstruktor, \emph{bevor} irgendein
+\texttt{calibrateGyro()} läuft im Konstruktor, \emph{bevor} ein
 Fahrbefehl gegeben werden kann (die Motoren stehen zu diesem Zeitpunkt
 bereits auf \texttt{setVelocity(0.0)}), mittelt \texttt{GYRO\_CAL\_SAMPLES}
 $= 32$ Messwerte (bei \SI{16}{\milli\second} Regelzyklus $\approx
 \SI{0.5}{\second}$) und zieht diesen Schätzwert von jeder folgenden
 Messung ab.
 
-Diese Reihenfolge ist kein Detail, sondern notwendig: Ein früherer
-Entwurf kalibrierte stattdessen laufend während der ersten
+Diese Reihenfolge ist notwendig: Ein früherer
+Entwurf kalibrierte laufend während der ersten
 \texttt{getGyroZ()}-Aufrufe im laufenden Betrieb. In
 \texttt{MODE\_SIM\_TEST} beginnt die Navigation jedoch bereits im ersten
-Regelzyklus zu drehen; die echte, sich ändernde Drehung floss dabei
-fälschlich in den Bias-Schätzwert ein und verfälschte ihn dauerhaft,
-beobachtbar daran, dass der Roboter an einer falschen Pose hängen blieb
-und keinen Testfall mehr bestand. Die Kalibrierung \emph{vor} dem ersten
-möglichen Fahrbefehl behebt das; sie entspricht zugleich eher dem realen
-Vorbild (Kalibrierung beim Einschalten, nicht während der Fahrt).
+Regelzyklus zu drehen. Die echte, sich ändernde Drehung floss dabei
+fälschlich in den Bias-Schätzwert ein und verfälschte ihn dauerhaft.
+Dies führte dazu, dass der Roboter in einer falschen Pose hängen blieb
+und keinen Testfall bestand. Die Kalibrierung \emph{vor} dem ersten
+möglichen Fahrbefehl behebt diesen Fehler. Sie entspricht zugleich eher dem
+realen Vorbild (Kalibrierung beim Einschalten, nicht während der Fahrt).
 
 \paragraph{Folge für die Lokalisierung.} Weil nur \texttt{GYRO\_CAL\_SAMPLES}
-$= 32$ Messwerte gemittelt werden, bleibt ein kleiner Restfehler im
+$= 32$ Messwerte gemittelt werden, bleibt ein Restfehler im
 Bias-Schätzwert zurück (Größenordnung
 $\sigma_\mathrm{Rauschen} / \sqrt{32} \approx \SI{1.5e-4}{\radian\per\second}$).
 Da dieser Restfehler danach fest bleibt statt weiter nachgeführt zu
-werden, integriert \texttt{PoseEstimator} ihn über die Zeit zu einer
+werden, integriert \texttt{PoseEstimator} ihn über die Zeit zu einem
 langsamen Kursdrift auf, auch wenn der Roboter steht: gemessen
 $\approx \SI{-0.012}{\degree\per\second}$ (Stillstandstest über
 \SI{220}{\second}, \texttt{MODE\_ODOMETRY\_TEST}). Für die kurzen
 Testläufe dieses Projekts (\SI{15}{} bis \SI{25}{\second}) ist das
-vernachlässigbar (siehe Abschnitt~\ref{lokalisierung-grenzen}); exakt
-stabil war nur der vorherige, ideale (unsimulierte) Gyro.
+vernachlässigbar (siehe Abschnitt~\ref{lokalisierung-grenzen}).
 
 \paragraph{Verifikation.} \texttt{MODE\_SIM\_TEST} wurde nach dieser
-Änderung erneut zweifach kopflos ausgeführt: ST-SIM-001 bis ST-SIM-003
+Änderung erneut zweifach ausgeführt: ST-SIM-001 bis ST-SIM-003
 weiterhin BESTANDEN (Zielfehler \SI{5.79}{\centi\meter} statt zuvor
 \SI{5.78}{\centi\meter}, Zielzeit $t=\SI{14.144}{\second}$ statt
 \SI{13.632}{\second}, also $+\SI{0.512}{\second}$, exakt die
-Kalibrierungsdauer von 32 Zyklen), die beiden Läufe weiterhin
+Kalibrierungsdauer von 32 Zyklen). Die beiden Läufe bleiben
 byte-identisch (ST-SIM-004). \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
 weiterhin korrekt und erreicht das Ziel bei $t=\SI{24.496}{\second}$ mit
 \SI{1.52}{\centi\meter} Restfehler (zuvor \SI{24}{\second}/\SI{1.5}{\centi\meter}).
 Bias und Rauschen bleiben damit klein genug, um das bestehende
-Verhalten nicht zu verändern, machen die Simulation aber realitätsnäher.
+Verhalten nicht zu verändern, allerdings wird die Simulation dadurch
+realitätsnäher.
 
 \subsection{Motorregelung: Open-Loop vs.\ Closed-Loop im
 Vergleich}\label{motor-control-vergleich}
@@ -1007,11 +1006,11 @@ skizzierten Umsetzungen der Motoransteuerung (Open-Loop, Closed-Loop)
 wurden implementiert und im selben Simulationslauf gegenübergestellt.
 
 \paragraph{Warum ein reiner Vergleich in der Simulation nicht trivial ist.}
-Webots' Motormodell im Geschwindigkeitsmodus (\texttt{Motor::setVelocity()})
-ist von sich aus \emph{ideal}: Ein Kommando wird exakt erreicht, ohne
-Regelfehler. Ohne eine zusätzliche, absichtlich eingebaute
-Störgröße hätten Open-Loop und Closed-Loop deshalb in der Simulation exakt
-dasselbe Ergebnis geliefert und der Vergleich wäre bedeutungslos.
+Das Motormodell im Geschwindigkeitsmodus (\texttt{Motor::setVelocity()})
+wird in Webots \emph{ideal simuliert}: Ein Kommando wird ohne Regelfehler exakt erreicht.
+Ohne eine zusätzliche, eingebaute
+Störgröße liefern Open-Loop und Closed-Loop deshalb in der Simulation exakt
+dasselbe Ergebnis und der Vergleich ist hinfällig.
 \texttt{WebotsHAL} prägt deshalb dem Kommando eine feste, \emph{der
 Regelung unbekannte} Fertigungsstreuung zwischen den beiden Seiten auf
 (\texttt{MOTOR\_GAIN\_LEFT\_TRUE} $= 0{,}95$, \texttt{MOTOR\_GAIN\_RIGHT\_TRUE}
@@ -1019,13 +1018,13 @@ $= 1{,}05$, also $\mp\SI{5}{\percent}$): Ein Kommando von
 \SI{4}{\radian\per\second} führt an der realen (simulierten) Achse nicht zu
 exakt \SI{4}{\radian\per\second}, sondern zu $4 \cdot \text{Gain}$. Diese
 Werte sind eine Annahme (realistische Größenordnung für
-Getriebemotor-Toleranzen), kein Messwert eines realen Coasterbot-Exemplars.
+Getriebemotor-Toleranzen), kein Messwert eines realen Coasterbot-Exemplares.
 
 \paragraph{Umsetzung in \texttt{WebotsHAL}.} \texttt{setLeftSpeed()}/
-\texttt{setRightSpeed()} setzen seither nur noch das \emph{Kommando}
-(\texttt{commandedLeft\_}/\texttt{commandedRight\_}); die eigentliche
-Aktuierung übernimmt \texttt{updateMotorControl()}, einmal pro
-\texttt{step()}, mit dem zuletzt gemessenen Encoderwert:
+\texttt{setRightSpeed()} setzen deshalb lediglich das \emph{Kommando}
+(\texttt{commandedLeft\_}/\texttt{commandedRight\_}), wobei die eigentliche
+Aktuierung \texttt{updateMotorControl()} übernimmt. Dies geschieht einmal mit
+dem zuletzt gemessenen Encoderwert pro \texttt{step()}:
 
 \begin{itemize}
 \tightlist
@@ -1035,7 +1034,7 @@ Aktuierung übernimmt \texttt{updateMotorControl()}, einmal pro
   Encoderwinkels (\texttt{RobotHAL::getWheelAngle}) seit dem letzten
   Regelzyklus, geteilt durch $\Delta t$. Über
   \texttt{measuredLeftSpeed()}/\texttt{measuredRightSpeed()} auch von
-  außen abrufbar (nur für diesen Vergleich; kein Teil der
+  außen abrufbar (nur für diesen Vergleich und kein Bestandeil der
   \texttt{RobotHAL}-Schnittstelle).
 \item
   \textbf{OPEN\_LOOP:} \texttt{appliedLeft\_}/\texttt{appliedRight\_}

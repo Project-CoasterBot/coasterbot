@@ -12,8 +12,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0 1 0 1.5692003061004252
-  position 0 0 4
+  orientation 0.00999934172884754 0.9999008415234486 -0.009915658610961246 1.579299465950243
+  position 0.03224348427089685 0.005946720795401206 4.843140091994471
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -32,14 +32,14 @@ Coasterbot {
   controller "coasterbot"
 }
 BeerBottle {
-  translation 0.67 -0.84 0.72
+  translation -0.21 -0.54 0.72
   name "beer bottle mid"
 }
 FlowerPot {
   translation -0.68 0.7 0.715
 }
 BeerBottle {
-  translation 0.68 -0.7 0.72
+  translation 0.31 -0.16 0.72
   name "beer bottle corner"
 }
 Solid {

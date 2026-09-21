@@ -1,4 +1,5 @@
 #include "webots_hal.h"
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -44,24 +45,91 @@ WebotsHAL::WebotsHAL() {
     imu_->enable(timeStep_);
     gyro_ = robot_.getGyro("gyro");
     gyro_->enable(timeStep_);
+
+    // Start-Kalibrierung des simulierten GY-521/MPU-6050-Bias HIER im
+    // Konstruktor, nicht erst beim ersten getGyroZ()-Aufruf: an dieser
+    // Stelle wurde noch kein Fahrbefehl gegeben (Motoren stehen auf 0.0,
+    // siehe oben), der Roboter steht also wirklich still - wie ein reales
+    // Exemplar beim Einschalten, bevor es losfaehrt. Wuerde man stattdessen
+    // erst waehrend der ersten Regelzyklen kalibrieren, in denen (z.B. in
+    // MODE_SIM_TEST) bereits gefahren wird, wuerde die echte Drehung
+    // faelschlich in den Bias-Schaetzwert einfliessen und ihn dauerhaft
+    // verfaelschen (in der Simulation beobachtet: der Roboter blieb dann
+    // an einer falschen Pose haengen).
+    calibrateGyro();
 }
 
 WebotsHAL::~WebotsHAL() {}
 
+void WebotsHAL::calibrateGyro() {
+    float sum = 0.0f;
+    int n = 0;
+    for (; n < GYRO_CAL_SAMPLES; ++n) {
+        if (robot_.step(timeStep_) == -1) break;  // Simulation endet bereits
+        const double* v = gyro_->getValues();
+        const float raw = static_cast<float>(v[1]);
+        sum += raw + GYRO_BIAS_RAD + gyroNoise_(gyroRng_);
+    }
+    if (n > 0) gyroBiasEstimate_ = sum / static_cast<float>(n);
+}
+
 bool WebotsHAL::step() {
-    return robot_.step(timeStep_) != -1;
+    const bool ok = robot_.step(timeStep_) != -1;
+    if (ok) updateMotorControl();
+    return ok;
 }
 
 void WebotsHAL::setLeftSpeed(float radPerSec) {
     // HAL-Konvention: positiv = vorwaerts (Front = -Z, die Seite mit dem
-    // Ultraschallhalter). Bei positiver Motorgeschwindigkeit rollt das
-    // Radmodell aus dem PROTO den Roboter jedoch nach +Z (hinten), daher
-    // hier das Vorzeichen umdrehen. Treibt beide linken Raeder (gekoppelt).
-    motorLeft_->setVelocity(-static_cast<double>(radPerSec));
+    // Ultraschallhalter). Setzt nur das Kommando; die eigentliche
+    // Motoransteuerung (inkl. Vorzeichenumkehr fuer das PROTO-Radmodell)
+    // uebernimmt updateMotorControl(), siehe dort und webots_hal.h.
+    commandedLeft_ = radPerSec;
 }
 
 void WebotsHAL::setRightSpeed(float radPerSec) {
-    motorRight_->setVelocity(-static_cast<double>(radPerSec));
+    commandedRight_ = radPerSec;
+}
+
+// Simuliert die Motorregelung einer Seite: Open-Loop reicht das Kommando
+// unveraendert durch, Closed-Loop gleicht die (der Regelung unbekannte)
+// Gain-Abweichung ueber die gemessene Radgeschwindigkeit per Integralregler
+// aus. Ausfuehrliche Erklaerung in webots_hal.h.
+void WebotsHAL::updateMotorControl() {
+    const float nowLeft  = getWheelAngle(WHEEL_LEFT);
+    const float nowRight = getWheelAngle(WHEEL_RIGHT);
+    const float now = getTime();
+    if (!motorCtrlInitialized_) {
+        prevAngleLeft_  = nowLeft;
+        prevAngleRight_ = nowRight;
+        prevMotorCtrlTime_ = now;
+        motorCtrlInitialized_ = true;
+        return;  // noch keine Winkelaenderung messbar
+    }
+    const float dt = std::max(now - prevMotorCtrlTime_, 1e-4f);
+    measuredLeft_  = (nowLeft  - prevAngleLeft_)  / dt;
+    measuredRight_ = (nowRight - prevAngleRight_) / dt;
+    prevAngleLeft_  = nowLeft;
+    prevAngleRight_ = nowRight;
+    prevMotorCtrlTime_ = now;
+
+    if (motorMode_ == MotorControlMode::CLOSED_LOOP) {
+        appliedLeft_  += MOTOR_KI * (commandedLeft_  - measuredLeft_)  * dt;
+        appliedRight_ += MOTOR_KI * (commandedRight_ - measuredRight_) * dt;
+        appliedLeft_  = std::max(-MOTOR_MAX_OMEGA, std::min(MOTOR_MAX_OMEGA, appliedLeft_));
+        appliedRight_ = std::max(-MOTOR_MAX_OMEGA, std::min(MOTOR_MAX_OMEGA, appliedRight_));
+    } else {
+        appliedLeft_  = commandedLeft_;
+        appliedRight_ = commandedRight_;
+    }
+
+    // Das PROTO-Radmodell rollt den Roboter bei positiver Motordrehzahl nach
+    // +Z (hinten); Vorzeichen daher umkehren (siehe HAL-Konvention oben).
+    // MOTOR_GAIN_*_TRUE ist die simulierte reale Fertigungsstreuung, die
+    // Regelung "kennt" sie nicht, sie wirkt nur auf die tatsaechliche
+    // Aktuierung.
+    motorLeft_->setVelocity(-static_cast<double>(appliedLeft_ * MOTOR_GAIN_LEFT_TRUE));
+    motorRight_->setVelocity(-static_cast<double>(appliedRight_ * MOTOR_GAIN_RIGHT_TRUE));
 }
 
 float WebotsHAL::getUltrasonicDistance() {
@@ -98,7 +166,14 @@ float WebotsHAL::getGyroZ() {
     // aufgestellt -> die Welt-Hochachse faellt mit der lokalen +Y-Achse des
     // Gyros zusammen. Die Yaw-Rate ist daher die Y-Komponente (v[1]).
     const double* v = gyro_->getValues();
-    return static_cast<float>(v[1]);
+    const float raw = static_cast<float>(v[1]);
+
+    // GY-521/MPU-6050-Simulation: simulierten Bias + deterministisches
+    // Rauschen aufpraegen, dann den im Konstruktor (calibrateGyro())
+    // ermittelten Bias-Schaetzwert wieder abziehen (siehe Kommentar dort
+    // und in webots_hal.h).
+    const float measured = raw + GYRO_BIAS_RAD + gyroNoise_(gyroRng_);
+    return measured - gyroBiasEstimate_;
 }
 
 float WebotsHAL::getWheelAngle(WheelId wheel) {

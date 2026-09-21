@@ -250,16 +250,15 @@ PROTO Coasterbot [
         translation 0 0.057 -0.093
         rotation 0 1 0 1.5708
         name "ultrasonic"
-        # Generischer Typ (nicht "sonar"): liefert die Distanz zum naechsten
-        # Objekt unabhaengig vom Auftreffwinkel - "sonar" reflektiert nur an
-        # (nahezu) senkrechten Flaechen und uebersieht duenne, runde Objekte
-        # wie die Flaschen bis kurz vor der Beruehrung.
+        # HC-SR04-like model: approximately 2 cm minimum range, 4 m maximum
+        # range, and a narrow acoustic beam of approximately 15 degrees.
+        type "sonar"
         lookupTable [
-          0 0 0
+          0.02 0.02 0
           4 4 0.02
         ]
-        numberOfRays 7
-        aperture 0.6
+        numberOfRays 5
+        aperture 0.26
       }
 
       # ---------------------------------------------------------------
@@ -326,7 +325,19 @@ PROTO Coasterbot [
       }
 
       # ---------------------------------------------------------------
-      # Inertialsensor (IMU) nahe dem Schwerpunkt
+      # Inertialsensor (IMU) nahe dem Schwerpunkt.
+      #
+      # Modelliert den auf der Stueckliste gefuehrten Inertialsensor
+      # (BOM Pos. 11: "ICQUANZX GY-521 MPU6050; Navigationssensor" =
+      # ein GY-521-Breakout-Board mit InvenSense-MPU-6050-Chip, 6-DOF
+      # Gyro+Beschleunigungssensor). Messbereich und Aufloesung stammen
+      # aus dem MPU-6050-Datenblatt (Werksdefault FS_SEL=0/AFS_SEL=0,
+      # 16-Bit-ADC); Rauschen und Nullpunktfehler des Gyros sind in
+      # Webots' lookupTable-Rauschen NICHT geeignet abbildbar (das
+      # skaliert mit dem Momentanwert, ist bei Stillstand also immer 0 -
+      # ein realer Gyro rauscht aber auch im Stillstand). Deshalb werden
+      # Bias und Rauschen stattdessen in WebotsHAL::getGyroZ() simuliert
+      # (siehe dort); hier steht nur Messbereich + Aufloesung.
       # ---------------------------------------------------------------
       InertialUnit {
         translation 0 0.05 0
@@ -335,10 +346,30 @@ PROTO Coasterbot [
       Gyro {
         translation 0 0.05 0
         name "gyro"
+        # MPU-6050, FS_SEL=0 (Werksdefault): Messbereich +-250 deg/s =
+        # +-4.363323 rad/s; 16-Bit-ADC -> Aufloesung 250/32768 deg/s
+        # = 0.00013316 rad/s. lookupTable bildet nur Messbereich +
+        # Interpolation ab (Rauschspalte bewusst 0, siehe oben).
+        lookupTable [
+          -4.363323 -4.363323 0
+           4.363323  4.363323 0
+        ]
+        resolution 0.00013316
       }
       Accelerometer {
         translation 0 0.05 0
         name "accelerometer"
+        # Gleicher Chip (MPU-6050), Beschleunigungskanal: AFS_SEL=0
+        # (Werksdefault) -> Messbereich +-2 g = +-19.62 m/s^2 (g = 9.81
+        # m/s^2, wie WorldInfo.gravity); 16-Bit-ADC -> Aufloesung
+        # 19.62/32768 = 0.0005987 m/s^2. Vom Controller aktuell nicht
+        # ausgelesen (siehe Softwaredokumentation) - hier trotzdem
+        # realitaetsnah abgebildet, da Teil desselben Bauteils.
+        lookupTable [
+          -19.62 -19.62 0
+           19.62  19.62 0
+        ]
+        resolution 0.0005987
       }
     ]
     # ---------------------------------------------------------------

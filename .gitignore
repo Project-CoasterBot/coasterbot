@@ -222,3 +222,6 @@ Temporary Items
 # PlatformIO
 .pio/
 .vscode/
+
+# lokale Board-Pinbelegung
+boardconfig_local.h

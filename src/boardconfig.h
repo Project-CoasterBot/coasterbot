@@ -10,6 +10,20 @@
  * GPIO-Nummern auch als Arduino-Pinnummern, die Werte koennen also direkt an
  * pinMode()/digitalRead()/analogWrite() uebergeben werden.
  */
+// Optionale, lokale Abweichungen der Pinbelegung fuer einzelne Boards.
+// boardconfig_local.h ist per .gitignore ausgeschlossen und kann z.B.
+// "#define BOARD_PIN_LED1_R 12" enthalten.
+#if __has_include("boardconfig_local.h")
+#include "boardconfig_local.h"
+#endif
+
+#ifndef BOARD_PIN_LED1_R
+#define BOARD_PIN_LED1_R 13 // GP13
+#endif
+#ifndef BOARD_PIN_LED1_G
+#define BOARD_PIN_LED1_G 15 // GP15
+#endif
+
 namespace board {
 
 // Sensoren
@@ -40,8 +54,9 @@ constexpr int PIN_COASTER_SERVO_2 = 7; // GP7
 
 // UI
 constexpr int PIN_USER_BUTTON = 10; // GP10, active low (gedrueckt = LOW)
-constexpr int PIN_LED1_R = 13; // GP13
-constexpr int PIN_LED1_G = 15; // GP15
+
+constexpr int PIN_LED1_R = BOARD_PIN_LED1_R; // default GP13
+constexpr int PIN_LED1_G = BOARD_PIN_LED1_G; // default GP15
 constexpr int PIN_LED1_B = 14; // GP14
 
 } // namespace board

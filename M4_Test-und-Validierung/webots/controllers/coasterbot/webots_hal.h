@@ -36,6 +36,27 @@ public:
     float getWheelAngle(WheelId wheel) override;
     float getTime() override;
 
+    // ---------------------------------------------------------------
+    // Offener Punkt "Erreichbarkeit einer definierten Winkelgeschwindigkeit"
+    // (Softwaredokumentation, Abschnitt 4.3): simuliert und vergleichbar
+    // gemacht, siehe Kommentar bei updateMotorControl() weiter unten.
+    // Diese Erweiterung ist bewusst NICHT Teil von RobotHAL: eine echte
+    // ArduinoHAL trifft die Open-/Closed-Loop-Entscheidung fest in ihrer
+    // Implementierung, ein Umschalter zur Laufzeit ergibt auf realer
+    // Hardware keinen Sinn (es gibt dort nur die eine physische Wahrheit).
+    // Hier dient er ausschliesslich dem Vergleichstest MODE_MOTOR_CONTROL_TEST.
+    // ---------------------------------------------------------------
+    enum class MotorControlMode { OPEN_LOOP, CLOSED_LOOP };
+    void setMotorControlMode(MotorControlMode mode) { motorMode_ = mode; }
+    MotorControlMode motorControlMode() const { return motorMode_; }
+
+    // Tatsaechlich gemessene Radgeschwindigkeit je Seite [rad/s], aus der
+    // Encoder-Aenderung des letzten Regelzyklus (positiv = vorwaerts, wie
+    // setLeftSpeed/setRightSpeed). Fuer den Vergleichstest: zeigt, wie gut
+    // Kommando und Wirkung tatsaechlich uebereinstimmen.
+    float measuredLeftSpeed() const { return measuredLeft_; }
+    float measuredRightSpeed() const { return measuredRight_; }
+
 private:
     webots::Robot robot_;
     int timeStep_;
@@ -105,6 +126,53 @@ private:
     std::normal_distribution<float> gyroNoise_{0.0f, GYRO_NOISE_STD_RAD};
     float gyroBiasEstimate_ = 0.0f;
     void calibrateGyro();
+
+    // ---------------------------------------------------------------
+    // Motorregelung: Open-Loop vs. Closed-Loop (Softwaredokumentation,
+    // Abschnitt 4.3, "Erreichbarkeit einer definierten Winkelgeschwindigkeit").
+    //
+    // setLeftSpeed()/setRightSpeed() setzen nur noch das Kommando
+    // (commandedLeft_/commandedRight_); die eigentliche Motoransteuerung
+    // uebernimmt updateMotorControl(), einmal pro step(). Simuliert wird
+    // dabei eine reale, unvermeidliche Fertigungsstreuung zwischen den
+    // beiden Seiten (MOTOR_GAIN_LEFT_TRUE/MOTOR_GAIN_RIGHT_TRUE): Ein
+    // Kommando von z.B. 4 rad/s erzeugt an der realen (simulierten) Seite
+    // nicht exakt 4 rad/s, sondern 4 * Gain. Dieser Gain ist absichtlich
+    // NICHT an die Regelung "durchgereicht", genau wie auf realer
+    // Hardware kennt die Software ihn nicht, sie kann ihn nur ueber
+    // Sensor-Rueckkopplung ausgleichen:
+    //
+    //   OPEN_LOOP:   appliedLeft_/appliedRight_ = commandedLeft_/commandedRight_
+    //                unveraendert (wie eine feste, einmalig kalibrierte
+    //                PWM-Kennlinie ohne Rueckkopplung). Der Gain-Fehler
+    //                bleibt bestehen -> die Seiten laufen bei "identischem"
+    //                Kommando unterschiedlich schnell, der Roboter zieht
+    //                zur Seite statt geradeaus zu fahren.
+    //   CLOSED_LOOP: appliedLeft_/appliedRight_ werden jeden Regelzyklus
+    //                per Integralregler anhand der GEMESSENEN Radgeschwin-
+    //                digkeit (measuredLeft_/measuredRight_, aus der
+    //                Encoder-Aenderung) nachgefuehrt, bis diese dem
+    //                Kommando entspricht, unabhaengig davon, wie gross
+    //                der (der Regelung unbekannte) Gain-Fehler ist.
+    //
+    // CLOSED_LOOP ist der Default, damit alle anderen Betriebsarten
+    // (MODE_SIM_TEST, MODE_NAVIGATE_DSTAR, ...) ihr bereits verifiziertes
+    // Verhalten behalten; nur MODE_MOTOR_CONTROL_TEST schaltet bewusst auf
+    // OPEN_LOOP um, um den Unterschied zu zeigen.
+    // ---------------------------------------------------------------
+    static constexpr float MOTOR_GAIN_LEFT_TRUE  = 0.95f;  // -5%, Fertigungsstreuung
+    static constexpr float MOTOR_GAIN_RIGHT_TRUE = 1.05f;  // +5%, Fertigungsstreuung
+    static constexpr float MOTOR_KI = 25.0f;               // Integralregler-Verstaerkung
+    static constexpr float MOTOR_MAX_OMEGA = 20.0f;        // rad/s, Anti-Windup (= PROTO maxVelocity)
+
+    MotorControlMode motorMode_ = MotorControlMode::CLOSED_LOOP;
+    float commandedLeft_ = 0.0f, commandedRight_ = 0.0f;   // von setLeftSpeed/setRightSpeed
+    float appliedLeft_ = 0.0f, appliedRight_ = 0.0f;       // tatsaechlich an den Motor gegeben
+    float measuredLeft_ = 0.0f, measuredRight_ = 0.0f;     // aus Encoder-Aenderung gemessen
+    float prevAngleLeft_ = 0.0f, prevAngleRight_ = 0.0f;
+    float prevMotorCtrlTime_ = 0.0f;
+    bool  motorCtrlInitialized_ = false;
+    void updateMotorControl();
 };
 
 #endif  // WEBOTS_HAL_H

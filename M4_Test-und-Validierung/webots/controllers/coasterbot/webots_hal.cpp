@@ -1,4 +1,5 @@
 #include "webots_hal.h"
+#include <algorithm>
 #include <cmath>
 #include <limits>
 
@@ -73,19 +74,62 @@ void WebotsHAL::calibrateGyro() {
 }
 
 bool WebotsHAL::step() {
-    return robot_.step(timeStep_) != -1;
+    const bool ok = robot_.step(timeStep_) != -1;
+    if (ok) updateMotorControl();
+    return ok;
 }
 
 void WebotsHAL::setLeftSpeed(float radPerSec) {
     // HAL-Konvention: positiv = vorwaerts (Front = -Z, die Seite mit dem
-    // Ultraschallhalter). Bei positiver Motorgeschwindigkeit rollt das
-    // Radmodell aus dem PROTO den Roboter jedoch nach +Z (hinten), daher
-    // hier das Vorzeichen umdrehen. Treibt beide linken Raeder (gekoppelt).
-    motorLeft_->setVelocity(-static_cast<double>(radPerSec));
+    // Ultraschallhalter). Setzt nur das Kommando; die eigentliche
+    // Motoransteuerung (inkl. Vorzeichenumkehr fuer das PROTO-Radmodell)
+    // uebernimmt updateMotorControl(), siehe dort und webots_hal.h.
+    commandedLeft_ = radPerSec;
 }
 
 void WebotsHAL::setRightSpeed(float radPerSec) {
-    motorRight_->setVelocity(-static_cast<double>(radPerSec));
+    commandedRight_ = radPerSec;
+}
+
+// Simuliert die Motorregelung einer Seite: Open-Loop reicht das Kommando
+// unveraendert durch, Closed-Loop gleicht die (der Regelung unbekannte)
+// Gain-Abweichung ueber die gemessene Radgeschwindigkeit per Integralregler
+// aus. Ausfuehrliche Erklaerung in webots_hal.h.
+void WebotsHAL::updateMotorControl() {
+    const float nowLeft  = getWheelAngle(WHEEL_LEFT);
+    const float nowRight = getWheelAngle(WHEEL_RIGHT);
+    const float now = getTime();
+    if (!motorCtrlInitialized_) {
+        prevAngleLeft_  = nowLeft;
+        prevAngleRight_ = nowRight;
+        prevMotorCtrlTime_ = now;
+        motorCtrlInitialized_ = true;
+        return;  // noch keine Winkelaenderung messbar
+    }
+    const float dt = std::max(now - prevMotorCtrlTime_, 1e-4f);
+    measuredLeft_  = (nowLeft  - prevAngleLeft_)  / dt;
+    measuredRight_ = (nowRight - prevAngleRight_) / dt;
+    prevAngleLeft_  = nowLeft;
+    prevAngleRight_ = nowRight;
+    prevMotorCtrlTime_ = now;
+
+    if (motorMode_ == MotorControlMode::CLOSED_LOOP) {
+        appliedLeft_  += MOTOR_KI * (commandedLeft_  - measuredLeft_)  * dt;
+        appliedRight_ += MOTOR_KI * (commandedRight_ - measuredRight_) * dt;
+        appliedLeft_  = std::max(-MOTOR_MAX_OMEGA, std::min(MOTOR_MAX_OMEGA, appliedLeft_));
+        appliedRight_ = std::max(-MOTOR_MAX_OMEGA, std::min(MOTOR_MAX_OMEGA, appliedRight_));
+    } else {
+        appliedLeft_  = commandedLeft_;
+        appliedRight_ = commandedRight_;
+    }
+
+    // Das PROTO-Radmodell rollt den Roboter bei positiver Motordrehzahl nach
+    // +Z (hinten); Vorzeichen daher umkehren (siehe HAL-Konvention oben).
+    // MOTOR_GAIN_*_TRUE ist die simulierte reale Fertigungsstreuung, die
+    // Regelung "kennt" sie nicht, sie wirkt nur auf die tatsaechliche
+    // Aktuierung.
+    motorLeft_->setVelocity(-static_cast<double>(appliedLeft_ * MOTOR_GAIN_LEFT_TRUE));
+    motorRight_->setVelocity(-static_cast<double>(appliedRight_ * MOTOR_GAIN_RIGHT_TRUE));
 }
 
 float WebotsHAL::getUltrasonicDistance() {

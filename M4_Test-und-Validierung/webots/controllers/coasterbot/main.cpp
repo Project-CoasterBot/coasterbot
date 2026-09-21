@@ -36,10 +36,16 @@
 //                      Wegfindung + Hindernisvermeidung + Kantenerkennung,
 //                      Bewertung nach Testkonzept ST-SIM-001/002/003/004
 //                      (nur mit worlds/coasterbot-simtest.wbt sinnvoll)
+//   MODE_MOTOR_CONTROL_TEST : faehrt denselben Geradeausbefehl einmal
+//                      Open-Loop, einmal Closed-Loop und vergleicht
+//                      Kursdrift + Geschwindigkeitsfehler (offener Punkt
+//                      "Erreichbarkeit einer definierten Winkelgeschwin-
+//                      digkeit", Softwaredokumentation Abschnitt 4.3;
+//                      nur mit worlds/coasterbot-testfield.wbt sinnvoll)
 // ---------------------------------------------------------------------
 enum Mode { MODE_WHEEL_TEST, MODE_MANUAL, MODE_AUTONOMOUS, MODE_ODOMETRY_TEST,
             MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST, MODE_LEARN_TABLE,
-            MODE_COASTERBOT_LEARN_TABLE};
+            MODE_COASTERBOT_LEARN_TABLE, MODE_MOTOR_CONTROL_TEST};
 static const Mode MODE = MODE_COASTERBOT_LEARN_TABLE;  // <-- hier umschalten
 
 static void printPose(const char* tag, float t, const PoseEstimator& pose) {
@@ -145,6 +151,88 @@ static void runOdometryTest(RobotLogic& logic, PoseEstimator& pose, WebotsHAL& h
             lastPosePrint = t;
         }
     }
+}
+
+// ---------------------------------------------------------------------
+// MODE_MOTOR_CONTROL_TEST: vergleicht Open-Loop und Closed-Loop
+// Motoransteuerung (Softwaredokumentation, Abschnitt 4.3, "Erreichbarkeit
+// einer definierten Winkelgeschwindigkeit"). WebotsHAL simuliert dafuer
+// eine feste, der Regelung unbekannte Fertigungsstreuung zwischen den
+// beiden Seiten (siehe webots_hal.h, MOTOR_GAIN_LEFT_TRUE/RIGHT_TRUE).
+//
+// Beide Phasen kommandieren denselben Geradeausbefehl (beide Seiten
+// identisch TEST_SPEED); auf ebenem, hindernisfreiem Boden
+// (coasterbot-testfield.wbt) sollte der Roboter dabei nicht abdriften.
+// Verglichen werden je Phase: die Kursdrift (aus PoseEstimator) und der
+// Geschwindigkeitsfehler je Seite (kommandiert vs. gemessen, aus
+// hal.measuredLeftSpeed()/measuredRightSpeed()) am Phasenende.
+// ---------------------------------------------------------------------
+static void runMotorControlTest(WebotsHAL& hal, PoseEstimator& pose) {
+    const float TEST_SPEED  = 4.0f;  // rad/s je Seite, Geradeausbefehl
+    const float PHASE_TIME  = 8.0f;  // s je Phase
+
+    struct PhaseResult {
+        float driftDeg = 0.0f;
+        float errLeft = 0.0f, errRight = 0.0f;
+    };
+
+    auto runPhase = [&](const char* tag, WebotsHAL::MotorControlMode mode) {
+        hal.setMotorControlMode(mode);
+        const float thetaStart = pose.getTheta();
+        float lastPrint = -1.0f;
+        const float phaseStartTime = hal.getTime();
+        PhaseResult result;
+        while (hal.step()) {
+            pose.update();
+            hal.setLeftSpeed(TEST_SPEED);
+            hal.setRightSpeed(TEST_SPEED);
+
+            const float t = hal.getTime();
+            if (t - lastPrint >= 1.0f) {
+                std::cout << tag << " t=" << t << "s  kommandiert L=" << TEST_SPEED
+                          << " R=" << TEST_SPEED << "  gemessen L=" << hal.measuredLeftSpeed()
+                          << " R=" << hal.measuredRightSpeed() << " rad/s  theta="
+                          << pose.getTheta() * 180.0f / static_cast<float>(M_PI) << " deg"
+                          << std::endl;
+                lastPrint = t;
+            }
+            if (t - phaseStartTime >= PHASE_TIME) {
+                result.driftDeg = (pose.getTheta() - thetaStart) * 180.0f / static_cast<float>(M_PI);
+                result.errLeft  = TEST_SPEED - hal.measuredLeftSpeed();
+                result.errRight = TEST_SPEED - hal.measuredRightSpeed();
+                break;
+            }
+        }
+        return result;
+    };
+
+    std::cout << "[MOTORTEST] === Phase 1: OPEN-LOOP ===" << std::endl;
+    const PhaseResult openLoop = runPhase("[MOTORTEST][OL]", WebotsHAL::MotorControlMode::OPEN_LOOP);
+    std::cout << "[MOTORTEST] Phase 1 Ende: Kursdrift=" << openLoop.driftDeg
+              << " deg, Geschwindigkeitsfehler L=" << openLoop.errLeft
+              << " R=" << openLoop.errRight << " rad/s" << std::endl;
+
+    hal.setLeftSpeed(0.0f);
+    hal.setRightSpeed(0.0f);
+
+    std::cout << "[MOTORTEST] === Phase 2: CLOSED-LOOP ===" << std::endl;
+    const PhaseResult closedLoop = runPhase("[MOTORTEST][CL]", WebotsHAL::MotorControlMode::CLOSED_LOOP);
+    std::cout << "[MOTORTEST] Phase 2 Ende: Kursdrift=" << closedLoop.driftDeg
+              << " deg, Geschwindigkeitsfehler L=" << closedLoop.errLeft
+              << " R=" << closedLoop.errRight << " rad/s" << std::endl;
+
+    hal.setLeftSpeed(0.0f);
+    hal.setRightSpeed(0.0f);
+    hal.step();
+
+    std::cout << "\n========== Vergleich Open-Loop vs. Closed-Loop ==========\n";
+    std::cout << "Kursdrift bei identischem Geradeausbefehl (" << PHASE_TIME << " s):\n";
+    std::cout << "  Open-Loop   : " << openLoop.driftDeg << " deg\n";
+    std::cout << "  Closed-Loop : " << closedLoop.driftDeg << " deg\n";
+    std::cout << "Geschwindigkeitsfehler am Phasenende (kommandiert - gemessen):\n";
+    std::cout << "  Open-Loop   : L=" << openLoop.errLeft << " R=" << openLoop.errRight << " rad/s\n";
+    std::cout << "  Closed-Loop : L=" << closedLoop.errLeft << " R=" << closedLoop.errRight << " rad/s\n";
+    std::cout << "===========================================================" << std::endl;
 }
 
 // ---------------------------------------------------------------------
@@ -793,6 +881,7 @@ int main() {
                 }
             }
             break;
+        case MODE_MOTOR_CONTROL_TEST: runMotorControlTest(hal, pose); break;
         default: std::cout << "Unbekannter MODE" << std::endl; break;
     }
     return 0;

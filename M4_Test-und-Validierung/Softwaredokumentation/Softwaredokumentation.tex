@@ -1256,7 +1256,7 @@ Abschnitt~\ref{lokalisierung}).
 \section{Lokalisierungskomponente}\label{lokalisierung}
 % =====================================================================
 
-Die Lokalisierung (\texttt{PoseEstimator}, Dateien
+Die Lokalisierung (\texttt{PoseEstimator}, Dateien:
 \texttt{pose\_estimator.\{h,cpp\}}) bestimmt fortlaufend die Pose des
 Roboters in der Tischebene und erfüllt \texttt{NAV-006}
 (Positionsbestimmung) und \texttt{NAV-007} (Orientierungsbestimmung).
@@ -1265,7 +1265,7 @@ Roboters in der Tischebene und erfüllt \texttt{NAV-006}
 
 Der Coasterbot \emph{misst} seine Position nicht, sondern \textbf{führt
 sie durch Koppelnavigation (Dead Reckoning) fort}. Es gibt keine externe
-Referenz: kein GPS, keine Bake, keine kamerabasierte Lokalisierung.
+Referenz: kein GPS, Bake, oder kamerabasierte Lokalisierung.
 Die Pose entsteht in vier Schritten:
 
 \begin{enumerate}
@@ -1284,7 +1284,7 @@ Die Pose entsteht in vier Schritten:
 \item
   \textbf{Kursfusion.} Die Kursänderung wird aus der Radodometrie
   \emph{und} der integrierten Gyro-Giergeschwindigkeit über einen
-  Komplementärfilter bestimmt, überwiegend aus dem Gyro.
+  Komplementärfilter bestimmt. Der Gyro wird dabei vorrangig behandelt.
 \item
   \textbf{Integration.} Strecke und Kurs werden zur neuen Pose
   $(x, y, \theta)$ aufsummiert.
@@ -1296,16 +1296,16 @@ Verwendet wird eine \textbf{Skid-Steer-Odometrie} aus den zwei
 seitenweisen Radwinkeln, deren Kurs mit der integrierten
 Gyro-Giergeschwindigkeit über einen \textbf{Komplementärfilter}
 fusioniert wird. Die
-Alternativenbeschreibung nennt hierfür grundsätzlich EKF/UKF; für den
-Prototyp auf einer ebenen Tischfläche mit nur zwei Sensorquellen genügt
-der wesentlich einfachere Komplementärfilter, der ohne
-Kovarianzschätzung auskommt und deterministisch ist (wichtig für
+Alternativenbeschreibung nennt hierfür grundsätzlich EKF/UKF\@. Für den
+Prototyp, der auf einer Tischfläche steht und mit nur zwei Sensorquellen ausgestattet
+ist, genügt ein wesentlich einfacherer Komplementärfilter. Dieser kommt ohne
+Kovarianzschätzung und ist deterministisch (wichtig für
 \texttt{ST-SIM-004}).
 
-Aus dem Encoderwert je Seite folgt die gefahrene Strecke dieser Seite
+Aus dem jeweiligen Encoderwert folgt die gefahrene Strecke einer Seite
 (in der Simulation mittelt \texttt{WebotsHAL} dafür intern die zwei
 PositionSensor von Front- und Heckrad derselben Seite, um dieselbe
-Information wie der eine reale Encoder je Seite nachzubilden; siehe
+Information wie der einzelne reale Encoder je Seite nachzubilden, siehe
 Abschnitt~\ref{hal-offene-punkte}):
 \[
 \Delta s_L = \big(\varphi_L - \varphi_{L,\mathrm{prev}}\big)\,r,
@@ -1330,7 +1330,7 @@ Da Skid-Steer beim Drehen stark schlupft, wird überwiegend dem Gyro
 vertraut ($w = 0{,}05$). \texttt{getGyroZ()} liefert dabei die
 $Y$-Komponente des Gyrovektors: Das Y-up-PROTO wird in der Z-up-Welt mit
 \texttt{rotation 1 0 0 1.5708} aufgestellt, wodurch die lokale
-$+Y$-Achse mit der Welt-Hochachse zusammenfällt.
+$+Y$-Achse mit der Welt-Hochachse der Simulation identisch ist.
 
 Die Integration erfolgt über den mittleren Kurs des Schritts
 (Runge-Kutta 2.\,Ordnung):
@@ -1369,23 +1369,23 @@ Gimbal-Lock in der Nickachse bringt.
 \tightlist
 \item
   \textbf{Driftakkumulation.} Reine Koppelnavigation summiert
-  Messfehler auf; ohne absolute Korrektur oder Schleifenschluss (loop
+  Messfehler auf. Ohne absolute Korrektur oder Schleifenschluss (loop
   closure) wächst der Positionsfehler mit der gefahrenen Strecke. Für
   die kleine Tischfläche und die kurzen Fahrten der Simulationstests ist
   das ausreichend.
 \item
-  \textbf{Manuelles Umsetzen.} Wird der Roboter körperlich angehoben und
-  versetzt, ist die Schätzung anschließend falsch, bis \texttt{reset()}
+  \textbf{Manuelles Umsetzen.} Wird der Roboter physisch angehoben und
+  versetzt, ist die Schätzung falsch, bis \texttt{reset()}
   erneut eine bekannte Pose vorgibt, entsprechend der Einschränkung in
   \texttt{NAV-006} (\enquote{solange er nicht manuell umgesetzt wurde}).
 \item
   \textbf{Verifikation.} \texttt{MODE\_ODOMETRY\_TEST} auf
   \texttt{coasterbot-testfield.wbt}: Geradeausfahrt \SI{0.699}{\meter}
-  gegenüber \SI{0.70}{\meter} Soll, kein seitlicher Versatz;
-  Drehung auf der Stelle wird vom Gyro sauber verfolgt; im Stillstand
+  gegenüber \SI{0.70}{\meter} Soll, kein seitlicher Versatz,
+  Drehung auf der Stelle wird vom Gyro sauber verfolgt. Im Stillstand
   bleibt die Pose nahezu stabil, mit dem seit Abschnitt~\ref{gyro-simulation}
   simulierten Gyro-Restfehler driftet der Kurs im Stillstand um
-  $\approx \SI{0.012}{\degree\per\second}$, für die kurzen Testläufe
+  $\approx \SI{0.012}{\degree\per\second}$. Dies ist für die kurzen Testläufe
   dieses Projekts vernachlässigbar.
 \end{itemize}
 
@@ -1395,7 +1395,7 @@ Gimbal-Lock in der Nickachse bringt.
 
 \texttt{OccupancyGrid} (Dateien \texttt{occupancy\_grid.\{h,cpp\}})
 entspricht der im Pflichtenheft genannten \enquote{bekannten Tischkarte}
-und ist die gemeinsame Eingabe für A*, D* Lite und DWA. Es setzt
+und ist die gemeinsame Eingabe für A*, D* Lite und DWA\@. Es setzt
 \texttt{SIM-004} um (Hindernisse in der Simulation berücksichtigen).
 
 \subsection{Aufbau}\label{grid-aufbau}
@@ -1408,9 +1408,9 @@ und ist die gemeinsame Eingabe für A*, D* Lite und DWA. Es setzt
   \SI{0.05}{\meter}). Es liegt in derselben Ebene wie die Pose.
 \item
   In den Simulationsszenarien ist das Gitter auf die Tischfläche
-  begrenzt, damit geplante Wege die Tischkante nicht überschreiten.
+  begrenzt, damit geplante Wege die Tischkante nicht überschreiten können.
 \item
-  Zellen sind \emph{frei} oder \emph{belegt}; Zellen außerhalb der Karte
+  Zellen sind \emph{frei} oder \emph{belegt}. Zellen außerhalb der Karte
   gelten als belegt.
 \end{itemize}
 
@@ -1421,8 +1421,8 @@ und ist die gemeinsame Eingabe für A*, D* Lite und DWA. Es setzt
 \textbf{Funktion} & \textbf{Wirkung}\\
 \midrule
 \endhead
-\texttt{addObstacleRect(\ldots,\,infl)} & Rechteck-Hindernis, um \texttt{infl} Meter aufgebläht eintragen (Roboter-Halbbreite $\Rightarrow$ Punktroboter-Planung, erfüllt \texttt{NAV-010})\\
-\texttt{setOccupied(Cell,bool)} & einzelne Zelle HART setzen; Rückgabe \texttt{true} bei Änderung (für inkrementelle Neuplanung)\\
+\texttt{addObstacleRect(\ldots,\,infl)} & Rechteck-Hindernis, um \texttt{infl} Meter einzutragen (Roboter-Halbbreite $\Rightarrow$ Punktroboter-Planung, erfüllt \texttt{NAV-010})\\
+\texttt{setOccupied(Cell,bool)} & einzelne Zelle mit (hartem) Wert setzen. Rückgabe \texttt{true} bei Änderung (für inkrementelle Neuplanung)\\
 \texttt{reportOccupied(Cell,\allowbreak smoothingFactor)} & einzelne Zelle GEGLÄTTET melden (Abschnitt~\ref{grid-glaettung})\\
 \texttt{buildDistanceField()} & Chamfer-Distanzfeld über zwei Rasterdurchläufe berechnen\\
 \texttt{clearance(Vec2)} & Abstand eines Weltpunkts zum nächsten Hindernis [m]\\
@@ -1433,19 +1433,18 @@ und ist die gemeinsame Eingabe für A*, D* Lite und DWA. Es setzt
 Das Distanzfeld wird nach jeder Hindernisänderung als veraltet markiert
 und muss vor der nächsten \texttt{clearance()}-Abfrage neu gebaut
 werden. In \texttt{MODE\_SIM\_TEST} und \texttt{MODE\_NAVIGATE\_DSTAR}
-werden \emph{zwei} Gitter geführt: ein großzügig aufgeblähtes
+werden \emph{zwei} Gitter geführt: ein großzügiges aufgespanntes
 Planer-Gitter (hält den Pfad von Ecken fern) und ein nur um den
-Roboterradius aufgeblähtes DWA-Gitter (Kollisionsbewertung). Beide
+Roboterradius aufgespanntes DWA-Gitter (Kollisionsbewertung). Beide
 werden bei Sensortreffern gemeinsam aktualisiert.
 
 \subsection{Geglättete Live-Hindernismeldung}\label{grid-glaettung}
 
-\texttt{addObstacleRect()} trägt a priori bekannte Hindernisse hart und
-sofort ein (z.\,B. die bekannte Bierflasche im Simulationstest). Das ist
-gerechtfertigt, weil diese Eingabe nicht verrauscht ist. Ein per
-Ultraschall oder Kantensensor während der Fahrt \emph{live} erkanntes
-Hindernis ist dagegen eine einzelne Sensormessung und kann durch Rauschen
-oder eine kurze Fehlmessung verursacht sein. Bis Version~5 dieses
+\texttt{addObstacleRect()} trägt a priori bekannte Hindernisse fest und
+sofort ein (z.\,B. die bekannte Bierflasche im Simulationstest). Dies ist
+machbar, weil diese Eingabe nicht verrauscht ist. Ein \emph{live} erkanntes per
+Kantensensor gemessenes Hindernis, während der Fahrt,
+kann durch Rauschen oder eine kurze Fehlmessung verfälscht werden. Bis Version~5 dieses
 Dokuments hätte bereits ein einzelner solcher Treffer die Karte sofort
 verändert (\texttt{setOccupied(c, true)}) und damit eine D*-Lite-Umplanung
 ausgelöst.
@@ -1461,23 +1460,23 @@ wenn $\mathrm{conf} \ge \texttt{OCC\_COMMIT\_THRESHOLD}$ (Anhang~B). Mit
 dem Standardwert \texttt{smoothingFactor} $= 0{,}5$ genügen bereits drei
 aufeinanderfolgende Treffer an derselben Zelle (bei \SI{32}{\milli\second}
 Regelzyklus also $\approx \SI{100}{\milli\second}$), ein einzelner
-Ausreißer reicht dagegen nicht. \texttt{main.cpp} verwendet
-\texttt{reportOccupied()} inzwischen überall dort, wo bisher
+Ausreißer reicht dagegen nicht aus. Die Datei  \texttt{main.cpp} verwendet
+\texttt{reportOccupied()} inzwischen dort, wo bisher
 \texttt{setOccupied()} für Live-Sensortreffer aufgerufen wurde
 (\texttt{dstar\_scenario::markRect}, \texttt{sim\_scenario::markRect}).
 
-Die schnelle Reflexbewegung bleibt davon unberührt: \texttt{DwaPlanner}
-bewertet die Kollisionsfreiheit einer Trajektorie weiterhin \emph{jeden}
-Zyklus direkt aus dem rohen Ultraschallwert als virtuellem Hindernispunkt
-(Abschnitt~\ref{dwa-hindernisse}), ungeglättet. Geglättet wird
-ausschließlich die \emph{deliberative} Entscheidung, ob D* Lite die
+Die Reflexbewegung bleibt davon unberührt: \texttt{DwaPlanner}
+bewertet die Kollisionsfreiheit eines Kurses weiterhin in \emph{jeden}
+Zyklus direkt aus dem rohen ungeglätteten Messwert als virtuellem
+Hindernispunkt (Abschnitt~\ref{dwa-hindernisse}). Geglättet wird
+ausschließlich die Entscheidung, ob D* Lite die
 globale Karte dauerhaft ändert und umplant. Die sofortige Ausweich\-reaktion
 bei akuter Kollisionsgefahr bleibt so unverzögert.
 
 Verifiziert: \texttt{MODE\_SIM\_TEST} und die Hinderniserkennung in
-\texttt{MODE\_NAVIGATE\_DSTAR} liefern nach der Umstellung dieselben
+\texttt{MODE\_NAVIGATE\_DSTAR} liefern nach der Umstellung die
 Ergebnisse wie zuvor (ST-SIM-001..004 weiterhin BESTANDEN,
-byte-identisch über zwei Läufe; D*-Lite-Umplanung in
+byte-identisch über zwei Läufe, D*-Lite-Umplanung in
 \texttt{coasterbot-dstar.wbt} weiterhin bei $t \approx \SI{3.8}{\second}$,
 Ziel nach \SI{24}{\second} mit \SI{1.5}{\centi\meter} Restfehler). Die
 zusätzliche Latenz durch die Glättung liegt unterhalb der Auflösung dieser
@@ -1502,7 +1501,7 @@ Anforderungen: \texttt{NAV-008} (Zielpunkt erreichen), \texttt{NAV-009}
   Kein \enquote{corner cutting}: eine Diagonale ist nur befahrbar, wenn
   auch die beiden orthogonalen Nachbarzellen frei sind.
 \item
-  Liegen Start oder Ziel in einer aufgeblähten Hinderniszone, wird per
+  Liegen Start oder Ziel in einer aufgebauten Hinderniszone, wird per
   Ringsuche die nächste freie Zelle verwendet.
 \item
   \textbf{Glättung (\enquote{string pulling}):} \texttt{smoothPath()}
@@ -1511,22 +1510,22 @@ Anforderungen: \texttt{NAV-008} (Zielpunkt erreichen), \texttt{NAV-009}
   Rohpfades.
 \item
   \textbf{Zentrierung:} \texttt{centerPath()} verschiebt innere
-  Wegpunkte senkrecht zur Fahrtrichtung in Richtung größeren
+  Wegpunkte senkrecht zur Fahrtrichtung in Richtung eines größeren
   Hindernisabstands (max.\ \SI{0.20}{\meter}), damit der Pfad in engen
   Korridoren mittig verläuft. Ohne diesen Schritt bleibt der DWA-Planer
   an eckennahen Pfaden hängen.
 \end{itemize}
 
-Rückgabe: Wegpunkte in Weltkoordinaten von Start bis Ziel; leerer
+Rückgabe: Wegpunkte in Weltkoordinaten von Start bis Ziel. Ein leerer
 Vektor bedeutet \enquote{kein Pfad}.
 
 \subsection{Auswahlbegründung}\label{astar-auswahl}
 
 Gemäß Alternativenbeschreibung standen Dijkstra und BFS als Alternativen
 zur Wahl. A* wurde wegen der zielgerichteten Heuristik gewählt: Bei
-gleicher Optimalität (zulässige Heuristik) expandiert A* deutlich
+gleichem optimalem Zustand (zulässige Heuristik) expandiert A* deutlich
 weniger Knoten als Dijkstra. Für die kleine Tischkarte
-($\sim 32 \times 40$ Zellen) ist die Erstplanung damit in Bruchteilen
+($\sim 32 \times 40$ Zellen) ist die Erstplanung damit in weniger als
 einer Millisekunde abgeschlossen.
 
 % =====================================================================
@@ -1545,7 +1544,7 @@ Implementiert ist D* Lite nach Koenig \& Likhachev (2002):
 \begin{itemize}
 \tightlist
 \item
-  Rückwärtssuche vom Ziel; je Zelle ein $g$-Wert (bekannte Kosten) und
+  Rückwärtssuche vom Ziel. Je Zelle ein $g$-Wert (bekannte Kosten) und
   ein $rhs$-Wert (\enquote{one-step lookahead}). Eine Zelle ist
   konsistent, wenn $g = rhs$.
 \item
@@ -1560,23 +1559,23 @@ Implementiert ist D* Lite nach Koenig \& Likhachev (2002):
   auch dann repariert wird, wenn der Ausweichweg zuvor nicht \enquote{auf
   dem Weg} lag.
 \item
-  \texttt{setStart(cell)} bei jedem Zellwechsel des Roboters;
+  \texttt{setStart(cell)} bei jedem Zellwechsel des Roboters.
   \texttt{cellChanged(cell)} bei jeder Belegungsänderung stellt die
-  betroffenen Knoten neu in die Warteschlange;
+  betroffenen Knoten neu in die Warteschlange. Die Funktion
   \texttt{computeShortestPath()} repariert dann nur den betroffenen
   Bereich.
 \item
   \texttt{extractPath()} folgt vom Start greedy den kleinsten
-  $g$-Werten zum Ziel; \texttt{pathExists()} und
+  $g$-Werten zum Ziel. \texttt{pathExists()} und
   \texttt{finiteGCount()} dienen der Diagnose.
 \item
   Ist der gesamte geplante Korridor durchtrennt (inkrementelle Reparatur
   liefert keinen Pfad), setzt \texttt{main.cpp} D* Lite aus der aktuellen
-  Pose vollständig neu auf, was immer noch günstiger ist als eine
+  Pose vollständig neu auf, was günstiger ist als eine
   Neuplanung in jedem Zyklus.
 \end{itemize}
 
-Alternative laut Alternativenbeschreibung war LPA*; D* Lite ist die auf
+Alternative laut Alternativenbeschreibung war LPA*. D* Lite ist die auf
 bewegliche Startpositionen zugeschnittene Variante von LPA* und daher
 für einen fahrenden Roboter die passende Wahl.
 
@@ -1608,7 +1607,7 @@ Pflichtenheft-Komponenten \enquote{lokale Kollisionsvermeidung} und
   $T_\mathrm{sim} = \SI{1.5}{\second}$ (Schritt \SI{0.1}{\second})
   kinematisch simuliert.
 \item
-  \textbf{Verwerfen:} Trajektorien mit Kollision oder solche, aus denen
+  \textbf{Verwerfen:} Kurse mit Kollision oder solche, aus denen
   der Roboter nicht mehr bremsen kann
   ($v > \sqrt{2\,a_v\,\text{clearance}}$), werden verworfen. Damit ist
   \texttt{SAF-004} (keine schädigende Anfahrgeschwindigkeit) erfüllt.
@@ -1644,11 +1643,11 @@ DWA bezieht Hindernisse aus \emph{zwei} Quellen:
 \begin{itemize}
 \tightlist
 \item
-  dem \textbf{Distanzfeld} der (bereits aufgeblähten) Belegungskarte:
+  dem \textbf{Distanzfeld} der (bereits ausgelegten) Belegungskarte:
   hier wird nur ein kleiner Restpuffer \texttt{GRID\_MARGIN}
-  $= \SI{0.03}{\meter}$ abgezogen;
+  $= \SI{0.03}{\meter}$ abgezogen.
 \item
-  dem \textbf{aktuellen Ultraschallwert} als virtuellem Hindernispunkt
+  dem \textbf{aktuellen Messwert} als virtuellem Hindernispunkt
   vor dem Roboter: ein roher Punkt, von dem der volle Roboterradius
   $\SI{0.14}{\meter}$ abgezogen wird. Damit werden unkartierte bzw.\
   dynamische Hindernisse abgedeckt (\texttt{NAV-001}).
@@ -1675,8 +1674,8 @@ am Ziel (\texttt{GOAL\_TOL} $= \SI{0.05}{\meter}$) und der sofortige
 Stopp bei fehlendem Pfad decken die im Pflichtenheft geforderten
 Eigenschaften der Bewegungssteuerung ab.
 
-Alternative laut Alternativenbeschreibung waren Potentialfelder; diese
-wurden wegen der Gefahr lokaler Minima nicht gewählt. DWA umgeht das
+Alternative laut Alternativenbeschreibung waren Potentialfelder. Diese
+wurden wegen der möglichen lokalen Minima nicht gewählt. DWA umgeht das
 Problem durch die explizite Trajektorienbewertung und die Kopplung an
 den globalen Pfad.
 

@@ -1023,7 +1023,7 @@ Getriebemotor-Toleranzen), kein Messwert eines realen Coasterbot-Exemplares.
 \paragraph{Umsetzung in \texttt{WebotsHAL}.} \texttt{setLeftSpeed()}/
 \texttt{setRightSpeed()} setzen deshalb lediglich das \emph{Kommando}
 (\texttt{commandedLeft\_}/\texttt{commandedRight\_}), wobei die eigentliche
-Aktuierung \texttt{updateMotorControl()} übernimmt. Dies geschieht einmal mit
+Aktuierung von \texttt{updateMotorControl()} übernommen wird. Dies geschieht einmal mit
 dem zuletzt gemessenen Encoderwert pro \texttt{step()}:
 
 \begin{itemize}
@@ -1033,7 +1033,7 @@ dem zuletzt gemessenen Encoderwert pro \texttt{step()}:
   \texttt{measuredRight\_} aus der Änderung des jeweiligen
   Encoderwinkels (\texttt{RobotHAL::getWheelAngle}) seit dem letzten
   Regelzyklus, geteilt durch $\Delta t$. Über
-  \texttt{measuredLeftSpeed()}/\texttt{measuredRightSpeed()} auch von
+  \texttt{measuredLeftSpeed()}/\texttt{measuredRightSpeed()} ist sie auch von
   außen abrufbar (nur für diesen Vergleich und kein Bestandeil der
   \texttt{RobotHAL}-Schnittstelle).
 \item
@@ -1065,10 +1065,10 @@ beiden Seiten denselben Geradeausbefehl ($\SI{4}{\radian\per\second}$),
 zunächst \SI{8}{\second} lang Open-Loop, danach \SI{8}{\second} lang
 Closed-Loop (derselbe Lauf, kein Zurücksetzen der Position nötig: Kursdrift
 und Geschwindigkeitsfehler werden je Phase relativ zum Phasenanfang
-gemessen). Bei identischem Kommando auf beiden Seiten dürfte der Roboter
+gemessen). Bei identischem Kommando auf beiden Seiten sollte der Roboter
 nicht abdriften.
 
-Verifiziertes Ergebnis eines kopflosen Laufs:
+Verifiziertes Ergebnis eines simulierten Testlaufs:
 
 \begin{longtable}[]{@{}p{0.30\textwidth}p{0.30\textwidth}p{0.30\textwidth}@{}}
 \toprule
@@ -1084,11 +1084,11 @@ Geschwindigkeitsfehler rechts (Phasenende) & \SI{-0.20}{\radian\per\second} & $\
 
 Der gemessene Geschwindigkeitsfehler im Open-Loop-Fall
 ($\approx \pm\SI{5}{\percent}$ von \SI{4}{\radian\per\second}) entspricht
-exakt dem eingeprägten Gain-Fehler, wie erwartet; die Closed-Loop-Regelung
+exakt dem eingeprägten Gain-Fehler. Die Closed-Loop-Regelung
 konvergiert innerhalb weniger Regelzyklen (deutlich unter \SI{1}{\second})
-auf den Sollwert und hält die Kursdrift auf eine Größenordnung, die auch
+auf den Sollwert und hält den Kursdrift auf einer Größenordnung, welcher auch
 ohne jeden Gain-Fehler allein durch das Restrauschen des simulierten Gyros
-(Abschnitt~\ref{gyro-simulation}) zu erwarten wäre.
+(Abschnitt~\ref{gyro-simulation}) zu erwarten ist.
 
 \paragraph{Verifikation der Rückwärtskompatibilität.} Da
 \texttt{CLOSED\_LOOP} nun in \emph{allen} Betriebsarten aktiv ist
@@ -1096,66 +1096,65 @@ ohne jeden Gain-Fehler allein durch das Restrauschen des simulierten Gyros
 effektiv ideal), wurde die bestehende Testreihe erneut geprüft:
 \texttt{MODE\_SIM\_TEST} bleibt ST-SIM-001 bis ST-SIM-004 BESTANDEN
 (Zielfehler \SI{5.73}{\centi\meter}, $t=\SI{13.776}{\second}$, weiterhin
-byte-identisch über zwei Läufe); \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
+byte-identisch über zwei Läufe). \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
 weiterhin korrekt und erreicht das Ziel mit \SI{1.52}{\centi\meter}
 Restfehler. Die genauen Zeit- und Wegpunkte weichen dabei um bis zu
 wenige Sekunden von den in Abschnitt~\ref{gyro-simulation} genannten
 Werten ab (der Integralregler führt eine kurze, aber echte
-Regeldynamik ein, wo zuvor eine ideale Momentanantwort stand); alle
+Regeldynamik ein, wo zuvor eine ideale Momentanantwort stand). D.h.\ alle
 Erfolgskriterien bleiben unverändert erfüllt.
 
 \subsection{Offene Punkte aus der Hardware-Rückmeldung}\label{hal-offene-punkte}
 
-Die folgenden Punkte wurden vom Hardware-Team am 13.09.2026 zur
-Schnittstelle \texttt{RobotHAL} zurückgemeldet. Drei Punkte (Radgranularität,
+Die folgenden Punkte wurden am 13.09.2026 zur
+Schnittstelle \texttt{RobotHAL} angemerkt. Drei Punkte (Radgranularität,
 Kantensensoren, Erreichbarkeit einer definierten Winkelgeschwindigkeit)
-wurden inzwischen entschieden und umgesetzt; die Gyro-Schnittstelle bleibt
+wurden inzwischen entschieden und umgesetzt. Die Gyro-Schnittstelle bleibt
 eine \textbf{offene Frage} und ist hier dokumentiert, damit sie bei der
 Portierung auf die Zielhardware (\texttt{ArduinoHAL}) nicht verloren geht.
 
 \paragraph{Radgranularität: \texttt{enum WheelId} (entschieden).}
-Auch diese Frage ist geklärt: Die reale Elektronik besitzt je
-Fahrzeugseite nur \emph{einen} Encoder (und ohnehin nur eine Ansteuerung;
-vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
+Die reale Elektronik besitzt je Fahrzeugseite nur \emph{einen} Encoder (und nur
+eine Ansteuerung.
+Vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
 gleich schnell, was \texttt{setLeftSpeed}/\texttt{setRightSpeed} bereits
-korrekt abbildet, siehe \enquote{Radpaarung} oben). \texttt{enum WheelId}
+korrekt abbildet, siehe \enquote{Radpaarung} oben). Das \texttt{enum WheelId}
 wurde deshalb von vier Werten (\texttt{WHEEL\_FL/FR/RL/RR}) auf zwei
 reduziert (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}), und
-\texttt{PoseEstimator} (Abschnitt~\ref{lokalisierung}) liest seither
-direkt den Seitenwert statt einen Mittelwert aus zwei (zuvor fiktiven)
+\texttt{PoseEstimator} (Abschnitt~\ref{lokalisierung}) liest deshalb
+direkt den Seitenwert statt einem Mittelwert aus zwei (zuvor fiktiven)
 Einzelmessungen zu bilden. Da das PROTO in der Simulation weiterhin vier
-unabhängige \texttt{PositionSensor} bereitstellt (ein Rasteraufbau des
+unabhängige \texttt{PositionSensor} bereitstellt (der Rasteraufbau des
 CAD-Modells, kein Beleg für vier reale Messpunkte), mittelt
-\texttt{WebotsHAL} Front- und Heckrad je Seite intern, um nach außen
+\texttt{WebotsHAL} Front- und Hinterrad je Seite intern, um nach außen
 exakt die Information eines einzelnen realen Encoders je Seite zu
-liefern (Abschnitt~\ref{robothal}). Für eine künftige \texttt{ArduinoHAL}
-entfällt dieser Mittelungsschritt, da sie ohnehin nur einen Encoder
+liefern (Abschnitt~\ref{robothal}). Für einen zukünftigen \texttt{ArduinoHAL}
+entfällt dieser Mittelungsschritt, da er ohnehin nur einen Encoder
 je Seite liest.
 
 \paragraph{Kantensensoren: \texttt{float} oder \texttt{bool}? (entschieden).}
-Diese Frage wurde inzwischen entschieden: \texttt{RobotHAL} liefert die
-vier Kantensensoren seit Version~3 dieses Dokuments als \texttt{bool}
+\texttt{RobotHAL} liefert die vier Kantensensoren seit Version~3 dieses Dokuments als \texttt{bool}
 (\texttt{true} = Kante). Zuvor lieferte die Schnittstelle einen rohen
 \texttt{float}, den \texttt{RobotLogic} \emph{und} \texttt{SafetyMonitor}
-unabhängig voneinander gegen dieselbe Konstante
+unabhängig voneinander gegen die Konstante
 \texttt{EDGE\_THRESHOLD = 500} auswerteten. Für die Algorithmik ist aber
-tatsächlich nur die boolesche Aussage \enquote{Kante / kein Boden}
-relevant, und die Kalibrierung eines IR-Kantensensors (Reflexionsgrad des
-Untergrunds, Umgebungslicht, Sensorabstand) ist Hardwarewissen, das laut
+tatsächlich nur die boolesche Aussage \enquote{Kante / Tisch}
+relevant. Die Kalibrierung eines IR-Kantensensors (Reflexionsgrad des
+Untergrunds, Umgebungslicht, Sensorabstand) ist Wissen über die Hardware, das laut
 Pflichtenheft in die Hardwareabstraktion gehört
 (\enquote{Umwandlung hardwareabhängiger Daten in ein einheitliches
 Format}). Die Kalibrierung sitzt jetzt ausschließlich in
 \texttt{WebotsHAL} (\texttt{EDGE\_THRESHOLD} als private Konstante,
-Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}); eine künftige
-\texttt{ArduinoHAL} kalibriert ihren eigenen Rohwert ebenso dort. Damit
-entfällt zugleich die doppelte Ablage derselben Schwelle in
+Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}). Ein zukünftiger
+\texttt{ArduinoHAL} kalibriert den eigenen Rohwert ebenso darin. Damit
+entfällt das Duplizieren derselben Schwelle in
 \texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp}: Beide fragen
 jetzt nur noch \texttt{hal.getEdgeFrontLeft() || \ldots} ab.
 
-\emph{Nachtrag:} Die Kalibrierung wurde seither noch einen Schritt
+\emph{Nachtrag:} Die Kalibrierung wurde noch einen Schritt
 weitergeführt: die vier Kantensensoren liefern in der Simulation nun ein
 echtes \emph{digitales} Signal statt eines analogen Rohwerts mit
-Schwellenwertvergleich, und die Sensor-Polarität (HIGH/LOW) ist über eine
+Schwellenwertvergleich und die Sensor-Polarität (HIGH/LOW) ist über eine
 einzige Konstante abstrahiert. Details in
 Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 
@@ -1163,7 +1162,7 @@ Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
 Ob \texttt{getGyroZ()} (ein einzelner Skalar, Giergeschwindigkeit um die
 Hochachse in rad/s) unverändert zu einer realen IMU passt, lässt sich ohne
 ein vermessenes Exemplar der auf der Stückliste geführten Hardware
-(\enquote{ICQUANZX GY-521 MPU6050}) nicht abschließend beurteilen; die
+(\enquote{ICQUANZX GY-521 MPU6050}) nicht abschließend beurteilen. Die
 konkreten Bias-/Rauschwerte in Abschnitt~\ref{gyro-simulation} sind
 Datenblattwerte bzw.\ Annahmen, keine Messwerte eines realen Exemplars.
 Folgende Leitplanken stehen aber inzwischen fest (Rückmeldung 16.09.2026).
@@ -1172,30 +1171,30 @@ Ein Gyro liefert eine \emph{Winkelgeschwindigkeit}, keinen Winkel; die Pose
 ändert sich, indem diese Rate über die Zeit integriert wird, genau wie es
 \texttt{PoseEstimator::update()} bereits tut
 (\texttt{dThetaGyro = hal\_.getGyroZ() * dt}, Abschnitt~\ref{lokalisierung}).
-Auf realer Hardware wäre dieser Schritt unverändert, die Integration ist
+Die Integration ist
 kontinuierlich: Anders als ein Encoder, der erst nach einer Mindestdrehung
-einen Tick meldet, geht jede noch so kleine reale Drehung sofort in den
+einen Tick meldet, geht jede reale Drehung direkt in den
 nächsten Integrationsschritt ein. Begrenzend sind nur das Rauschen bzw.\
 die Bias-Stabilität des Sensors und die Abtastrate der Regelschleife.
 
 Zur \textbf{Kalibrierung}: Die Simulation modelliert Bias und Rauschen des
-Gyros inzwischen (Abschnitt~\ref{gyro-simulation}), ein echter MEMS-Gyro
+Gyros (Abschnitt~\ref{gyro-simulation}), ein echter MEMS-Gyro
 hat im Stillstand ebenso einen Rest-Offset ungleich null. Üblich ist eine
 kurze Startkalibrierung (Roboter für ein bis zwei Sekunden stillhalten,
-Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen), genau
-das simuliert \texttt{WebotsHAL::calibrateGyro()} bereits. Für den
-verbreiteten MPU-6050 (I\textsuperscript{2}C, 6-Achsen Gyro und
+Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen). Dies
+simuliert \texttt{WebotsHAL::calibrateGyro()} bereits. Für den
+MPU-6050 (I\textsuperscript{2}C, 6-Achsen Gyro und
 Beschleunigungssensor) existieren dafür fertige Arduino-Bibliotheken:
-\texttt{Adafruit\_MPU6050} mit \texttt{Adafruit\_Sensor} (einfache API,
-kalibrierte rad/s) oder die tiefer gehende \texttt{I2Cdevlib}-Bibliothek
+\texttt{Adafruit\_MPU6050} mit \texttt{Adafruit\_Sensor} (API und
+kalibrierte rad/s) oder die \texttt{I2Cdevlib}-Bibliothek
 (nutzt den chipinternen DMP für Sensorfusion bereits auf dem IMU). Eine
-teurere Alternative wie der Bosch BNO055 erledigt die Sensorfusion
-vollständig on-chip und liefert direkt eine fertige absolute Orientierung;
-das könnte den Komplementärfilter in \texttt{PoseEstimator} überflüssig
-machen, ist aber eine Architekturentscheidung für den Moment, in dem der
-konkrete Chip feststeht. Ob die in Abschnitt~\ref{lokalisierung}
+Alternative wie der Bosch BNO055 erledigt die Sensorfusion
+vollständig on-chip und liefert direkt eine fertige absolute Orientierung.
+Dies würde den Komplementärfilter in \texttt{PoseEstimator} überflüssig
+machen, wäre aber eine Änderung der Architekturentscheidung.
+Ob die in Abschnitt~\ref{lokalisierung}
 beschriebene Komplementärfilter-Fusion mit einem MPU-6050-artigen Gyro auf
-der Zielhardware ebenso funktioniert, muss dort geprüft werden; in
+der Zielhardware ebenso funktioniert, muss dort geprüft werden. In
 \texttt{ArduinoHAL} existiert noch keine dieser Bibliotheken.
 
 \paragraph{Erreichbarkeit einer definierten Winkelgeschwindigkeit
@@ -1204,7 +1203,7 @@ Die Schnittstelle \texttt{setLeftSpeed}/\texttt{setRightSpeed(float radPerSec)}
 setzte bis Version~10 dieses Dokuments, wie das geschwindigkeitsgeregelte
 Webots-Motormodell, eine gesteuerte (open-loop) Geschwindigkeitsvorgabe
 voraus. Ob sich damit auf den realen Getriebemotoren tatsächlich ein
-definiertes rad/s einstellt, war offen; erste Erfahrungen zeigten ein
+definiertes rad/s einstellt, war offen. Erste Erfahrungen zeigten ein
 unstetiges Ansprechverhalten der Motoren.
 
 Zum tatsächlichen Fahrverhalten (Rückmeldung 16.09.2026): Der Coasterbot
@@ -1213,11 +1212,11 @@ fährt Skid-Steer ohne separate Lenkung, Kurven entstehen ausschließlich
 sind zwei TT-Getriebemotoren (Front und Heck) gekoppelt und werden wie ein
 einziger Kanal angesteuert, passend zu \texttt{setLeftSpeed}/
 \texttt{setRightSpeed}. Solche Getriebemotoren werden typischerweise über
-eine H-Brücke (z.\,B.\ L298N, TB6612FNG, DRV8833) per PWM angesteuert; der
+eine H-Brücke (z.\,B.\ L298N, TB6612FNG, DRV8833) per PWM angesteuert. Der
 PWM-Tastgrad ist dabei \emph{kein} rad/s, sondern hängt zusätzlich von
 Akkuspannung, Last und Bodenreibung ab.
 
-Beide damals skizzierten Umsetzungen (Open-Loop und Closed-Loop) wurden
+Beide skizzierten Umsetzungen (Open-Loop und Closed-Loop) wurden
 inzwischen in \texttt{WebotsHAL} umgesetzt und in der Simulation direkt
 gegenübergestellt (Rückmeldung 21.09.2026, Details in
 Abschnitt~\ref{motor-control-vergleich}):
@@ -1232,16 +1231,16 @@ Abschnitt~\ref{motor-control-vergleich}):
 \item
   \textbf{Closed-Loop (empfohlen):} der eine Encoder je Seite liefert die
   Ist-Geschwindigkeit, ein Regler führt die Motoransteuerung nach, sodass
-  die \texttt{RobotHAL}-Schnittstelle für alle aufrufenden Komponenten
+  die \texttt{RobotHAL}-Schnittstelle für aufrufende Komponenten
   unverändert bleibt. Die Regelung ist vollständig in der
   Hardwaretreiberebene gekapselt.
 \end{itemize}
 
 Zu beachten bei der Verdrahtung: Hängen beide Motoren einer Seite an einem
 gemeinsamen H-Brücken-Kanal, addiert sich ihr Stromverbrauch, das Rating
-des Treiber-ICs muss dafür ausreichen. Eine künftige \texttt{ArduinoHAL}
+des Treiber-ICs muss dafür ausreichen. Ein künftiger \texttt{ArduinoHAL}
 kann die in Abschnitt~\ref{motor-control-vergleich} beschriebene
-Closed-Loop-Regelstruktur direkt übernehmen; nur die Quelle der
+Closed-Loop-Regelstruktur direkt übernehmen. Nur die Quelle der
 Ist-Geschwindigkeit (dort ein simulierter Encoder-Wert, real derselbe
 physische Encoder) und die tatsächliche Aktuierung (dort
 \texttt{Motor::setVelocity()}, real PWM über die H-Brücke) unterscheiden

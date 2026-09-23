@@ -671,7 +671,7 @@ zusammenwirken (Grundlage der Testfälle \texttt{ST-SIM-001} bis
 \draw[->] (pose.north) to[out=90,in=90] (dwa.north);
 \draw[->] (dwa)   -- (mot);
 \draw[->] (edge)  -- (safety);
-\draw[->] (safety.south) |- node[pos=0.25,below]{Vorrang} (mot.west);
+\draw[->] (safety.east) |- node[pos=0.75,below]{Vorrang} (mot);
 \end{tikzpicture}}
 \caption{Datenfluss in \texttt{MODE\_SIM\_TEST}. Die Sicherheitskomponente
 wird in jedem Regelzyklus \emph{vor} der Navigation ausgewertet und
@@ -1779,8 +1779,8 @@ ist nachvollziehbar, welche Bewegung warum ausgeführt wird
 (\texttt{NFA-TST-*}: gezielt erzeugbare, reproduzierbare Abläufe).
 
 \begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{0.26\textwidth}
-  >{\raggedright\arraybackslash}p{0.38\textwidth}
+  >{\raggedright\arraybackslash}p{0.30\textwidth}
+  >{\raggedright\arraybackslash}p{0.34\textwidth}
   >{\raggedright\arraybackslash}p{0.30\textwidth}@{}}
 \caption{Betriebsarten des Controllers.}\label{tab:modes}\\
 \toprule
@@ -1793,14 +1793,14 @@ ist nachvollziehbar, welche Bewegung warum ausgeführt wird
 \endhead
 \bottomrule
 \endfoot
-\texttt{MODE\_WHEEL\_TEST} & je Seite \SI{2}{\second} die Räder drehen, Encoder ausgeben & beliebig\\
-\texttt{MODE\_MANUAL} & feste Befehlsfolge über die Bewegungsprimitive & beliebig\\
-\texttt{MODE\_AUTONOMOUS} & reaktiver Zustandsautomat \texttt{RobotLogic} & \texttt{coasterbot.wbt}\\
-\texttt{MODE\_ODOMETRY\_TEST} & definierte Fahrt, Pose ausgeben (Odometrieprüfung) & \texttt{coasterbot-testfield.wbt}\\
-\texttt{MODE\_NAVIGATE} & A*-Pfad planen und mit DWA abfahren & \texttt{coasterbot-astar.wbt}\\
-\texttt{MODE\_NAVIGATE\_DSTAR} & D* Lite + per Ultraschall entdecktes Hindernis $\to$ Umplanung & \texttt{coasterbot-dstar.wbt}\\
-\texttt{MODE\_SIM\_TEST} & kombinierter Simulationstest, Bewertung \texttt{ST-SIM-001..004} & \texttt{coasterbot-simtest.wbt}\\
-\texttt{MODE\_MOTOR\_CONTROL\_TEST} & Vergleich Open-Loop/Closed-Loop-Motorregelung (Abschnitt~\ref{motor-control-vergleich}) & \texttt{coasterbot-testfield.wbt}\\
+\texttt{MODE\_WHEEL\_TEST} & je Seite \SI{2}{\second} die Räder drehen, Encoder ausgeben & \small beliebig\\
+\texttt{MODE\_MANUAL} & feste Befehlsfolge über die Bewegungsprimitive & \small beliebig\\
+\texttt{MODE\_AUTONOMOUS} & reaktiver Zustandsautomat \texttt{RobotLogic} & \small\texttt{coasterbot.wbt}\\
+\texttt{MODE\_ODOMETRY\_TEST} & definierte Fahrt, Pose ausgeben (Odometrieprüfung) & \small\texttt{coasterbot-testfield.wbt}\\
+\texttt{MODE\_NAVIGATE} & A*-Pfad planen und mit DWA abfahren & \small\texttt{coasterbot-astar.wbt}\\
+\texttt{MODE\_NAVIGATE\_DSTAR} & D* Lite + per Ultraschall entdecktes Hindernis $\to$ Umplanung & \small\texttt{coasterbot-dstar.wbt}\\
+\texttt{MODE\_SIM\_TEST} & kombinierter Simulationstest, Bewertung \texttt{ST-SIM-001..004} & \small\texttt{coasterbot-simtest.wbt}\\
+\texttt{MODE\_MOTOR\_CONTROL\_TEST} & Vergleich Open-Loop/Closed-Loop-Motorregelung (Abschnitt~\ref{motor-control-vergleich}) & \small\texttt{coasterbot-testfield.wbt}\\
 \bottomrule
 \end{longtable}
 
@@ -1898,11 +1898,11 @@ mehr im Code.
 \endhead
 \bottomrule
 \endfoot
-\texttt{coasterbot.wbt} & Tisch mit Flaschen, \texttt{MODE\_AUTONOMOUS}\\
-\texttt{coasterbot-testfield.wbt} & offene $4\times4$-Fläche, \texttt{MODE\_ODOMETRY\_TEST}, \texttt{MODE\_MOTOR\_CONTROL\_TEST}\\
-\texttt{coasterbot-astar.wbt} & zwei versetzte Wände (Slalom), Zielmarker, \texttt{MODE\_NAVIGATE}\\
-\texttt{coasterbot-dstar.wbt} & Wand mit zwei Lücken, unkartierte Box, \texttt{MODE\_NAVIGATE\_DSTAR}\\
-\texttt{coasterbot-simtest.wbt} & \texttt{Table} $1{,}6\times2{,}0$, \texttt{FlowerPot} + \texttt{BeerBottle}s, \texttt{MODE\_SIM\_TEST}\\
+\small \texttt{coasterbot.wbt} & Tisch mit Flaschen, \texttt{MODE\_AUTONOMOUS}\\
+\small \texttt{coasterbot-testfield.wbt} & offene $4\times4$-Fläche, \texttt{MODE\_ODOMETRY\_TEST}, \texttt{MODE\_MOTOR\_CONTROL\_TEST}\\
+\small \texttt{coasterbot-astar.wbt} & zwei versetzte Wände (Slalom), Zielmarker, \texttt{MODE\_NAVIGATE}\\
+\small \texttt{coasterbot-dstar.wbt} & Wand mit zwei Lücken, unkartierte Box, \texttt{MODE\_NAVIGATE\_DSTAR}\\
+\small \texttt{coasterbot-simtest.wbt} & \texttt{Table} $1{,}6\times2{,}0$, \texttt{FlowerPot} + \texttt{BeerBottle}s, \texttt{MODE\_SIM\_TEST}\\
 \bottomrule
 \end{longtable}
 
@@ -2216,7 +2216,7 @@ public:
 \section{Anhang B: Wesentliche Parameter}\label{anhang-parameter}
 % =====================================================================
 
-\begin{longtable}[]{@{}p{0.24\textwidth}p{0.34\textwidth}p{0.34\textwidth}@{}}
+\begin{longtable}[]{@{}p{0.20\textwidth}p{0.38\textwidth}p{0.34\textwidth}@{}}
 \toprule
 \textbf{Komponente} & \textbf{Parameter} & \textbf{Wert}\\
 \midrule
@@ -2239,7 +2239,7 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & \texttt{GYRO\_BIAS\_RAD} (Abschnitt~\ref{gyro-simulation}) & \SI{0.0524}{\radian\per\second} ($\triangleq\SI{3}{\degree\per\second}$)\\
  & \texttt{GYRO\_NOISE\_STD\_RAD} & \SI{0.000873}{\radian\per\second} ($\triangleq\SI{0.05}{\degree\per\second}$-rms)\\
  & \texttt{GYRO\_CAL\_SAMPLES} & 32 ($\approx\SI{0.5}{\second}$)\\
- & \texttt{MOTOR\_GAIN\_LEFT\_TRUE}/\texttt{RIGHT\_TRUE} (Abschnitt~\ref{motor-control-vergleich}) & 0{,}95 / 1{,}05\\
+ & \small\texttt{MOTOR\_GAIN\_LEFT\_TRUE}/\texttt{RIGHT\_TRUE} (Abschnitt~\ref{motor-control-vergleich}) & 0{,}95 / 1{,}05\\
  & \texttt{MOTOR\_KI} (Closed-Loop-Integralregler) & 25\\
  & \texttt{MOTOR\_MAX\_OMEGA} (Anti-Windup) & \SI{20}{\radian\per\second}\\
 \texttt{SafetyMonitor} & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\

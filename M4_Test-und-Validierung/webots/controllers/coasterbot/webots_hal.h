@@ -57,6 +57,20 @@ public:
     float measuredLeftSpeed() const { return measuredLeft_; }
     float measuredRightSpeed() const { return measuredRight_; }
 
+    // ---------------------------------------------------------------
+    // Fehlerinjektion (Testkonzept ST-SIM-005/006). Simulation-only, wie
+    // MotorControlMode oben - ein realer Sensor-/Aktorausfall entsteht
+    // durch Hardware, nicht durch einen Laufzeit-Schalter, darum NICHT Teil
+    // von RobotHAL. Die Anwendungslogik (main.cpp, FaultMonitor) sieht nur
+    // das Symptom ueber die normale RobotHAL-Schnittstelle:
+    // getUltrasonicDistance() liefert dann einen ausserhalb des
+    // Sensorkontrakts liegenden Wert, das linke Rad bewegt sich trotz
+    // Fahrbefehl nicht (siehe updateMotorControl()) - fuer den Monitor ist
+    // das ein "echter" Ausfall, kein Test-Sonderfall.
+    // ---------------------------------------------------------------
+    void injectUltrasonicFault(bool active) { ultrasonicFault_ = active; }
+    void injectLeftMotorFault(bool active)  { leftMotorFault_ = active; }
+
 private:
     webots::Robot robot_;
     int timeStep_;
@@ -173,6 +187,9 @@ private:
     float prevMotorCtrlTime_ = 0.0f;
     bool  motorCtrlInitialized_ = false;
     void updateMotorControl();
+
+    bool ultrasonicFault_ = false;
+    bool leftMotorFault_  = false;
 };
 
 #endif  // WEBOTS_HAL_H

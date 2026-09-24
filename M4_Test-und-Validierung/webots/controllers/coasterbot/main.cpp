@@ -6,6 +6,7 @@
 #include "dstar_lite.h"
 #include "dwa_planner.h"
 #include "safety_monitor.h"
+#include "fault_monitor.h"
 #include <algorithm>
 #include <cmath>
 #include <iostream>
@@ -42,10 +43,17 @@
 //                      "Erreichbarkeit einer definierten Winkelgeschwin-
 //                      digkeit", Softwaredokumentation Abschnitt 4.3;
 //                      nur mit worlds/coasterbot-testfield.wbt sinnvoll)
+//   MODE_FAULT_INJECTION : Fehlerinjektionstest (Testkonzept ST-SIM-005
+//                      Sensorausfall / ST-SIM-006 Aktorfehler) - injiziert
+//                      ueber WebotsHAL nacheinander einen Ultraschall- und
+//                      einen Motorausfall und prueft, dass FaultMonitor sie
+//                      erkennt und die Aktorik sicher stoppt
+//                      (nur mit worlds/coasterbot-testfield.wbt sinnvoll)
 // ---------------------------------------------------------------------
 enum Mode { MODE_WHEEL_TEST, MODE_MANUAL, MODE_AUTONOMOUS, MODE_ODOMETRY_TEST,
             MODE_NAVIGATE, MODE_NAVIGATE_DSTAR, MODE_SIM_TEST, MODE_LEARN_TABLE,
-            MODE_COASTERBOT_LEARN_TABLE, MODE_MOTOR_CONTROL_TEST};
+            MODE_COASTERBOT_LEARN_TABLE, MODE_MOTOR_CONTROL_TEST,
+            MODE_FAULT_INJECTION};
 static const Mode MODE = MODE_COASTERBOT_LEARN_TABLE;  // <-- hier umschalten
 
 static void printPose(const char* tag, float t, const PoseEstimator& pose) {
@@ -233,6 +241,120 @@ static void runMotorControlTest(WebotsHAL& hal, PoseEstimator& pose) {
     std::cout << "  Open-Loop   : L=" << openLoop.errLeft << " R=" << openLoop.errRight << " rad/s\n";
     std::cout << "  Closed-Loop : L=" << closedLoop.errLeft << " R=" << closedLoop.errRight << " rad/s\n";
     std::cout << "===========================================================" << std::endl;
+}
+
+// ---------------------------------------------------------------------
+// MODE_FAULT_INJECTION - Fehlerinjektionstest (Testkonzept ST-SIM-005
+// Sensorausfall / ST-SIM-006 Aktorfehler).
+//
+// Zwei Phasen auf offener Flaeche (kein Hindernis/keine Kante soll das
+// Ergebnis beeinflussen - nur der injizierte Fehler). Jede Phase startet
+// mit einem frischen FaultMonitor, faehrt FAULT_AT Sekunden normal
+// geradeaus, injiziert dann ueber WebotsHAL den jeweiligen Fehler und
+// misst, ob/wann der Monitor ihn erkennt und die Aktorik haelt:
+//   Phase 1 (ST-SIM-005): Ultraschall auf "nicht verfuegbar" schalten.
+//   Phase 2 (ST-SIM-006): linker Motor faellt aus (reagiert nicht mehr).
+// ---------------------------------------------------------------------
+static void runFaultInjectionTest(WebotsHAL& hal) {
+    const float TEST_SPEED    = 4.0f;  // rad/s je Seite, Geradeausbefehl
+    const float FAULT_AT      = 3.0f;  // s nach Phasenbeginn: Fehler ausloesen
+    const float STOP_HOLD_TIME = 1.5f; // s nach Erkennung noch beobachten (haelt Stopp?)
+    const float PHASE_TIMEOUT = 8.0f;  // s, Sicherheitsabbruch falls nie erkannt
+
+    struct PhaseResult {
+        bool  detected = false;
+        float detectDelay = -1.0f;   // s von Fehlerinjektion bis Erkennung
+        bool  stoppedSafely = false; // Aktorik blieb danach auf 0
+        std::string faultState = "?";
+    };
+
+    auto runPhase = [&](const char* tag, bool sensorFault) {
+        FaultMonitor monitor(hal);
+        PhaseResult result;
+        bool  faultInjected = false;
+        float faultInjectedAt = -1.0f;
+        float detectedAt = -1.0f;
+        const float phaseStart = hal.getTime();
+        float lastPrint = -1.0f;
+
+        while (hal.step()) {
+            const float t = hal.getTime();
+
+            if (!faultInjected && t - phaseStart >= FAULT_AT) {
+                faultInjected = true;
+                faultInjectedAt = t;
+                if (sensorFault) hal.injectUltrasonicFault(true);
+                else             hal.injectLeftMotorFault(true);
+                std::cout << tag << " t=" << t << "s  Fehler injiziert: "
+                          << (sensorFault ? "Abstandssensor nicht verfuegbar"
+                                          : "Motor links ausgefallen") << std::endl;
+            }
+
+            const bool held = monitor.update(TEST_SPEED, TEST_SPEED);
+            if (!held) {
+                hal.setLeftSpeed(TEST_SPEED);
+                hal.setRightSpeed(TEST_SPEED);
+            } else if (!result.detected) {
+                result.detected = true;
+                detectedAt = t;
+                result.detectDelay = t - faultInjectedAt;
+                result.faultState = monitor.stateName();
+                std::cout << tag << " t=" << t << "s  ERKANNT -> " << monitor.stateName()
+                          << " (nach " << result.detectDelay << " s), Aktorik gestoppt"
+                          << std::endl;
+            }
+
+            if (t - lastPrint >= 1.0f) {
+                std::cout << tag << " t=" << t << "s  Zustand=" << monitor.stateName()
+                          << "  Ultraschall=" << hal.getUltrasonicDistance()
+                          << " m  gemessen L=" << hal.measuredLeftSpeed()
+                          << " R=" << hal.measuredRightSpeed() << " rad/s" << std::endl;
+                lastPrint = t;
+            }
+
+            if (result.detected && t - detectedAt > STOP_HOLD_TIME) break;
+            if (t - phaseStart > PHASE_TIMEOUT) {
+                std::cout << tag << " Zeitueberschreitung - Fehler nicht erkannt." << std::endl;
+                break;
+            }
+        }
+
+        // War die Aktorik am Phasenende tatsaechlich (nicht nur kommandiert,
+        // sondern auch gemessen) im Stillstand?
+        result.stoppedSafely = result.detected
+            && std::fabs(hal.measuredLeftSpeed())  < 0.5f
+            && std::fabs(hal.measuredRightSpeed()) < 0.5f;
+        return result;
+    };
+
+    std::cout << "[FAULT] === Phase 1: Sensorausfall (ST-SIM-005) ===" << std::endl;
+    const PhaseResult sensorResult = runPhase("[FAULT][SENSOR]", true);
+    hal.injectUltrasonicFault(false);
+    hal.setLeftSpeed(0.0f);
+    hal.setRightSpeed(0.0f);
+    hal.step();
+
+    std::cout << "[FAULT] === Phase 2: Aktorfehler (ST-SIM-006) ===" << std::endl;
+    const PhaseResult actuatorResult = runPhase("[FAULT][ACTUATOR]", false);
+    hal.injectLeftMotorFault(false);
+    hal.setLeftSpeed(0.0f);
+    hal.setRightSpeed(0.0f);
+    hal.step();
+
+    auto verdict = [](bool ok) { return ok ? "BESTANDEN" : "FEHLGESCHLAGEN"; };
+    const bool p5 = sensorResult.detected   && sensorResult.stoppedSafely;
+    const bool p6 = actuatorResult.detected && actuatorResult.stoppedSafely;
+
+    std::cout << "\n========== Fehlerinjektionstest - Ergebnis ==========\n";
+    std::cout << "ST-SIM-005 Reaktion auf fehlerhafte Sensordaten      : " << verdict(p5)
+              << "  (erkannt=" << sensorResult.detected << ", nach "
+              << sensorResult.detectDelay << " s, Zustand=" << sensorResult.faultState
+              << ", sicher gestoppt=" << sensorResult.stoppedSafely << ")\n";
+    std::cout << "ST-SIM-006 Verhalten bei fehlerhafter Motorsteuerung : " << verdict(p6)
+              << "  (erkannt=" << actuatorResult.detected << ", nach "
+              << actuatorResult.detectDelay << " s, Zustand=" << actuatorResult.faultState
+              << ", sicher gestoppt=" << actuatorResult.stoppedSafely << ")\n";
+    std::cout << "=======================================================" << std::endl;
 }
 
 // ---------------------------------------------------------------------
@@ -882,6 +1004,7 @@ int main() {
             }
             break;
         case MODE_MOTOR_CONTROL_TEST: runMotorControlTest(hal, pose); break;
+        case MODE_FAULT_INJECTION:    runFaultInjectionTest(hal); break;
         default: std::cout << "Unbekannter MODE" << std::endl; break;
     }
     return 0;

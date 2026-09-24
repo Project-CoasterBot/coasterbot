@@ -490,6 +490,8 @@ Roboter steuert. Dokumentiert werden:
 \item
   die Sicherheitskomponente (\texttt{SafetyMonitor}),
 \item
+  die Fehlerüberwachung (\texttt{FaultMonitor}),
+\item
   die reaktive Verhaltenslogik (\texttt{RobotLogic}),
 \item
   die Ablaufsteuerung und Betriebsarten (\texttt{main.cpp}),
@@ -511,10 +513,7 @@ Umsetzung sind:
   $\to$ \texttt{PLACE} $\to$ \texttt{VERIFY} $\to$ \texttt{DONE},
 \item
   eine probabilistische Sensorfusion (EKF/UKF), es wird ein
-  Komplementärfilter verwendet (siehe Abschnitt~\ref{lokalisierung}),
-\item
-  die Fehlerinjektionstests \texttt{ST-SIM-005} (Sensorausfall) und
-  \texttt{ST-SIM-006} (Aktorfehler).
+  Komplementärfilter verwendet (siehe Abschnitt~\ref{lokalisierung}).
 \end{itemize}
 
 Der Umsetzungsstand bezieht sich auf den \textbf{Maturity Level~1}
@@ -1736,9 +1735,87 @@ Abstraktions-Schnittstelle als Ereignis eingespeist, ist jedoch in der
 Simulation nicht modelliert.
 
 \paragraph{Sensorausfall (\texttt{SAF-002}).} Die Zustandsstruktur für den
-Wechsel in einen sicheren Zustand ist vorhanden. Die gezielte
-Fehlerinjektion (\texttt{ST-SIM-005}) ist noch nicht implementiert
-(siehe Abschnitt~\ref{grenzen}).
+Wechsel in einen sicheren Zustand ist vorhanden; die gezielte
+Fehlerinjektion (\texttt{ST-SIM-005}) übernimmt \texttt{FaultMonitor},
+siehe Abschnitt~\ref{faultmonitor}.
+
+\subsection{Fehlerüberwachung (\texttt{FaultMonitor})}\label{faultmonitor}
+
+\texttt{FaultMonitor} (Dateien \texttt{fault\_monitor.\{h,cpp\}}) deckt die
+Fehlerinjektionstests \texttt{ST-SIM-005} (Sensorausfall) und
+\texttt{ST-SIM-006} (Aktorfehler) ab. Wie \texttt{SafetyMonitor} kennt er
+nur \texttt{RobotHAL} und ist damit Arduino-portabel; anders als
+\texttt{SafetyMonitor} ist sein sicherer Zustand \textbf{verriegelt}: ein
+Sensor-/Aktorausfall behebt sich nicht von selbst, es gibt also keine
+automatische Rückkehr nach \texttt{NORMAL}.
+
+\begin{longtable}[]{@{}p{0.28\textwidth}p{0.64\textwidth}@{}}
+\toprule
+\textbf{Prüfung} & \textbf{Kriterium}\\
+\midrule
+\endhead
+\bottomrule
+\endfoot
+Ultraschall (\texttt{SENSOR\_FAULT}) & Messwert außerhalb $[0,
+\texttt{ULTRASONIC\_MAX\_VALID}]$. Die Schwelle liegt bei \SI{4.5}{\meter},
+mit deutlicher Marge zum vom PROTO simulierten Sensorrauschen (die
+\texttt{lookupTable} trägt am oberen Ende \SI{2}{\percent} Rauschen auf
+\SI{4}{\meter}, einzelne Messungen liegen daher legitim leicht über
+\SI{4}{\meter} - beobachtet bis \SI{4.04}{\meter}). Eine zu enge Schwelle
+hätte hier ganz normales Sensorrauschen fälschlich als Ausfall gemeldet\\
+Antrieb (\texttt{ACTUATOR\_FAULT}) & kommandierte vs.\ aus
+\texttt{getWheelAngle()} gemessene Radgeschwindigkeit einer Seite weicht um
+mehr als \texttt{SPEED\_DEVIATION\_RADS} ($\SI{1}{\radian\per\second}$) ab,
+bei einem Kommando über \texttt{MIN\_COMMANDED\_RADS}
+($\SI{0.5}{\radian\per\second}$), anhaltend über
+\texttt{FAULT\_DEBOUNCE\_TIME} ($\SI{0.3}{\second}$) - die Debounce-Zeit
+verhindert Fehlalarm durch die normale Beschleunigungsrampe\\
+\end{longtable}
+
+Bestätigt sich ein Fehler, übernimmt \texttt{FaultMonitor} sofort die
+Aktorik mit \texttt{drive(0)} und hält sie, genau wie
+\texttt{SafetyMonitor}: \texttt{bool update(commandedLeft, commandedRight)}
+liefert \texttt{true}, solange die Komponente die Aktorik hält, der
+Aufrufer darf dann keine eigenen Fahrbefehle mehr geben.
+
+Die Fehler selbst werden simulationsseitig in \texttt{WebotsHAL} erzeugt
+(\texttt{injectUltrasonicFault()} / \texttt{injectLeftMotorFault()}) - wie
+\texttt{MotorControlMode} (Abschnitt~\ref{motor-control-vergleich}) sind
+das reine Simulationsschalter, \emph{nicht} Teil von \texttt{RobotHAL}: ein
+realer Ausfall entsteht durch Hardware, nicht durch einen
+Laufzeit-Schalter. \texttt{FaultMonitor} sieht nur das Symptom über die
+normale \texttt{RobotHAL}-Schnittstelle - einen Ultraschallwert außerhalb
+des Kontrakts bzw.\ ein linkes Rad, das trotz Kommando nicht dreht - und
+kann den simulierten Fehler daher nicht von einem echten unterscheiden.
+
+\subsection{Ablauf \texttt{MODE\_FAULT\_INJECTION}}\label{ablauf-fault-injection}
+
+Zwei Phasen auf offener Fläche (\texttt{coasterbot-testfield.wbt}, keine
+Kanten/Hindernisse, damit ausschließlich der injizierte Fehler das
+Ergebnis bestimmt), je mit einem frisch instanzierten
+\texttt{FaultMonitor}: Geradeausbefehl für \SI{3}{\second}, danach den
+jeweiligen Fehler über \texttt{WebotsHAL} auslösen und messen, ob/wann der
+Monitor reagiert.
+
+\begin{enumerate}
+\tightlist
+\item
+  \textbf{Phase 1 (\texttt{ST-SIM-005}):} Ultraschall auf "nicht
+  verfügbar" schalten. Verifiziert (kopfloser Lauf,
+  \texttt{coasterbot-testfield.wbt}): Erkennung binnen eines Regelzyklus
+  ($<\SI{0.02}{\second}$), Aktorik danach nachweislich im Stillstand
+  (gemessene Radgeschwindigkeit $\approx \SI{0}{\radian\per\second}$).
+\item
+  \textbf{Phase 2 (\texttt{ST-SIM-006}):} linker Motor fällt aus (reagiert
+  nicht mehr auf Kommandos). Verifiziert: Erkennung nach
+  \SI{0.34}{\second} (knapp über der Debounce-Zeit, wie vorgesehen),
+  Aktorik danach im Stillstand.
+\item
+  Bewertung je Testfall (\texttt{BESTANDEN}, wenn Fehler erkannt \emph{und}
+  die Aktorik anschließend nachweislich gestoppt bleibt). Zwei kopflose
+  Läufe lieferten identische Erkennungszeiten und Verdikte
+  (\texttt{ST-SIM-004}-Prinzip).
+\end{enumerate}
 
 % =====================================================================
 \section{Reaktive Verhaltenslogik}\label{robotlogic}
@@ -1801,6 +1878,7 @@ ist nachvollziehbar, welche Bewegung warum ausgeführt wird
 \texttt{MODE\_NAVIGATE\_DSTAR} & D* Lite + per Ultraschall entdecktes Hindernis $\to$ Umplanung & \small\texttt{coasterbot-dstar.wbt}\\
 \texttt{MODE\_SIM\_TEST} & kombinierter Simulationstest, Bewertung \texttt{ST-SIM-001..004} & \small\texttt{coasterbot-simtest.wbt}\\
 \texttt{MODE\_MOTOR\_CONTROL\_TEST} & Vergleich Open-Loop/Closed-Loop-Motorregelung (Abschnitt~\ref{motor-control-vergleich}) & \small\texttt{coasterbot-testfield.wbt}\\
+\texttt{MODE\_FAULT\_INJECTION} & Fehlerinjektionstest, Bewertung \texttt{ST-SIM-005/006} (Abschnitt~\ref{ablauf-fault-injection}) & \small\texttt{coasterbot-testfield.wbt}\\
 \bottomrule
 \end{longtable}
 
@@ -1899,7 +1977,7 @@ mehr im Code.
 \bottomrule
 \endfoot
 \small \texttt{coasterbot.wbt} & Tisch mit Flaschen, \texttt{MODE\_AUTONOMOUS}\\
-\small \texttt{coasterbot-testfield.wbt} & offene $4\times4$-Fläche, \texttt{MODE\_ODOMETRY\_TEST}, \texttt{MODE\_MOTOR\_CONTROL\_TEST}\\
+\small \texttt{coasterbot-testfield.wbt} & offene $4\times4$-Fläche, \texttt{MODE\_ODOMETRY\_TEST}, \texttt{MODE\_MOTOR\_CONTROL\_TEST}, \texttt{MODE\_FAULT\_INJECTION}\\
 \small \texttt{coasterbot-astar.wbt} & zwei versetzte Wände (Slalom), Zielmarker, \texttt{MODE\_NAVIGATE}\\
 \small \texttt{coasterbot-dstar.wbt} & Wand mit zwei Lücken, unkartierte Box, \texttt{MODE\_NAVIGATE\_DSTAR}\\
 \small \texttt{coasterbot-simtest.wbt} & \texttt{Table} $1{,}6\times2{,}0$, \texttt{FlowerPot} + \texttt{BeerBottle}s, \texttt{MODE\_SIM\_TEST}\\
@@ -1992,7 +2070,7 @@ NAV-009 & gesamter Navigationsstapel & ST-SIM-001/002\\
 NAV-010 & \texttt{OccupancyGrid}-Inflation, DWA-\texttt{clearance}, \texttt{SafetyMonitor} & ST-SIM-002 (min.\ Abstand)\\
 NAV-011 & \emph{nicht umgesetzt} (keine Getränkeerkennung) & keine\\
 SAF-001 & \texttt{SafetyMonitor} (sofortiger \texttt{drive(0)}) & ST-SIM-003\\
-SAF-002 & \texttt{SafetyMonitor}-Struktur; Fehlerinjektion offen & (ST-SIM-005)\\
+SAF-002 & \texttt{FaultMonitor} (Ultraschall-Plausibilitätsprüfung) & ST-SIM-005\\
 SAF-003 & \texttt{DwaPlanner} (Kollisions-/Bremsprüfung), \texttt{SafetyMonitor} & ST-SIM-002/003\\
 SAF-004 & \texttt{DwaPlanner}: \texttt{MAX\_V} + Bremsbedingung & ST-SIM-002\\
 SAF-005 & \texttt{SafetyMonitor}-Übernahme; Taster über HAL-Ereignis & keine\\
@@ -2010,7 +2088,7 @@ NFA-MAI-004 & Komponenten nehmen nur \texttt{RobotHAL} / \texttt{OccupancyGrid} 
 NFA-SIM-001..005 & Webots-Modell, \texttt{WebotsHAL}, identische Schnittstellen & ST-SIM-*\\
 SIM-001 & deterministische Komponenten & ST-SIM-004\\
 SIM-004 & \texttt{OccupancyGrid} + Welt-Hindernisse & ST-SIM-002\\
-SIM-005 & \emph{offen} (Fehlerinjektion) & ST-SIM-005/006\\
+SIM-005 & \texttt{WebotsHAL} (\texttt{injectUltrasonicFault}/\texttt{injectLeftMotorFault}) & ST-SIM-005/006\\
 \end{longtable}
 
 \subsection{Status der Simulationstestfälle}\label{status-tests}
@@ -2024,8 +2102,8 @@ ST-SIM-001 & Navigation zu einem Zielpunkt & umgesetzt, \texttt{MODE\_SIM\_TEST}
 ST-SIM-002 & Dynamische Hindernisvermeidung & umgesetzt (bekannte + unkartierte Hindernisse)\\
 ST-SIM-003 & Verhindern des Tischverlassens & umgesetzt, \texttt{MODE\_SIM\_TEST} Phase 2\\
 ST-SIM-004 & Wiederholbarkeit & umgesetzt (zwei Läufe, byte-identisch)\\
-ST-SIM-005 & Sensorausfall & offen (Fehlerinjektion fehlt)\\
-ST-SIM-006 & Aktorfehler & offen\\
+ST-SIM-005 & Sensorausfall & umgesetzt, \texttt{MODE\_FAULT\_INJECTION} Phase 1 (erkannt $<\SI{0.02}{\second}$)\\
+ST-SIM-006 & Aktorfehler & umgesetzt, \texttt{MODE\_FAULT\_INJECTION} Phase 2 (erkannt nach \SI{0.34}{\second})\\
 ST-SIM-007 & Untersetzerhandling & außerhalb des Umfangs (keine Manipulation)\\
 ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich)\\
 \bottomrule
@@ -2059,8 +2137,12 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
   eckennahe kürzeste Pfade folgen kann. Eine weiche (gradientenbasierte)
   Kostenkarte würde beide Gitter zu einem zusammenführen.
 \item
-  \textbf{Fehlerinjektion:} \texttt{ST-SIM-005/006} (Sensor-/Aktorfehler)
-  und die persistente Ereignisprotokollierung stehen aus.
+  \textbf{Fehlerinjektion:} \texttt{FaultMonitor} (Abschnitt~\ref{faultmonitor})
+  deckt genau den in \texttt{ST-SIM-005/006} spezifizierten Fall ab
+  (Ultraschall-Ausfall, Ausfall des linken Motors). Andere Sensoren
+  (Kanten-, IMU-Ausfall), der rechte Motor sowie eine automatische
+  Wiederanlauf-Logik nach behobenem Fehler sind nicht Teil des Prototyps -
+  der sichere Zustand bleibt bewusst verriegelt.
 \item
   \textbf{Validierung gegen den Prototyp:} \texttt{ST-SIM-008} erfordert
   den realen Coasterbot.
@@ -2244,6 +2326,9 @@ Geometrie & Radradius $r$ & \SI{0.035}{\meter}\\
  & \texttt{MOTOR\_MAX\_OMEGA} (Anti-Windup) & \SI{20}{\radian\per\second}\\
 \texttt{SafetyMonitor} & \texttt{EVADE\_RADS} / \texttt{EVADE\_TIME} & \SI{3}{\radian\per\second} / \SI{0.7}{\second}\\
  & \texttt{PAUSE\_TIME} & \SI{0.3}{\second}\\
+\texttt{FaultMonitor} & \texttt{ULTRASONIC\_MAX\_VALID} (Abschnitt~\ref{faultmonitor}) & \SI{4.5}{\meter}\\
+ & \texttt{SPEED\_DEVIATION\_RADS} / \texttt{MIN\_COMMANDED\_RADS} & \SI{1}{\radian\per\second} / \SI{0.5}{\radian\per\second}\\
+ & \texttt{FAULT\_DEBOUNCE\_TIME} & \SI{0.3}{\second}\\
 \texttt{RobotLogic} & \texttt{OBSTACLE\_THRESHOLD\_M} & \SI{0.22}{\meter}\\
  & \texttt{CRUISE\_SPEED} / \texttt{TURN\_SPEED} & \SI{6}{\radian\per\second} / \SI{4}{\radian\per\second}\\
 \bottomrule

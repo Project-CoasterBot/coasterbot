@@ -474,7 +474,7 @@ Tabellen in Abschnitt~\ref{testergebnisse} direkt übernommen sind.
 \bottomrule
 \endfoot
 Projekt & Coasterbot\\
-Referenz Testkonzept & \texttt{M3\_Produktentwicklung/Testkonzept/Testkonzept.tex}\\
+Referenz Testkonzept & \footnotesize\texttt{M3\_Produktentwicklung/Testkonzept/Testkonzept.tex}\\
 Software & Webots-Controller \texttt{coasterbot} (Commit-Hash je Testlauf in der Bemerkung)\\
 Hardware & Simulation (Webots R2025b), sofern nicht anders vermerkt\\
 Testumgebung & \\
@@ -502,11 +502,10 @@ nicht ausführbar & Voraussetzungen waren nicht erfüllt\\
 nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \end{longtable}
 
-\subsection{Komponententests (CT)}\label{ct-ergebnisse}
-
 \begin{landscape}
+\subsection{Komponententests (CT)}\label{ct-ergebnisse}
 \begin{longtable}[]{@{}
-  p{0.09\linewidth}p{0.23\linewidth}p{0.06\linewidth}p{0.10\linewidth}p{0.13\linewidth}p{0.39\linewidth}@{}}
+  p{0.09\linewidth}p{0.23\linewidth}p{0.04\linewidth}p{0.08\linewidth}p{0.13\linewidth}p{0.38\linewidth}@{}}
 \caption{Testergebnisse Komponententests.}\\
 \toprule
 \textbf{Test-ID} & \textbf{Testname} & \textbf{Prio.} & \textbf{Datum} & \textbf{Ergebnis} & \textbf{Bemerkung}\\
@@ -530,11 +529,10 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \end{longtable}
 \end{landscape}
 
-\subsection{Integrationstests (IT)}\label{it-ergebnisse}
-
 \begin{landscape}
+\subsection{Integrationstests (IT)}\label{it-ergebnisse}
 \begin{longtable}[]{@{}
-  p{0.12\linewidth}p{0.23\linewidth}p{0.06\linewidth}p{0.10\linewidth}p{0.13\linewidth}p{0.36\linewidth}@{}}
+  p{0.12\linewidth}p{0.23\linewidth}p{0.04\linewidth}p{0.08\linewidth}p{0.13\linewidth}p{0.35\linewidth}@{}}
 \caption{Testergebnisse Integrationstests.}\\
 \toprule
 \textbf{Test-ID} & \textbf{Testname} & \textbf{Prio.} & \textbf{Datum} & \textbf{Ergebnis} & \textbf{Bemerkung}\\
@@ -556,11 +554,10 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \end{longtable}
 \end{landscape}
 
-\subsection{Simulationstests (ST-SIM)}\label{st-sim-ergebnisse}
-
 \begin{landscape}
+\subsection{Simulationstests (ST-SIM)}\label{st-sim-ergebnisse}
 \begin{longtable}[]{@{}
-  p{0.09\linewidth}p{0.23\linewidth}p{0.06\linewidth}p{0.10\linewidth}p{0.13\linewidth}p{0.39\linewidth}@{}}
+  p{0.09\linewidth}p{0.23\linewidth}p{0.04\linewidth}p{0.08\linewidth}p{0.13\linewidth}p{0.39\linewidth}@{}}
 \caption{Testergebnisse Simulationstests.}\\
 \toprule
 \textbf{Test-ID} & \textbf{Testname} & \textbf{Prio.} & \textbf{Datum} & \textbf{Ergebnis} & \textbf{Bemerkung}\\
@@ -583,9 +580,8 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \end{longtable}
 \end{landscape}
 
-\subsection{Systemtests (SYS)}\label{sys-ergebnisse}
-
 \begin{landscape}
+\subsection{Systemtests (SYS)}\label{sys-ergebnisse}
 \begin{longtable}[]{@{}
   p{0.09\linewidth}p{0.25\linewidth}p{0.06\linewidth}p{0.10\linewidth}p{0.13\linewidth}p{0.37\linewidth}@{}}
 \caption{Testergebnisse Systemtests.}\\
@@ -612,6 +608,7 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \end{longtable}
 \end{landscape}
 
+\begin{landscape}
 % =====================================================================
 \section{Fehlerprotokoll}\label{fehlerprotokoll}
 % =====================================================================
@@ -620,7 +617,6 @@ Während der Testdurchführung gefundene Abweichungen/Fehler, unabhängig
 davon ob der zugehörige Testfall am Ende trotzdem bestanden wurde (z.\,B.
 weil der Fehler noch während der Durchführung behoben wurde).
 
-\begin{landscape}
 \begin{longtable}[]{@{}p{0.08\linewidth}p{0.10\linewidth}p{0.09\linewidth}p{0.44\linewidth}p{0.10\linewidth}p{0.10\linewidth}@{}}
 \caption{Fehlerprotokoll.}\\
 \toprule
@@ -665,14 +661,14 @@ Systemtests (SYS) & 10 & 0 & 0 & 0 & 10\\
 \begin{itemize}
 \tightlist
 \item
-  Bislang durchgeführt sind ausschließlich die Simulationstests, die
+  Bislang wurden nur die Simulationstests durchgeführt, die
   bereits mit dem aktuellen Webots-Controller ausführbar sind
   (\texttt{ST-SIM-001..006}, siehe Softwaredokumentation für die
   vollständige Herleitung der Kennzahlen).
 \item
   Komponenten- und Integrationstests (\texttt{CT-*}, \texttt{IT-*})
-  benötigen isolierte Testharnesses für die einzelnen Softwaremodule und
-  sind noch nicht aufgesetzt.
+  benötigen isolierte Testharnesses für die einzelnen Softwaremodule, welche
+  noch nicht aufgesetzt wurden.
 \item
   Systemtests (\texttt{SYS-*}) sowie \texttt{ST-SIM-008} erfordern den
   realen Coasterbot-Prototyp und können erst nach dessen Fertigstellung
@@ -680,7 +676,7 @@ Systemtests (SYS) & 10 & 0 & 0 & 0 & 10\\
 \item
   \texttt{ST-SIM-007} ist laut Softwaredokumentation (Abschnitt
   \enquote{Grenzen und offene Punkte}) außerhalb des aktuellen
-  Simulationsumfangs (kein Untersetzerhandling implementiert) und bleibt
+  Simulationsumfangs (kein Untersetzerhandling in der Simulation implementiert) und bleibt
   bis dahin \enquote{nicht ausführbar}.
 \end{itemize}
 

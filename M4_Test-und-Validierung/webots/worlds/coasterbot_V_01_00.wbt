@@ -1,0 +1,60 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/drinks/protos/BeerBottle.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/033dbaea1a43fb2ae69217f200847d8825a254f6/projects/objects/plants/protos/FlowerPot.proto"
+EXTERNPROTO "../protos/coasterbot/Coasterbot.proto"
+
+WorldInfo {
+  basicTimeStep 16
+}
+Viewpoint {
+  orientation 0.00999934172884754 0.9999008415234486 -0.009915658610961246 1.579299465950243
+  position 0.03224348427089685 0.005946720795401206 4.843140091994471
+  followType "Mounted Shot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 6 6
+}
+Table {
+  size 1.6 2 0.74
+}
+Coasterbot {
+  translation 0 -0.8 0.72
+  rotation 1 0 0 1.5708
+  controller "coasterbot_V_01_00"
+}
+BeerBottle {
+  translation -0.21 -0.54 0.72
+  name "beer bottle mid"
+}
+FlowerPot {
+  translation -0.68 0.7 0.715
+}
+BeerBottle {
+  translation 0.31 -0.16 0.72
+  name "beer bottle corner"
+}
+Solid {
+  translation 0 0.8 0.717
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.1 0.85 0.3
+        emissiveColor 0.05 0.4 0.15
+      }
+      geometry Cylinder {
+        height 0.004
+        radius 0.055
+      }
+    }
+  ]
+  name "goal marker"
+}

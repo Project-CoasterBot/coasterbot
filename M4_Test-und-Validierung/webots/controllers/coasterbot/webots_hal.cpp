@@ -123,6 +123,13 @@ void WebotsHAL::updateMotorControl() {
         appliedRight_ = commandedRight_;
     }
 
+    // Fehlerinjektion ST-SIM-006: der linke Motor reagiert nicht mehr auf
+    // Kommandos, unabhaengig vom Regelmodus - auch der Integralregler
+    // (CLOSED_LOOP) kann das nicht ausgleichen, weil appliedLeft_ jeden
+    // Zyklus neu auf 0 gezwungen wird, bevor die tatsaechliche Motordrehzahl
+    // gesetzt wird.
+    if (leftMotorFault_) appliedLeft_ = 0.0f;
+
     // Das PROTO-Radmodell rollt den Roboter bei positiver Motordrehzahl nach
     // +Z (hinten); Vorzeichen daher umkehren (siehe HAL-Konvention oben).
     // MOTOR_GAIN_*_TRUE ist die simulierte reale Fertigungsstreuung, die
@@ -133,6 +140,10 @@ void WebotsHAL::updateMotorControl() {
 }
 
 float WebotsHAL::getUltrasonicDistance() {
+    // Fehlerinjektion ST-SIM-005: "nicht verfuegbar" simuliert durch einen
+    // Wert ausserhalb des Sensorkontrakts (gueltig: [0, 4] m, siehe
+    // Coasterbot.proto-lookupTable) - FaultMonitor erkennt genau das.
+    if (ultrasonicFault_) return -1.0f;
     // lookupTable im PROTO ist bereits auf Meter gemappt
     return static_cast<float>(ultrasonic_->getValue());
 }

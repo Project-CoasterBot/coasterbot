@@ -819,14 +819,13 @@ erfüllt \texttt{NFA-ARC-004} (eindeutig definierte Schnittstellen) und
   \emph{keinen} Einzelrad-Befehl, \texttt{enum WheelId} hat deshalb
   nur die beiden Werte \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}.
   Die reale Elektronik besitzt ebenfalls nur einen Encoder je Seite, nicht
-  einen je Rad (siehe Abschnitt~\ref{hal-offene-punkte}).
+  einen je Rad.
 \item
   \textbf{Kantensensoren:} \texttt{RobotHAL} gibt bereits ein kalibriertes
   \texttt{bool} zurück (\texttt{true} = Tischkante erreicht). Die Umrechnung des
   Rohwerts (in der Simulation $\approx 0$ auf einer Fläche, $\approx 1000$
   über einer Kante; Schwelle \num{500}) ist Aufgabe der jeweiligen
-  HAL-Implementierung und bleibt in dieser gekapselt (siehe
-  Abschnitt~\ref{hal-offene-punkte}).
+  HAL-Implementierung und bleibt in dieser gekapselt.
 \end{itemize}
 
 \subsection{Implementierung \texttt{WebotsHAL}}\label{webotshal}
@@ -951,8 +950,8 @@ $\pm\SI{250}{\degree\per\second}$ Messbereich, 16-Bit-ADC):
 \end{itemize}
 
 \paragraph{Start-Kalibrierung.} Ein reales MPU-6050-Modul wird üblicherweise
-beim Einschalten kalibriert, während das Gerät stillsteht (siehe
-Abschnitt~\ref{hal-offene-punkte}). \texttt{WebotsHAL} bildet das nach:
+beim Einschalten kalibriert, während das Gerät stillsteht. \texttt{WebotsHAL}
+bildet das nach:
 \texttt{calibrateGyro()} läuft im Konstruktor, \emph{bevor} ein
 Fahrbefehl gegeben werden kann (die Motoren stehen zu diesem Zeitpunkt
 bereits auf \texttt{setVelocity(0.0)}), mittelt \texttt{GYRO\_CAL\_SAMPLES}
@@ -983,26 +982,20 @@ $\approx \SI{-0.012}{\degree\per\second}$ (Stillstandstest über
 Testläufe dieses Projekts (\SI{15}{} bis \SI{25}{\second}) ist das
 vernachlässigbar (siehe Abschnitt~\ref{lokalisierung-grenzen}).
 
-\paragraph{Verifikation.} \texttt{MODE\_SIM\_TEST} wurde nach dieser
-Änderung erneut zweifach ausgeführt: ST-SIM-001 bis ST-SIM-003
-weiterhin BESTANDEN (Zielfehler \SI{5.79}{\centi\meter} statt zuvor
-\SI{5.78}{\centi\meter}, Zielzeit $t=\SI{14.144}{\second}$ statt
-\SI{13.632}{\second}, also $+\SI{0.512}{\second}$, exakt die
-Kalibrierungsdauer von 32 Zyklen). Die beiden Läufe bleiben
-byte-identisch (ST-SIM-004). \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
-weiterhin korrekt und erreicht das Ziel bei $t=\SI{24.496}{\second}$ mit
-\SI{1.52}{\centi\meter} Restfehler (zuvor \SI{24}{\second}/\SI{1.5}{\centi\meter}).
-Bias und Rauschen bleiben damit klein genug, um das bestehende
-Verhalten nicht zu verändern, allerdings wird die Simulation dadurch
+\paragraph{Verifikation.} Nach dieser Änderung erneut gegen
+ST-SIM-001 bis ST-SIM-004 sowie \texttt{MODE\_NAVIGATE\_DSTAR} geprüft:
+weiterhin BESTANDEN bzw.\ korrektes Reroute, byte-identisch über zwei
+Läufe, Ziel- und Zeitwerte nur im Rahmen weniger Zehntelsekunden bzw.\
+Millimeter verschoben. Bias und Rauschen bleiben also klein genug, um das
+bestehende Verhalten nicht zu verändern, machen die Simulation aber
 realitätsnäher.
 
 \subsection{Motorregelung: Open-Loop vs.\ Closed-Loop im
 Vergleich}\label{motor-control-vergleich}
 
 Dieser Abschnitt setzt den in Abschnitt~\ref{webotshal} bereits
-angekündigten Vergleich um: Beide in Abschnitt~\ref{hal-offene-punkte}
-skizzierten Umsetzungen der Motoransteuerung (Open-Loop, Closed-Loop)
-wurden implementiert und im selben Simulationslauf gegenübergestellt.
+angekündigten Vergleich um: Beide Umsetzungen der Motoransteuerung (Open-Loop,
+Closed-Loop) wurden implementiert und im selben Simulationslauf gegenübergestellt.
 
 \paragraph{Warum ein reiner Vergleich in der Simulation nicht trivial ist.}
 Das Motormodell im Geschwindigkeitsmodus (\texttt{Motor::setVelocity()})
@@ -1052,10 +1045,10 @@ dem zuletzt gemessenen Encoderwert pro \texttt{step()}:
   nicht, gleicht ihn aber allein über die Rückkopplung aus.
 \end{itemize}
 
-\texttt{CLOSED\_LOOP} ist bewusst die \textbf{Standardeinstellung}, damit
-alle anderen Betriebsarten (\texttt{MODE\_SIM\_TEST},
+\texttt{CLOSED\_LOOP} ist die \textbf{Standardeinstellung}, damit
+die anderen Betriebsarten (\texttt{MODE\_SIM\_TEST},
 \texttt{MODE\_NAVIGATE\_DSTAR}, \ldots) ihr bereits verifiziertes Verhalten
-beibehalten; nur die neue Betriebsart \texttt{MODE\_MOTOR\_CONTROL\_TEST}
+beibehalten. Nur die neue Betriebsart \texttt{MODE\_MOTOR\_CONTROL\_TEST}
 schaltet bewusst auf \texttt{OPEN\_LOOP} um, um den Unterschied zu zeigen.
 
 \paragraph{Vergleichstest \texttt{MODE\_MOTOR\_CONTROL\_TEST}.} Auf der
@@ -1090,166 +1083,14 @@ ohne jeden Gain-Fehler allein durch das Restrauschen des simulierten Gyros
 (Abschnitt~\ref{gyro-simulation}) zu erwarten ist.
 
 \paragraph{Verifikation der Rückwärtskompatibilität.} Da
-\texttt{CLOSED\_LOOP} nun in \emph{allen} Betriebsarten aktiv ist
-(vorher gab es diese Unterscheidung nicht, die Motoransteuerung war
-effektiv ideal), wurde die bestehende Testreihe erneut geprüft:
-\texttt{MODE\_SIM\_TEST} bleibt ST-SIM-001 bis ST-SIM-004 BESTANDEN
-(Zielfehler \SI{5.73}{\centi\meter}, $t=\SI{13.776}{\second}$, weiterhin
-byte-identisch über zwei Läufe). \texttt{MODE\_NAVIGATE\_DSTAR} reroutet
-weiterhin korrekt und erreicht das Ziel mit \SI{1.52}{\centi\meter}
-Restfehler. Die genauen Zeit- und Wegpunkte weichen dabei um bis zu
-wenige Sekunden von den in Abschnitt~\ref{gyro-simulation} genannten
-Werten ab (der Integralregler führt eine kurze, aber echte
-Regeldynamik ein, wo zuvor eine ideale Momentanantwort stand). D.h.\ alle
-Erfolgskriterien bleiben unverändert erfüllt.
-
-\subsection{Offene Punkte aus der Hardware-Rückmeldung}\label{hal-offene-punkte}
-
-Die folgenden Punkte wurden am 13.09.2026 zur
-Schnittstelle \texttt{RobotHAL} angemerkt. Drei Punkte (Radgranularität,
-Kantensensoren, Erreichbarkeit einer definierten Winkelgeschwindigkeit)
-wurden inzwischen entschieden und umgesetzt. Die Gyro-Schnittstelle bleibt
-eine \textbf{offene Frage} und ist hier dokumentiert, damit sie bei der
-Portierung auf die Zielhardware (\texttt{ArduinoHAL}) nicht verloren geht.
-
-\paragraph{Radgranularität: \texttt{enum WheelId} (entschieden).}
-Die reale Elektronik besitzt je Fahrzeugseite nur \emph{einen} Encoder (und nur
-eine Ansteuerung.
-Vorderes und hinteres Rad einer Seite drehen daher zwangsläufig immer
-gleich schnell, was \texttt{setLeftSpeed}/\texttt{setRightSpeed} bereits
-korrekt abbildet, siehe \enquote{Radpaarung} oben). Das \texttt{enum WheelId}
-wurde deshalb von vier Werten (\texttt{WHEEL\_FL/FR/RL/RR}) auf zwei
-reduziert (\texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT}), und
-\texttt{PoseEstimator} (Abschnitt~\ref{lokalisierung}) liest deshalb
-direkt den Seitenwert statt einem Mittelwert aus zwei (zuvor fiktiven)
-Einzelmessungen zu bilden. Da das PROTO in der Simulation weiterhin vier
-unabhängige \texttt{PositionSensor} bereitstellt (der Rasteraufbau des
-CAD-Modells, kein Beleg für vier reale Messpunkte), mittelt
-\texttt{WebotsHAL} Front- und Hinterrad je Seite intern, um nach außen
-exakt die Information eines einzelnen realen Encoders je Seite zu
-liefern (Abschnitt~\ref{robothal}). Für einen zukünftigen \texttt{ArduinoHAL}
-entfällt dieser Mittelungsschritt, da er ohnehin nur einen Encoder
-je Seite liest.
-
-\paragraph{Kantensensoren: \texttt{float} oder \texttt{bool}? (entschieden).}
-\texttt{RobotHAL} liefert die vier Kantensensoren seit Version~3 dieses Dokuments als \texttt{bool}
-(\texttt{true} = Kante). Zuvor lieferte die Schnittstelle einen rohen
-\texttt{float}, den \texttt{RobotLogic} \emph{und} \texttt{SafetyMonitor}
-unabhängig voneinander gegen die Konstante
-\texttt{EDGE\_THRESHOLD = 500} auswerteten. Für die Algorithmik ist aber
-tatsächlich nur die boolesche Aussage \enquote{Kante / Tisch}
-relevant. Die Kalibrierung eines IR-Kantensensors (Reflexionsgrad des
-Untergrunds, Umgebungslicht, Sensorabstand) ist Wissen über die Hardware, das laut
-Pflichtenheft in die Hardwareabstraktion gehört
-(\enquote{Umwandlung hardwareabhängiger Daten in ein einheitliches
-Format}). Die Kalibrierung sitzt jetzt ausschließlich in
-\texttt{WebotsHAL} (\texttt{EDGE\_THRESHOLD} als private Konstante,
-Rohwert $>$ Schwelle $\Rightarrow$ \texttt{true}). Ein zukünftiger
-\texttt{ArduinoHAL} kalibriert den eigenen Rohwert ebenso darin. Damit
-entfällt das Duplizieren derselben Schwelle in
-\texttt{robot\_logic.cpp} und \texttt{safety\_monitor.cpp}: Beide fragen
-jetzt nur noch \texttt{hal.getEdgeFrontLeft() || \ldots} ab.
-
-\emph{Nachtrag:} Die Kalibrierung wurde noch einen Schritt
-weitergeführt: die vier Kantensensoren liefern in der Simulation nun ein
-echtes \emph{digitales} Signal statt eines analogen Rohwerts mit
-Schwellenwertvergleich und die Sensor-Polarität (HIGH/LOW) ist über eine
-einzige Konstante abstrahiert. Details in
-Abschnitt~\ref{webotshal} (\texttt{digitalEdge()}).
-
-\paragraph{Gyro-Schnittstelle.}
-Ob \texttt{getGyroZ()} (ein einzelner Skalar, Giergeschwindigkeit um die
-Hochachse in rad/s) unverändert zu einer realen IMU passt, lässt sich ohne
-ein vermessenes Exemplar der auf der Stückliste geführten Hardware
-(\enquote{ICQUANZX GY-521 MPU6050}) nicht abschließend beurteilen. Die
-konkreten Bias-/Rauschwerte in Abschnitt~\ref{gyro-simulation} sind
-Datenblattwerte bzw.\ Annahmen, keine Messwerte eines realen Exemplars.
-Folgende Leitplanken stehen aber inzwischen fest (Rückmeldung 16.09.2026).
-
-Ein Gyro liefert eine \emph{Winkelgeschwindigkeit}, keinen Winkel; die Pose
-ändert sich, indem diese Rate über die Zeit integriert wird, genau wie es
-\texttt{PoseEstimator::update()} bereits tut
-(\texttt{dThetaGyro = hal\_.getGyroZ() * dt}, Abschnitt~\ref{lokalisierung}).
-Die Integration ist
-kontinuierlich: Anders als ein Encoder, der erst nach einer Mindestdrehung
-einen Tick meldet, geht jede reale Drehung direkt in den
-nächsten Integrationsschritt ein. Begrenzend sind nur das Rauschen bzw.\
-die Bias-Stabilität des Sensors und die Abtastrate der Regelschleife.
-
-Zur \textbf{Kalibrierung}: Die Simulation modelliert Bias und Rauschen des
-Gyros (Abschnitt~\ref{gyro-simulation}), ein echter MEMS-Gyro
-hat im Stillstand ebenso einen Rest-Offset ungleich null. Üblich ist eine
-kurze Startkalibrierung (Roboter für ein bis zwei Sekunden stillhalten,
-Rohwert mitteln, diesen Bias von jeder folgenden Messung abziehen). Dies
-simuliert \texttt{WebotsHAL::calibrateGyro()} bereits. Für den
-MPU-6050 (I\textsuperscript{2}C, 6-Achsen Gyro und
-Beschleunigungssensor) existieren dafür fertige Arduino-Bibliotheken:
-\texttt{Adafruit\_MPU6050} mit \texttt{Adafruit\_Sensor} (API und
-kalibrierte rad/s) oder die \texttt{I2Cdevlib}-Bibliothek
-(nutzt den chipinternen DMP für Sensorfusion bereits auf dem IMU). Eine
-Alternative wie der Bosch BNO055 erledigt die Sensorfusion
-vollständig on-chip und liefert direkt eine fertige absolute Orientierung.
-Dies würde den Komplementärfilter in \texttt{PoseEstimator} überflüssig
-machen, wäre aber eine Änderung der Architekturentscheidung.
-Ob die in Abschnitt~\ref{lokalisierung}
-beschriebene Komplementärfilter-Fusion mit einem MPU-6050-artigen Gyro auf
-der Zielhardware ebenso funktioniert, muss dort geprüft werden. In
-\texttt{ArduinoHAL} existiert noch keine dieser Bibliotheken.
-
-\paragraph{Erreichbarkeit einer definierten Winkelgeschwindigkeit
-(Open-Loop vs.\ Closed-Loop simuliert und verglichen).}
-Die Schnittstelle \texttt{setLeftSpeed}/\texttt{setRightSpeed(float radPerSec)}
-setzte bis Version~10 dieses Dokuments, wie das geschwindigkeitsgeregelte
-Webots-Motormodell, eine gesteuerte (open-loop) Geschwindigkeitsvorgabe
-voraus. Ob sich damit auf den realen Getriebemotoren tatsächlich ein
-definiertes rad/s einstellt, war offen. Erste Erfahrungen zeigten ein
-unstetiges Ansprechverhalten der Motoren.
-
-Zum tatsächlichen Fahrverhalten (Rückmeldung 16.09.2026): Der Coasterbot
-fährt Skid-Steer ohne separate Lenkung, Kurven entstehen ausschließlich
-über die Drehzahldifferenz zwischen linker und rechter Seite. Je Seite
-sind zwei TT-Getriebemotoren (Front und Heck) gekoppelt und werden wie ein
-einziger Kanal angesteuert, passend zu \texttt{setLeftSpeed}/
-\texttt{setRightSpeed}. Solche Getriebemotoren werden typischerweise über
-eine H-Brücke (z.\,B.\ L298N, TB6612FNG, DRV8833) per PWM angesteuert. Der
-PWM-Tastgrad ist dabei \emph{kein} rad/s, sondern hängt zusätzlich von
-Akkuspannung, Last und Bodenreibung ab.
-
-Beide skizzierten Umsetzungen (Open-Loop und Closed-Loop) wurden
-inzwischen in \texttt{WebotsHAL} umgesetzt und in der Simulation direkt
-gegenübergestellt (Rückmeldung 21.09.2026, Details in
-Abschnitt~\ref{motor-control-vergleich}):
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Open-Loop:} das Kommando wird unveraendert als Tastgrad
-  angenommen, keine Rueckkopplung. Driftet mit Fertigungsstreuung
-  zwischen den Motoren, wodurch der Roboter bei nominell gleichem Befehl
-  links/rechts leicht kurvt statt geradeauszufahren.
-\item
-  \textbf{Closed-Loop (empfohlen):} der eine Encoder je Seite liefert die
-  Ist-Geschwindigkeit, ein Regler führt die Motoransteuerung nach, sodass
-  die \texttt{RobotHAL}-Schnittstelle für aufrufende Komponenten
-  unverändert bleibt. Die Regelung ist vollständig in der
-  Hardwaretreiberebene gekapselt.
-\end{itemize}
-
-Zu beachten bei der Verdrahtung: Hängen beide Motoren einer Seite an einem
-gemeinsamen H-Brücken-Kanal, addiert sich ihr Stromverbrauch, das Rating
-des Treiber-ICs muss dafür ausreichen. Ein künftiger \texttt{ArduinoHAL}
-kann die in Abschnitt~\ref{motor-control-vergleich} beschriebene
-Closed-Loop-Regelstruktur direkt übernehmen. Nur die Quelle der
-Ist-Geschwindigkeit (dort ein simulierter Encoder-Wert, real derselbe
-physische Encoder) und die tatsächliche Aktuierung (dort
-\texttt{Motor::setVelocity()}, real PWM über die H-Brücke) unterscheiden
-sich.
-
-Der Zusammenhang zur Lokalisierung: Skid-Steer-Räder rollen beim Drehen
-nicht sauber ab, sie schrammen seitlich über den Boden. Genau deshalb
-vertraut \texttt{PoseEstimator} dem Gyro beim Kurs bereits deutlich stärker
-als der Radodometrie (\texttt{HEADING\_ODO\_WEIGHT} $= 0{,}05$, siehe
-Abschnitt~\ref{lokalisierung}).
+\texttt{CLOSED\_LOOP} nun in \emph{allen} Betriebsarten aktiv ist (vorher
+war die Motoransteuerung effektiv ideal), wurde die bestehende Testreihe
+erneut geprüft: \texttt{MODE\_SIM\_TEST} bleibt ST-SIM-001 bis ST-SIM-004
+BESTANDEN, \texttt{MODE\_NAVIGATE\_DSTAR} reroutet weiterhin korrekt, in
+beiden Fällen nur geringfügig andere Zeit-/Wegpunkte als in
+Abschnitt~\ref{gyro-simulation} (der Integralregler führt eine kurze,
+aber echte Regeldynamik ein, wo zuvor eine ideale Momentanantwort stand).
+Alle Erfolgskriterien bleiben unverändert erfüllt.
 
 % =====================================================================
 \section{Lokalisierungskomponente}\label{lokalisierung}
@@ -1304,8 +1145,7 @@ Kovarianzschätzung und ist deterministisch (wichtig für
 Aus dem jeweiligen Encoderwert folgt die gefahrene Strecke einer Seite
 (in der Simulation mittelt \texttt{WebotsHAL} dafür intern die zwei
 PositionSensor von Front- und Heckrad derselben Seite, um dieselbe
-Information wie der einzelne reale Encoder je Seite nachzubilden, siehe
-Abschnitt~\ref{hal-offene-punkte}):
+Information wie der einzelne reale Encoder je Seite nachzubilden):
 \[
 \Delta s_L = \big(\varphi_L - \varphi_{L,\mathrm{prev}}\big)\,r,
 \qquad
@@ -1909,6 +1749,55 @@ ist nachvollziehbar, welche Bewegung warum ausgeführt wird
   deterministisch sind).
 \end{enumerate}
 
+\subsection{Vorschlag: Missionsablaufsteuerung}\label{missionsablaufsteuerung}
+
+Die Variable \texttt{MODE} wählt eine \emph{Testbetriebsart}
+für die Simulation. Sie ist kein Ersatz für die im Pflichtenheft
+geforderte \emph{Missionsablaufsteuerung} des realen Prototyps
+(\texttt{IDLE\,$\to\,\ldots\,\to$\,DONE}, siehe
+\texttt{Pflichtenheft/Zustandsautomaten.svg}), die noch nicht
+implementiert ist. Abbildung~\ref{fig:missions-statemachine} zeigt einen
+dafür ausgearbeiteten \textbf{Aufbau} (Stand 22.09.2026), der die
+abstrakten Zustände aus dem Pflichtenheft durch die konkreten Betriebszustände
+des Prototyps ersetzt.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{state_machine_coasterbot.png}
+\caption{Ablauf für die Missionsablaufsteuerung des
+Coasterbot-Prototyps: sechs Zustände (\emph{Coasterbot setup},
+\emph{Coasterbot wartend}, \emph{Tisch einlernen}, \emph{Untersetzer
+ausgeben}, \emph{Untersetzer einsammeln}, \emph{Not-Halt aktivieren}) mit
+Entry-/Exit-Aktionen (LED-Farbe, \texttt{bot.LearnTable()},
+\texttt{bot.setCoaster()}, \texttt{bot.getCoaster()}, \texttt{bot.stop()})
+und Wächterbedingungen auf den Flags \texttt{bTableLearned},
+\texttt{bCoasterOut}, \texttt{btnPushed} sowie den Fehlersignalen
+\texttt{bEdgedetected}/\texttt{bNoPath}.}
+\label{fig:missions-statemachine}
+\end{figure}
+
+Nach dem Einschalten (\emph{Coasterbot setup}, beide Flags auf
+\texttt{False}) verharrt der Bot im zentralen Wartezustand \emph{Coasterbot
+wartend} (LED aus), bis der Taster gedrückt wird. Welcher Folgezustand
+dann angesteuert wird, hängt von beiden Flags ab: ist der Tisch
+noch nicht eingelernt, folgt \emph{Tisch einlernen}. Falls er eingelernt und
+kein Untersetzer ausgegeben wird, folgt \emph{Untersetzer ausgeben}. Ist bereits
+einer ausgegeben, folgt stattdessen \emph{Untersetzer einsammeln}. Jeder
+dieser drei Zustände kehrt nach Abschluss seiner Aktion automatisch in den
+Wartezustand zurück. Erkennt die Sicherheitskomponente währenddessen eine
+Tischkante oder scheitert die Pfadplanung (\texttt{bEdgedetected} bzw.\
+\texttt{bNoPath}), wird sofort in \emph{Not-Halt aktivieren} gewechselt
+(Bot stoppt, LED rot, Tischeinlernung verworfen). Ein erneuter
+Druck auf den Taster führt zurück in den Wartezustand. \texttt{Tisch
+einlernen} und \texttt{Untersetzer ausgeben}/\texttt{einsammeln}
+entsprechen bereits den Methoden der Simulation \texttt{runLearnTable()} /
+\texttt{isTableLearned()} bzw.\ \texttt{runSpendCoaster()} /
+\texttt{runGetCoaster()} der neuen Klasse \texttt{CoasterbotFunctions}
+(\texttt{coasterbot\_functions.\{h,cpp\}}, Betriebsart
+\texttt{MODE\_COASTERBOT\_LEARN\_TABLE}). Die übrigen Zustände dieses
+Aufbaus (insbesondere \emph{Not-Halt aktivieren}) sind darin noch nicht
+umgesetzt.
+
 % =====================================================================
 \section{Simulationsmodell}\label{simulationsmodell}
 % =====================================================================
@@ -2113,157 +2002,32 @@ ST-SIM-008 & Validierung Simulation vs.\ Prototyp & offen (Prototyp erforderlich
 \section{Grenzen und offene Punkte}\label{grenzen}
 % =====================================================================
 
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Missionsablauf:} Der Zustandsautomat
-  \texttt{IDLE\,$\to$\,\ldots\,$\to$\,DONE} ist nicht implementiert. Die
-  Software fährt zielgerichtet zu einem vorgegebenen Punkt bzw.\
-  reaktiv.
-\item
-  \textbf{Untersetzerhandling / Manipulation:} \texttt{CST-*} sowie
-  IK + RRT* sind nicht Teil der Simulationssoftware.
-\item
-  \textbf{Lokalisierung:} statt EKF/UKF ein Komplementärfilter. Ausreichend
-  für die ebene Tischfläche, aber ohne Unsicherheitsschätzung.
-\item
-  \textbf{Ultraschall:} ein einzelner Vorwärtssensor findet
-  kleine außeraxiale Tischobjekte nicht zuverlässig. Daher sind
-  im Simulationstest Blumentopf und Flaschen in der Karte hinterlegt
-  (\enquote{vermessener Tisch}). Die Entdeckung per Sensor wird gesondert mit
-  einem großen Hindernis in \texttt{MODE\_NAVIGATE\_DSTAR} gezeigt.
-\item
-  \textbf{Zwei Gitter + \texttt{centerPath}:} Übergangslösung, damit DWA
-  eckennahe kürzeste Pfade folgen kann. Eine weiche (gradientenbasierte)
-  Kostenkarte würde beide Gitter zu einem zusammenführen.
-\item
-  \textbf{Fehlerinjektion:} \texttt{FaultMonitor} (Abschnitt~\ref{faultmonitor})
-  deckt genau den in \texttt{ST-SIM-005/006} spezifizierten Fall ab
-  (Ultraschall-Ausfall, Ausfall des linken Motors). Andere Sensoren
-  (Kanten-, IMU-Ausfall), der rechte Motor sowie eine automatische
-  Wiederanlauf-Logik nach behobenem Fehler sind nicht Teil des Prototyps -
-  der sichere Zustand bleibt bewusst verriegelt.
-\item
-  \textbf{Validierung gegen den Prototyp:} \texttt{ST-SIM-008} erfordert
-  den realen Coasterbot.
-\item
-  \textbf{Hardware-Realisierbarkeit von \texttt{RobotHAL}:} Eignung von
-  \texttt{getGyroZ()} für eine reale IMU ist mangels vermessenem Exemplar
-  weiterhin offen, siehe die Rückmeldung über die reale Hardware in
-  Abschnitt~\ref{hal-offene-punkte} (Radgranularität, Kantensensoren und die
-  Erreichbarkeit einer definierten Winkelgeschwindigkeit sind aus
-  derselben Rückmeldung bereits umgesetzt: \texttt{enum WheelId} auf
-  \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert, Kantensensoren als
-  \texttt{bool}-Schnittstelle, Open-/Closed-Loop-Motorregelung simuliert
-  und verglichen, Abschnitt~\ref{motor-control-vergleich}).
-\end{itemize}
-
-\subsection{Ausblick: initiale Tischerkundung}\label{ausblick-tischerkundung}
-
-Als nächster funktionaler Ausbauschritt ist eine \textbf{initiale
-Tischerkundung} vorgesehen (Rückmeldung 14.09.2026): Der Coasterbot fährt
-einmalig (vor dem eigentlichen Bedienbetrieb) der Reihe nach alle vier
-Ecken der Tischfläche an, legt an jeder Ecke einen Getränkeuntersetzer ab
-und kehrt anschließend zu seinem Ausgangspunkt zurück. Ziel ist es, damit
-für den nachfolgenden Betrieb \emph{bekannte} Untersetzerpositionen zu
-schaffen, sodass Untersetzer gezielt (an einer bekannten Position statt
-per Objekterkennung) abgelegt und wieder aufgenommen werden können.
-
-Diese Funktion ist noch \textbf{nicht implementiert}. Der nachfolgende
-Stufenplan (Stand 14.09.2026) beschreibt, was für eine Umsetzung
-erforderlich wäre; er dient als Grundlage für die spätere Umsetzung, nicht
-als bereits getroffene Architekturentscheidung.
-
-\paragraph{Stufe 0: Vorab zu klärende Entscheidungen.}
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Realitätsgrad der Ablage:} entweder ein tatsächlich in der
-  Szene erscheinendes \texttt{Coaster}-Objekt (Supervisor-basiert,
-  empfohlen, konsistent zu Blumentopf/Flaschen, die bereits als echte
-  Szenenobjekte behandelt werden) oder zunächst nur ein protokolliertes
-  Ablage-\emph{Ereignis} ohne sichtbare Änderung der Szene.
-\item
-  \textbf{Reihenfolge der Ecken:} feste Abfolge (empfohlen, deterministisch,
-  passt zum Determinismus-Anspruch aus \texttt{ST-SIM-004}) oder
-  Nächster-Nachbar-Heuristik.
-\item
-  \textbf{Welt:} eine neue, aufgeräumte \texttt{coasterbot-explore.wbt}
-  (Tisch ohne die Bierflasche/den Blumentopf aus
-  \texttt{coasterbot-simtest.wbt}) statt einer weiteren Überladung der
-  bestehenden Simulationstest-Welt.
-\end{itemize}
-
-\paragraph{Stufe 1: \texttt{Coaster}-PROTO.}
-Ein neues, einfaches PROTO (\texttt{protos/coaster/Coaster.proto}): eine
-dünne Scheibe mit definierten Abmessungen (Lastenheft-Anforderung an
-Untersetzer), ohne Kollisionskörper, da das Objekt per Supervisor
-platziert und nicht angefahren wird.
-
-\paragraph{Stufe 2: Schnittstelle \texttt{CoasterHandling}.}
-Eine \emph{eigene}, von \texttt{RobotHAL} getrennte Abstraktion: \enquote{Objekt
-in der Szene erzeugen/verschieben} hat keine Entsprechung auf realer
-Hardware, gehört also nicht in den HAL, der portierbar bleiben soll.
-Entspricht der im Pflichtenheft ohnehin separat geführten Komponente
-\enquote{Untersetzerhandling}.
-
-\begin{lstlisting}[style=cpp]
-class CoasterHandling {
-public:
-    virtual ~CoasterHandling() {}
-    // Legt einen (virtuellen) Untersetzer an der Position ab.
-    // Rueckgabe: false, wenn kein Untersetzer mehr verfuegbar ist.
-    virtual bool placeCoaster(Vec2 at) = 0;
-    // Fuer eine spaetere Aufnahme-Phase; in dieser Stufe ungenutzt.
-    virtual bool pickUpCoaster(Vec2 at) = 0;
-};
-\end{lstlisting}
-
-\texttt{WebotsCoasterHandling} implementiert dies über die
-Webots-Supervisor-API (\texttt{importMFNodeFromString} auf den
-Szenenwurzelknoten, das zurückgegebene \texttt{Node*} je Ecke für eine
-spätere Aufnahme gemerkt). Dafür muss \texttt{WebotsHAL} intern von
-\texttt{webots::Robot} auf \texttt{webots::Supervisor} wechseln (Supervisor
-\emph{ist} ein Robot, rein additiv. Die \texttt{RobotHAL}-Schnittstelle
-selbst ändert sich nicht) und die jeweilige \texttt{Coasterbot}-Instanz in
-der Welt \texttt{supervisor TRUE} setzen (ein Feld, das das PROTO bereits
-besitzt, aber bislang ungenutzt lässt, siehe Abschnitt~\ref{proto}).
-
-\paragraph{Stufe 3: Eckpunkt-Geometrie.}
-Neuer Namensraum \texttt{explore\_scenario} in \texttt{main.cpp}: vier
-Zielposen, von jeder Tischkante um den Montageversatz der Kantensensoren
-im PROTO ($x=\pm 0{,}09$, $z=\mp 0{,}09$) plus einen Sicherheitspuffer nach
-innen versetzt, jeweils mit Blick zur Tischmitte ausgerichtet, sodass
-nie gleichzeitig eine Kante vorne \emph{und} hinten in Reichweite ist, was
-\texttt{SafetyMonitor} sonst in den Zustand \texttt{PINNED}
-(Abschnitt~\ref{sicherheitskomponente}) treiben könnte. Der genaue
-Versatz muss empirisch ermittelt und nicht nur rechnerisch festgelegt
-werden.
-
-\paragraph{Stufe 4: Ablaufsteuerung.}
-Eine neue Funktion \texttt{runExploreTable()}, nach demselben Muster wie
-die Phasenschleife in \texttt{runSimTest()}
-(Abschnitt~\ref{ablauf-simtest}): eine Liste der vier Eckpunkte plus
-Ausgangspunkt, je Ziel D*-Lite-Planung + \texttt{DwaPlanner}, bei
-Zielerreichung \texttt{placeCoaster()} (nur an den ersten vier Zielen,
-nicht auf dem Rückweg), danach das nächste Ziel. \texttt{SafetyMonitor}
-bleibt wie gehabt vorrangig. Ein Auslösen nahe einer Ecke sollte in dieser
-frühen Stufe zunächst protokolliert statt hart als Fehlschlag gewertet
-werden, um Stufe 3 iterativ nachjustieren zu können.
-
-\paragraph{Stufe 5: Anbindung.} Neuer Wert \texttt{MODE\_EXPLORE\_TABLE}
-im \texttt{Mode}-Enum, die Welt \texttt{coasterbot-explore.wbt}, sowie
-\texttt{webots\_coaster\_handling.cpp} im \texttt{Makefile}.
-
-\paragraph{Stufe 6: Test und Rückverfolgbarkeit.} Ein neuer Testfall
-(z.\,B. \texttt{ST-SIM-009}, im Testkonzept bislang nicht definiert) und
-die ersten Umsetzungsreferenzen für \texttt{CST-001}/\texttt{CST-003} in
-Tabelle~\ref{tab:trace}.
-
-\paragraph{Stufe 7: Verifikation.} Zweifacher kopfloser Lauf
-(Reproduzierbarkeit), Kontrolle, dass \texttt{SafetyMonitor} an keiner
-Ecke ungewollt auslöst, dass alle vier Untersetzer erscheinen und der
-Roboter innerhalb der Toleranz zum Ausgangspunkt zurückkehrt.
+Einige Anforderungen sind bisher nicht Teil der aktuellen
+Simulationssoftware. Die missionsbezogene Ablaufsteuerung
+\texttt{IDLE\,$\to\,\ldots\,\to$\,DONE} ist noch nicht vollständig
+implementiert. Der Ablauf dazu ist in Abschnitt~\ref{missionsablaufsteuerung}
+dargestellt und in \texttt{CoasterbotFunctions} teilweise (Tisch
+einlernen) umgesetzt. Das eigentliche
+Untersetzerhandling (Aufnahme/Ablage, \texttt{CST-*}) inklusive IK~+~RRT*
+ist nicht Teil der Simulationssoftware. Die Lokalisierung nutzt statt
+EKF/UKF einen Komplementärfilter, der für die ebene Tischfläche ausreicht,
+jedoch keine Unsicherheitsschätzung liefert. Der physische Roboter hat im
+Gegensatz zur Simulation keinen Encoder. Der Vorwärts-Ultraschall
+findet kleine, außeraxiale Tischobjekte nicht zuverlässig. Deshalb sind im
+Simulationstest Blumentopf und Flaschen als bekannte Hindernisse in der
+Karte hinterlegt, während die reine Sensor-Entdeckung separat mit einem
+großen Hindernis in \texttt{MODE\_NAVIGATE\_DSTAR} gezeigt wird. Die zwei
+getrennten Gitter für Planung und DWA samt \texttt{centerPath} sind eine
+Übergangslösung. Eine gradientenbasierte Kostenkarte würde beide
+zu einer Einzigen zusammenführen. \texttt{FaultMonitor}
+(Abschnitt~\ref{faultmonitor}) deckt genau den in \texttt{ST-SIM-005/006}
+geforderten Fall ab (Ultraschall- bzw.\ Ausfall des linken Motors). Andere
+Sensoren, der rechte Motor und eine automatische Wiederanlauf-Logik nach
+behobenem Fehler bleiben außen vor, der sichere Zustand ist bewusst
+eingeschränkt. Offen bleiben außerdem die Validierung gegen den realen
+Prototyp (\texttt{ST-SIM-008}) sowie die Eignung von \texttt{getGyroZ()}
+für eine reale IMU, deren Dater lediglich aus dem Datenblatt entnommen wurden
+und  bislang nicht abschließend beurteilt wurde.
 
 % =====================================================================
 \section{Anhang A: Schnittstelle \texttt{RobotHAL}}\label{anhang-hal}

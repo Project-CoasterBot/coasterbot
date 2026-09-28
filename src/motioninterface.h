@@ -51,6 +51,7 @@ private:
 
   Motion _requested {STOPPED}; // what the main loop asked for
   Motion _applied {STOPPED};   // what is currently wired to the driver inputs
+  Motion _driven {STOPPED};    // what was last engaged, still valid while braking and coasting down
 
   uint8_t _speed {160};
 
@@ -107,6 +108,12 @@ public: // queries
   /// True while the driver is enabled and driving the requested motion.
   bool isMoving() const { return _phase == RUNNING; }
 
+  /// True while turning on the spot, including braking and coasting down after it.
+  bool isTurning() const {
+    return (_phase == RUNNING || _phase == BRAKING || _phase == COASTING)
+           && (_driven == TURNINGLEFT || _driven == TURNINGRIGHT);
+  }
+
   uint8_t speed() const { return _speed; }
 
 public: // main loop repeated call
@@ -157,6 +164,7 @@ public: // main loop repeated call
       }
       if (!deadlineReached(curtime)) break;
       digitalWrite(pin_standby, HIGH);
+      _driven = _applied;
       _phase = RUNNING;
       break;
     }

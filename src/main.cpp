@@ -12,6 +12,7 @@
 #include "motioninterface.h"
 #include "infraredsensorinterrface.h"
 #include "echosensorinterface.h"
+#include "gyrosensor.h"
 #include "servointerface.h"
 
 static LEDController<board::PIN_LED1_R, board::PIN_LED1_G, board::PIN_LED1_B> led_board;
@@ -26,6 +27,8 @@ static InfraredSensorControl<board::PIN_EDGE_FRONT_RIGHT> edge_det_front_right;
 
 static MotionController<board::PIN_MOTOR_PWM, board::PIN_MOTOR_STANDBY, board::PIN_MOTOR_LEFT_1, board::PIN_MOTOR_LEFT_2, board::PIN_MOTOR_RIGHT_1, board::PIN_MOTOR_RIGHT_2> motion_ctrl;
 
+static GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA> inertial_sensor;
+
 static ServoController<board::PIN_COASTER_SERVO_1> servo1;
 static ServoController<board::PIN_COASTER_SERVO_2> servo2;
 
@@ -37,7 +40,7 @@ void setup() {
     Serial.begin(115200);
 
     led_board.begin();
-    led_board.setModeToBlinkGreen(255, 500);
+    led_board.setModeToRainbow(3000);
 
     user_button.begin();
     motion_ctrl.begin();
@@ -52,6 +55,8 @@ void setup() {
     edge_det_front_right.begin();
 
     obstcl_sensor.begin();
+
+    inertial_sensor.begin();
 
     next_heartbeat = millis();
 }
@@ -73,22 +78,6 @@ void loop() {
 
     // 2. Internal logic
 
-    const double min_dist_detect = 0.40;
-    if (std::isfinite(obstacle_dist) && obstacle_dist > 0. && obstacle_dist < min_dist_detect) { // blink at obstacle rate
-        double norm_dist = obstacle_dist / min_dist_detect; // 0..1
-        led_board.setModeToBlinkGreen(255, static_cast<int>(round(norm_dist * 1000.)));
-    } else if (edge_front_left || edge_front_right || edge_rear_left || edge_rear_right) { // edge detect, blink with color per side
-        int red = 255, green = 0, blue = 0, interval = 250;
-        if (edge_rear_left || edge_rear_right) blue = 255; // if rear purple, if front only red
-        if (edge_front_left || edge_rear_left) interval = 1000; // if left, one sec interval,  if right 250ms
-
-        led_board.setModeToBlink(red, green, blue, interval);
-
-        motion_ctrl.stop();
-    } else { // no edge detect
-        led_board.setModeToRainbow(3000);
-    }
-
     if (user_button_pressed) {
         Serial.printf("[ACT] press dur=%lu ms\n", user_button_pressed_duration_millis);
 
@@ -96,33 +85,46 @@ void loop() {
             Serial.println("[Motion] Reset and stop ");
             motion_ctrl.stop();
             motion_state = 0;
+
+            inertial_sensor.resetOrigin();
         } else {
             motion_state++;
 
             switch (motion_state % 5) {
             default:
-            case 0:
-                Serial.println("[Motion] Stop ");
-                motion_ctrl.stop();
-                break;
-            case 1:
-                Serial.println("[Motion] Forward ");
-                motion_ctrl.forward();
-                break;
-            case 2:
-                Serial.println("[Motion] Left ");
-                motion_ctrl.turnLeft();
-                break;
-            case 3:
-                Serial.println("[Motion] Right ");
-                motion_ctrl.turnRight();
-                break;
-            case 4:
-                Serial.println("[Motion] Backward ");
-                motion_ctrl.backward();
-                break;
+            case 0: Serial.println("[Motion] Stop "); break;
+            case 1: Serial.println("[Motion] Forward "); break;
+            case 2: Serial.println("[Motion] Left "); break;
+            case 3: Serial.println("[Motion] Right "); break;
+            case 4: Serial.println("[Motion] Backward "); break;
             }
         }
+    }
+
+    switch (motion_state % 3) {
+    default:
+    case 0:
+        led_board.setModeToRainbow(3000);
+        motion_ctrl.stop();
+        break;
+    case 1:
+        if (obstacle_dist < 0.1 || edge_front_left || edge_front_right) {
+            led_board.setModeToConstantRed();
+            motion_ctrl.stop();
+            break;
+        }
+        led_board.setModeToBlinkGreen(255, 1000);
+        motion_ctrl.forward();
+        break;
+    case 2:
+        if (edge_rear_left || edge_rear_right) {
+            led_board.setModeToConstantRed();
+            motion_ctrl.stop();
+            break;
+        }
+        led_board.setModeToBlinkBlue(255, 1000);
+        motion_ctrl.backward();
+        break;
     }
 
     // 3. Output
@@ -132,6 +134,10 @@ void loop() {
     obstcl_sensor.update();
     servo1.update();
     servo2.update();
+
+    inertial_sensor.setMotion(motion_ctrl.isMoving() || motion_ctrl.isBusy() ? Motion::Driving :
+        motion_ctrl.isTurning() ? Motion::Turning : Motion::Idle);
+    inertial_sensor.loop();
 
     if (static_cast<long>(now - next_heartbeat) >= 0) { // debug
         next_heartbeat = now + 1000;
@@ -145,5 +151,7 @@ void loop() {
         if (std::isfinite(obstacle_dist) && obstacle_dist > 0.) Serial.printf("[SENSOR] obstacle dist = %f\n", obstacle_dist);
     }
 
-    delay(1); // Regelzyklus ~1 kHz. mit entsprechender logik besser von delta zu now() abhängig.
+    const unsigned long end = millis();
+    if (end - now <= 0)
+        delay(1); // enforce Regelzyklus ~1 kHz.
 }

@@ -393,22 +393,30 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 % Versionshistorie des Dokuments: eigene Seite direkt nach dem Titelblatt
 \section*{Versionshistorie}
 
-\begin{tabularx}{\textwidth}{@{}clp{2.6cm}X@{}}
+% longtable statt tabularx: die Tabelle ist inzwischen fast eine volle Seite
+% lang. tabularx ist ein einziger unteilbarer Block - passte sie zusammen mit
+% der Ueberschrift nicht mehr auf die (bereits durch \end{titlepage} neu
+% begonnene) Seite, schob LaTeX beides als Ganzes auf die naechste Seite und
+% liess die davor komplett leer. longtable bricht die Tabelle stattdessen
+% ganz normal um.
+\begin{longtable}{@{}clp{2.6cm}p{0.52\textwidth}@{}}
 \toprule
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
-1 & 08.09.2026 & Etringer & Erstfassung der Softwaredokumentation der Simulationssoftware\\
-2 & 08.09.2026 & Etringer & Abschnitt 5 (Lokalisierung) um Prinzip (Koppelnavigation) und Grenzen der Lokalisierung ergänzt\\
-3 & 13.09.2026 & Etringer & Offene Punkte aus der Hardware-Rückmeldung zu \texttt{RobotHAL} ergänzt (Abschnitt~4.3)\\
-4 & 13.09.2026 & Etringer & Entscheidung umgesetzt: Kantensensoren liefern jetzt \texttt{bool} statt \texttt{float}; Kalibrierung in \texttt{WebotsHAL} gekapselt\\
-5 & 13.09.2026 & Etringer & Entscheidung umgesetzt: \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (reale Elektronik hat nur einen Encoder je Seite)\\
-6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung (\texttt{OccupancyGrid::reportOccupied}), digitales Kantensignal (\texttt{EDGE\_ACTIVE\_HIGH}) umgesetzt; Ausblick \enquote{initiale Tischerkundung} ergänzt\\
-7 & 14.09.2026 & Etringer & Ausblick \enquote{initiale Tischerkundung} zu einem konkreten Stufenplan (Stufe 0 bis 7) ausgearbeitet\\
-8 & 16.09.2026 & Etringer & Abschnitt 4.3 (Gyro-Schnittstelle, Erreichbarkeit einer definierten Winkelgeschwindigkeit) um konkrete Hardware-Hinweise ergänzt (Kalibrierung, Arduino-Bibliotheken, Skid-Steer-Fahrverhalten)\\
-9 & 20.09.2026 & Etringer & Auf der Stückliste geführten Inertialsensor (ICQUANZX GY-521 MPU6050) simuliert und in \texttt{WebotsHAL::getGyroZ()} genutzt: Messbereich/Auflösung im PROTO, Bias und Rauschen mit fester Startkalibrierung in Software (Abschnitt 4.2, neuer Abschnitt~\ref{gyro-simulation}); \texttt{WorldInfo.randomSeed} in allen Welten fest gesetzt\\
-10 & 21.09.2026 & Etringer & Offenen Punkt \enquote{Erreichbarkeit einer definierten Winkelgeschwindigkeit} entschieden: Open-Loop und Closed-Loop Motorregelung in \texttt{WebotsHAL} implementiert und in neuer Betriebsart \texttt{MODE\_MOTOR\_CONTROL\_TEST} direkt verglichen (neuer Abschnitt~\ref{motor-control-vergleich}); Closed-Loop ist Standard, bestehende Tests erneut verifiziert\\
+\endhead
 \bottomrule
-\end{tabularx}
+\endfoot
+1 & 08.09.2026 & Etringer & Erstfassung der Softwaredokumentation\\
+2 & 08.09.2026 & Etringer & Lokalisierung um Prinzip und Grenzen ergänzt\\
+3 & 13.09.2026 & Etringer & Offene Punkte aus Hardware-Rückmeldung zu \texttt{RobotHAL} ergänzt\\
+4 & 13.09.2026 & Etringer & Kantensensoren liefern jetzt \texttt{bool} statt \texttt{float}, Kalibrierung in \texttt{WebotsHAL} gekapselt\\
+5 & 13.09.2026 & Etringer & \texttt{enum WheelId} auf \texttt{WHEEL\_LEFT}/\texttt{WHEEL\_RIGHT} reduziert (ein Encoder je Seite)\\
+6 & 14.09.2026 & Etringer & Geglättete Kartenanpassung und digitales Kantensignal umgesetzt; Ausblick Tischerkundung ergänzt\\
+7 & 14.09.2026 & Etringer & Ausblick Tischerkundung zu Stufenplan (Stufe 0 bis 7) ausgearbeitet\\
+8 & 16.09.2026 & Etringer & Gyro-Schnittstelle um Hardware-Hinweise ergänzt (Kalibrierung, Skid-Steer)\\
+9 & 20.09.2026 & Etringer & Inertialsensor (GY-521/MPU6050) in \texttt{WebotsHAL::getGyroZ()} simuliert (Abschnitt~\ref{gyro-simulation}); \texttt{randomSeed} fest gesetzt\\
+10 & 21.09.2026 & Etringer & Open-/Closed-Loop-Motorregelung implementiert und verglichen (\texttt{MODE\_MOTOR\_CONTROL\_TEST}, Abschnitt~\ref{motor-control-vergleich})\\
+\end{longtable}
 
 
 \newpage

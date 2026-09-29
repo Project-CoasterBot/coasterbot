@@ -12,8 +12,7 @@
 // der Beschleunigung ist driftanfaellig.
 //
 // Kennt NUR das RobotHAL-Interface -> unveraendert auf einen Arduino
-// portierbar (dort liefern Radencoder die Winkel, ein MPU-6050 die
-// Drehrate).
+// portierbar (keine Encoder, ein MPU-6050 liefer die Drehrate).
 //
 // Konvention: x nach vorne (lokale Startausrichtung), y nach links,
 // theta = 0 in Startrichtung, positiv = Linksdrehung (mathematisch
@@ -30,6 +29,7 @@ public:
     float getX() const { return x_; }             // [m]
     float getY() const { return y_; }             // [m]
     float getTheta() const { return theta_; }     // [rad], (-pi, pi]
+    float getYawRate() const { return prevGyro_; } // [rad/s], bias-korrigiert
 
     // Aus der IMU-Beschleunigung integrierte Wegstrecke [m].
     float getOdometer() const { return odometer_; }
@@ -40,27 +40,30 @@ public:
 private:
     RobotHAL& hal_;
 
-    // Radgeometrie aus Coasterbot.proto.
-    static constexpr float WHEEL_RADIUS = 0.0325f;  // [m]
-    static constexpr float TRACK_WIDTH  = 0.202f;  // [m], Abstand linke<->rechte Raeder
+    static constexpr float WHEEL_RADIUS = 0.0325f;   // [m]
 
-    // Komplementaerfilter: Gewicht der Rad-Odometrie am Kurs-Inkrement.
-    // 0 = nur Gyro, 1 = nur Odometrie. Skid-Steer schlupft beim Drehen,
-    // daher ueberwiegend dem Gyro vertrauen.
-    static constexpr float HEADING_ODO_WEIGHT = 0.0f;
+    // --- Tuning-Parameter ---
+    // m/s pro (WHEEL_RADIUS * rad/s Sollwert). Sim (Closed-Loop): 1.0.
+    // Real per Fahrtest kalibrieren: 1 m fahren, SPEED_SCALE = gemessen/berechnet.
+    static constexpr float SPEED_SCALE    = 1.0f;
+    static constexpr float MOTOR_LAG_TAU  = 0.15f;   // [s] Motor-/Traegheitsverzoegerung
+    static constexpr float VELOCITY_TAU   = 0.4f;    // [s] Zeitkonstante Modell-Korrektur
+                                                     //  klein = Modell dominiert, gross = IMU dominiert
+    static constexpr float STILL_SETTLE_S = 0.3f;    // [s] Ruhe nach Sollwert 0 abwarten
+    static constexpr float STILL_GYRO_MAX = 0.05f;   // [rad/s] Gyro muss ruhig sein
+    static constexpr float BIAS_TAU       = 1.0f;    // [s] Nachfuehrung der Biase im Stand
 
     bool  initialized_ = false;
-    float prevLeft_ = 0.0f;   // [rad] gemittelte linke Radwinkel
-    float prevRight_ = 0.0f;  // [rad] gemittelte rechte Radwinkel
-    float prevTime_ = 0.0f;   // [s]
-    float prevForwardAcceleration_ = 0.0f;  // [m/s^2]
-    float forwardVelocity_ = 0.0f;          // [m/s], aus der IMU integriert
+    float prevTime_ = 0.0f;
+    float prevAccel_ = 0.0f;       // [m/s^2] biaskorrigiert
+    float prevGyro_ = 0.0f;        // [rad/s] biaskorrigiert
+    float stillSince_ = 0.0f;
+    float accelBias_ = 0.0f;       // [m/s^2]
+    float gyroBias_ = 0.0f;        // [rad/s] Restbias zusaetzlich zur HAL-Kalibrierung
+    float forwardVelocity_ = 0.0f; // [m/s]
+    float velocityModel_ = 0.0f;   // [m/s] geglaettete Modellgeschwindigkeit
 
-    float x_ = 0.0f;
-    float y_ = 0.0f;
-    float theta_ = 0.0f;
-    float odometer_ = 0.0f;
-
+    float x_ = 0.0f, y_ = 0.0f, theta_ = 0.0f, odometer_ = 0.0f;
     static float wrapAngle(float a);
 };
 

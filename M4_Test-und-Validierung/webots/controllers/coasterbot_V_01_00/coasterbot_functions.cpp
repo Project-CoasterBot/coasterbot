@@ -22,8 +22,8 @@ void CoasterbotFunctions::update() {
 
 void CoasterbotFunctions::calcCoasterPositions() {
 	constexpr float edgeMargin = 0.2f;
-	const float x = std::max(0.0f, tableWidth_ / 2.0f - edgeMargin);
-	const float y = std::max(0.0f, tableHeight_ / 2.0f - edgeMargin);
+	const float y = std::max(0.0f, tableWidth_ / 2.0f - edgeMargin);
+	const float x = std::max(0.0f, tableHeight_ / 2.0f - edgeMargin);
 	const std::array<Vec2, 4> targets{{
 		{-x, -y},
 		{ x, -y},
@@ -86,6 +86,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		navigationTarget_ = target;
 		navigationInitialDistance_ = distanceAtCommand;
 		navigationTargetInitialized_ = true;
+		navigationWaypointInitialized_ = false;
 		edgeInterruptions_ = 0;
 		edgeStopLatched_ = false;
 		edgeWasActive_ = false;
@@ -101,6 +102,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		(edgeActive && !edgeWasActive_);
 	edgeWasActive_ = edgeActive;
 	if (newEdgeInterruption) {
+		navigationWaypointInitialized_ = false;
 		++edgeInterruptions_;
 		std::cout << "[NAV] edge interruption " << edgeInterruptions_ << "/3" << std::endl;
 		if (edgeInterruptions_ >= 3) {
@@ -232,6 +234,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		}
 		obstacleScanActive = false;
 		obstacleScanAttempted = false;
+		navigationWaypointInitialized_ = false;
 		this->stop();
 		return;
 	}
@@ -240,11 +243,13 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 			std::cout << "[NAV] goal cell is outside the grid or occupied; stopping" << std::endl;
 		}
 		obstacleScanActive = false;
+		navigationWaypointInitialized_ = false;
 		this->stop();
 		return;
 	}
 
 	if (obstacleAvoidancePhase == 0 && obstacleDetected && !obstacleScanActive) {
+		navigationWaypointInitialized_ = false;
 		const float obstacleDistance = std::max(us + 0.12f, 0.12f);
 		const float theta = pose_.getTheta();
 		const float obstacleX = pose_.getX() + obstacleDistance * std::cos(theta);
@@ -362,6 +367,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 
 	if (path.empty()) {
+		navigationWaypointInitialized_ = false;
 		if (logNav) {
 			std::cout << "[NAV] no route after sonar sweep -> stopped" << std::endl;
 		}
@@ -393,7 +399,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
         return;
     }
 
-	if (distToGoal > 0.08f) {
+	if (distToGoal > ACCEPTED_BIAS) {
 		hal_.setLeftSpeed(commandSpeed);
 		hal_.setRightSpeed(commandSpeed);
         return;
@@ -459,7 +465,6 @@ void CoasterbotFunctions::runLearnTable() {
 	static LearningPhase phase = LearningPhase::PHASE_X;
 	static float distance = 0.0f;
 	static float lastOdo = 0.0f;
-	static float tmpTime = -1.0f;
 	static float previousCenterCoordinate = 0.0f;
 	static bool buildGrid;
 
@@ -571,10 +576,10 @@ void CoasterbotFunctions::runLearnTable() {
 	case State::DONE:
 		this->stop();
 		if(!buildGrid){
-			const float x0 = -tableWidth_ / 2.0f;
-			const float x1 =  tableWidth_ / 2.0f;
-			const float y0 = -tableHeight_ / 2.0f;
-			const float y1 =  tableHeight_ / 2.0f;
+			const float y0 = -tableWidth_ / 2.0f;
+			const float y1 =  tableWidth_ / 2.0f;
+			const float x0 = -tableHeight_ / 2.0f;
+			const float x1 =  tableHeight_ / 2.0f;
 			const float resolution = 0.05f;
 			const float safetyMargin = 0.01f;
 			grid_ = std::make_unique<OccupancyGrid>(x0, y0, x1, y1, resolution);
@@ -635,7 +640,7 @@ bool CoasterbotFunctions::runSpendCoasters() {
 		const Vec2& pos = coasterPositions[coasterRoutineIndex_];
 		this->navigateToWithObstacleAvoidance(pos, 5.0f);
 		const float distanceToCoaster = std::hypot(pos.x - pose_.getX(), pos.y - pose_.getY());
-		if (distanceToCoaster > 0.08f) {
+		if (distanceToCoaster > ACCEPTED_BIAS) {
 			return false;
 		}
 		this->stop();
@@ -679,6 +684,18 @@ bool CoasterbotFunctions::runSpendCoasters() {
 	return false;
 }
 
+bool CoasterbotFunctions::goToCenter(){
+	const Vec2 returnTarget{0.0f, 0.0f};
+	this->navigateToWithObstacleAvoidance(returnTarget, 5.0f);
+	
+	const float distanceToCoaster = std::hypot(returnTarget.x - pose_.getX(), returnTarget.y - pose_.getY());
+	if (distanceToCoaster > ACCEPTED_BIAS) {
+		return false;
+	}
+	this->stop();
+	return true;
+}
+
 bool CoasterbotFunctions::runGetCoasters() {
 	if (!coasterRoutineActive_) {
 		coasterRoutineActive_ = true;
@@ -700,7 +717,7 @@ bool CoasterbotFunctions::runGetCoasters() {
 		const Vec2& pos = coasterPositions[coasterRoutineIndex_];
 		this->navigateToWithObstacleAvoidance(pos, 5.0f);
 		const float distanceToCoaster = std::hypot(pos.x - pose_.getX(), pos.y - pose_.getY());
-		if (distanceToCoaster > 0.08f) {
+		if (distanceToCoaster > ACCEPTED_BIAS) {
 			return true;
 		}
 		this->stop();

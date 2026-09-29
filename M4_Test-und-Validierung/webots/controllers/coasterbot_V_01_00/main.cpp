@@ -52,6 +52,9 @@ int main() {
             case COASTERBOT_IDLE:
                 coasterbot.led(RobotHAL::LED_COLORS::OFF);
 
+                //nur für die Simulation
+                if(!coasterbot.blocklessWait(5.0f)) break;
+
                 if (!btableLearned && coasterbot.buttonPressed()) {
                     state = COASTERBOT_LEARN_TABLE;
                 } else if (btableLearned && !bCoasterOut && coasterbot.buttonPressed()) {
@@ -71,23 +74,27 @@ int main() {
                 break;
 
             case COASTERBOT_SET_COASTERS:
-                bCoasterOut = coasterbot.runSpendCoasters();
+                if (!bCoasterOut) {
+                    bCoasterOut = coasterbot.runSpendCoasters();
+                }
                 coasterbot.led(RobotHAL::LED_COLORS::GREEN);
 
                 if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
                     state = COASTERBOT_EMERGENCY_STOP;
-                } else if (bCoasterOut) {
+                } else if (bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }
                 break;
 
             case COASTERBOT_GET_COASTER:
-                bCoasterOut = coasterbot.runCollectCoasters();
+                if (bCoasterOut) {
+                    bCoasterOut = coasterbot.runCollectCoasters();
+                }
                 coasterbot.led(RobotHAL::LED_COLORS::BLUE);
 
                 if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
                     state = COASTERBOT_EMERGENCY_STOP;
-                } else if (!bCoasterOut) {
+                } else if (!bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }
                 break;

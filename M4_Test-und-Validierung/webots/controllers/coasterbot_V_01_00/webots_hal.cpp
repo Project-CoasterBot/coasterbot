@@ -78,11 +78,39 @@ void WebotsHAL::calibrateGyro() {
     }
     if (n > 0) gyroBiasEstimate_ = sum / static_cast<float>(n);
 }
+void WebotsHAL::updateImuErrors() {
+    const float dt = timeStep_ * 0.001f;
+    if (!imuErrInit_) {
+        accelTurnOnBias_ = ACCEL_TURNON_BIAS_STD * unitNormal_(imuRng_);
+        imuErrInit_ = true;
+    }
+    // Random Walk: Varianz waechst linear mit der Zeit
+    const float s = std::sqrt(dt);
+    accelWalk_ += ACCEL_BIAS_WALK * s * unitNormal_(imuRng_);
+    gyroWalk_  += GYRO_BIAS_WALK  * s * unitNormal_(imuRng_);
+
+    // Erwaermung nach dem Einschalten
+    const float dT = WARMUP_DELTA_T * (1.0f - std::exp(-getTime() / WARMUP_TAU));
+
+    // Vibration ~ mittlere Radgeschwindigkeit (Sollwert genuegt)
+    const float vib = 0.5f * (std::fabs(appliedLeft_) + std::fabs(appliedRight_));
+    const float sigma = std::sqrt(ACCEL_NOISE_STD * ACCEL_NOISE_STD
+                                + (ACCEL_VIB_GAIN * vib) * (ACCEL_VIB_GAIN * vib));
+
+    accelError_ = accelTurnOnBias_ + accelWalk_ + ACCEL_TEMP_COEF * dT
+                + sigma * unitNormal_(imuRng_);
+    gyroDriftError_ = gyroWalk_ + GYRO_TEMP_COEF * dT;
+}
 
 bool WebotsHAL::step() {
     const bool ok = robot_.step(timeStep_) != -1;
-    if (ok) updateMotorControl();
+    if (ok) { updateMotorControl(); updateImuErrors(); }
     return ok;
+}
+
+float WebotsHAL::getForwardAcceleration() {
+    const double* a = accelerometer_->getValues();
+    return -static_cast<float>(a[2]) + accelError_;
 }
 
 void WebotsHAL::setLeftSpeed(float radPerSec) {
@@ -95,6 +123,10 @@ void WebotsHAL::setLeftSpeed(float radPerSec) {
 
 void WebotsHAL::setRightSpeed(float radPerSec) {
     commandedRight_ = radPerSec;
+}
+
+float WebotsHAL::getCommandedSpeed(WheelId wheel) {
+    return wheel == WHEEL_LEFT ? commandedLeft_ : commandedRight_;
 }
 
 // Simuliert die Motorregelung einer Seite: Open-Loop reicht das Kommando
@@ -178,14 +210,8 @@ float WebotsHAL::getGyroZ() {
     // Rauschen aufpraegen, dann den im Konstruktor (calibrateGyro())
     // ermittelten Bias-Schaetzwert wieder abziehen (siehe Kommentar dort
     // und in webots_hal.h).
-    const float measured = raw + GYRO_BIAS_RAD + gyroNoise_(gyroRng_);
+    const float measured = raw + GYRO_BIAS_RAD + gyroDriftError_ + gyroNoise_(gyroRng_);
     return measured - gyroBiasEstimate_;
-}
-
-float WebotsHAL::getForwardAcceleration() {
-    // Die Roboterfront liegt in lokaler -Z-Richtung; ebene Fahrt voraus ist daher -a_z.
-    const double* acceleration = accelerometer_->getValues();
-    return -static_cast<float>(acceleration[2]);
 }
 
 float WebotsHAL::getWheelAngle(WheelId wheel) {

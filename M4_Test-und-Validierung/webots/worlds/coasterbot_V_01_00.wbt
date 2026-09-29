@@ -12,8 +12,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation -0.01499695704196131 0.9997221502207588 0.01818553374152895 1.3794731167783425
-  position -0.47163247724351 -0.06297858985250926 5.899619953091365
+  orientation -0.5773502691896258 0.5773502691896258 0.5773502691896258 2.0944
+  position 1.930278927725409e-15 2.5668602762305975e-16 5.918776823574653
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -43,8 +43,8 @@ DEF COASTER_0 Solid {
         metalness 0.15
       }
       geometry Cylinder {
-        radius 0.045
         height 0.008
+        radius 0.045
       }
     }
   ]
@@ -61,8 +61,8 @@ DEF COASTER_1 Solid {
         metalness 0.15
       }
       geometry Cylinder {
-        radius 0.045
         height 0.008
+        radius 0.045
       }
     }
   ]
@@ -79,8 +79,8 @@ DEF COASTER_2 Solid {
         metalness 0.15
       }
       geometry Cylinder {
-        radius 0.045
         height 0.008
+        radius 0.045
       }
     }
   ]
@@ -97,8 +97,8 @@ DEF COASTER_3 Solid {
         metalness 0.15
       }
       geometry Cylinder {
-        radius 0.045
         height 0.008
+        radius 0.045
       }
     }
   ]

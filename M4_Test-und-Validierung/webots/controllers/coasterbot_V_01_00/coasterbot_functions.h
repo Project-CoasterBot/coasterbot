@@ -39,6 +39,7 @@ class CoasterbotFunctions : public RobotLogic {
     bool runSpendCoasters();
     bool runGetCoasters();
     bool runCollectCoasters() { return runGetCoasters(); }
+    bool goToCenter();
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
     void runDriveTest();
     bool blocklessWait(float duration);
@@ -56,8 +57,14 @@ class CoasterbotFunctions : public RobotLogic {
     float tableWidth_ = 0.0f;
     float tableHeight_ = 0.0f;
     Vec2 navigationTarget_{};
+    Vec2 navigationWaypoint_{};
+    Vec2 navigationSegmentStart_{};
     float navigationInitialDistance_ = 0.0f;  // [m]
+    float navigationSegmentHeading_ = 0.0f;   // [rad]
+    float navigationSegmentLength_ = 0.0f;    // [m]
     bool navigationTargetInitialized_ = false;
+    bool navigationWaypointInitialized_ = false;
+    bool navigationWaypointIsFinal_ = false;
     int edgeInterruptions_ = 0;
     bool edgeStopLatched_ = false;
     bool edgeWasActive_ = false;
@@ -88,6 +95,7 @@ class CoasterbotFunctions : public RobotLogic {
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
     static constexpr float HALF_PI = 1.57079632679489661923f;
+    static constexpr float ACCEPTED_BIAS = 0.005f;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
     const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)

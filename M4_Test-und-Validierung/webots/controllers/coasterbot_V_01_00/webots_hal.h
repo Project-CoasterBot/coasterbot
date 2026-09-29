@@ -31,6 +31,7 @@ public:
     bool step() override;
     void setLeftSpeed(float radPerSec) override;
     void setRightSpeed(float radPerSec) override;
+    float getCommandedSpeed(WheelId wheel) override;
     float getUltrasonicDistance() override;
     bool  getEdgeFrontLeft() override;
     bool  getEdgeFrontRight() override;
@@ -177,12 +178,12 @@ private:
     // Verhalten behalten; nur MODE_MOTOR_CONTROL_TEST schaltet bewusst auf
     // OPEN_LOOP um, um den Unterschied zu zeigen.
     // ---------------------------------------------------------------
-    static constexpr float MOTOR_GAIN_LEFT_TRUE  = 0.95f;  // -5%, Fertigungsstreuung
-    static constexpr float MOTOR_GAIN_RIGHT_TRUE = 1.05f;  // +5%, Fertigungsstreuung
+    static constexpr float MOTOR_GAIN_LEFT_TRUE  = 1.0f;  // -5%, Fertigungsstreuung
+    static constexpr float MOTOR_GAIN_RIGHT_TRUE = 1.0f;  // +5%, Fertigungsstreuung
     static constexpr float MOTOR_KI = 25.0f;               // Integralregler-Verstaerkung
     static constexpr float MOTOR_MAX_OMEGA = 20.0f;        // rad/s, Anti-Windup (= PROTO maxVelocity)
 
-    MotorControlMode motorMode_ = MotorControlMode::CLOSED_LOOP;
+    MotorControlMode motorMode_ = MotorControlMode::OPEN_LOOP;
     float commandedLeft_ = 0.0f, commandedRight_ = 0.0f;   // von setLeftSpeed/setRightSpeed
     float appliedLeft_ = 0.0f, appliedRight_ = 0.0f;       // tatsaechlich an den Motor gegeben
     float measuredLeft_ = 0.0f, measuredRight_ = 0.0f;     // aus Encoder-Aenderung gemessen
@@ -197,6 +198,28 @@ private:
     LED_COLORS lastLedColor_ = LED_COLORS::OFF;
     bool ledColorInitialized_ = false;
     bool simulateButtonPress(float duration) override;
+
+    // --- IMU-Fehlermodell (Accel + Gyro-Drift) ---
+    static constexpr float ACCEL_TURNON_BIAS_STD = 0.20f;   // [m/s^2] pro Lauf gezogen
+    static constexpr float ACCEL_BIAS_WALK       = 0.003f;  // [m/s^2/sqrt(s)] Random Walk
+    static constexpr float ACCEL_NOISE_STD       = 0.03f;   // [m/s^2] weisses Rauschen
+    static constexpr float ACCEL_VIB_GAIN        = 0.004f;  // [m/s^2 je rad/s Radspeed]
+    static constexpr float ACCEL_TEMP_COEF       = 0.0034f; // [m/s^2/degC]
+    static constexpr float GYRO_TEMP_COEF        = 0.0005f; // [rad/s/degC] (~0.03 deg/s/degC)
+    static constexpr float GYRO_BIAS_WALK        = 0.00005f;// [rad/s/sqrt(s)]
+    static constexpr float WARMUP_DELTA_T        = 8.0f;    // [degC] Erwaermung
+    static constexpr float WARMUP_TAU            = 120.0f;  // [s]
+
+    // Seed: fest = reproduzierbar, sonst pro Lauf verschieden (Monte-Carlo)
+    std::mt19937 imuRng_{4711u};
+    std::normal_distribution<float> unitNormal_{0.0f, 1.0f};
+
+    float accelTurnOnBias_ = 0.0f;
+    float accelWalk_ = 0.0f, gyroWalk_ = 0.0f;
+    float accelError_ = 0.0f;   // aktueller Gesamtfehler (Bias + Rauschen)
+    float gyroDriftError_ = 0.0f;
+    bool  imuErrInit_ = false;
+    void updateImuErrors();
 };
 
 #endif  // WEBOTS_HAL_H

@@ -255,7 +255,7 @@ PROTO Coasterbot [
         type "sonar"
         lookupTable [
           0.02 0.02 0
-          4 4 0.02
+          2 2 0.02
         ]
         numberOfRays 5
         aperture 0.26
@@ -371,6 +371,21 @@ PROTO Coasterbot [
         ]
         resolution 0.0005987
       }
+	  
+	        # ---------------------------------------------------------------
+      # Stift (zeichnet die gefahrene Spur auf den Boden)
+      # ---------------------------------------------------------------
+      Pen {
+        translation 0 0.002 0
+        rotation 1 0 0 -1.5708
+        name "pen"
+        inkColor 1 0 0
+        inkDensity 0.9
+        leadSize 0.01
+        maxDistance 0.05
+        write FALSE
+      }
+	  
     ]
     # ---------------------------------------------------------------
     # Kollisionsgeometrie des Chassis, zusammengesetzt aus zwei Boxen,

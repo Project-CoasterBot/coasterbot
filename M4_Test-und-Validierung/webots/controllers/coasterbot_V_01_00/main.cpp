@@ -15,6 +15,13 @@ enum states {
     COASTERBOT_EMERGENCY_STOP
 };
 
+static void printPose(const char* tag, float t, const PoseEstimator& pose) {
+    std::cout << tag << " t=" << t << "s  pose x=" << pose.getX()
+              << " y=" << pose.getY()
+              << " theta=" << pose.getTheta() * 180.0f / static_cast<float>(M_PI)
+              << " deg  odo=" << pose.getOdometer() << " m" << std::endl;
+}
+
 int main() {
     WebotsHAL hal;
     PoseEstimator pose(hal);
@@ -24,9 +31,16 @@ int main() {
     bool btableLearned = false;
     bool bCoasterOut = false;
     states state = COASTERBOT_SETUP;
-
+    float _lastPosePrint = -1.0f;
     while (hal.step()) {
         coasterbot.update();
+
+        float now = hal.getTime();
+        
+        if (now - _lastPosePrint >= 2.0f) {
+            printPose("[POSE]", now, pose);
+            _lastPosePrint = now;
+        }
 
         switch (state) {
             case COASTERBOT_SETUP:
@@ -37,6 +51,9 @@ int main() {
 
             case COASTERBOT_IDLE:
                 coasterbot.led(RobotHAL::LED_COLORS::OFF);
+
+                //nur für die Simulation
+                if(!coasterbot.blocklessWait(5.0f)) break;
 
                 if (!btableLearned && coasterbot.buttonPressed()) {
                     state = COASTERBOT_LEARN_TABLE;
@@ -57,23 +74,27 @@ int main() {
                 break;
 
             case COASTERBOT_SET_COASTERS:
-                bCoasterOut = coasterbot.runSpendCoasters();
+                if (!bCoasterOut) {
+                    bCoasterOut = coasterbot.runSpendCoasters();
+                }
                 coasterbot.led(RobotHAL::LED_COLORS::GREEN);
 
                 if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
                     state = COASTERBOT_EMERGENCY_STOP;
-                } else if (bCoasterOut) {
+                } else if (bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }
                 break;
 
             case COASTERBOT_GET_COASTER:
-                bCoasterOut = coasterbot.runCollectCoasters();
+                if (bCoasterOut) {
+                    bCoasterOut = coasterbot.runCollectCoasters();
+                }
                 coasterbot.led(RobotHAL::LED_COLORS::BLUE);
 
                 if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
                     state = COASTERBOT_EMERGENCY_STOP;
-                } else if (!bCoasterOut) {
+                } else if (!bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }
                 break;

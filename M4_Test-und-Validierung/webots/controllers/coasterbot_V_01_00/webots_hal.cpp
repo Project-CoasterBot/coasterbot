@@ -46,6 +46,11 @@ WebotsHAL::WebotsHAL() {
     imu_->enable(timeStep_);
     gyro_ = robot_.getGyro("gyro");
     gyro_->enable(timeStep_);
+    accelerometer_ = robot_.getAccelerometer("accelerometer");
+    accelerometer_->enable(timeStep_);
+
+    pen_ = robot_.getPen("pen");
+    pen_->write(true);
 
     // Start-Kalibrierung des simulierten GY-521/MPU-6050-Bias HIER im
     // Konstruktor, nicht erst beim ersten getGyroZ()-Aufruf: an dieser
@@ -73,11 +78,39 @@ void WebotsHAL::calibrateGyro() {
     }
     if (n > 0) gyroBiasEstimate_ = sum / static_cast<float>(n);
 }
+void WebotsHAL::updateImuErrors() {
+    const float dt = timeStep_ * 0.001f;
+    if (!imuErrInit_) {
+        accelTurnOnBias_ = ACCEL_TURNON_BIAS_STD * unitNormal_(imuRng_);
+        imuErrInit_ = true;
+    }
+    // Random Walk: Varianz waechst linear mit der Zeit
+    const float s = std::sqrt(dt);
+    accelWalk_ += ACCEL_BIAS_WALK * s * unitNormal_(imuRng_);
+    gyroWalk_  += GYRO_BIAS_WALK  * s * unitNormal_(imuRng_);
+
+    // Erwaermung nach dem Einschalten
+    const float dT = WARMUP_DELTA_T * (1.0f - std::exp(-getTime() / WARMUP_TAU));
+
+    // Vibration ~ mittlere Radgeschwindigkeit (Sollwert genuegt)
+    const float vib = 0.5f * (std::fabs(appliedLeft_) + std::fabs(appliedRight_));
+    const float sigma = std::sqrt(ACCEL_NOISE_STD * ACCEL_NOISE_STD
+                                + (ACCEL_VIB_GAIN * vib) * (ACCEL_VIB_GAIN * vib));
+
+    accelError_ = accelTurnOnBias_ + accelWalk_ + ACCEL_TEMP_COEF * dT
+                + sigma * unitNormal_(imuRng_);
+    gyroDriftError_ = gyroWalk_ + GYRO_TEMP_COEF * dT;
+}
 
 bool WebotsHAL::step() {
     const bool ok = robot_.step(timeStep_) != -1;
-    if (ok) updateMotorControl();
+    if (ok) { updateMotorControl(); updateImuErrors(); }
     return ok;
+}
+
+float WebotsHAL::getForwardAcceleration() {
+    const double* a = accelerometer_->getValues();
+    return -static_cast<float>(a[2]) + accelError_;
 }
 
 void WebotsHAL::setLeftSpeed(float radPerSec) {
@@ -90,6 +123,10 @@ void WebotsHAL::setLeftSpeed(float radPerSec) {
 
 void WebotsHAL::setRightSpeed(float radPerSec) {
     commandedRight_ = radPerSec;
+}
+
+float WebotsHAL::getCommandedSpeed(WheelId wheel) {
+    return wheel == WHEEL_LEFT ? commandedLeft_ : commandedRight_;
 }
 
 // Simuliert die Motorregelung einer Seite: Open-Loop reicht das Kommando
@@ -173,7 +210,7 @@ float WebotsHAL::getGyroZ() {
     // Rauschen aufpraegen, dann den im Konstruktor (calibrateGyro())
     // ermittelten Bias-Schaetzwert wieder abziehen (siehe Kommentar dort
     // und in webots_hal.h).
-    const float measured = raw + GYRO_BIAS_RAD + gyroNoise_(gyroRng_);
+    const float measured = raw + GYRO_BIAS_RAD + gyroDriftError_ + gyroNoise_(gyroRng_);
     return measured - gyroBiasEstimate_;
 }
 
@@ -226,37 +263,57 @@ bool WebotsHAL::getButtonState() {
     return simulateButtonPress(0.5f);
 }
 
-void WebotsHAL::wait(float duration) {
-    if (duration <= 0.0f) {
-        return;
-    }
-
-    const float startTime = getTime();
-    while (getTime() - startTime < duration) {
-        if (robot_.step(timeStep_) == -1) {
-            return;
-        }
-        updateMotorControl();
-    }
-
-    std::cout << "[HAL] wait completed. Duration: " << duration << " s" << std::endl;
-}
-
 void WebotsHAL::setServoPosition(int servoId, int position) {
-    // In der Simulation wird die Servo-Position ueber das PROTO-Field
-    // "servoPosition" gesetzt. Das PROTO-Field ist ein int, der die Position
-    // in Grad angibt. Daher kann hier direkt der int-Wert uebergeben werden.
     switch (servoId) {
         case 0: // Lifter
+            activeCoaster_ = std::clamp(position / 45, 0, 3);
             std::cout << "[HAL] set Lifter Servo Position: " << position << " degrees" << std::endl;
+            if (pickupPending_) {
+                //setCoasterVisible(activeCoaster_, false);
+                pickupPending_ = false;
+            }
             break;
         case 1: // Spender
             std::cout << "[HAL] set Spender Servo Position: " << position << " degrees" << std::endl;
+            if (position == 90) {
+                //setCoasterVisible(activeCoaster_, true);
+            } else if (position == 180) {
+                pickupPending_ = true;
+            }
             break;
         default:
             std::cout << "[HAL] Unknown Servo ID: " << servoId << std::endl;
             break;
     }
+}
+
+void WebotsHAL::setCoasterVisible(int coasterIndex, bool visible) {
+    static constexpr double coasterPositions[4][3] = {
+        {-0.574, -0.345, 0.744},
+        { 0.574, -0.345, 0.744},
+        { 0.574,  0.345, 0.744},
+        {-0.574,  0.345, 0.744}
+    };
+    static constexpr double hiddenPosition[3] = {0.0, 0.0, -1.0};
+
+    if (coasterIndex < 0 || coasterIndex >= 4) {
+        return;
+    }
+
+    const std::string defName = "COASTER_" + std::to_string(coasterIndex);
+    webots::Node* coaster = robot_.getFromDef(defName);
+    if (!coaster) {
+        std::cerr << "[HAL] missing world node: " << defName << std::endl;
+        return;
+    }
+
+    webots::Field* translation = coaster->getField("translation");
+    if (!translation) {
+        std::cerr << "[HAL] missing translation field: " << defName << std::endl;
+        return;
+    }
+
+    translation->setSFVec3f(visible ? coasterPositions[coasterIndex] : hiddenPosition);
 }
 
 

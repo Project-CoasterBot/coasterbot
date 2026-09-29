@@ -43,6 +43,11 @@ public:
     virtual void setLeftSpeed(float radPerSec) = 0;
     virtual void setRightSpeed(float radPerSec) = 0;
 
+    // Zuletzt kommandierte Radgeschwindigkeit [rad/s] (KEIN Messwert, nur der
+    // gespeicherte Sollwert der letzten setLeft/RightSpeed()-Aufrufe).
+    // Wird zur Stillstandserkennung genutzt
+    virtual float getCommandedSpeed(WheelId wheel) = 0;
+
     // Distanzsensoren.
     //   getUltrasonicDistance() -> Meter, kleiner = naeher (analoger Sensor)
     //   getEdge*()              -> true = Kante erkannt (kein Boden unter dem
@@ -67,6 +72,7 @@ public:
     // IMU
     virtual float getYaw() = 0;    // Rotation um die Hochachse [rad]
     virtual float getGyroZ() = 0;  // Winkelgeschwindigkeit um Hochachse [rad/s]
+    virtual float getForwardAcceleration() = 0;  // Vorwaerts-Beschleunigung [m/s^2]
 
     // Odometrie: akkumulierter Drehwinkel EINER Seite [rad], positiv =
     // vorwaerts. Webots: WebotsHAL mittelt intern die zwei PositionSensor
@@ -81,7 +87,6 @@ public:
     // Weitere Hilfsfunktionen, die die aktuelle Implementierung bereits nutzt.
     virtual bool getButtonState() = 0;
     virtual bool simulateButtonPress(float duration) = 0;
-    virtual void wait(float duration) = 0;
     virtual void setServoPosition(int servoId, int position) = 0;
     virtual void led(LED_COLORS color) = 0;
 };

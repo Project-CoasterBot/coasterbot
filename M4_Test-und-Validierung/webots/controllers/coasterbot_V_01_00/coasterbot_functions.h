@@ -39,10 +39,10 @@ class CoasterbotFunctions : public RobotLogic {
     bool runSpendCoasters();
     bool runGetCoasters();
     bool runCollectCoasters() { return runGetCoasters(); }
+    bool goToCenter();
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
-    bool spendCoaster(int coasterIndex);
-    bool pickCoaster(int coasterIndex);
     void runDriveTest();
+    bool blocklessWait(float duration);
     void led(RobotHAL::LED_COLORS color) { hal_.led(color); }
     std::vector<Vec2> getCoasterPositions(int coasterIndex);
 
@@ -57,8 +57,14 @@ class CoasterbotFunctions : public RobotLogic {
     float tableWidth_ = 0.0f;
     float tableHeight_ = 0.0f;
     Vec2 navigationTarget_{};
+    Vec2 navigationWaypoint_{};
+    Vec2 navigationSegmentStart_{};
     float navigationInitialDistance_ = 0.0f;  // [m]
+    float navigationSegmentHeading_ = 0.0f;   // [rad]
+    float navigationSegmentLength_ = 0.0f;    // [m]
     bool navigationTargetInitialized_ = false;
+    bool navigationWaypointInitialized_ = false;
+    bool navigationWaypointIsFinal_ = false;
     int edgeInterruptions_ = 0;
     bool edgeStopLatched_ = false;
     bool edgeWasActive_ = false;
@@ -68,15 +74,28 @@ class CoasterbotFunctions : public RobotLogic {
     bool coasterRoutineActive_ = false;
     bool coasterRoutineFailed_ = false;
     int coasterRoutineIndex_ = 0;
-    float robotBoundingBoxWidth_ = 0.1f;  // [m]
-    float robotBoundingBoxLength_ = 0.1f; // [m]
+    enum class CoasterRoutinePhase {
+        TRAVEL,
+        SETTLE,
+        SPEND_WAIT_LIFTER,
+        SPEND_WAIT_SPENDER,
+        GET_WAIT_SPENDER_OUT,
+        GET_WAIT_SPENDER_HOME
+    };
+    CoasterRoutinePhase coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+    float coasterRoutinePhaseStartedAt_ = 0.0f;
+    float robotBoundingBoxWidth_ = 0.2f;  // [m]
+    float robotBoundingBoxLength_ = 0.2f; // [m]
     float obstacleRecoveryDirection_ = 1.0f;
+    float lastTimer_ = 0.0f;
+    bool resetLastTimer_ = true;
 
     void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
     void rebuildNavigationGrid();
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
     static constexpr float HALF_PI = 1.57079632679489661923f;
+    static constexpr float ACCEPTED_BIAS = 0.005f;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
     const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)

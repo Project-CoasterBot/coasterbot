@@ -53,8 +53,8 @@ private:
     // bereits ein kalibriertes bool (siehe RobotHAL::getEdgeFrontLeft() &
     // Co.) - hier braucht es dafuer keinen eigenen Schwellenwert mehr.
     static constexpr float OBSTACLE_THRESHOLD_M = 0.22f; // Meter (> Wende-Schwenkradius ~0.16 m)
-    static constexpr float CRUISE_SPEED = 6.0f;        // rad/s
-    static constexpr float TURN_SPEED = 4.0f;          // rad/s
+    static constexpr float CRUISE_SPEED = 4.0f;        // rad/s
+    static constexpr float TURN_SPEED = 1.0f;          // rad/s
     static constexpr float REVERSE_DURATION = 0.6f;    // s
     static constexpr float TURN_DURATION = 0.8f;        // s
 

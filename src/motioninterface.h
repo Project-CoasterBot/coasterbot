@@ -93,6 +93,11 @@ public: // motion setters - these only record the request, update() carries it o
   void turnLeft() { _requested = TURNINGLEFT; }
   void turnRight() { _requested = TURNINGRIGHT; }
 
+  bool forwardRequested() const { return _requested == FORWARD; }
+  bool backwardRequested() const { return _requested == BACKWARD; }
+  bool turnLeftRequested() const { return _requested == TURNINGLEFT; }
+  bool turnRightRequested() const { return _requested == TURNINGRIGHT; }
+
   /// Speed of both sides, they share the pwm pin. Takes effect immediately, no transition needed.
   void setSpeed(uint8_t speed) {
     if (_speed == speed) return;

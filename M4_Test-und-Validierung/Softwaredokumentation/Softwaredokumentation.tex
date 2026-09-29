@@ -416,6 +416,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 8 & 16.09.2026 & Etringer & Gyro-Schnittstelle um Hardware-Hinweise ergänzt (Kalibrierung, Skid-Steer)\\
 9 & 20.09.2026 & Etringer & Inertialsensor (GY-521/MPU6050) in \texttt{WebotsHAL::getGyroZ()} simuliert (Abschnitt~\ref{gyro-simulation}); \texttt{randomSeed} fest gesetzt\\
 10 & 21.09.2026 & Etringer & Open-/Closed-Loop-Motorregelung implementiert und verglichen (\texttt{MODE\_MOTOR\_CONTROL\_TEST}, Abschnitt~\ref{motor-control-vergleich})\\
+11 & 28.09.2026 & Such & Besonderheiten der Hardware Implementierung hinzugefügt\\
 \end{longtable}
 
 
@@ -2036,6 +2037,81 @@ eingeschränkt. Offen bleiben außerdem die Validierung gegen den realen
 Prototyp (\texttt{ST-SIM-008}) sowie die Eignung von \texttt{getGyroZ()}
 für eine reale IMU, deren Dater lediglich aus dem Datenblatt entnommen wurden
 und  bislang nicht abschließend beurteilt wurde.
+
+
+
+% =====================================================================
+\section{Implementierung auf Hardware}\label{hardwareimplementierung}
+% =====================================================================
+
+Beim Umsetzen des Hardware-Abstraktions-Layers(HAL) der Simulation auf der realen Raspberry Pi Pico 2 Microcontroller Architektur sind einige Besonderheiten implementiert, die hier beschrieben werden sollen. 
+
+
+\subsection{Non-blocking Implementierung}
+
+Viele Funktionalitäten sind übertragen auf eine Programmiersprache ein einfacher Befehl, der eine Absicht darstellt, was mit dem System passieren soll. Ein Beispiel soll dazu der Befehl "Anhalten" für die Motorsteuerung sein. Ein solcher Befehl muss selbstverständlich auf die Hardware umgelegt werden, er beeinhaltet aber auch ein zeit- sowie zustandsvariantes Verhalten der Komponenten: 
+
+\begin{itemize}
+	\item Wenn sich das System derzeit nicht bewegt, muss nichts weiter unternommen werden
+	\item Wenn sich das System derzeit vorwärts bewegt müssen die Motoren zunächst auf Bremsen gesetzt werden, dieser Zustand muss für eine gewisse Zeit gehalten werden, möglicherweise abhängig von der vorherigen Geschwindigkeit, anschließend kann die Motorsteuerung in einen Idle Zustand gesetzt werden. 
+\end{itemize}
+
+Dieses Verhalten kann selbstverständlich sequentiell mit einer Wartezeit implementiert werden, im Arduino Befehlssatz wäre dies ein \texttt{delay(unsigned milliseconds);} Befehl. Ein solches Delay hat aber den Nachteil, dass alle weiteren Aufgaben während dieser Wartezeit ebenfalls unterbrochen werden und die Ansteuerung nicht responsiv ist. 
+
+Eine Lösung für dieses Verhalten, die im vorliegenden Projekt so implementiert wurde, ist eine State-Machine mit automatischen und zeitabhängigen Zustandswechseln. In der Hauptroutine wird nach dem Auswerten aller Sensordaten für die Motorsteuerung lediglich die Absicht gesetzt, z.B. \texttt{motor\_control.stop();}. Die Methode Stop setzt dann wiederum nur einen internen Zustandsautomaten auf einen \texttt{Stop} Zustand. Unabhängig von der gesetzten Absicht wird mit jeder Iteration der Hauptroutine eine \texttt{motor\_control.update();} Methode aus der Hauptroutine aufgerufen, in der die eigentlichen Änderungen vorgenommen werden. Hier wird dem Zustand entsprechend weiter vorgegangen:
+
+\begin{itemize}
+	\item Wenn \texttt{Zustand == Stop}, dann setze Motoren auf Bremsen, speichere den aktuellen Zeitstempel in \texttt{\_stop\_begin} und setze Zustand auf \texttt{Stopping}. 
+	\item Wenn \texttt{Zustand == Stopping}, dann prüfe ob aktueller Zeitstempel größer als \texttt{\_stop\_begin + \_stop\_duration} ist. Falls nein return. Falls ja, dann setze Motoren auf Idle und setze Zustand auf \texttt{Idle}. 	 
+\end{itemize}
+
+Durch eine solche interne Logik bedarf es keiner Delays, alle Komponenten bleiben responsiv und es wird dennoch nur wirklich mit der Hardware interagiert, wenn es notwendig ist. In der Praxis wird dies etwas komplexer durch die folgenden gespeicherten Zustände implementiert:
+
+\begin{verbatim}
+enum Motion { STOPPED, FORWARD, BACKWARD, TURNINGLEFT, TURNINGRIGHT }; // Possible device motion
+  enum Phase { // current state
+    UNINITIALIZED, // begin() has not run yet, update() keeps its hands off the pins
+    IDLE,          // at rest, driver on standby, no deadline
+    BRAKING,       // both sides shorted with the driver still enabled, until _deadline
+    COASTING,      // driver released, dead time after braking, until _deadline
+    ARMING,        // direction pins already set, driver still released, until _deadline
+    RUNNING        // driver enabled, the wheels do what was requested
+  };
+
+  Phase _phase {UNINITIALIZED};
+  Motion _requested {STOPPED}; // what the main loop asked for
+  Motion _applied {STOPPED};   // what is currently wired to the driver inputs
+  Motion _driven {STOPPED};    // what was last engaged, still valid while braking and coasting down
+\end{verbatim}
+
+Die Zustände sind also geringfügig komplexer und es wird zwischen interner Statemachine und einer extern angefragten Absicht unterschieden. Zum Zwecke der Übersichtlichkeit wurde dies aber im obigen Beispiel etwas vereinfacht. 
+
+Das Prinzip des non-blocking Verhaltens ist in allen Software Komponenten umgesetzt. So ist es z.B. auch möglich während des Bremsvorgangs weiter Sensorwerte auszuwerten, wie z.B. den Inertialsensor, oder ein Blinken der LED zeitkorrekt aufrechtzuerhalten. 
+
+
+
+\subsection{Inertialsystem Normierung}
+
+Das Inertialsystem wurde mit dem Sensor MPH-6050 implementiert. Dieser ist über I$^2$C angebunden und liefert Beschleunigungswerte für eine x, y und z Richtung, sowie drei Winkelbeschleunigungen für diese Achsen. Die rohen Werte werden dann als int16 big endian Werte geliefert, werden dann mit $\sfrac{1}{8192}$ normiert und sind dann als Vielfache der Erdbeschleunigung $g = 9.81 \sfrac{m}{s^2}$ zu interpretieren. Problematisch bei diesen Werten ist allerdings, dass die rohen Sensorwerte mit einem Mittelwert ungleich 0 behaftet sind(Bias), sowie die Lage des Sensors nicht eineindeutig im Raum ist(Orientierung). Dies ist normales Grundverhalten des Sensors und muss softwareseitig ausgeglichen werden. 
+
+Es bedarf also bei Systemstart sowie im gebremsten Idle Zustand einer fortlaufenden Messung und Berechnung des Bias Wertes auf Basis der rohen Messwerte. Dieser Bias Wert muss also von jedem Messwert anschließend zunächst abgezogen werden. Praktisch erfolgt dies bei Initialisierung über fortlaufende Messungen für 500 Millisekunden, in denen die Messungen akkumuliert und anschließend durch die Anzahl der Messungen geteilt werden. Dieser Roh-Wert wird im laufenden Betrieb dann immer von den aktuellen Messungen subtrahiert. Wenn die Motorsteuerung im Zustand \texttt{Idle} ist wird wiederum ein Flag des Inertialsystems gesetzt, wodurch die nächste Messung, falls der Sensor tatsächlich für einige Zeit nicht weiter beschleunigt wurde, mit einem Tiefpass Filter auf den aktuellen Bias Wert zugerechnet wird:
+
+\begin{verbatim}
+	constexpr float bias_alpha = 0.005f;
+	_bias_x += bias_alpha * (x_value - _bias_x);
+	_bias_y += bias_alpha * (y_value - _bias_y);
+	_bias_z += bias_alpha * (z_value - _bias_z);
+\end{verbatim}
+
+
+Die Orientierung des Sensors ist auf der Hardwareanordnung niemals perfekt symmetrisch, dies muss in der Kalibrierungsphase zu Beginn vermessen werden. Dazu wird die Rodrigues-Formel\footnote{\url{https://de.wikipedia.org/wiki/Rodrigues-Formel}} genutzt und der maximale Sensorwert in Richtung der z-Achse normiert, was der Erdbeschleunigung entspricht.   
+
+Die somit normalisierten und reorientierten Beschleunigungswerte können nun zur Inertialnavigation genutzt werden. Dazu werden die Beschleunigungswerte bei Vorwärts- oder Rückwärtsfahrt mit linearer Approximation zu Geschwindigkeitswerten integriert, aus welchen sich wiederum die aktuelle Position ergibt. Die bei der Integration entstehenden Fehler sind nicht unerheblich und führen zu einer Unsicherheit auf den Positionsdaten, innerhalb der biherigen Hardwaretests ergab sich der Fehler aber als akzeptabel.      
+
+
+
+
+
 
 % =====================================================================
 \section{Anhang A: Schnittstelle \texttt{RobotHAL}}\label{anhang-hal}

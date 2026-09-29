@@ -199,7 +199,7 @@ Temporary Items
 *.fls
 *.bbl
 *.blg
-*.run.xml 
+*.run.xml
 *.tex.bak
 *.synctex.gz
 *.fdb_latexmk
@@ -225,3 +225,5 @@ Temporary Items
 
 # lokale Board-Pinbelegung
 boardconfig_local.h
+
+tags

@@ -51,6 +51,7 @@ private:
 
   Motion _requested {STOPPED}; // what the main loop asked for
   Motion _applied {STOPPED};   // what is currently wired to the driver inputs
+  Motion _driven {STOPPED};    // what was last engaged, still valid while braking and coasting down
 
   uint8_t _speed {160};
 
@@ -92,6 +93,11 @@ public: // motion setters - these only record the request, update() carries it o
   void turnLeft() { _requested = TURNINGLEFT; }
   void turnRight() { _requested = TURNINGRIGHT; }
 
+  bool forwardRequested() const { return _requested == FORWARD; }
+  bool backwardRequested() const { return _requested == BACKWARD; }
+  bool turnLeftRequested() const { return _requested == TURNINGLEFT; }
+  bool turnRightRequested() const { return _requested == TURNINGRIGHT; }
+
   /// Speed of both sides, they share the pwm pin. Takes effect immediately, no transition needed.
   void setSpeed(uint8_t speed) {
     if (_speed == speed) return;
@@ -106,6 +112,12 @@ public: // queries
 
   /// True while the driver is enabled and driving the requested motion.
   bool isMoving() const { return _phase == RUNNING; }
+
+  /// True while turning on the spot, including braking and coasting down after it.
+  bool isTurning() const {
+    return (_phase == RUNNING || _phase == BRAKING || _phase == COASTING)
+           && (_driven == TURNINGLEFT || _driven == TURNINGRIGHT);
+  }
 
   uint8_t speed() const { return _speed; }
 
@@ -157,6 +169,7 @@ public: // main loop repeated call
       }
       if (!deadlineReached(curtime)) break;
       digitalWrite(pin_standby, HIGH);
+      _driven = _applied;
       _phase = RUNNING;
       break;
     }

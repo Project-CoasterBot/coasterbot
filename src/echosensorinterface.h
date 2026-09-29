@@ -7,8 +7,8 @@ template<int pin_echo, int pin_trigger, int fetch_interval_milliseconds = 100>
 class EchosensorInterface {
 
     unsigned long _last_read {0};
-    std::optional<double> _curval;
-    double _alpha { 0.7 };
+    std::optional<float> _curval;
+    float _alpha { 0.7 };
 
 public:
     EchosensorInterface() { static_assert(pin_echo >= 0 && pin_trigger >= 0 && pin_echo != pin_trigger); }
@@ -22,7 +22,7 @@ public:
     }
 
     /// Blocking read of the raw sensor value in meter
-    double readCurrentValue() {
+    float readCurrentValue() {
         digitalWrite(pin_trigger, LOW);
         delayMicroseconds(2);
         digitalWrite(pin_trigger, HIGH);
@@ -30,13 +30,13 @@ public:
         digitalWrite(pin_trigger, LOW);
 
         unsigned long duration = pulseIn(pin_echo, HIGH);
-        double distance = (static_cast<double>(duration) * 0.000343) / 2.; // microseconds / sound of speed in m/sec
+        float distance = (static_cast<float>(duration) * 0.000343f) / 2.; // microseconds / sound of speed in m/sec
 
         return distance;
     }
 
     /// Get the averaged value from the most recent measurements nonblockingly.
-    double getAccumulatedValue() {
+    float getAccumulatedValue() {
         if (! _curval.has_value()) {
             _curval = readCurrentValue();
             _last_read = millis();
@@ -56,7 +56,7 @@ public:
         if (now - _last_read < fetch_interval_milliseconds) return; // wait till time passed
 
         // floating average of measurement.
-        double measured = readCurrentValue();
+        float measured = readCurrentValue();
         _curval = measured * _alpha + (1. - _alpha) * _curval.value();
         _last_read = now;
     }

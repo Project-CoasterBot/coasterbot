@@ -68,7 +68,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 
 \section{Allgemeines}
 
-Dieses Dokument beschreibt die Schritte zum Aufbau eines funktionsfähigen Prototypen aus den Komponenten laut Stückliste. Die Einzelkomponenten sowie die Firmware werden in separaten Dokumenten beschrieben. 
+Dieses Dokument beschreibt die Schritte zum Aufbau eines funktionsfähigen Prototypen aus den Komponenten laut Stückliste. Die Einzelkomponenten sowie die Firmware werden in separaten Dokumenten beschrieben.
 
 Folgende Fähigkeiten und Werkzeuge werden für die Montage vorausgesetzt:
 
@@ -83,7 +83,7 @@ Folgende Fähigkeiten und Werkzeuge werden für die Montage vorausgesetzt:
 \end{enumerate}
 
 
-Abbildung \ref{fig:schematic} zeigt die Gesamtschaltung der Elektronik. Die Komponenten sind weitestgehend als Dev-Boards integriert und auch als solche im Schaltplan aufgeführt. Das Dokument BOM beschreibt die jeweiligen Komponenten sowie die Bezugsquelle. 
+Abbildung \ref{fig:schematic} zeigt die Gesamtschaltung der Elektronik. Die Komponenten sind weitestgehend als Dev-Boards integriert und auch als solche im Schaltplan aufgeführt. Das Dokument BOM beschreibt die jeweiligen Komponenten sowie die Bezugsquelle.
 
 \begin{landscape}
 \begin{figure}
@@ -101,9 +101,9 @@ Abbildung \ref{fig:schematic} zeigt die Gesamtschaltung der Elektronik. Die Komp
 
 \subsection{3D Druck des Chassis}
 
-Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl als FreeCAD Projekt als auch fertigen \texttt{.stl} Dateien im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main}} bereitgestellt. Für den einfachen 3D Druck genügen hier die \texttt{.stl} Dateien. 
+Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl als FreeCAD Projekt als auch fertigen \texttt{.stl} Dateien im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main}} bereitgestellt. Für den einfachen 3D Druck genügen hier die \texttt{.stl} Dateien.
 
-Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer \footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden. 
+Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer \footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden.
 
 \includegraphics[scale=1.]{montage_gereon/IMG-20260912-WA0000.jpg}
 
@@ -132,7 +132,7 @@ Nun wird der Mechanismus zur Coasteraufnahme montiert:
 
 \includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073450774.jpg}
 
-Dazu muss der Träger zunächst ohne die Führungsachsen in die Coasteraufnahme eingelegt werden, anschließend werden die Führungsachsen von außen auf der Coasteraufnahme verschraubt. Die Coasteraufnahme hat dazu auf der Oberseite Löcher zum durchführen eines Schraubenziehers. 
+Dazu muss der Träger zunächst ohne die Führungsachsen in die Coasteraufnahme eingelegt werden, anschließend werden die Führungsachsen von außen auf der Coasteraufnahme verschraubt. Die Coasteraufnahme hat dazu auf der Oberseite Löcher zum durchführen eines Schraubenziehers.
 
 \includegraphics[scale=0.06]{montage_gereon/basis_konstrukt/PXL_20260909_073617594.jpg}
 \includegraphics[scale=0.05]{montage_gereon/basis_konstrukt/PXL_20260909_073721737.jpg}
@@ -143,7 +143,7 @@ Dieser Vorgang wird für alle 5 Führungsachsen wiederholt:
 
 
 \begin{warnbox}
-Wenn in den Öffnungen für die Führungsachsen wie in der nachfolgenden Darstellung gezeigt noch Reste des 3D-Drucks sind müssen diese nun entfernt werden, andernfalls ist die Bewegung des Coasterträgers nicht flüßig. 
+Wenn in den Öffnungen für die Führungsachsen wie in der nachfolgenden Darstellung gezeigt noch Reste des 3D-Drucks sind müssen diese nun entfernt werden, andernfalls ist die Bewegung des Coasterträgers nicht flüßig.
 
 \includegraphics[scale=0.10]{montage_gereon/basis_konstrukt/PXL_20260909_074048115.jpg}
 \end{warnbox}
@@ -160,13 +160,13 @@ An diesem wird nun der Zugträger des Coasteraufnahmemechanimus befestigt:
 \includegraphics[scale=0.07]{montage_gereon/servo_montage/PXL_20260909_075115487.jpg}
 
 
-Nun muss der zweite Servo in der seitlichen Halteschiene eingesetzt werden. Abhängig vom Servomodell und der zuweilen unterschiedlichen Kabelausführung aus dem Gehäuse kann dies etwas eng werden, ist aber auch in diesen Fällen möglich. Der Servo wird hier ebenfalls fixiert. 
+Nun muss der zweite Servo in der seitlichen Halteschiene eingesetzt werden. Abhängig vom Servomodell und der zuweilen unterschiedlichen Kabelausführung aus dem Gehäuse kann dies etwas eng werden, ist aber auch in diesen Fällen möglich. Der Servo wird hier ebenfalls fixiert.
 
 
 \includegraphics[scale=0.07]{montage_gereon/servo_montage/PXL_20260909_075226995.jpg}
 \includegraphics[scale=0.06]{montage_gereon/servo_montage/PXL_20260909_080007064.jpg}
 
-Anschließend muss der Arm zum Ausschunb der Coaster noch aufgesetzt und verschraubt werden:
+Anschließend muss der Arm zum Ausschub der Coaster noch aufgesetzt und verschraubt werden:
 
 \includegraphics[scale=0.09]{montage_gereon/servo_montage/PXL_20260909_080331090.jpg}
 
@@ -211,7 +211,7 @@ Nun wird das Ultraschallmodul auf der Frontplatte montiert.
 
 \includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185729773.jpg}
 
-Dazu wird das Gehäuse rückseitig mit der mittleren Lochreihe verschraubt. Das Gehäuse des Ultraschall Sensors sollte nun bündig mit der Unterseite der vorderen Außenwand sein, unmittelbar vor der Kabeldurchfürung. 
+Dazu wird das Gehäuse rückseitig mit der mittleren Lochreihe verschraubt. Das Gehäuse des Ultraschall Sensors sollte nun bündig mit der Unterseite der vorderen Außenwand sein, unmittelbar vor der Kabeldurchfürung.
 
 \includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185912814.jpg}
 \includegraphics[scale=0.08]{montage_gereon/echo_sensor/PXL_20260912_185907017.jpg}
@@ -227,7 +227,7 @@ Nun erfolgt die Montage der DC Antriebsmotoren
 
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260907_162144293.jpg}
 
-Falls noch nicht erfolgt bzw. im genutzten Motormodell nicht ohnehin vorhanden werden zunächst an den TT Motoren über die Lötfahnen die 100nF Kondensatoren zum Entstören gelötet. 
+Falls noch nicht erfolgt bzw. im genutzten Motormodell nicht ohnehin vorhanden werden zunächst an den TT Motoren über die Lötfahnen die 100nF Kondensatoren zum Entstören gelötet.
 
 \includegraphics[scale=0.1]{montage_gereon/antrieb_montage/PXL_20260909_081137444.jpg}
 
@@ -239,12 +239,12 @@ Die Kondensatoren müssen nach oben gerichtet werden, ansonsten lässt sich der 
 \end{warnbox}
 
 
-Nun wird jeder Motor mit den Streben auf den Seitenplatten montiert und außenseitig verschraubt. 
+Nun wird jeder Motor mit den Streben auf den Seitenplatten montiert und außenseitig verschraubt.
 
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081306481.jpg}
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081443479.jpg}
 
-So wird für beide Seitenwände verfahren. 
+So wird für beide Seitenwände verfahren.
 
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_083634794.jpg}
 
@@ -272,7 +272,7 @@ Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich f�
     \label{fig:protoboard_mask_combined}
 \end{figure}
 
-Das Lochraster Layout wurde mittels der Software DIYLC \footnote{\url{https://github.com/bancika/diy-layout-creator}} erstellt und die Source Dateien finden sich im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/blob/main/M4_Test-und-Validierung/aufbauanleitung/protoboard.diy}}. 
+Das Lochraster Layout wurde mittels der Software DIYLC \footnote{\url{https://github.com/bancika/diy-layout-creator}} erstellt und die Source Dateien finden sich im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/blob/main/M4_Test-und-Validierung/aufbauanleitung/protoboard.diy}}.
 
 \FloatBarrier
 
@@ -281,7 +281,7 @@ Die Platine wird nun bestückt und verdrahtet:
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172856294.jpg}
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172906337.jpg}
 
-Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter montiert. Dabei ist zu beachten, dass der Batterieanschluss (+- BAT) der Platine an der Seite des Batterieträgers montiert wird. 
+Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter montiert. Dabei ist zu beachten, dass der Batterieanschluss (+- BAT) der Platine an der Seite des Batterieträgers montiert wird.
 
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_173108019.jpg}
 
@@ -291,7 +291,7 @@ Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter mon
 \subsection{Programmierung des Microcontrollers}
 
 \begin{warnbox}
-Während der Microcontroller über den USB Port verbunden ist muss die Spannungsversorgung des Coasterbots getrennt werden. Falls der Akku montiert ist muss dieser entfernt werden, andernfalls droht eine Beschädigung des Microcontrollers. 
+Während der Microcontroller über den USB Port verbunden ist muss die Spannungsversorgung des Coasterbots getrennt werden. Falls der Akku montiert ist muss dieser entfernt werden, andernfalls droht eine Beschädigung des Microcontrollers.
 \end{warnbox}
 
 
@@ -299,7 +299,7 @@ Das Microcontroller Board über die boardeigene Micro USB Buchse mit dem Host-PC
 
 Die Firmware befindet sich im Github Repository des Projekts\footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main/src}} und kann von dort bezogen werden.
 
-Die Software wird in der Build-Umgebung mit den folgenden Befehlen der PlatformIO Softwareumgebung kompiliert und an den Microcontroller übertragen. 
+Die Software wird in der Build-Umgebung mit den folgenden Befehlen der PlatformIO Softwareumgebung kompiliert und an den Microcontroller übertragen.
 
 \begin{verbatim}
 $ cd PROJDIR
@@ -307,17 +307,17 @@ $ pio run
 $ pio run --target upload
 \end{verbatim}
 
-Anschließend kann das USB Kabel wieder entfernt werden. 
+Anschließend kann das USB Kabel wieder entfernt werden.
 
 
 \subsection{Sensorik und Steuerung Montage}
 
-Nun werden die Infrarot Module an Front und Rückplatte montiert. Dabei ist auf einen korrekten Abstand sowohl zur Unterseite als auch nach außen zu achten. 
+Nun werden die Infrarot Module an Front und Rückplatte montiert. Dabei ist auf einen korrekten Abstand sowohl zur Unterseite als auch nach außen zu achten.
 
 \includegraphics[scale=0.06]{montage_gereon/gesamt_montage/PXL_20260912_200037860.jpg}
 \includegraphics[scale=0.06]{montage_gereon/gesamt_montage/PXL_20260912_200913185.jpg}
 
-Die Vorderplatte kann nun in das Chassis eingesetzt werden. Dabei ist darauf zu achten, dass die Verbinder nach innen positioniert werden. 
+Die Vorderplatte kann nun in das Chassis eingesetzt werden. Dabei ist darauf zu achten, dass die Verbinder nach innen positioniert werden.
 
 \includegraphics[scale=0.05]{montage_gereon/gesamt_montage/PXL_20260912_200946614.jpg}
 \includegraphics[scale=0.05]{montage_gereon/gesamt_montage/PXL_20260912_201010425.jpg}
@@ -342,7 +342,7 @@ Die Aktorik und Sensorik Module werden zunächst entsprechend dem Schaltplan bzw
 
 \subsection{Schließen des Chassis}
 
-Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abdeckplatte geschlossen und fixiert. 
+Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abdeckplatte geschlossen und fixiert.
 
 \includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082828534.jpg}
 \includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082843487.jpg}
@@ -351,10 +351,10 @@ Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abd
 
 \subsection{Montage der Räder}
 
-Anschließend werden die vier Räder auf die Motoren vorsichtig aufgesteckt. 
+Anschließend werden die vier Räder auf die Motoren vorsichtig aufgesteckt.
 
 \begin{warnbox}
-Vorsicht, der laterale Druck auf das Chassis darf nicht zu hoch sein, da sonst die Seitenwand aus den Stützen brechen können. 
+Vorsicht, der laterale Druck auf das Chassis darf nicht zu hoch sein, da sonst die Seitenwand aus den Stützen brechen können.
 \end{warnbox}
 
 \includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_082942570.jpg}
@@ -364,7 +364,7 @@ Vorsicht, der laterale Druck auf das Chassis darf nicht zu hoch sein, da sonst d
 
 \subsection{Ergebnis}
 
-Beim fertigen Ergebnis sollte darauf geachtet werden, dass der Unterboden nicht schleift sowie der Abstand des Unterbodens bis zur Tischkante kleiner gleich 1.5cm beträgt, andernfalls können die Coaster nicht korrekt aufgenommen werden. 
+Beim fertigen Ergebnis sollte darauf geachtet werden, dass der Unterboden nicht schleift sowie der Abstand des Unterbodens bis zur Tischkante kleiner gleich 1.5cm beträgt, andernfalls können die Coaster nicht korrekt aufgenommen werden.
 
 \includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_082957663.jpg}
 \includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_083006873.jpg}

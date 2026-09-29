@@ -8,6 +8,12 @@ bool HardwareImplementationHAL::userButtonReleased(unsigned& duration_ms) {
     return true;
 }
 
+bool HardwareImplementationHAL::movementPrevented(unsigned long& duration_ms) {
+    if (! _movement_prevented_start_ms.has_value()) return false;
+    duration_ms = millis() - _movement_prevented_start_ms.value();
+    return true;
+}
+
 void HardwareImplementationHAL::initializeHardware() {
     led_board.begin();
     led_board.setModeToRainbow(3000);
@@ -110,6 +116,12 @@ bool HardwareImplementationHAL::step() {
         motion_ctrl.stop();
         movement_prevented = true;
     }
+
+    // if movement is prevented, store time since when
+    if (! movement_prevented)
+        _movement_prevented_start_ms.reset();
+    else if (! _movement_prevented_start_ms.has_value())
+        _movement_prevented_start_ms = millis();
 
     // state evaluation and indicator to the user
     if (! motion_valid)

@@ -15,6 +15,13 @@ enum states {
     COASTERBOT_EMERGENCY_STOP
 };
 
+static void printPose(const char* tag, float t, const PoseEstimator& pose) {
+    std::cout << tag << " t=" << t << "s  pose x=" << pose.getX()
+              << " y=" << pose.getY()
+              << " theta=" << pose.getTheta() * 180.0f / static_cast<float>(M_PI)
+              << " deg  odo=" << pose.getOdometer() << " m" << std::endl;
+}
+
 int main() {
     WebotsHAL hal;
     PoseEstimator pose(hal);
@@ -24,9 +31,16 @@ int main() {
     bool btableLearned = false;
     bool bCoasterOut = false;
     states state = COASTERBOT_SETUP;
-
+    float _lastPosePrint = -1.0f;
     while (hal.step()) {
         coasterbot.update();
+
+        float now = hal.getTime();
+        
+        if (now - _lastPosePrint >= 2.0f) {
+            printPose("[POSE]", now, pose);
+            _lastPosePrint = now;
+        }
 
         switch (state) {
             case COASTERBOT_SETUP:

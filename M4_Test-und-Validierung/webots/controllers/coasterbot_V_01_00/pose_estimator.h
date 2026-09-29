@@ -6,10 +6,10 @@
 // ---------------------------------------------------------------------
 // Schaetzt die Pose (x, y, theta) des Roboters auf der Tischebene.
 //
-// Grundlage: Differential-/Skid-Steer-Odometrie aus den zwei seitenweisen
-// Radwinkeln (RobotHAL::getWheelAngle, ein Wert je Seite) plus Fusion des
-// Kurses mit der integrierten Gyro-Drehrate (RobotHAL::getGyroZ) ueber
-// einen Komplementaerfilter.
+// Die Vorwaertsbewegung wird durch Integration der IMU-Beschleunigung
+// (RobotHAL::getForwardAcceleration) geschaetzt; der Kurs kommt aus der
+// integrierten Gyro-Drehrate (RobotHAL::getGyroZ). Die doppelte Integration
+// der Beschleunigung ist driftanfaellig.
 //
 // Kennt NUR das RobotHAL-Interface -> unveraendert auf einen Arduino
 // portierbar (dort liefern Radencoder die Winkel, ein MPU-6050 die
@@ -31,7 +31,7 @@ public:
     float getY() const { return y_; }             // [m]
     float getTheta() const { return theta_; }     // [rad], (-pi, pi]
 
-    // Gesamte gefahrene Wegstrecke ("Kilometerzaehler") [m].
+    // Aus der IMU-Beschleunigung integrierte Wegstrecke [m].
     float getOdometer() const { return odometer_; }
 
     // Pose auf einen bekannten Wert setzen (z.B. Startpose aus der Welt).
@@ -41,18 +41,20 @@ private:
     RobotHAL& hal_;
 
     // Radgeometrie aus Coasterbot.proto.
-    static constexpr float WHEEL_RADIUS = 0.035f;  // [m]
+    static constexpr float WHEEL_RADIUS = 0.0325f;  // [m]
     static constexpr float TRACK_WIDTH  = 0.202f;  // [m], Abstand linke<->rechte Raeder
 
     // Komplementaerfilter: Gewicht der Rad-Odometrie am Kurs-Inkrement.
     // 0 = nur Gyro, 1 = nur Odometrie. Skid-Steer schlupft beim Drehen,
     // daher ueberwiegend dem Gyro vertrauen.
-    static constexpr float HEADING_ODO_WEIGHT = 0.05f;
+    static constexpr float HEADING_ODO_WEIGHT = 0.0f;
 
     bool  initialized_ = false;
     float prevLeft_ = 0.0f;   // [rad] gemittelte linke Radwinkel
     float prevRight_ = 0.0f;  // [rad] gemittelte rechte Radwinkel
     float prevTime_ = 0.0f;   // [s]
+    float prevForwardAcceleration_ = 0.0f;  // [m/s^2]
+    float forwardVelocity_ = 0.0f;          // [m/s], aus der IMU integriert
 
     float x_ = 0.0f;
     float y_ = 0.0f;

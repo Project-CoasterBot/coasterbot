@@ -2,12 +2,16 @@
 #define WEBOTS_HAL_H
 
 #include "robot_hal.h"
-#include <webots/Robot.hpp>
+#include <webots/Supervisor.hpp>
+#include <webots/Node.hpp>
+#include <webots/Field.hpp>
 #include <webots/Motor.hpp>
 #include <webots/PositionSensor.hpp>
 #include <webots/DistanceSensor.hpp>
 #include <webots/InertialUnit.hpp>
 #include <webots/Gyro.hpp>
+#include <webots/Accelerometer.hpp>
+#include <webots/Pen.hpp>
 #include <cstdint>
 #include <random>
 
@@ -34,10 +38,10 @@ public:
     bool  getEdgeRearRight() override;
     float getYaw() override;
     float getGyroZ() override;
+    float getForwardAcceleration() override;
     float getWheelAngle(WheelId wheel) override;
     float getTime() override;
     bool getButtonState() override;
-    void wait(float duration) override;
     void setServoPosition(int servoId, int position) override;
 
     using LED_COLORS = RobotHAL::LED_COLORS;
@@ -65,8 +69,10 @@ public:
     float measuredRightSpeed() const { return measuredRight_; }
 
 private:
-    webots::Robot robot_;
+    webots::Supervisor robot_;
     int timeStep_;
+    int activeCoaster_ = 0;
+    bool pickupPending_ = false;
 
     // Je ein Handle pro Seite. Die Motoren einer Seite sind im PROTO
     // gekoppelt ("coupled motors"), ein Befehl an dieses Handle treibt
@@ -91,6 +97,9 @@ private:
 
     webots::InertialUnit* imu_;
     webots::Gyro* gyro_;
+    webots::Accelerometer* accelerometer_;
+
+    webots::Pen* pen_;
 
     // Die Kantensensoren liefern in der Simulation bereits ein digitales
     // Signal (siehe Coasterbot.proto-lookupTable: 0 oder 1, kein analoger
@@ -102,6 +111,7 @@ private:
     // Konstante an, falls das reale Sensormodul aktiv-low ist.
     static constexpr bool EDGE_ACTIVE_HIGH = true;
     bool digitalEdge(webots::DistanceSensor* sensor) const;
+    void setCoasterVisible(int coasterIndex, bool visible);
 
     // ---------------------------------------------------------------
     // GY-521/MPU-6050-Gyro-Simulation (BOM Pos. 11: "ICQUANZX GY-521

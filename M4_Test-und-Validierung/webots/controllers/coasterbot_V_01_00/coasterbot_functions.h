@@ -40,9 +40,8 @@ class CoasterbotFunctions : public RobotLogic {
     bool runGetCoasters();
     bool runCollectCoasters() { return runGetCoasters(); }
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
-    bool spendCoaster(int coasterIndex);
-    bool pickCoaster(int coasterIndex);
     void runDriveTest();
+    bool blocklessWait(float duration);
     void led(RobotHAL::LED_COLORS color) { hal_.led(color); }
     std::vector<Vec2> getCoasterPositions(int coasterIndex);
 
@@ -68,9 +67,21 @@ class CoasterbotFunctions : public RobotLogic {
     bool coasterRoutineActive_ = false;
     bool coasterRoutineFailed_ = false;
     int coasterRoutineIndex_ = 0;
-    float robotBoundingBoxWidth_ = 0.1f;  // [m]
-    float robotBoundingBoxLength_ = 0.1f; // [m]
+    enum class CoasterRoutinePhase {
+        TRAVEL,
+        SETTLE,
+        SPEND_WAIT_LIFTER,
+        SPEND_WAIT_SPENDER,
+        GET_WAIT_SPENDER_OUT,
+        GET_WAIT_SPENDER_HOME
+    };
+    CoasterRoutinePhase coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+    float coasterRoutinePhaseStartedAt_ = 0.0f;
+    float robotBoundingBoxWidth_ = 0.2f;  // [m]
+    float robotBoundingBoxLength_ = 0.2f; // [m]
     float obstacleRecoveryDirection_ = 1.0f;
+    float lastTimer_ = 0.0f;
+    bool resetLastTimer_ = true;
 
     void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
     void rebuildNavigationGrid();

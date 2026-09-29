@@ -14,6 +14,8 @@ void PoseEstimator::reset(float x, float y, float theta) {
     y_ = y;
     theta_ = wrapAngle(theta);
     odometer_ = 0.0f;
+    forwardVelocity_ = 0.0f;
+    prevForwardAcceleration_ = 0.0f;
     initialized_ = false;  // naechstes update() setzt die Radwinkel-Referenz neu
 }
 
@@ -25,11 +27,13 @@ void PoseEstimator::update() {
     const float left  = hal_.getWheelAngle(WHEEL_LEFT);
     const float right = hal_.getWheelAngle(WHEEL_RIGHT);
     const float now   = hal_.getTime();
+    const float forwardAcceleration = hal_.getForwardAcceleration();
 
     if (!initialized_) {
         prevLeft_ = left;
         prevRight_ = right;
         prevTime_ = now;
+        prevForwardAcceleration_ = forwardAcceleration;
         initialized_ = true;
         return;
     }
@@ -41,8 +45,16 @@ void PoseEstimator::update() {
     prevRight_ = right;
     prevTime_  = now;
 
-    const float dCenter   = 0.5f * (dLeft + dRight);
-    const float dThetaOdo = (dRight - dLeft) / TRACK_WIDTH;
+    //Anpassung zur Integration der Vorwärtsbewegung aus der IMU-Beschleunigung. 
+    //Die doppelte Integration ist driftanfällig, daher wird die Rad-Odometrie nur für die Kursänderung verwendet.
+    float dCenter = 0.0f;
+    if (dt > 1e-6f) {
+        dCenter = forwardVelocity_ * dt
+                + 0.25f * (prevForwardAcceleration_ + forwardAcceleration) * dt * dt;
+        forwardVelocity_ += 0.5f * (prevForwardAcceleration_ + forwardAcceleration) * dt;
+    }
+    prevForwardAcceleration_ = forwardAcceleration;
+    const float dThetaOdo = (dRight - dLeft) / TRACK_WIDTH; // Obsolet, da HEADING_ODO_WEIGHT = 0.0f
 
     // Kurs-Inkrement: Fusion aus Rad-Odometrie und integrierter Gyro-Drehrate.
     float dThetaGyro = dThetaOdo;

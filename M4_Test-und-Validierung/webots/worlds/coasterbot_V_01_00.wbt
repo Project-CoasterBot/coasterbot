@@ -12,8 +12,8 @@ WorldInfo {
   basicTimeStep 16
 }
 Viewpoint {
-  orientation 0.00999934172884754 0.9999008415234486 -0.009915658610961246 1.579299465950243
-  position 0.03224348427089685 0.005946720795401206 4.843140091994471
+  orientation -0.01499695704196131 0.9997221502207588 0.01818553374152895 1.3794731167783425
+  position -0.47163247724351 -0.06297858985250926 5.899619953091365
   followType "Mounted Shot"
 }
 TexturedBackground {
@@ -30,16 +30,89 @@ Coasterbot {
   translation 0 -0.8 0.72
   rotation 1 0 0 1.5708
   controller "coasterbot_V_01_00"
+  supervisor TRUE
+}
+DEF COASTER_0 Solid {
+  translation 0 0 -1
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.94 0.48 0.12
+        roughness 0.55
+        metalness 0.15
+      }
+      geometry Cylinder {
+        radius 0.045
+        height 0.008
+      }
+    }
+  ]
+  name "coaster_0"
+}
+DEF COASTER_1 Solid {
+  translation 0 0 -1
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.94 0.48 0.12
+        roughness 0.55
+        metalness 0.15
+      }
+      geometry Cylinder {
+        radius 0.045
+        height 0.008
+      }
+    }
+  ]
+  name "coaster_1"
+}
+DEF COASTER_2 Solid {
+  translation 0 0 -1
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.94 0.48 0.12
+        roughness 0.55
+        metalness 0.15
+      }
+      geometry Cylinder {
+        radius 0.045
+        height 0.008
+      }
+    }
+  ]
+  name "coaster_2"
+}
+DEF COASTER_3 Solid {
+  translation 0 0 -1
+  rotation 1 0 0 1.5708
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.94 0.48 0.12
+        roughness 0.55
+        metalness 0.15
+      }
+      geometry Cylinder {
+        radius 0.045
+        height 0.008
+      }
+    }
+  ]
+  name "coaster_3"
 }
 BeerBottle {
-  translation -0.21 -0.54 0.72
+  translation -0.99 -0.54 0.72
   name "beer bottle mid"
 }
 FlowerPot {
-  translation -0.68 0.7 0.715
+  translation -1.26 0.7 0.045
 }
 BeerBottle {
-  translation 0.31 -0.16 0.72
+  translation 0.83 -0.16 0.72
   name "beer bottle corner"
 }
 Solid {

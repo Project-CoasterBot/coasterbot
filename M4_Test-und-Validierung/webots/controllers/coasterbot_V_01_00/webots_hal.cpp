@@ -46,6 +46,11 @@ WebotsHAL::WebotsHAL() {
     imu_->enable(timeStep_);
     gyro_ = robot_.getGyro("gyro");
     gyro_->enable(timeStep_);
+    accelerometer_ = robot_.getAccelerometer("accelerometer");
+    accelerometer_->enable(timeStep_);
+
+    pen_ = robot_.getPen("pen");
+    pen_->write(true);
 
     // Start-Kalibrierung des simulierten GY-521/MPU-6050-Bias HIER im
     // Konstruktor, nicht erst beim ersten getGyroZ()-Aufruf: an dieser
@@ -177,6 +182,12 @@ float WebotsHAL::getGyroZ() {
     return measured - gyroBiasEstimate_;
 }
 
+float WebotsHAL::getForwardAcceleration() {
+    // Die Roboterfront liegt in lokaler -Z-Richtung; ebene Fahrt voraus ist daher -a_z.
+    const double* acceleration = accelerometer_->getValues();
+    return -static_cast<float>(acceleration[2]);
+}
+
 float WebotsHAL::getWheelAngle(WheelId wheel) {
     // Konvention: positiv = vorwaerts. Der PositionSensor dreht mit dem
     // (invertierten) Motor mit, daher hier ebenfalls negieren.
@@ -226,37 +237,57 @@ bool WebotsHAL::getButtonState() {
     return simulateButtonPress(0.5f);
 }
 
-void WebotsHAL::wait(float duration) {
-    if (duration <= 0.0f) {
-        return;
-    }
-
-    const float startTime = getTime();
-    while (getTime() - startTime < duration) {
-        if (robot_.step(timeStep_) == -1) {
-            return;
-        }
-        updateMotorControl();
-    }
-
-    std::cout << "[HAL] wait completed. Duration: " << duration << " s" << std::endl;
-}
-
 void WebotsHAL::setServoPosition(int servoId, int position) {
-    // In der Simulation wird die Servo-Position ueber das PROTO-Field
-    // "servoPosition" gesetzt. Das PROTO-Field ist ein int, der die Position
-    // in Grad angibt. Daher kann hier direkt der int-Wert uebergeben werden.
     switch (servoId) {
         case 0: // Lifter
+            activeCoaster_ = std::clamp(position / 45, 0, 3);
             std::cout << "[HAL] set Lifter Servo Position: " << position << " degrees" << std::endl;
+            if (pickupPending_) {
+                //setCoasterVisible(activeCoaster_, false);
+                pickupPending_ = false;
+            }
             break;
         case 1: // Spender
             std::cout << "[HAL] set Spender Servo Position: " << position << " degrees" << std::endl;
+            if (position == 90) {
+                //setCoasterVisible(activeCoaster_, true);
+            } else if (position == 180) {
+                pickupPending_ = true;
+            }
             break;
         default:
             std::cout << "[HAL] Unknown Servo ID: " << servoId << std::endl;
             break;
     }
+}
+
+void WebotsHAL::setCoasterVisible(int coasterIndex, bool visible) {
+    static constexpr double coasterPositions[4][3] = {
+        {-0.574, -0.345, 0.744},
+        { 0.574, -0.345, 0.744},
+        { 0.574,  0.345, 0.744},
+        {-0.574,  0.345, 0.744}
+    };
+    static constexpr double hiddenPosition[3] = {0.0, 0.0, -1.0};
+
+    if (coasterIndex < 0 || coasterIndex >= 4) {
+        return;
+    }
+
+    const std::string defName = "COASTER_" + std::to_string(coasterIndex);
+    webots::Node* coaster = robot_.getFromDef(defName);
+    if (!coaster) {
+        std::cerr << "[HAL] missing world node: " << defName << std::endl;
+        return;
+    }
+
+    webots::Field* translation = coaster->getField("translation");
+    if (!translation) {
+        std::cerr << "[HAL] missing translation field: " << defName << std::endl;
+        return;
+    }
+
+    translation->setSFVec3f(visible ? coasterPositions[coasterIndex] : hiddenPosition);
 }
 
 

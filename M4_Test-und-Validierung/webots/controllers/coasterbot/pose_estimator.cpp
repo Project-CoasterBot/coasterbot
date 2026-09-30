@@ -1,60 +1,65 @@
-#include "pose_estimator.h"
-#include <cmath>
+#ifndef POSE_ESTIMATOR_H
+#define POSE_ESTIMATOR_H
 
-PoseEstimator::PoseEstimator(RobotHAL& hal) : hal_(hal) {}
+#include "robot_hal.h"
 
-float PoseEstimator::wrapAngle(float a) {
-    while (a > static_cast<float>(M_PI))  a -= 2.0f * static_cast<float>(M_PI);
-    while (a <= -static_cast<float>(M_PI)) a += 2.0f * static_cast<float>(M_PI);
-    return a;
-}
+// ---------------------------------------------------------------------
+// Schaetzt die Pose (x, y, theta) des Roboters auf der Tischebene.
+//
+// Grundlage: Differential-/Skid-Steer-Odometrie aus den zwei seitenweisen
+// Radwinkeln (RobotHAL::getWheelAngle, ein Wert je Seite) plus Fusion des
+// Kurses mit der integrierten Gyro-Drehrate (RobotHAL::getGyroZ) ueber
+// einen Komplementaerfilter.
+//
+// Kennt NUR das RobotHAL-Interface -> unveraendert auf einen Arduino
+// portierbar (dort liefern Radencoder die Winkel, ein MPU-6050 die
+// Drehrate).
+//
+// Konvention: x nach vorne (lokale Startausrichtung), y nach links,
+// theta = 0 in Startrichtung, positiv = Linksdrehung (mathematisch
+// positiv, gegen den Uhrzeigersinn von oben gesehen).
+// ---------------------------------------------------------------------
+class PoseEstimator {
+public:
+    explicit PoseEstimator(RobotHAL& hal);
 
-void PoseEstimator::reset(float x, float y, float theta) {
-    x_ = x;
-    y_ = y;
-    theta_ = wrapAngle(theta);
-    odometer_ = 0.0f;
-    initialized_ = false;  // naechstes update() setzt die Radwinkel-Referenz neu
-}
+    // Einmal pro Regelzyklus aufrufen (nach hal.step()).
+    void update();
 
-void PoseEstimator::update() {
-    // Je ein Encoderwert pro Seite (RobotHAL::getWheelAngle) - real gibt es
-    // hier ohnehin nur einen Sensor je Seite; eine etwaige Mittelung ueber
-    // mehrere Raeder derselben Seite ist Sache der jeweiligen HAL-
-    // Implementierung (siehe WebotsHAL::getWheelAngle).
-    const float left  = hal_.getWheelAngle(WHEEL_LEFT);
-    const float right = hal_.getWheelAngle(WHEEL_RIGHT);
-    const float now   = hal_.getTime();
+    // Aktuelle Schaetzung.
+    float getX() const { return x_; }             // [m]
+    float getY() const { return y_; }             // [m]
+    float getTheta() const { return theta_; }     // [rad], (-pi, pi]
 
-    if (!initialized_) {
-        prevLeft_ = left;
-        prevRight_ = right;
-        prevTime_ = now;
-        initialized_ = true;
-        return;
-    }
+    // Gesamte gefahrene Wegstrecke ("Kilometerzaehler") [m].
+    float getOdometer() const { return odometer_; }
 
-    const float dLeft  = (left  - prevLeft_)  * WHEEL_RADIUS;  // [m] Wegstrecke links
-    const float dRight = (right - prevRight_) * WHEEL_RADIUS;  // [m] Wegstrecke rechts
-    const float dt     = now - prevTime_;
-    prevLeft_  = left;
-    prevRight_ = right;
-    prevTime_  = now;
+    // Pose auf einen bekannten Wert setzen (z.B. Startpose aus der Welt).
+    void reset(float x = 0.0f, float y = 0.0f, float theta = 0.0f);
 
-    const float dCenter   = 0.5f * (dLeft + dRight);
-    const float dThetaOdo = (dRight - dLeft) / TRACK_WIDTH;
+private:
+    RobotHAL& hal_;
 
-    // Kurs-Inkrement: Fusion aus Rad-Odometrie und integrierter Gyro-Drehrate.
-    float dThetaGyro = dThetaOdo;
-    if (dt > 1e-6f)
-        dThetaGyro = hal_.getGyroZ() * dt;
-    const float dTheta = HEADING_ODO_WEIGHT * dThetaOdo
-                       + (1.0f - HEADING_ODO_WEIGHT) * dThetaGyro;
+    // Radgeometrie aus Coasterbot.proto.
+    static constexpr float WHEEL_RADIUS = 0.035f;  // [m]
+    static constexpr float TRACK_WIDTH  = 0.202f;  // [m], Abstand linke<->rechte Raeder
 
-    // Integration ueber den mittleren Kurs des Schritts (2nd-order Runge-Kutta).
-    const float midTheta = theta_ + 0.5f * dTheta;
-    x_ += dCenter * std::cos(midTheta);
-    y_ += dCenter * std::sin(midTheta);
-    theta_ = wrapAngle(theta_ + dTheta);
-    odometer_ += std::fabs(dCenter);
-}
+    // Komplementaerfilter: Gewicht der Rad-Odometrie am Kurs-Inkrement.
+    // 0 = nur Gyro, 1 = nur Odometrie. Skid-Steer schlupft beim Drehen,
+    // daher ueberwiegend dem Gyro vertrauen.
+    static constexpr float HEADING_ODO_WEIGHT = 0.05f;
+
+    bool  initialized_ = false;
+    float prevLeft_ = 0.0f;   // [rad] gemittelte linke Radwinkel
+    float prevRight_ = 0.0f;  // [rad] gemittelte rechte Radwinkel
+    float prevTime_ = 0.0f;   // [s]
+
+    float x_ = 0.0f;
+    float y_ = 0.0f;
+    float theta_ = 0.0f;
+    float odometer_ = 0.0f;
+
+    static float wrapAngle(float a);
+};
+
+#endif  // POSE_ESTIMATOR_H

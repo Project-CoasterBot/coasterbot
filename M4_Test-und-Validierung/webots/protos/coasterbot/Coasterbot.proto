@@ -381,7 +381,7 @@ PROTO Coasterbot [
         name "pen"
         inkColor 1 0 0
         inkDensity 0.9
-        leadSize 0.01
+        leadSize 0.005
         maxDistance 0.05
         write FALSE
       }

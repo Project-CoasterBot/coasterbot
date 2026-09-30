@@ -39,6 +39,7 @@ protected: // evaluated state
     float _speed_left {0.}, _speed_right {0.};
 
     std::optional<unsigned> _button_pressed;
+    std::optional<unsigned long> _movement_prevented_start_ms;
 
 public:
     virtual ~HardwareImplementationHAL() {}
@@ -58,6 +59,8 @@ public: // getters
 
     // debug: get inertial sensor instance
     GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA>& inertialSensor() { return inertial_sensor; }
+
+    bool movementPrevented(unsigned long& duration_ms);
 
 public: // robotHAL implementation
 

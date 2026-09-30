@@ -307,13 +307,30 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 
 	Vec2 waypoint = target;
-	for (size_t i = 1; i < path.size(); ++i) {
-		const float pathDx = path[i].x - pose_.getX();
-		const float pathDy = path[i].y - pose_.getY();
-		if (std::hypot(pathDx, pathDy) >= 0.10f) {
-			waypoint = path[i];
+	const Vec2 currentPosition{pose_.getX(), pose_.getY()};
+	const auto lineIsClear = [this](Vec2 from, Vec2 to) {
+		const float dx = to.x - from.x;
+		const float dy = to.y - from.y;
+		const float distance = std::hypot(dx, dy);
+		const float sampleSpacing = grid_->resolution() * 0.5f;
+		const int samples = std::max(1, static_cast<int>(std::ceil(distance / sampleSpacing)));
+		for (int sample = 0; sample <= samples; ++sample) {
+			const float fraction = static_cast<float>(sample) / static_cast<float>(samples);
+			const Cell cell = grid_->worldToCell({from.x + fraction * dx, from.y + fraction * dy});
+			if (!grid_->inBounds(cell) || grid_->occupied(cell)) {
+				return false;
+			}
+		}
+		return true;
+	};
+	for (size_t i = path.size(); i > 1; --i) {
+		if (lineIsClear(currentPosition, path[i - 1])) {
+			waypoint = path[i - 1];
 			break;
 		}
+	}
+	if (lineIsClear(currentPosition, target)) {
+		waypoint = target;
 	}
 
     const float dx = waypoint.x - pose_.getX();

@@ -183,7 +183,7 @@ private:
     static constexpr float MOTOR_KI = 25.0f;               // Integralregler-Verstaerkung
     static constexpr float MOTOR_MAX_OMEGA = 20.0f;        // rad/s, Anti-Windup (= PROTO maxVelocity)
 
-    MotorControlMode motorMode_ = MotorControlMode::OPEN_LOOP;
+    MotorControlMode motorMode_ = MotorControlMode::CLOSED_LOOP;
     float commandedLeft_ = 0.0f, commandedRight_ = 0.0f;   // von setLeftSpeed/setRightSpeed
     float appliedLeft_ = 0.0f, appliedRight_ = 0.0f;       // tatsaechlich an den Motor gegeben
     float measuredLeft_ = 0.0f, measuredRight_ = 0.0f;     // aus Encoder-Aenderung gemessen

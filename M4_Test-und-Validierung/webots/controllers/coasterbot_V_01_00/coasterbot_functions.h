@@ -59,16 +59,22 @@ class CoasterbotFunctions : public RobotLogic {
     Vec2 navigationTarget_{};
     Vec2 navigationWaypoint_{};
     Vec2 navigationSegmentStart_{};
-    float navigationInitialDistance_ = 0.0f;  // [m]
+    Cell navigationPreviousCell_{};
     float navigationSegmentHeading_ = 0.0f;   // [rad]
     float navigationSegmentLength_ = 0.0f;    // [m]
     bool navigationTargetInitialized_ = false;
+    bool navigationPlannerInitialized_ = false;
+    bool navigationAligning_ = false;
     bool navigationWaypointInitialized_ = false;
     bool navigationWaypointIsFinal_ = false;
     int edgeInterruptions_ = 0;
     bool edgeStopLatched_ = false;
     bool edgeWasActive_ = false;
     bool edgeReroutePending_ = false;
+    bool navigationPointSettling_ = false;
+    float navigationPointSettleStartedAt_ = 0.0f;
+    bool centerSettling_ = false;
+    float centerSettleStartedAt_ = 0.0f;
     size_t navigationPointIndex_ = 0;
     bool navigationSequenceComplete_ = false;
     bool coasterRoutineActive_ = false;
@@ -96,6 +102,12 @@ class CoasterbotFunctions : public RobotLogic {
     static constexpr int MAX_COASTERS = 4;
     static constexpr float HALF_PI = 1.57079632679489661923f;
     static constexpr float ACCEPTED_BIAS = 0.005f;
+    static constexpr float NAVIGATION_DISTANCE_GAIN = 20.0f;
+    static constexpr float NAVIGATION_HEADING_GAIN = 3.0f;
+    static constexpr float NAVIGATION_TURN_ENTER_ERROR = 0.02f;
+    static constexpr float NAVIGATION_TURN_EXIT_ERROR = 0.008f;
+    static constexpr float CENTER_CAPTURE_RADIUS = ACCEPTED_BIAS;
+    static constexpr float CENTER_SETTLE_TIME = 0.5f;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
     const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)

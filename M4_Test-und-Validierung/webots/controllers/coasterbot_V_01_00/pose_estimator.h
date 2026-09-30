@@ -6,13 +6,13 @@
 // ---------------------------------------------------------------------
 // Schaetzt die Pose (x, y, theta) des Roboters auf der Tischebene.
 //
-// Die Vorwaertsbewegung wird durch Integration der IMU-Beschleunigung
-// (RobotHAL::getForwardAcceleration) geschaetzt; der Kurs kommt aus der
-// integrierten Gyro-Drehrate (RobotHAL::getGyroZ). Die doppelte Integration
-// der Beschleunigung ist driftanfaellig.
+// X/Y werden aus den zwei seitenweisen Radwinkeln (RobotHAL::getWheelAngle,
+// ein Wert je Seite) integriert. Der Kurs kombiniert Gyro- und Encoder-
+// Odometrie und wird mit dem HAL-Yaw-Messwert korrigiert.
 //
 // Kennt NUR das RobotHAL-Interface -> unveraendert auf einen Arduino
-// portierbar (keine Encoder, ein MPU-6050 liefer die Drehrate).
+// portierbar (dort liefern Radencoder die Winkel, ein MPU-6050 die
+// Drehrate).
 //
 // Konvention: x nach vorne (lokale Startausrichtung), y nach links,
 // theta = 0 in Startrichtung, positiv = Linksdrehung (mathematisch
@@ -29,9 +29,8 @@ public:
     float getX() const { return x_; }             // [m]
     float getY() const { return y_; }             // [m]
     float getTheta() const { return theta_; }     // [rad], (-pi, pi]
-    float getYawRate() const { return prevGyro_; } // [rad/s], bias-korrigiert
 
-    // Aus der IMU-Beschleunigung integrierte Wegstrecke [m].
+    // Gesamte gefahrene Wegstrecke ("Kilometerzaehler") [m].
     float getOdometer() const { return odometer_; }
 
     // Pose auf einen bekannten Wert setzen (z.B. Startpose aus der Welt).
@@ -40,30 +39,29 @@ public:
 private:
     RobotHAL& hal_;
 
-    static constexpr float WHEEL_RADIUS = 0.0325f;   // [m]
-
-    // --- Tuning-Parameter ---
-    // m/s pro (WHEEL_RADIUS * rad/s Sollwert). Sim (Closed-Loop): 1.0.
-    // Real per Fahrtest kalibrieren: 1 m fahren, SPEED_SCALE = gemessen/berechnet.
-    static constexpr float SPEED_SCALE    = 1.0f;
-    static constexpr float MOTOR_LAG_TAU  = 0.15f;   // [s] Motor-/Traegheitsverzoegerung
-    static constexpr float VELOCITY_TAU   = 0.4f;    // [s] Zeitkonstante Modell-Korrektur
-                                                     //  klein = Modell dominiert, gross = IMU dominiert
-    static constexpr float STILL_SETTLE_S = 0.3f;    // [s] Ruhe nach Sollwert 0 abwarten
-    static constexpr float STILL_GYRO_MAX = 0.05f;   // [rad/s] Gyro muss ruhig sein
-    static constexpr float BIAS_TAU       = 1.0f;    // [s] Nachfuehrung der Biase im Stand
+    // Radgeometrie and heading filter settings from Coasterbot.proto.
+    static constexpr float WHEEL_RADIUS = 0.035f;  // [m]
+    static constexpr float TRACK_WIDTH = 0.202f;    // [m]
+    static constexpr float HEADING_ODO_WEIGHT = 0.05f;
+    static constexpr float YAW_CORRECTION_TIME_CONSTANT = 0.06f;  // [s]
+    static constexpr float PI = 3.14159265358979323846f;
+    static constexpr float STATIONARY_COMMAND_THRESHOLD = 0.01f;  // [rad/s]
+    static constexpr float STATIONARY_DISTANCE_THRESHOLD = 0.00005f;  // [m/update]
+    static constexpr float STATIONARY_GYRO_THRESHOLD = 0.02f;  // [rad/s]
+    static constexpr float STATIONARY_DWELL_TIME = 0.25f;  // [s]
 
     bool  initialized_ = false;
-    float prevTime_ = 0.0f;
-    float prevAccel_ = 0.0f;       // [m/s^2] biaskorrigiert
-    float prevGyro_ = 0.0f;        // [rad/s] biaskorrigiert
-    float stillSince_ = 0.0f;
-    float accelBias_ = 0.0f;       // [m/s^2]
-    float gyroBias_ = 0.0f;        // [rad/s] Restbias zusaetzlich zur HAL-Kalibrierung
-    float forwardVelocity_ = 0.0f; // [m/s]
-    float velocityModel_ = 0.0f;   // [m/s] geglaettete Modellgeschwindigkeit
+    float prevLeft_ = 0.0f;   // [rad] gemittelte linke Radwinkel
+    float prevRight_ = 0.0f;  // [rad] gemittelte rechte Radwinkel
+	float prevTime_ = 0.0f;     // [s]
+	float yawOffset_ = 0.0f;   // [rad] aligns HAL yaw with the reset heading
+    float stationaryTime_ = 0.0f;  // [s]
 
-    float x_ = 0.0f, y_ = 0.0f, theta_ = 0.0f, odometer_ = 0.0f;
+    float x_ = 0.0f;
+    float y_ = 0.0f;
+    float theta_ = 0.0f;
+    float odometer_ = 0.0f;
+
     static float wrapAngle(float a);
 };
 

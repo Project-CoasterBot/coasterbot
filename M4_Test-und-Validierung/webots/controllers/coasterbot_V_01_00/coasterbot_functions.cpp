@@ -201,11 +201,12 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 			          << std::endl;
 		}
 		const float us = hal_.getUltrasonicDistance();
-		const bool obstacleDetected = std::isfinite(us) && us >= 0.0f && us < 0.75f;
+		const bool obstacleDetected = std::isfinite(us) && us >= 0.0f && us < ULTRASONIC_MAP_RANGE;
 		if (grid_->inBounds(startCell) && grid_->occupied(startCell) && !obstacleDetected) {
 			std::cout << "[NAV] current cell is occupied but ultrasonic is clear -> refreshing dynamic obstacle map"
 			          << std::endl;
 			this->stop();
+			grid_->setOccupied(startCell, false);
 			rebuildNavigationGrid();
 			navigationTargetInitialized_ = false;
 			navigationPlannerInitialized_ = false;
@@ -225,9 +226,18 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		this->stop();
 		return;
 	}
-	if (!grid_->inBounds(goalCell) || grid_->occupied(goalCell)) {
+	if (!grid_->inBounds(goalCell)) {
 		if (logNav) {
-			std::cout << "[NAV] goal cell is outside the grid or occupied; choose a point farther from the table border" << std::endl;
+			std::cout << "[NAV] goal cell is outside the grid: cell=("
+			          << goalCell.cx << ", " << goalCell.cy << ")" << std::endl;
+		}
+		this->stop();
+		return;
+	}
+	if (grid_->occupied(goalCell)) {
+		if (logNav) {
+			std::cout << "[NAV] goal cell is occupied: cell=(" << goalCell.cx << ", "
+			          << goalCell.cy << "), clearance=" << grid_->clearance(target) << "m" << std::endl;
 		}
 		this->stop();
 		return;
@@ -235,15 +245,32 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	const float us = hal_.getUltrasonicDistance();
 	bool mapChanged = false;
 	std::vector<Cell> changedCells;
-	const bool obstacleDetected = std::isfinite(us) && us >= 0.0f && us < 0.75f;
+	const bool obstacleDetected = std::isfinite(us) && us >= 0.0f && us < ULTRASONIC_MAP_RANGE;
 	if (obstacleDetected) {
 		const float th = pose_.getTheta();
 		const float hx = pose_.getX() + (us + 0.10f) * std::cos(th);
 		const float hy = pose_.getY() + (us + 0.10f) * std::sin(th);
-		const float sampleStep = grid_->resolution() * 0.5f;
-		for (float y = hy - 0.12f; y <= hy + 0.12f; y += sampleStep) {
-			for (float x = hx - 0.35f; x <= hx + 0.35f; x += sampleStep) {
-				const Cell cell = grid_->worldToCell({x, y});
+		const float obstacleHalfLength = useRobotBoundingBox
+			? std::fabs(robotBoundingBoxLength_) * 0.5f + ULTRASONIC_OBSTACLE_PADDING
+			: grid_->resolution();
+		const float obstacleHalfWidth = useRobotBoundingBox
+			? std::fabs(robotBoundingBoxWidth_) * 0.5f + ULTRASONIC_OBSTACLE_PADDING
+			: grid_->resolution();
+		const Cell minCell = grid_->worldToCell(
+			{hx - obstacleHalfLength, hy - obstacleHalfWidth});
+		const Cell maxCell = grid_->worldToCell(
+			{hx + obstacleHalfLength, hy + obstacleHalfWidth});
+		for (int cy = minCell.cy; cy <= maxCell.cy; ++cy) {
+			for (int cx = minCell.cx; cx <= maxCell.cx; ++cx) {
+				const Cell cell{cx, cy};
+				if (!grid_->inBounds(cell)) {
+					continue;
+				}
+				const Vec2 cellCenter = grid_->cellToWorld(cell);
+				if (std::fabs(cellCenter.x - hx) > obstacleHalfLength + grid_->resolution() * 0.5f ||
+				    std::fabs(cellCenter.y - hy) > obstacleHalfWidth + grid_->resolution() * 0.5f) {
+					continue;
+				}
 				if (grid_->reportOccupied(cell)) {
 					changedCells.push_back(cell);
 				}
@@ -256,6 +283,29 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 			          << changedCells.size() << " cells occupied, t=" << now << "s" << std::endl;
 		}
 	}
+
+	const Vec2 currentPosition{pose_.getX(), pose_.getY()};
+	const float minimumPathClearance = useRobotBoundingBox
+		? std::hypot(std::fabs(robotBoundingBoxWidth_) * 0.5f,
+		             std::fabs(robotBoundingBoxLength_) * 0.5f) + grid_->resolution() * 0.5f
+		: 0.0f;
+	const auto lineIsClear = [this, minimumPathClearance](Vec2 from, Vec2 to) {
+		const float dx = to.x - from.x;
+		const float dy = to.y - from.y;
+		const float distance = std::hypot(dx, dy);
+		const float sampleSpacing = grid_->resolution() * 0.5f;
+		const int samples = std::max(1, static_cast<int>(std::ceil(distance / sampleSpacing)));
+		for (int sample = 0; sample <= samples; ++sample) {
+			const float fraction = static_cast<float>(sample) / static_cast<float>(samples);
+			const Vec2 samplePosition{from.x + fraction * dx, from.y + fraction * dy};
+			const Cell cell = grid_->worldToCell(samplePosition);
+			if (!grid_->inBounds(cell) || grid_->occupied(cell) ||
+			    grid_->clearance(samplePosition) < minimumPathClearance) {
+				return false;
+			}
+		}
+		return true;
+	};
 
 	std::vector<Vec2> path;
 	if (!navigationPlannerInitialized_) {
@@ -296,9 +346,33 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 			std::cout << "[NAV] no path -> turning to retry D*" << std::endl;
 		}
 		const float recoveryTurnSpeed = std::min(commandSpeed, 2.0f);
-		const float turnDirection = (std::sin(pose_.getTheta()) >= 0.0f) ? 1.0f : -1.0f;
-		hal_.setLeftSpeed(-turnDirection * recoveryTurnSpeed);
-		hal_.setRightSpeed(turnDirection * recoveryTurnSpeed);
+		if (obstacleDetected && us > ULTRASONIC_TURN_DISTANCE) {
+			const float approachSpeed = std::min(driveSpeed, 1.0f);
+			this->forward(approachSpeed);
+			if (logNav) {
+				std::cout << "[NAV] no route yet; mapped obstacle at " << us
+				          << "m, approaching slowly until turn threshold "
+				          << ULTRASONIC_TURN_DISTANCE << "m" << std::endl;
+			}
+			return;
+		}
+		const float targetHeading = std::atan2(target.y - pose_.getY(), target.x - pose_.getX());
+		const float headingError = std::atan2(std::sin(targetHeading - pose_.getTheta()),
+		                                       std::cos(targetHeading - pose_.getTheta()));
+		if (lineIsClear(currentPosition, target)) {
+			if (std::fabs(headingError) <= NAVIGATION_TURN_ENTER_ERROR) {
+				this->forward(recoveryTurnSpeed);
+			} else {
+				const float turnDirection = headingError > 0.0f ? 1.0f : -1.0f;
+				this->turnLeft(turnDirection * recoveryTurnSpeed);
+			}
+			return;
+		}
+		this->turnLeft(recoveryTurnSpeed);
+		if (logNav) {
+			std::cout << "[NAV] direct corridor blocked; scanning left at "
+			          << recoveryTurnSpeed << " rad/s" << std::endl;
+		}
 		return;
 	}
 	if (distToGoal <= ACCEPTED_BIAS) {
@@ -306,23 +380,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		return;
 	}
 
-	Vec2 waypoint = target;
-	const Vec2 currentPosition{pose_.getX(), pose_.getY()};
-	const auto lineIsClear = [this](Vec2 from, Vec2 to) {
-		const float dx = to.x - from.x;
-		const float dy = to.y - from.y;
-		const float distance = std::hypot(dx, dy);
-		const float sampleSpacing = grid_->resolution() * 0.5f;
-		const int samples = std::max(1, static_cast<int>(std::ceil(distance / sampleSpacing)));
-		for (int sample = 0; sample <= samples; ++sample) {
-			const float fraction = static_cast<float>(sample) / static_cast<float>(samples);
-			const Cell cell = grid_->worldToCell({from.x + fraction * dx, from.y + fraction * dy});
-			if (!grid_->inBounds(cell) || grid_->occupied(cell)) {
-				return false;
-			}
-		}
-		return true;
-	};
+	Vec2 waypoint = path.size() > 1 ? path[1] : target;
 	for (size_t i = path.size(); i > 1; --i) {
 		if (lineIsClear(currentPosition, path[i - 1])) {
 			waypoint = path[i - 1];
@@ -356,31 +414,34 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 }
 
-void CoasterbotFunctions::rebuildNavigationGrid() {
+void CoasterbotFunctions::rebuildNavigationGrid(bool preserveDynamicObstacles) {
+	const float x0 = -tableWidth_ / 2.0f;
+	const float x1 =  tableWidth_ / 2.0f;
+	const float y0 = -tableHeight_ / 2.0f;
+	const float y1 =  tableHeight_ / 2.0f;
 	std::vector<Vec2> occupiedCellCenters;
-	if (grid_) {
+	if (preserveDynamicObstacles && grid_) {
 		for (int cy = 0; cy < grid_->rows(); ++cy) {
 			for (int cx = 0; cx < grid_->cols(); ++cx) {
 				const Cell cell{cx, cy};
 				if (grid_->occupied(cell)) {
-					occupiedCellCenters.push_back(grid_->cellToWorld(cell));
+					const Vec2 center = grid_->cellToWorld(cell);
+					const bool inLegacyBorderBand =
+						center.x <= x0 + 0.16f || center.x >= x1 - 0.16f ||
+						center.y <= y0 + 0.16f || center.y >= y1 - 0.16f;
+					if (!inLegacyBorderBand) {
+						occupiedCellCenters.push_back(center);
+					}
 				}
 			}
 		}
 	}
 
-	const float x0 = -tableWidth_ / 2.0f;
-	const float x1 =  tableWidth_ / 2.0f;
-	const float y0 = -tableHeight_ / 2.0f;
-	const float y1 =  tableHeight_ / 2.0f;
-	constexpr float resolution = 0.05f;
-	constexpr float safetyMargin = 0.16f;
-
-	grid_ = std::make_unique<OccupancyGrid>(x0, y0, x1, y1, resolution);
-	grid_->addObstacleRect(x0, y0, x0, y1, safetyMargin);
-	grid_->addObstacleRect(x1, y0, x1, y1, safetyMargin);
-	grid_->addObstacleRect(x0, y0, x1, y0, safetyMargin);
-	grid_->addObstacleRect(x0, y1, x1, y1, safetyMargin);
+	grid_ = std::make_unique<OccupancyGrid>(x0, y0, x1, y1, NAVIGATION_GRID_RESOLUTION);
+	grid_->addObstacleRect(x0, y0, x0, y1, TABLE_EDGE_INFLATION);
+	grid_->addObstacleRect(x1, y0, x1, y1, TABLE_EDGE_INFLATION);
+	grid_->addObstacleRect(x0, y0, x1, y0, TABLE_EDGE_INFLATION);
+	grid_->addObstacleRect(x0, y1, x1, y1, TABLE_EDGE_INFLATION);
 	for (const Vec2& center : occupiedCellCenters) {
 		const Cell cell = grid_->worldToCell(center);
 		if (grid_->inBounds(cell)) {
@@ -494,7 +555,7 @@ void CoasterbotFunctions::runLearnTable() {
 		break;
 	case State::SET_POSE:
 		if (phase == LearningPhase::PHASE_X) {
-			tableWidth_ = distance - (robotBoundingBoxWidth_/2.0f);
+			tableWidth_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
 			pose_.reset(-tableWidth_ / 2.0f, 0.0f, 0.0f);
@@ -503,7 +564,7 @@ void CoasterbotFunctions::runLearnTable() {
 			std::cout << "[LEARN] Move to center." << std::endl;
 			state = State::CENTER;
 		} else {
-			tableHeight_ = distance - (robotBoundingBoxLength_/2.0f);
+			tableHeight_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
 			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, HALF_PI);
@@ -540,13 +601,11 @@ void CoasterbotFunctions::runLearnTable() {
 			const float x1 =  tableWidth_ / 2.0f;
 			const float y0 = -tableHeight_ / 2.0f;
 			const float y1 =  tableHeight_ / 2.0f;
-			const float resolution = 0.05f;
-			const float safetyMargin = 0.01f;
-			grid_ = std::make_unique<OccupancyGrid>(x0, y0, x1, y1, resolution);
-			grid_->addObstacleRect(x0, y0, x0, y1, safetyMargin);
-			grid_->addObstacleRect(x1, y0, x1, y1, safetyMargin);
-			grid_->addObstacleRect(x0, y0, x1, y0, safetyMargin);
-			grid_->addObstacleRect(x0, y1, x1, y1, safetyMargin);
+			grid_ = std::make_unique<OccupancyGrid>(x0, y0, x1, y1, NAVIGATION_GRID_RESOLUTION);
+			grid_->addObstacleRect(x0, y0, x0, y1, TABLE_EDGE_INFLATION);
+			grid_->addObstacleRect(x1, y0, x1, y1, TABLE_EDGE_INFLATION);
+			grid_->addObstacleRect(x0, y0, x1, y0, TABLE_EDGE_INFLATION);
+			grid_->addObstacleRect(x0, y1, x1, y1, TABLE_EDGE_INFLATION);
 			grid_->buildDistanceField();
 			dstar_ = std::make_unique<DStarLite>(*grid_);
 			std::cout << "[LEARN] table grid initialized: width=" << tableWidth_
@@ -658,12 +717,13 @@ bool CoasterbotFunctions::goToCenter(){
 			return false;
 		}
 		pose_.reset(0.0f, 0.0f, pose_.getTheta());
+		rebuildNavigationGrid(false);
 		navigationTargetInitialized_ = false;
 		navigationPlannerInitialized_ = false;
 		navigationAligning_ = false;
 		centerSettling_ = false;
 		std::cout << "[NAV] center re-anchored after settling, residual="
-		          << settledDistance << "m" << std::endl;
+		          << settledDistance << "m; cleared dynamic obstacle map" << std::endl;
 		return true;
 	}
 

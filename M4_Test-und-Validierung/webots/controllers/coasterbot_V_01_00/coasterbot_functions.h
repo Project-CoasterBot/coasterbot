@@ -97,7 +97,7 @@ class CoasterbotFunctions : public RobotLogic {
     bool resetLastTimer_ = true;
 
     void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
-    void rebuildNavigationGrid();
+    void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
     static constexpr float HALF_PI = 1.57079632679489661923f;
@@ -108,6 +108,11 @@ class CoasterbotFunctions : public RobotLogic {
     static constexpr float NAVIGATION_TURN_EXIT_ERROR = 0.008f;
     static constexpr float CENTER_CAPTURE_RADIUS = ACCEPTED_BIAS;
     static constexpr float CENTER_SETTLE_TIME = 0.5f;
+    static constexpr float NAVIGATION_GRID_RESOLUTION = 0.05f;
+    static constexpr float TABLE_EDGE_INFLATION = 0.025f;
+    static constexpr float ULTRASONIC_OBSTACLE_PADDING = 0.02f;
+    static constexpr float ULTRASONIC_MAP_RANGE = 0.75f;
+    static constexpr float ULTRASONIC_TURN_DISTANCE = 0.35f;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
     const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)

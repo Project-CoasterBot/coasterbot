@@ -23,12 +23,30 @@ void setup() {
     next_heartbeat = millis();
 }
 
+void outputCurrentPosition() {
+    Serial.print("[COORD] heading=");
+    Serial.print(_bot.getHeading());
+    Serial.print("\t");
+    float x,y;
+    _bot.getPosition(x, y);
+    Serial.print(x);
+    Serial.print("\t/ ");
+    Serial.print(y);
+    Serial.println(" ");
+}
+
 void loop() {
     unsigned press_duration_ms;
     unsigned long movement_prevented_duration_ms;
 
     // bot loop, sensor eval etc.
     _bot.step();
+
+    // periodic position output, wraparound safe
+    if (static_cast<long>(millis() - next_heartbeat) >= 0) {
+        next_heartbeat += 3000;
+        outputCurrentPosition();
+    }
 
     // button eval, could also be implemented via virtual method of bot
     if (_bot.userButtonReleased(press_duration_ms)) {
@@ -43,8 +61,10 @@ void loop() {
     if (motion_state % 2u == 1) { // "driving fwd/backward"
         float speed_left = 0, speed_right = 0;
         if (_bot.movementPrevented(movement_prevented_duration_ms)) {
-            if (movement_prevented_duration_ms > 2500)
+            if (movement_prevented_duration_ms > 2500) {
                 move_fwd = ! move_fwd;
+                outputCurrentPosition();
+            }
         }
 
         speed_left = move_fwd ? 1. : -1.;
@@ -53,4 +73,5 @@ void loop() {
         _bot.setLeftSpeed(speed_left);
         _bot.setRightSpeed(speed_right);
     }
+
 }

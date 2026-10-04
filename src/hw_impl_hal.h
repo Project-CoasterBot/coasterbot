@@ -10,6 +10,7 @@
 #include "infraredsensorinterrface.h"
 #include "echosensorinterface.h"
 #include "gyrosensor.h"
+#include "motiondetection.h"
 #include "servointerface.h"
 
 class HardwareImplementationHAL : public RobotHAL {
@@ -26,6 +27,11 @@ protected: // hw controllers
 
     MotionController<board::PIN_MOTOR_PWM, board::PIN_MOTOR_STANDBY, board::PIN_MOTOR_LEFT_1, board::PIN_MOTOR_LEFT_2, board::PIN_MOTOR_RIGHT_1, board::PIN_MOTOR_RIGHT_2> motion_ctrl;
 
+    // counter state is static per pin, so the two sides must not share one
+    static_assert(board::PIN_MOTION_DETECT_LEFT != board::PIN_MOTION_DETECT_RIGHT, "motion detection needs distinct pins");
+    MotionDetectionOptoCoupling<board::PIN_MOTION_DETECT_LEFT> encoder_left;
+    MotionDetectionOptoCoupling<board::PIN_MOTION_DETECT_RIGHT> encoder_right;
+
     GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA> inertial_sensor;
 
     ServoController<board::PIN_COASTER_SERVO_1> servo1;
@@ -37,9 +43,19 @@ protected: // evaluated state
     float _obstcl_dist {-1.};
 
     float _speed_left {0.}, _speed_right {0.};
+    float _wheel_angle_left {0.}, _wheel_angle_right {0.}; // accumulated encoder angle in rad, positive = forward
+
+    // odometry from the wheel encoders. Start pose: origin, heading along +x, heading counter-clockwise positive
+    float _track_width {0.202f};  // distance between left and right wheels in m
+    float _pos_x {0.}, _pos_y {0.}; // in m
+    float _heading {0.};            // in rad, (-pi, pi], 0 = +x direction
+    float _distance_forward {0.};   // driven distance in m, forward positive, backward negative
 
     std::optional<unsigned> _button_pressed;
     std::optional<unsigned long> _movement_prevented_start_ms;
+
+    /// Integrates the distances both sides moved since the last call (in m, forward positive) into the pose.
+    void updateOdometry(float moved_left, float moved_right);
 
 public:
     virtual ~HardwareImplementationHAL() {}
@@ -61,6 +77,23 @@ public: // getters
     GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA>& inertialSensor() { return inertial_sensor; }
 
     bool movementPrevented(unsigned long& duration_ms);
+
+public: // odometry from the wheel encoders
+
+    /// Distance between the left and right wheels in m, used to derive the turning from the wheel distances.
+    void setTrackWidth(float track_width_in_meter);
+
+    /// Position in m relative to the start point (or the last resetPose()). At start the bot drives along +x.
+    void getPosition(float& x, float& y) const { x = _pos_x; y = _pos_y; }
+    /// Heading in rad, (-pi, pi]: 0 = +x, pi/2 = +y (counter-clockwise positive, i.e. turning left increases it).
+    float getHeading() const { return _heading; }
+    /// Heading as unit vector in the x/y system.
+    void getHeadingVector(float& dx, float& dy) const { dx = std::cos(_heading); dy = std::sin(_heading); }
+    /// Distance driven in m (mean of both sides), forward positive, backward negative. Turning on the spot adds ~0.
+    float getDistanceForward() const { return _distance_forward; }
+
+    /// Sets the current pose as new origin, heading along +x.
+    void resetPose();
 
 public: // robotHAL implementation
 

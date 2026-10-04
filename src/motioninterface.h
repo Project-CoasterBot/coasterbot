@@ -121,6 +121,25 @@ public: // queries
 
   uint8_t speed() const { return _speed; }
 
+  /// Actual turning direction of the left side: +1 forward, -1 backward, 0 at rest.
+  /// Unlike the requests this reflects what is on the wheels, including braking and coasting down.
+  int leftDirection() const {
+    switch (wheelMotion()) {
+    case FORWARD: case TURNINGRIGHT: return 1;
+    case BACKWARD: case TURNINGLEFT: return -1;
+    default: return 0;
+    }
+  }
+
+  /// Actual turning direction of the right side: +1 forward, -1 backward, 0 at rest.
+  int rightDirection() const {
+    switch (wheelMotion()) {
+    case FORWARD: case TURNINGLEFT: return 1;
+    case BACKWARD: case TURNINGRIGHT: return -1;
+    default: return 0;
+    }
+  }
+
 public: // main loop repeated call
 
   void update() { update(millis()); }
@@ -176,6 +195,11 @@ public: // main loop repeated call
   }
 
 private:
+
+  /// The motion the wheels actually perform: the engaged one while running, braking and coasting down.
+  Motion wheelMotion() const {
+    return (_phase == RUNNING || _phase == BRAKING || _phase == COASTING) ? _driven : STOPPED;
+  }
 
   bool deadlineReached(unsigned long curtime) const {
     return static_cast<long>(curtime - _deadline) >= 0; // wraparound safe, only the difference counts

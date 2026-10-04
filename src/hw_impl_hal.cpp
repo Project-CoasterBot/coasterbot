@@ -22,6 +22,9 @@ void HardwareImplementationHAL::initializeHardware() {
     motion_ctrl.begin();
     motion_ctrl.stop();
 
+    encoder_left.begin();
+    encoder_right.begin();
+
     servo1.begin();
     servo2.begin();
 
@@ -39,6 +42,31 @@ void HardwareImplementationHAL::initializeHardware() {
 
 
 
+
+void HardwareImplementationHAL::setTrackWidth(float track_width_in_meter) {
+    if (! std::isfinite(track_width_in_meter) || track_width_in_meter <= 0.f) return;
+    _track_width = track_width_in_meter;
+}
+
+void HardwareImplementationHAL::resetPose() {
+    _pos_x = _pos_y = _heading = _distance_forward = 0.f;
+}
+
+void HardwareImplementationHAL::updateOdometry(float moved_left, float moved_right) {
+    if (moved_left == 0.f && moved_right == 0.f) return;
+
+    // differential drive: mean of both sides moves the center, difference turns the bot
+    const float moved = 0.5f * (moved_left + moved_right);
+    const float turned = (moved_right - moved_left) / _track_width;
+
+    // integrate along the mean heading of this step
+    const float mid_heading = _heading + 0.5f * turned;
+    _pos_x += moved * std::cos(mid_heading);
+    _pos_y += moved * std::sin(mid_heading);
+    _distance_forward += moved;
+
+    _heading = std::remainder(_heading + turned, 2.f * static_cast<float>(M_PI)); // keep in [-pi, pi]
+}
 
 bool HardwareImplementationHAL::step() {
     const unsigned long now = millis();
@@ -138,6 +166,17 @@ bool HardwareImplementationHAL::step() {
     led_board.update();
     motion_ctrl.update();
     obstcl_sensor.update();
+
+    // the encoders only see edges, the turning direction comes from what the motors actually do
+    encoder_left.setCurrentDirection(motion_ctrl.leftDirection());
+    encoder_right.setCurrentDirection(motion_ctrl.rightDirection());
+    float moved_rad, moved_left, moved_right;
+    encoder_left.getDistance(moved_rad, moved_left);
+    _wheel_angle_left += moved_rad;
+    encoder_right.getDistance(moved_rad, moved_right);
+    _wheel_angle_right += moved_rad;
+    updateOdometry(moved_left, moved_right);
+
     servo1.update();
     servo2.update();
 
@@ -178,7 +217,14 @@ float HardwareImplementationHAL::getForwardAcceleration() {
     return sqrt(x*x + y*y);
 }
 
-float HardwareImplementationHAL::getWheelAngle(WheelId wheel) { return 0.f; /* not available from motors or motor interace -.- */ }
+float HardwareImplementationHAL::getWheelAngle(WheelId wheel) {
+    switch (wheel) {
+    case WHEEL_LEFT: return _wheel_angle_left;
+    case WHEEL_RIGHT: return _wheel_angle_right;
+    default: break;
+    }
+    return 0.;
+}
 
 float HardwareImplementationHAL::getTime() { return static_cast<float>(micros()) * 1e-6; }
 

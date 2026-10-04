@@ -24,6 +24,13 @@
 #define BOARD_PIN_LED1_G 15 // GP15
 #endif
 
+#ifndef BOARD_PIN_ENCODER_LEFT
+#define BOARD_PIN_ENCODER_LEFT 8 // GP8
+#endif
+#ifndef BOARD_PIN_ENCODER_RIGHT
+#define BOARD_PIN_ENCODER_RIGHT 9 // GP9
+#endif
+
 namespace board {
 
 // Sensoren
@@ -47,6 +54,13 @@ constexpr int PIN_MOTOR_RIGHT_1 = 20; // GP20
 constexpr int PIN_MOTOR_RIGHT_2 = 19; // GP19
 constexpr int PIN_MOTOR_LEFT_1  = 27; // GP27
 constexpr int PIN_MOTOR_LEFT_2  = 28; // GP28
+
+constexpr int PIN_MOTION_DETECT_LEFT = 8; // GP8
+constexpr int PIN_MOTION_DETECT_RIGHT = 9; // GP9
+
+// Radencoder (LM393 Gabellichtschranke), je Seite einer - noch nicht im Schaltplan, Pins vorlaeufig
+constexpr int PIN_ENCODER_LEFT  = BOARD_PIN_ENCODER_LEFT;  // default GP8
+constexpr int PIN_ENCODER_RIGHT = BOARD_PIN_ENCODER_RIGHT; // default GP9
 
 // Coaster Servos
 constexpr int PIN_COASTER_SERVO_1 = 6; // GP6

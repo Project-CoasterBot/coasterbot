@@ -72,6 +72,7 @@ public: // robotHAL implementation
 
     void setLeftSpeed(float radPerSec) override;
     void setRightSpeed(float radPerSec) override;
+    float getCommandedSpeed(WheelId wheel) override;
 
     float getUltrasonicDistance() override;
     bool  getEdgeFrontLeft() override;
@@ -81,10 +82,16 @@ public: // robotHAL implementation
 
     float getYaw() override;
     float getGyroZ() override;
+    float getForwardAcceleration() override;
 
     float getWheelAngle(WheelId wheel) override;
 
     float getTime() override;
+
+    virtual bool getButtonState() override;
+    virtual bool simulateButtonPress(float duration) override;
+    virtual void setServoPosition(int servoId, int position) override;
+    virtual void led(LED_COLORS color) override;
 
 };
 

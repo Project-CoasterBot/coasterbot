@@ -155,6 +155,15 @@ bool HardwareImplementationHAL::step() {
 void HardwareImplementationHAL::setLeftSpeed(float radPerSec) { _speed_left = radPerSec; }
 void HardwareImplementationHAL::setRightSpeed(float radPerSec) { _speed_right = radPerSec; }
 
+float HardwareImplementationHAL::getCommandedSpeed(WheelId wheel) {
+    switch (wheel) {
+    case WHEEL_LEFT: return _speed_left;
+    case WHEEL_RIGHT: return _speed_right;
+    default: break;
+    }
+    return 0.;
+}
+
 float HardwareImplementationHAL::getUltrasonicDistance() { return _obstcl_dist; }
 bool HardwareImplementationHAL::getEdgeFrontLeft() { return _edge_fl; }
 bool HardwareImplementationHAL::getEdgeFrontRight() { return _edge_fr; }
@@ -164,6 +173,46 @@ bool HardwareImplementationHAL::getEdgeRearRight() { return _edge_rr; }
 float HardwareImplementationHAL::getYaw() { return 0.f; /* sensor for picking up? */ }
 float HardwareImplementationHAL::getGyroZ() { return 0.f; /* height? */}
 
+float HardwareImplementationHAL::getForwardAcceleration() {
+    float x = inertial_sensor.accel_x, y = inertial_sensor.accel_y;
+    return sqrt(x*x + y*y);
+}
+
 float HardwareImplementationHAL::getWheelAngle(WheelId wheel) { return 0.f; /* not available from motors or motor interace -.- */ }
 
 float HardwareImplementationHAL::getTime() { return static_cast<float>(micros()) * 1e-6; }
+
+bool HardwareImplementationHAL::getButtonState() { return user_button.isPressed(); }
+bool HardwareImplementationHAL::simulateButtonPress(float duration) {
+    // nothing to do, only simulation
+    return false;
+}
+
+void HardwareImplementationHAL::setServoPosition(int servoId, int position) {
+    switch (servoId) {
+    case 0: servo1.setAngle(position); break;
+    case 1: servo2.setAngle(position); break;
+    }
+}
+
+void HardwareImplementationHAL::led(LED_COLORS color) {
+    switch (color) {
+    case LED_COLORS::OFF:
+        led_board.setModeToOff();
+        break;
+    case LED_COLORS::RED:
+        led_board.setModeToConstantRed();
+        break;
+    case LED_COLORS::GREEN:
+        led_board.setModeToConstantGreen();
+        break;
+    case LED_COLORS::BLUE:
+        led_board.setModeToConstantBlue();
+        break;
+    case LED_COLORS::ORANGE:
+        led_board.setModeToConstantOrange();
+        break;
+
+        default: break;
+    }
+}

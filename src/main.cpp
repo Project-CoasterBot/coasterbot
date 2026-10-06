@@ -60,6 +60,7 @@ void loop() {
             motion_state++;
     }
 
+    /*
     if (motion_state % 2u == 1) { // "driving fwd/backward"
         float speed_left = 0, speed_right = 0;
         if (_bot.movementPrevented(movement_prevented_duration_ms)) {
@@ -78,5 +79,45 @@ void loop() {
         _bot.setLeftSpeed(0);
         _bot.setRightSpeed(0);
     }
+    */
+
+    const unsigned arm_servo = 1;
+    const unsigned heber_servo = 0;
+
+    switch (motion_state % 8) {
+    default:
+    case 0:
+    case 2:
+    case 7:
+        _bot.setServoPosition(arm_servo, 180, 1000);
+        _bot.setServoPosition(heber_servo, 0, 4000);
+        break;
+    case 1:
+        _bot.setServoPosition(arm_servo, 0, 2500);
+        _bot.setServoPosition(heber_servo, 0, 0);
+        break;
+    case 3:
+        _bot.setServoPosition(arm_servo, 180, 1000);
+        _bot.setServoPosition(heber_servo, 45, 2000);
+        break;
+    case 4:
+        _bot.setServoPosition(arm_servo, 180, 1000);
+        _bot.setServoPosition(heber_servo, 90, 2000);
+        break;
+    case 5:
+        _bot.setServoPosition(arm_servo, 180, 1000);
+        _bot.setServoPosition(heber_servo, 135, 2000);
+        break;
+    case 6:
+        _bot.setServoPosition(arm_servo, 180, 1000);
+        _bot.setServoPosition(heber_servo, 180, 2000);
+        break;
+
+    }
+
+
+
+    _bot.setLeftSpeed(0);
+    _bot.setRightSpeed(0);
 
 }

@@ -87,7 +87,9 @@ public:
     // Weitere Hilfsfunktionen, die die aktuelle Implementierung bereits nutzt.
     virtual bool getButtonState() = 0;
     virtual bool simulateButtonPress(float duration) = 0;
-    virtual void setServoPosition(int servoId, int position) = 0;
+    // Servo auf position [deg] fahren. duration_ms > 0: Sollwert wird ueber diese Zeit gerampt
+    // (langsamer fahren), 0: mit Eigengeschwindigkeit des Servos.
+    virtual void setServoPosition(int servoId, int position, unsigned long duration_ms = 0) = 0;
     virtual void led(LED_COLORS color) = 0;
 };
 

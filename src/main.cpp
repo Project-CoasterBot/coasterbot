@@ -54,6 +54,8 @@ void loop() {
             Serial.println("[Motion] Reset and stop ");
             motion_state = 0;
             move_fwd = true;
+
+            _bot.resetPose();
         } else
             motion_state++;
     }
@@ -72,6 +74,9 @@ void loop() {
 
         _bot.setLeftSpeed(speed_left);
         _bot.setRightSpeed(speed_right);
+    } else {
+        _bot.setLeftSpeed(0);
+        _bot.setRightSpeed(0);
     }
 
 }

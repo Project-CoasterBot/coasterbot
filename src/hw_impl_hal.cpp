@@ -234,10 +234,10 @@ bool HardwareImplementationHAL::simulateButtonPress(float duration) {
     return false;
 }
 
-void HardwareImplementationHAL::setServoPosition(int servoId, int position) {
+void HardwareImplementationHAL::setServoPosition(int servoId, int position, unsigned long duration_ms) {
     switch (servoId) {
-    case 0: servo1.setAngle(position); break;
-    case 1: servo2.setAngle(position); break;
+    case 0: servo1.moveTo(position, duration_ms); break;
+    case 1: servo2.moveTo(position, duration_ms); break;
     }
 }
 

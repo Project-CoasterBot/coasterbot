@@ -123,7 +123,7 @@ public: // robotHAL implementation
 
     virtual bool getButtonState() override;
     virtual bool simulateButtonPress(float duration) override;
-    virtual void setServoPosition(int servoId, int position) override;
+    virtual void setServoPosition(int servoId, int position, unsigned long duration_ms = 0) override;
     virtual void led(LED_COLORS color) override;
 
 };

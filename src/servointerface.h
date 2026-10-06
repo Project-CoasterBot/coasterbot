@@ -77,9 +77,11 @@ public: // movement setters
     /// Move to an angle over the given duration, stepped by update(). A duration of 0 behaves
     /// like setAngle(). The ramp limits how fast the setpoint travels, not the servo itself, so
     /// the duration has to be longer than the servo would need on its own to have any effect.
+    /// Calling it again with the same target is a no-op, also while a ramp is running, so it may be
+    /// called in every main loop iteration without restarting the ramp.
     void moveTo(int angle, unsigned long duration_milliseconds) {
         const int target = angleToPulse(angle);
-        if (target == _target_us && _attached && !_ramping) return; // already sitting there
+        if (target == _target_us && _attached) return; // already sitting there or on the way
 
         _target_us = target;
         _start_us = _current_us;

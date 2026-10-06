@@ -222,11 +222,11 @@ public:
         integrate(elapsed_us * 1e-6f);
 
         const unsigned long now = millis();
-        if (now - _last_print >= _print_every_ms) {
+        /*if (now - _last_print >= _print_every_ms) {
             _last_print = now;
             Serial.printf("[GYRO] pos=(%.3f, %.3f) m  vel=(%.3f, %.3f) m/s  heading=%.1f deg%s\n",
                           pos_x, pos_y, vel_x, vel_y, heading, _stationary ? "  (stationary)" : "");
-        }
+        }*/
     }
 
 private:

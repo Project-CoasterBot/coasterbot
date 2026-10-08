@@ -1,0 +1,21 @@
+
+
+Die Bewertung des Ergebnisses möchte ich gerne differenzieren. So bin ich mit meiner persönlichen Lernkurve sowie dem Team vollumfänglich zufrieden. Ich habe einigermaßen Erfahrung im Embedded-Bereich, sowohl auf Hard- als auch Softwareebene, aber mit Aktorik und Energiemanagement habe ich wenig Erfahrung. Hier habe ich wiederum viel dazugelernt, muss aber eingestehen, dass ich mit meinem persönlichen Projektbeitrag nicht gänzlich zufrieden bin. 
+
+Da ich die Verantwortung für Konzeption und Entwicklung der Elektronik sowie das Abstrahieren dieser Funktionalitäten auf der Microcontrollerplattform übernommen habe sehe ich mich auch verantwortlich für Probleme der finalen Plattform, die daraus resultieren. Die meisten der getroffenen Entscheidungen und deren Umsetzung haben sich bewährt, aber insbesondere mit der Bewegungssteuerung und damit verbundener Navigation bin ich nicht zufrieden.
+
+\begin{itemize}
+\item DC-Motoren ziehen insbesondere beim Anfahren als auch bei stall(blockieren) erhebliche Ströme, eine Energiereglung (Linearregler, Buck Converter etc.), die diese Ströme liefern kann, ist teuer. Daher habe ich die Energieversorgung mit Zwei Pegeln konzipiert: Einer Motorspannung direkt am Akku der hohe Ströme liefern kann sowie einem VCC Pegel von 5V für die elektronischen Komponenten, die durch einen Regler bereitgestellt wird. Die Motoren haben einen Spannungsbereich von 3 bis 6 V, der gewählte Akku hat 3.7V, ist also näher am unteren Ende des Eingangsspannungsbereichs, möglicherweise wären 4 AA Batterien eine bessere Entscheidung gewesen. 
+
+\item Das notwendige Anfahrdrehmoment auf den Rädern ist bei einer Drehung auf der Stelle erheblich höher als bei Geradeausfahrt. Vor der eigentlichen Festlegung auf die Komponenten habe ich die TT Motoren auf einem sehr leichten Rahmen getestet, hier waren die Motoren für Drehungen auf der Stelle völlig unproblematisch. Die Coasterbot Plattform ist durch die Dimensionierung und den Coastermechanismus allerdings bedeutend schwerer und hier ist das mögliche Drehmoment der Motoren grenzwertig. Bei Drehbewegungen auf der Stelle gibt es erheblichen Schlupf zwischen Antriebsrad und der Tischplatte, wodurch auch eine Orientierung per Odometrie nicht mehr möglich ist. Zum Zeitpunkt der Komponentenauswahl war zwar das Gewicht der Plattform nicht bekannt, dennoch würden stärkere Motoren sicherlich weniger Probleme verursachen. Ebenso wäre eine Designentscheidung mit Kurvenfahrt statt Drehung auf der Stelle hier möglicherweise eine Lösung, dies wurde aber durch die Designentscheidung von kombinierter Ansteuerung von linker und rechter Seite verhindert.
+
+\item Durch die innenseitige Montage der Motoren und Achsführung nach Außen sitzt das Rad nur teilweise auf der Achse, da es sonst am Gehäuse schleift und ist dadurch tendenziell instabil. 
+
+\item Das ursprünglich gewählte Inertialsystem durch Integration auf dem Gyroskop Sensor MPU-6050 war in der Praxis nicht praktikabel und ich musste eine Odometrie Zählung an den Achsen ergänzen. Hier gibt es DC-Motoren, die solche Zähler bereits eingebaut haben. 
+\end{itemize}
+
+Von diesen Problemen abgesehen ist das Gesamtprojekt als Proof-of-Concept einer Robotikplatform aus meiner Bewertung dennoch ein Erfolg und ich bin sehr froh, dass ich mich beteiligen und mit Dennis Borutta und Stefan Etringer zusammenarbeiten durfte. 
+
+Eine mögliche Lösung für das Positionssystem wäre auf dieses komplett zu verzichten und stattdessen eine optische Erkennung der Umgebung mit der ohnehin geplanten Kamera zu implementieren. Ein solches System kann Ziele und Geometrie der überschaubaren Oberfläche eines Tisches vermutlich hinreichend erfassen statt auf ein blindes Positionierungssystem angewiesen zu sein. Dies wäre eine mögliche Aufgabe für ein zukünftiges Projekt. 
+
+

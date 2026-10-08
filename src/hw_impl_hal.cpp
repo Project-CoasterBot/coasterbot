@@ -49,15 +49,18 @@ void HardwareImplementationHAL::setTrackWidth(float track_width_in_meter) {
 }
 
 void HardwareImplementationHAL::resetPose() {
-    _pos_x = _pos_y = _heading = _distance_forward = 0.f;
+    _pos_x = _pos_y = _heading = _heading_encoder = _distance_forward = 0.f;
+    _gyro_heading_last = inertial_sensor.heading; // only the change of the gyro heading is used
 }
 
-void HardwareImplementationHAL::updateOdometry(float moved_left, float moved_right) {
-    if (moved_left == 0.f && moved_right == 0.f) return;
+void HardwareImplementationHAL::updateOdometry(float moved_left, float moved_right, std::optional<float> turned_gyro) {
+    constexpr float pi2 = 2.f * static_cast<float>(M_PI);
 
     // differential drive: mean of both sides moves the center, difference turns the bot
     const float moved = 0.5f * (moved_left + moved_right);
-    const float turned = (moved_right - moved_left) / _track_width;
+    const float turned_encoder = (moved_right - moved_left) / _track_width;
+    const float turned = turned_gyro.value_or(turned_encoder);
+    if (moved == 0.f && turned == 0.f && turned_encoder == 0.f) return;
 
     // integrate along the mean heading of this step
     const float mid_heading = _heading + 0.5f * turned;
@@ -65,7 +68,8 @@ void HardwareImplementationHAL::updateOdometry(float moved_left, float moved_rig
     _pos_y += moved * std::sin(mid_heading);
     _distance_forward += moved;
 
-    _heading = std::remainder(_heading + turned, 2.f * static_cast<float>(M_PI)); // keep in [-pi, pi]
+    _heading = std::remainder(_heading + turned, pi2); // keep in [-pi, pi]
+    _heading_encoder = std::remainder(_heading_encoder + turned_encoder, pi2);
 }
 
 bool HardwareImplementationHAL::step() {
@@ -150,8 +154,12 @@ bool HardwareImplementationHAL::step() {
     // if movement is prevented, store time since when
     if (! movement_prevented)
         _movement_prevented_start_ms.reset();
-    else if (! _movement_prevented_start_ms.has_value())
+    else if (! _movement_prevented_start_ms.has_value()) {
         _movement_prevented_start_ms = millis();
+        // debug: which sensor blocked the motion
+        Serial.printf("[HAL] movement prevented: edge fl=%d fr=%d rl=%d rr=%d obstacle=%.3f m\n",
+                      _edge_fl, _edge_fr, _edge_rl, _edge_rr, _obstcl_dist);
+    }
 
     // state evaluation and indicator to the user
     if (_user_led_trigger_by_obstacles) {
@@ -171,6 +179,22 @@ bool HardwareImplementationHAL::step() {
     motion_ctrl.update();
     obstcl_sensor.update();
 
+    servo1.update();
+    servo2.update();
+
+    // isTurning() first: isMoving() and isBusy() are true while turning as well
+    inertial_sensor.setMotion(motion_ctrl.isTurning() ? Motion::Turning :
+        motion_ctrl.isMoving() || motion_ctrl.isBusy() ? Motion::Driving : Motion::Idle);
+    inertial_sensor.loop();
+
+    // rotation since the last step from the gyro, its heading is in deg and wraps at +-180
+    std::optional<float> turned_gyro;
+    if (inertial_sensor.ok()) {
+        const float gyro_heading = inertial_sensor.heading;
+        turned_gyro = std::remainder(gyro_heading - _gyro_heading_last, 360.f) * DEG_TO_RAD;
+        _gyro_heading_last = gyro_heading;
+    }
+
     // the encoders only see edges, the turning direction comes from what the motors actually do
     encoder_left.setCurrentDirection(motion_ctrl.leftDirection());
     encoder_right.setCurrentDirection(motion_ctrl.rightDirection());
@@ -179,14 +203,7 @@ bool HardwareImplementationHAL::step() {
     _wheel_angle_left += moved_rad;
     encoder_right.getDistance(moved_rad, moved_right);
     _wheel_angle_right += moved_rad;
-    updateOdometry(moved_left, moved_right);
-
-    servo1.update();
-    servo2.update();
-
-    inertial_sensor.setMotion(motion_ctrl.isMoving() || motion_ctrl.isBusy() ? Motion::Driving :
-        motion_ctrl.isTurning() ? Motion::Turning : Motion::Idle);
-    inertial_sensor.loop();
+    updateOdometry(moved_left, moved_right, turned_gyro);
 
     const unsigned long end = millis();
     if (end - now <= 0)

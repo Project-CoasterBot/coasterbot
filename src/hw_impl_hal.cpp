@@ -109,7 +109,6 @@ bool HardwareImplementationHAL::step() {
         // left and right wheel need to turn at the same speed
         motion_ctrl.stop();
         motion_valid = false;
-        led_board.setModeToBlinkOrange(250);
     } else if (std::abs(_speed_left) == 0.) { // no speed, but both equal
         motion_ctrl.stop();
     } else { // actual motion
@@ -123,12 +122,15 @@ bool HardwareImplementationHAL::step() {
         else if (_speed_left < 0 && _speed_right > 0)
             motion_ctrl.turnLeft();
 
+        const bool turning = (_speed_left > 0) != (_speed_right > 0);
+        motion_ctrl.setSpeed(turning ? _pwm_turn : _pwm_drive);
+
         // TODO motion_ctrl.setSpeed() from rad per second... turning is voltage dependant. control with inertial system?
     }
 
     // check if sensors allow movement, not sure if this is the place or if that should be controlled from outside logic.
     bool movement_prevented = false;
-    if (motion_ctrl.forwardRequested() && (_edge_fl || _edge_fr || (_obstcl_dist >= 0. && _obstcl_dist < 0.075 ))) { // x cm min dist
+    if (motion_ctrl.forwardRequested() && frontBlocked()) {
         motion_ctrl.stop();
         movement_prevented = true;
     }
@@ -152,14 +154,16 @@ bool HardwareImplementationHAL::step() {
         _movement_prevented_start_ms = millis();
 
     // state evaluation and indicator to the user
-    if (! motion_valid)
-        this->setUserLEDToMotionError();
-    else if (! sensors_valid)
-        this->setUserLEDToSensorError();
-    else if (movement_prevented)
-        this->setUserLEDToObstacleError();
-    else
-        this->setUserLEDToDefaultOperating();
+    if (_user_led_trigger_by_obstacles) {
+        if (!motion_valid)
+            this->setUserLEDToMotionError();
+        else if (!sensors_valid)
+            this->setUserLEDToSensorError();
+        else if (movement_prevented)
+            this->setUserLEDToObstacleError();
+        else
+            this->setUserLEDToDefaultOperating();
+    }
 
     // 3. Output
 

@@ -41,6 +41,11 @@ protected: // evaluated state
     bool _button_is_pressed {false};
     bool _edge_rl {false}, _edge_rr {false}, _edge_fl {false}, _edge_fr {false};
     float _obstcl_dist {-1.};
+    static constexpr float _min_obstacle_dist {0.075f}; // in m, forward motion is blocked below this distance
+
+    // motor pwm (0..255), turning on the spot needs more torque than driving straight: all wheels skid sideways
+    uint8_t _pwm_drive {128};
+    uint8_t _pwm_turn {255};
 
     float _speed_left {0.}, _speed_right {0.};
     float _wheel_angle_left {0.}, _wheel_angle_right {0.}; // accumulated encoder angle in rad, positive = forward
@@ -50,6 +55,8 @@ protected: // evaluated state
     float _pos_x {0.}, _pos_y {0.}; // in m
     float _heading {0.};            // in rad, (-pi, pi], 0 = +x direction
     float _distance_forward {0.};   // driven distance in m, forward positive, backward negative
+
+    bool _user_led_trigger_by_obstacles {true};
 
     std::optional<unsigned> _button_pressed;
     std::optional<unsigned long> _movement_prevented_start_ms;
@@ -65,9 +72,12 @@ public: // interface to dynamically react on events
 
     // user indicator cases
     virtual void setUserLEDToDefaultOperating() { led_board.setModeToRainbow(2500); }
-    virtual void setUserLEDToMotionError() { led_board.setModeToBlinkRed(250); }
-    virtual void setUserLEDToSensorError() { led_board.setModeToBlinkOrange(250); }
-    virtual void setUserLEDToObstacleError() { led_board.setModeToBlinkPurple(250); }
+    virtual void setUserLEDToMotionError() { led_board.setModeToBlinkRed(255, 250); }
+    virtual void setUserLEDToSensorError() { led_board.setModeToBlinkOrange(255, 250); }
+    virtual void setUserLEDToObstacleError() { led_board.setModeToBlinkPurple(255, 250); }
+    virtual void setUserLEDToTaskFinished() { led_board.setModeToConstantGreen(); }
+    virtual void setUserLEDToWaiting() { led_board.setModeToBlinkGreen(255, 1500); }
+    void setUserLedIndicatorToAutomatic(bool automatic) { _user_led_trigger_by_obstacles = automatic; }
 
 public: // getters
 
@@ -77,6 +87,12 @@ public: // getters
     GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA>& inertialSensor() { return inertial_sensor; }
 
     bool movementPrevented(unsigned long& duration_ms);
+
+    /// Motor pwm (0..255) for driving straight and for turning on the spot.
+    void setMotorPwm(uint8_t drive, uint8_t turn) { _pwm_drive = drive; _pwm_turn = turn; }
+
+    /// True if driving forward is not possible: edge detected by a front sensor or obstacle closer than the min distance.
+    bool frontBlocked() const { return _edge_fl || _edge_fr || (_obstcl_dist >= 0.f && _obstcl_dist < _min_obstacle_dist); }
 
 public: // odometry from the wheel encoders
 

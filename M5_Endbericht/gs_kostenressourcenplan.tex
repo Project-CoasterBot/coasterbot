@@ -1,0 +1,76 @@
+
+Im Kostenplan aus M0 wurde die Arbeitszeit wie in einem Unternehmen mit einem Selbstkostensatz von $89 \sfrac{\text{\euro}}{h}$ angesetzt. Werkzeuge wurden als gegeben vorausgesetzt, Software sollte ausschließlich Open Source verwendet werden. Dies konnte so gehalten werden. 
+
+\subsubsection{Personal}
+
+Für das Projekt waren 580 Personenstunden (ca. 15 h pro Woche pro Person auf Projektlaufzeit) was wiederum $580 \times 89  \text{\euro} = 51620  \text{\euro}$ geplant. In der Planungsphase wurde diese Wochenstundenzahl unterschritten, durch die notwendigen nachträglichen Änderungen bei der Identifizierung der Probleme mit dem Positionierungssystems wurde die Wochenstundenzahl überschritten. Aus Teambewertung ist dies für ein exploratives Projekt aber akzeptabel, da das konkrete Problem kaum voraussehbar war und sich während der Implementierung ergab. 
+
+
+\subsubsection{Material}
+
+Die Ist-Kosten der Komponenten wurden aus den tatsächlichen Kleinpackungspreisen im Einzelhandel berechnet und sind Netto Beträge. Tabelle \ref{tab:elektronik-ist} listet die Komponenten nach Packungspreis, Stückzahl und resultierendem Projektpreis.
+
+% Quelle: Kostenskript Gereon Such (Packungspreis / Packungsgröße * verbaute Anzahl).
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Ist-Kosten der Elektronik je Prototyp, berechnet aus den Packungspreisen.}
+\label{tab:elektronik-ist}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Komponente} & \textbf{Packungspreis} & \textbf{Packung [Stk.]} & \textbf{verbaut [Stk.]} & \textbf{Anteil}\\
+\midrule
+Raspberry Pi Pico 2 & 13,69\euro & 1 & 1 & 13,69\euro\\
+TT-Motor mit Rad & 12,99\euro & 4 & 4 & 12,99\euro\\
+Radencoder LM393 & 7,79\euro & 5 & 2 & 3,12\euro\\
+Motortreiber TB6612FNG & 7,06\euro & 2 & 2 & 7,06\euro\\
+Micro-Servo & 17,13\euro & 10 & 2 & 3,43\euro\\
+Li-Ion-Akku 18650 & 12,99\euro & 4 & 1 & 3,25\euro\\
+Inertialsensor MPU-6050 & 8,99\euro & 3 & 1 & 3,00\euro\\
+Verbinder & 8,49\euro & 120 & 30 & 2,12\euro\\
+Ultraschallsensor HC-SR04 & 11,99\euro & 8 & 1 & 1,50\euro\\
+IR-Sensor Tischkante & 9,59\euro & 10 & 4 & 3,84\euro\\
+RGB-LED & 3,89\euro & 5 & 1 & 0,78\euro\\
+DC/DC-Wandler & 5,96\euro & 10 & 1 & 0,60\euro\\
+Taster & 4,99\euro & 10 & 1 & 0,50\euro\\
+Pfostenleiste & 6,99\euro & 50 & 2 & 0,28\euro\\
+Motor-Kondensatoren 100\,nF & 9,99\euro & 300 & 4 & 0,13\euro\\
+Hauptschalter & 9,59\euro & 80 & 1 & 0,12\euro\\
+Elkos & 6,99\euro & 145 & 2 & 0,10\euro\\
+\midrule
+\textbf{Summe Elektronik} & \textbf{159,11\euro} & & & \textbf{56,49\euro}\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+Die angesetzten Kosten für das 3D-Druck Filament von 15 \euro können für den Druck nicht korrekt nachvollzogen werden, sind aber weiterhin ein realistischer Wert. Im Kostenplan aus M0 wurden Materialkosten von insgesamt $40 + 90 + 15 + 20 = 165 \text{\euro}$ für Komponenten und Montage sowie 15 \euro ~ für Filament angesetzt. In Tabelle \ref{tab:kosten-sollist} werden diese Werte gegen die tatsächlichen Werte ohne den in M0 angenommenen Risikopuffer verglichen werden. Die niedrigeren Materialkosten konnten durch kostengünstige Komponenten sowie Verzicht auf Kamera und eigene PCB Leiterplatte stark reduziert werden, ebenso wie durch den Bezug von Mehrfachverpackungen und Aufteilung der Komponenten in der Projektgruppe. 
+
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Projektkosten Soll/Ist je Prototyp.}
+\label{tab:kosten-sollist}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Kostenart} & \textbf{Soll} & \textbf{Ist}\\
+\midrule
+Elektronik (Tabelle~\ref{tab:elektronik-ist}) & 165 \euro & 56,49 \euro\\
+3D-Druck und Kleinteile & 15 \euro & ca. 15 \euro\\
+\textbf{Material gesamt} & \textbf{207 \euro} & \textbf{ca. 72 \euro}\\
+\midrule
+Personal & 51.620 \euro & 51.620 \euro \\
+Software und Werkzeuge & 0 \euro & 0 \euro\\
+\midrule
+\textbf{Gesamt} & \textbf{ca. 51.827 \euro} & \textbf{ca. 51.692 \euro} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+

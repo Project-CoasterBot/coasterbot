@@ -108,6 +108,8 @@ public:
     float vel_x {0}, vel_y {0}; // in m/s
     float pos_x {0}, pos_y {0}; // in m
 
+    bool ok() const { return _ok; }
+
     void begin() {
         bus().setSDA(sda_pin);
         bus().setSCL(scl_pin);

@@ -1,0 +1,125 @@
+#ifndef COASTERBOT_FUNCTIONS_H
+#define COASTERBOT_FUNCTIONS_H
+
+#include "robot_logic.h"
+#include "pose_estimator.h"
+#include "safety_monitor.h"
+#include "occupancy_grid.h"
+#include "dstar_lite.h"
+#include <array>
+#include <memory>
+#include <vector>
+
+struct Vec4Coasterbot {
+    float x = 0.0f;
+    float y = 0.0f;
+    bool operator==(const Vec4Coasterbot& o) const { return x == o.x && y == o.y; }
+    bool operator!=(const Vec4Coasterbot& o) const { return !(*this == o); }
+};
+
+
+class CoasterbotFunctions : public RobotLogic {
+    public:
+    explicit CoasterbotFunctions(RobotHAL& hal, PoseEstimator& pose, SafetyMonitor& safety);
+
+    // Einmal pro Regelzyklus aufrufen (autonomer Modus, Zustandsautomat).
+    void update();
+
+
+    void runLearnTable();
+    void runNavigateTargets();
+    void navigateTo(Vec2 destination, float speed);
+    void navigateToWithObstacleAvoidance(Vec2 destination, float speed);
+    bool isTableLearned() const { return this->tableLearned; }
+    void setTableLearned(bool learned) { this->tableLearned = learned; }
+    bool buttonPressed() const { return hal_.getButtonState(); }
+    bool safetyOverriding() const { return safety_.overriding(); }
+    bool pathExists() const { return dstar_ && dstar_->pathExists(); }
+    bool runSpendCoasters();
+    bool runGetCoasters();
+    bool runCollectCoasters() { return runGetCoasters(); }
+    bool goToCenter();
+    bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
+    void runDriveTest();
+    bool blocklessWait(float duration);
+    void led(RobotHAL::LED_COLORS color) { hal_.led(color); }
+    std::vector<Vec2> getCoasterPositions(int coasterIndex);
+
+    private:
+    RobotHAL& hal_;
+    PoseEstimator& pose_;
+    SafetyMonitor& safety_;
+    std::unique_ptr<OccupancyGrid> grid_;
+    std::unique_ptr<DStarLite> dstar_;
+
+    bool tableLearned = false;
+    float tableWidth_ = 0.0f;
+    float tableHeight_ = 0.0f;
+    Vec2 navigationTarget_{};
+    Vec2 navigationWaypoint_{};
+    Vec2 navigationSegmentStart_{};
+    Cell navigationPreviousCell_{};
+    float navigationSegmentHeading_ = 0.0f;   // [rad]
+    float navigationSegmentLength_ = 0.0f;    // [m]
+    bool navigationTargetInitialized_ = false;
+    bool navigationPlannerInitialized_ = false;
+    bool navigationAligning_ = false;
+    bool navigationWaypointInitialized_ = false;
+    bool navigationWaypointIsFinal_ = false;
+    int edgeInterruptions_ = 0;
+    bool edgeStopLatched_ = false;
+    bool edgeWasActive_ = false;
+    bool edgeReroutePending_ = false;
+    bool navigationPointSettling_ = false;
+    float navigationPointSettleStartedAt_ = 0.0f;
+    bool centerSettling_ = false;
+    float centerSettleStartedAt_ = 0.0f;
+    size_t navigationPointIndex_ = 0;
+    bool navigationSequenceComplete_ = false;
+    bool coasterRoutineActive_ = false;
+    bool coasterRoutineFailed_ = false;
+    int coasterRoutineIndex_ = 0;
+    enum class CoasterRoutinePhase {
+        TRAVEL,
+        SETTLE,
+        SPEND_WAIT_LIFTER,
+        SPEND_WAIT_SPENDER,
+        GET_WAIT_SPENDER_OUT,
+        GET_WAIT_SPENDER_HOME
+    };
+    CoasterRoutinePhase coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+    float coasterRoutinePhaseStartedAt_ = 0.0f;
+    float robotBoundingBoxWidth_ = 0.2f;  // [m]
+    float robotBoundingBoxLength_ = 0.2f; // [m]
+    float obstacleRecoveryDirection_ = 1.0f;
+    float lastTimer_ = 0.0f;
+    bool resetLastTimer_ = true;
+
+    void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
+    void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
+    void calcCoasterPositions();
+    static constexpr int MAX_COASTERS = 4;
+    static constexpr float _HALF_PI = 1.57079632679489661923f;
+    static constexpr float ACCEPTED_BIAS = 0.005f;
+    static constexpr float NAVIGATION_DISTANCE_GAIN = 20.0f;
+    static constexpr float NAVIGATION_HEADING_GAIN = 3.0f;
+    static constexpr float NAVIGATION_TURN_ENTER_ERROR = 0.02f;
+    static constexpr float NAVIGATION_TURN_EXIT_ERROR = 0.008f;
+    static constexpr float CENTER_CAPTURE_RADIUS = ACCEPTED_BIAS;
+    static constexpr float CENTER_SETTLE_TIME = 0.5f;
+    static constexpr float NAVIGATION_GRID_RESOLUTION = 0.05f;
+    static constexpr float TABLE_EDGE_INFLATION = 0.025f;
+    static constexpr float ULTRASONIC_OBSTACLE_PADDING = 0.02f;
+    static constexpr float ULTRASONIC_MAP_RANGE = 0.75f;
+    static constexpr float ULTRASONIC_TURN_DISTANCE = 0.35f;
+    std::array<Vec2, MAX_COASTERS> coasterPositions;
+
+    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)
+    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_SPENDER = { 0, 90, 180 }; // Servo positions for lifter (degrees)
+
+    enum class ServoId : uint8_t { LIFTER, SPENDER };
+
+};
+
+#endif  // COASTERBOT_FUNCTIONS_H
+

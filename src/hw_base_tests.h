@@ -22,7 +22,7 @@ void outputCurrentPosition(Bot& _bot) {
     Serial.println(" ");
 }
 
-    // bot faehrt nur vorwaerts/rueckwearts und gibt position aus.
+// bot faehrt nur vorwaerts/rueckwearts und gibt position aus.
 template <typename Bot>
 class BaseBotHandler {
 protected:

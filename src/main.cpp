@@ -8,9 +8,11 @@
 
 #include "hw_impl_hal.h"
 #include "hw_base_tests.h"
+#include "hw_webots_test.h"
 
 static HardwareImplementationHAL _bot;
-static hw_test::PosSequenceNav<HardwareImplementationHAL> _test;
+//static hw_test::PosSequenceNav<HardwareImplementationHAL> _test;
+static WebotsTest<HardwareImplementationHAL> _webots;
 
 void setup() {
     Serial.begin(115200);
@@ -18,12 +20,16 @@ void setup() {
     _bot.initializeHardware();
     _bot.setUserLedIndicatorToAutomatic(false);
 
-    _test.begin(_bot);
+//    _test.begin(_bot);
+
+    _webots.begin(_bot);
 }
 
 
 void loop() {
     _bot.step(); // bot loop, sensor eval etc.
 
-    _test.loop(_bot);
+//    _test.loop(_bot);
+
+    _webots.loop(_bot);
 }

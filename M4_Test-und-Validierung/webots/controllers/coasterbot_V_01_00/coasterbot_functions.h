@@ -100,7 +100,7 @@ class CoasterbotFunctions : public RobotLogic {
     void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
-    static constexpr float HALF_PI = 1.57079632679489661923f;
+    static constexpr float _HALF_PI = 1.57079632679489661923f; // HALF_PI in Arduino schon definiert
     static constexpr float ACCEPTED_BIAS = 0.005f;
     static constexpr float NAVIGATION_DISTANCE_GAIN = 20.0f;
     static constexpr float NAVIGATION_HEADING_GAIN = 3.0f;

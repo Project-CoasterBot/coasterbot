@@ -567,7 +567,7 @@ void CoasterbotFunctions::runLearnTable() {
 			tableHeight_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
-			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, HALF_PI);
+			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, _HALF_PI);
 			previousCenterCoordinate = pose_.getY();
 			std::cout << "[LEARN] set y to: " << -tableHeight_ / 2.0f << " m" << std::endl;
 			state = State::CENTER;
@@ -577,17 +577,17 @@ void CoasterbotFunctions::runLearnTable() {
 		{
 			const float yawChange = std::atan2(std::sin(hal_.getYaw() - turnStartYaw),
 			                                   std::cos(hal_.getYaw() - turnStartYaw));
-			const float turnError = std::atan2(std::sin(HALF_PI - yawChange),
-			                                   std::cos(HALF_PI - yawChange));
-			if (std::fabs(turnError) <= HALF_PI * 0.01f) {
+			const float turnError = std::atan2(std::sin(_HALF_PI - yawChange),
+			                                   std::cos(_HALF_PI - yawChange));
+			if (std::fabs(turnError) <= _HALF_PI * 0.01f) {
 			this->stop();
-			pose_.reset(pose_.getX(), pose_.getY(), HALF_PI);
+			pose_.reset(pose_.getX(), pose_.getY(), _HALF_PI);
 			std::cout << "[LEARN] Turn accepted: yaw change="
-			          << yawChange * 180.0f / (HALF_PI * 2.0f)
+			          << yawChange * 180.0f / (_HALF_PI * 2.0f)
 			          << " deg (target=90). Move forward." << std::endl;
 			state = State::FORWARD;
 			} else {
-				const float turnSpeed = std::fabs(turnError) <= HALF_PI / 18.0f
+				const float turnSpeed = std::fabs(turnError) <= _HALF_PI / 18.0f
 					? speed * 0.1f
 					: speed * 0.5f;
 				this->turnLeft(turnError > 0.0f ? turnSpeed : -turnSpeed);
@@ -614,7 +614,7 @@ void CoasterbotFunctions::runLearnTable() {
 			buildGrid = true;
 		}
 		if(!this->blocklessWait(2.0f)) break;
-		pose_.reset(0.0f, 0.0f, HALF_PI);
+		pose_.reset(0.0f, 0.0f, _HALF_PI);
 		state = State::IDLE;
 		this->tableLearned = true;
 

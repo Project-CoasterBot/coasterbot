@@ -4,8 +4,8 @@
 PoseEstimator::PoseEstimator(RobotHAL& hal) : hal_(hal) {}
 
 float PoseEstimator::wrapAngle(float a) {
-    while (a > PI)  a -= 2.0f * PI;
-    while (a <= -PI) a += 2.0f * PI;
+    while (a > _PI)  a -= 2.0f * _PI;
+    while (a <= -_PI) a += 2.0f * _PI;
     return a;
 }
 

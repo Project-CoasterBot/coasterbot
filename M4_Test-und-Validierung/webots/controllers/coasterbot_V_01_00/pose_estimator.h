@@ -44,7 +44,7 @@ private:
     static constexpr float TRACK_WIDTH = 0.202f;    // [m]
     static constexpr float HEADING_ODO_WEIGHT = 0.05f;
     static constexpr float YAW_CORRECTION_TIME_CONSTANT = 0.06f;  // [s]
-    static constexpr float PI = 3.14159265358979323846f;
+    static constexpr float _PI = 3.14159265358979323846f; // PI in Arduino schon definiert
     static constexpr float STATIONARY_COMMAND_THRESHOLD = 0.01f;  // [rad/s]
     static constexpr float STATIONARY_DISTANCE_THRESHOLD = 0.00005f;  // [m/update]
     static constexpr float STATIONARY_GYRO_THRESHOLD = 0.02f;  // [rad/s]

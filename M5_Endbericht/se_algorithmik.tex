@@ -1,0 +1,45 @@
+
+\subsubsection*{Ausgangslage und Leitlinien}
+
+Das Pflichtenheft fordert vom Coasterbot eine zielgerichtete autonome Bewegung auf der Tischfläche (\texttt{NAV-*}), Hindernis- und Tischkantenerkennung sowie eine Sicherheitskomponente mit übergeordneter Priorität (\texttt{SAF-*}). Als Hardware wurde ein Mikrocontroller (Raspberry Pi Pico~2) statt eines SBC mit ROS\@ gewählt. Deshalb wurde entschieden, die Navigation zunächst in einer Physiksimulation (Webots) zu entwerfen und gegen die bereits festgelegten Testfälle aus dem Testkonzept zu verifizieren. Dadurch können die gewonnenen Erkentnisse auf die reale Hardware übertragen werden. Entscheidend dafür ist die Hardwareabstraktionsschicht \texttt{RobotHAL} (siehe Abschnitt~\ref{lösungsweg-elektronik}): Navigations- und Sicherheitslogik kennen ausschließlich dieses Interface und sollen dadurch unverändert von der Simulation auf die Zielhardware übernommen werden können.
+
+\subsubsection*{Benchmarking und Auswahl der Verfahren}
+
+Grundlage war eine systematische Literaturrecherche (M0, \textit{Algorithmen.md}) zu Graphalgorithmen, heuristischer und dynamischer Pfadplanung, lokaler Kollisionsvermeidung, Lokalisierung sowie Manipulationsplanung. Die daraus abgeleiteten Möglichkeiten und Alternativen wurden in einer Mindmap (M3, \textit{KonzeptMindMap-Algorithmen.svg}) je Teilproblem strukturiert und in der Alternativenbeschreibung (M3) anhand der festgelegten Anforderungen bewertet: begrenzte Tischfläche, begrenzte Rechenleistung sowie der sicherheitskritischen Anforderung, den Tisch nicht zu verlassen. Tabelle~\ref{tab:algorithmik-auswahl} fasst die resultierende Auswahl zusammen.
+
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Betrachtete Alternativen und gewählte Lösung der Navigationsalgorithmik.}
+\label{tab:algorithmik-auswahl}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{2.3cm}X@{}}
+\toprule
+\textbf{Funktion} & \textbf{Alternativen} & \textbf{Gewählt} & \textbf{Begründung}\\
+\midrule
+Globale Pfadplanung & Dijkstra, Breitensuche & A* &
+Heuristik lenkt die Suche zielgerichtet, bleibt auf dem Gitter dennoch optimal.\\
+\midrule
+Lokale Kollisionsvermeidung & Potentialfelder, adaptive/neuronale DWA & Dynamic Window Approach &
+Bezieht Bewegungsdynamik ein, vermeidet lokale Minima der Potentialfeldmethode.\\
+\midrule
+Dynamische Neuplanung & D*, LPA* & D* Lite &
+Etabliertes, inkrementelles Verfahren für nachträglich entdeckte Hindernisse.\\
+\midrule
+Lokalisierung & IMU/INS allein, voller EKF/UKF, SLAM & Radodometrie + Gyro, Komplementärfilter &
+Für die bekannte, flache Tischfläche ausreichend, SLAM nicht erforderlich.\\
+\midrule
+Manipulations\-planung & Inverse Kinematik + RRT* & nicht umgesetzt &
+Laut Abgrenzung nicht Teil der Simulationssoftware in M4.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection*{Von der Recherche zur Simulation}
+
+Die gewählten Verfahren wurden als eigenständige, nur über \texttt{RobotHAL} angebundene C++-Module umgesetzt: Ein \texttt{OccupancyGrid} bildet die Tischfläche als Gitterkarte mit Distanzfeld ab, bekannte Hindernisse werden direkt eingetragen, live erkannte erst nach mehreren konsistenten Messungen. \texttt{astarPlan} liefert darauf einen geglätteten Pfad, \texttt{DStarLite} plant inkrementell um, sobald der Ultraschallsensor ein unkartiertes Hindernis entdeckt. Der \texttt{DwaPlanner} bestimmt daraus jeden Regelzyklus das Geschwindigkeitspaar beider Seiten. Die Lokalisierung liefert der \texttt{PoseEstimator} über einen Komplementärfilter aus Radodometrie und Gyroskop, der beim Schlupf des Skid-Steer-Antriebs in Kurven stärker auf das Gyroskop vertraut. Außerdem gibt es die Sicherheitsebene: \texttt{SafetyMonitor} reagiert mit übergeordneter Priorität auf Tischkanten, \texttt{FaultMonitor} zusätzlich auf Sensor- und Aktorausfälle. Dedizierte Betriebsarten erlaubten es also, jede Stufe einzeln und reproduzierbar zu prüfen, bevor sie Teil des Gesamtsystems wurde.
+
+\subsubsection*{Anpassungen während der Umsetzung}
+
+Mehrere Entscheidungen wurden angepasst, nachdem sich in der Simulation Probleme verdichteten. Der volle Sensorfusions-Ansatz (EKF/UKF) wurde zugunsten des einfacheren Komplementärfilters zurückgestellt. Dies ist für die bekannte Tischfläche ausreichend genau, allerdings ohne Unsicherheitsschätzung der Pose. Da die lokale Bewegungssteuerung dem kürzesten Pfad von A* nahe von Ecken nicht zuverlässig folgen konnte, wurden zwei unterschiedlich stark inflatierte Gitter (Planung/Kollisionsvermeidung) sowie eine Pfadglättung eingesetzt. Diese Pfadplanun verschiebt Wegpunkte von Ecken weiter zur Mitte. Eine einzelne Kostenkarte mit weicheren Gradienten würde diese Zweiteilung künftig überflüssig machen. Der \texttt{FaultMonitor} war in der ursprünglichen Mindmap noch nicht vorgesehen und kam erst hinzu, als sich die Testfälle zu Sensor- und Aktorausfällen konkretisiert haben. Bei seiner eigenen Verifikation fiel dabei eine zu eng gewählte Plausibilitätsschwelle auf, die normales Sensorrauschen fälschlich als Ausfall wertete. Dies wurde korrigiert. Bewusst nicht umgesetzt blieben die Manipulationsplanung sowie die missionsweite Ablaufsteuerung (\texttt{IDLE}~$\to\,\ldots\,\to$~\texttt{DONE}), für die inzwischen ein mit der Elektronik abgestimmter Vorschlag existiert.
+
+In der simulierten Verifikation bestanden alle bearbeiteten Testfälle: Zielfehler rund \SI{5,8}{\centi\meter}, Hindernisabstand mindestens \SI{0,22}{\meter}, zuverlässige Tischkantenerkennung, byte-identische Wiederholläufe sowie Sensor-/Aktorfehlererkennung innerhalb von \SI{0,02}{\second} bzw.\ \SI{0,34}{\second}. Offen bleiben nur die ohnehin nicht im Scope liegenden Testfälle zum Untersetzerhandling sowie der Abgleich gegen den realen Prototyp.

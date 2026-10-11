@@ -66,6 +66,9 @@ constexpr int PIN_ENCODER_RIGHT = BOARD_PIN_ENCODER_RIGHT; // default GP9
 constexpr int PIN_COASTER_SERVO_1 = 6; // GP6
 constexpr int PIN_COASTER_SERVO_2 = 7; // GP7
 
+constexpr int PIN_COASTER_SERVO_1_INITIAL_ANGLE = 180; // Sollte Heber sein 180° = ganz einefahren
+constexpr int PIN_COASTER_SERVO_2_INITIAL_ANGLE = 90; // Sollte Spender sein 90° = Langer Arm zeigt ins Zentrum
+
 // UI
 constexpr int PIN_USER_BUTTON = 10; // GP10, active low (gedrueckt = LOW)
 

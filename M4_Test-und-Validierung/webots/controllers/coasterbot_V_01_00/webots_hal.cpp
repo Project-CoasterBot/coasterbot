@@ -267,14 +267,20 @@ void WebotsHAL::setServoPosition(int servoId, int position) {
     switch (servoId) {
         case 0: // Lifter
             activeCoaster_ = std::clamp(position / 45, 0, 3);
-            std::cout << "[HAL] set Lifter Servo Position: " << position << " degrees" << std::endl;
+            if (position != lastLifterServoPosition_) {
+                std::cout << "[HAL] set Lifter Servo Position: " << position << " degrees" << std::endl;
+                lastLifterServoPosition_ = position;
+            }
             if (pickupPending_) {
                 //setCoasterVisible(activeCoaster_, false);
                 pickupPending_ = false;
             }
             break;
         case 1: // Spender
-            std::cout << "[HAL] set Spender Servo Position: " << position << " degrees" << std::endl;
+            if (position != lastSpenderServoPosition_) {
+                std::cout << "[HAL] set Spender Servo Position: " << position << " degrees" << std::endl;
+                lastSpenderServoPosition_ = position;
+            }
             if (position == 90) {
                 //setCoasterVisible(activeCoaster_, true);
             } else if (position == 180) {

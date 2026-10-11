@@ -567,7 +567,7 @@ void CoasterbotFunctions::runLearnTable() {
 			tableHeight_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
-			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, HALF_PI);
+			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, HALF_PI_RAD);
 			previousCenterCoordinate = pose_.getY();
 			std::cout << "[LEARN] set y to: " << -tableHeight_ / 2.0f << " m" << std::endl;
 			state = State::CENTER;
@@ -577,17 +577,17 @@ void CoasterbotFunctions::runLearnTable() {
 		{
 			const float yawChange = std::atan2(std::sin(hal_.getYaw() - turnStartYaw),
 			                                   std::cos(hal_.getYaw() - turnStartYaw));
-			const float turnError = std::atan2(std::sin(HALF_PI - yawChange),
-			                                   std::cos(HALF_PI - yawChange));
-			if (std::fabs(turnError) <= HALF_PI * 0.01f) {
+			const float turnError = std::atan2(std::sin(HALF_PI_RAD - yawChange),
+			                                   std::cos(HALF_PI_RAD - yawChange));
+			if (std::fabs(turnError) <= HALF_PI_RAD * 0.01f) {
 			this->stop();
-			pose_.reset(pose_.getX(), pose_.getY(), HALF_PI);
+			pose_.reset(pose_.getX(), pose_.getY(), HALF_PI_RAD);
 			std::cout << "[LEARN] Turn accepted: yaw change="
-			          << yawChange * 180.0f / (HALF_PI * 2.0f)
+			          << yawChange * 180.0f / (HALF_PI_RAD * 2.0f)
 			          << " deg (target=90). Move forward." << std::endl;
 			state = State::FORWARD;
 			} else {
-				const float turnSpeed = std::fabs(turnError) <= HALF_PI / 18.0f
+				const float turnSpeed = std::fabs(turnError) <= HALF_PI_RAD / 18.0f
 					? speed * 0.1f
 					: speed * 0.5f;
 				this->turnLeft(turnError > 0.0f ? turnSpeed : -turnSpeed);
@@ -614,7 +614,7 @@ void CoasterbotFunctions::runLearnTable() {
 			buildGrid = true;
 		}
 		if(!this->blocklessWait(2.0f)) break;
-		pose_.reset(0.0f, 0.0f, HALF_PI);
+		pose_.reset(0.0f, 0.0f, HALF_PI_RAD);
 		state = State::IDLE;
 		this->tableLearned = true;
 
@@ -665,42 +665,98 @@ bool CoasterbotFunctions::runSpendCoasters() {
 		this->stop();
 		coasterRoutinePhase_ = CoasterRoutinePhase::SETTLE;
 		coasterRoutinePhaseStartedAt_ = now;
+		std::cout << "[SPEND] At coaster " << coasterRoutineIndex_ << ", dispensing" << std::endl;
 		return false;
 	}
 
 	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return false;
+		if (spendCoaster(coasterRoutineIndex_)) {
+			++coasterRoutineIndex_;
+			coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+			if (coasterRoutineIndex_ >= MAX_COASTERS) {
+				coasterRoutineActive_ = false;
+				std::cout << "[SPEND] All coasters dispensed" << std::endl;
+				return true;
+			}
 		}
-		std::cout << "[SPEND] At coaster " << coasterRoutineIndex_ << ", dispensing" << std::endl;
-		hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterRoutineIndex_]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::SPEND_WAIT_LIFTER;
-		coasterRoutinePhaseStartedAt_ = now;
 		return false;
 	}
 
-	if (coasterRoutinePhase_ == CoasterRoutinePhase::SPEND_WAIT_LIFTER) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return false;
-		}
-		hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::SPEND_WAIT_SPENDER;
-		coasterRoutinePhaseStartedAt_ = now;
-		return false;
-	}
+	return false;
+}
 
-	if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-		return false;
-	}
-	hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[0]);
-	++coasterRoutineIndex_;
-	coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
-	if (coasterRoutineIndex_ >= MAX_COASTERS) {
-		coasterRoutineActive_ = false;
-		std::cout << "[SPEND] All coasters dispensed" << std::endl;
+bool CoasterbotFunctions::spendCoaster(int coasterIndex) {
+	if (coasterIndex < 0 || coasterIndex >= MAX_COASTERS) {
+		std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
 		return true;
 	}
+	
+	switch (coasterSpending_) {
+		case SpendingStates::IDLE:
+			if( (coasterIndex+1) - coastersSpend == 1 and coastersSpend < MAX_COASTERS) {
+				coasterSpending_ = SpendingStates::SET_LIFTER_DOWN;
+				return false;
+			}
+			else {
+				std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
+				std::cout << "[SPEND] Coaster out: " << coastersSpend << std::endl;
+				std::cout << "[SPEND] Coaster MAX: " << MAX_COASTERS << std::endl;
+				return true;
+			}
+		break;
+		case SpendingStates::SET_LIFTER_DOWN:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterIndex]);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_SPENDER_SPEND;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_SPENDER_SPEND:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[0]);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_SPENDER_HOME;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_SPENDER_HOME:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1]);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_LIFTER_UP;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_LIFTER_UP:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), 180.0f);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::IDLE;
+				coastersSpend++;
+				return true;
+			}
+			else {
+				return false;
+			}
+		break;
+	}
+
 	return false;
+	
+}
+
+void CoasterbotFunctions::resetSpendCoasterSequence() {
+	coasterSpending_ = SpendingStates::IDLE;
+	coasterCollecting_ = CollectingStates::IDLE;
+	coastersSpend = 0;
+	resetLastTimer_ = true;
 }
 
 bool CoasterbotFunctions::goToCenter(){
@@ -801,6 +857,74 @@ bool CoasterbotFunctions::runGetCoasters() {
 		return false;
 	}
 	return true;
+}
+
+bool CoasterbotFunctions::getCoaster(int coasterIndex) {
+	if (coasterIndex < 0 || coasterIndex >= MAX_COASTERS) {
+		std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
+		return true;
+	}
+	
+	switch (coasterCollecting_) {
+		case CollectingStates::IDLE:
+			if (coastersSpend == coasterIndex + 1) {
+				coasterCollecting_ = CollectingStates::SET_SPENDER_ASIDE;
+				return false;
+			}
+			else {
+				std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
+				std::cout << "[SPEND] Coaster out: " << coastersSpend << std::endl;
+				std::cout << "[SPEND] Coaster MAX: " << MAX_COASTERS << std::endl;
+				return true;
+			}
+		break;
+		case CollectingStates::SET_SPENDER_ASIDE:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[2]);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::SET_LIFTER_DOWN;
+			}
+			else {
+				return false;
+			}
+		case CollectingStates::SET_LIFTER_DOWN:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterIndex]);
+
+			if(blocklessWait(5.0f)) {
+				coasterCollecting_ = CollectingStates::SET_LIFTER_UP;
+			}
+			else {
+				return false;
+			}
+		break;
+		
+		case CollectingStates::SET_LIFTER_UP:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), 180.0f);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::SET_SPENDER_HOME;
+				
+			}
+			else {
+				return false;
+			}
+		break;
+
+		case CollectingStates::SET_SPENDER_HOME:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1]);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::IDLE;
+				coastersSpend--;
+				return true;
+			}
+			else {
+				return false;
+			}
+		break;
+	}
+
+	return false;
 }
 
 std::vector<Vec2> CoasterbotFunctions::getCoasterPositions(int coasterIndex) {

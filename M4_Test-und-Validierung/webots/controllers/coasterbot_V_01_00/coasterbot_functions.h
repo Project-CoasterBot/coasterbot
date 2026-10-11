@@ -1,7 +1,7 @@
 #ifndef COASTERBOT_FUNCTIONS_H
 #define COASTERBOT_FUNCTIONS_H
 
-#include "webots_hal.h"
+#include "robot_hal.h"
 #include "robot_logic.h"
 #include "pose_estimator.h"
 #include "safety_monitor.h"
@@ -37,7 +37,11 @@ class CoasterbotFunctions : public RobotLogic {
     bool safetyOverriding() const { return safety_.overriding(); }
     bool pathExists() const { return dstar_ && dstar_->pathExists(); }
     bool runSpendCoasters();
+    bool spendCoaster(int coasterIndex);
+    void resetSpendCoasterSequence();
+    static constexpr int MAX_COASTERS = 4;
     bool runGetCoasters();
+    bool getCoaster(int coasterIndex);
     bool runCollectCoasters() { return runGetCoasters(); }
     bool goToCenter();
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
@@ -99,8 +103,7 @@ class CoasterbotFunctions : public RobotLogic {
     void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
     void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
     void calcCoasterPositions();
-    static constexpr int MAX_COASTERS = 4;
-    static constexpr float HALF_PI = 1.57079632679489661923f;
+    static constexpr float HALF_PI_RAD = 1.57079632679489661923f;
     static constexpr float ACCEPTED_BIAS = 0.005f;
     static constexpr float NAVIGATION_DISTANCE_GAIN = 20.0f;
     static constexpr float NAVIGATION_HEADING_GAIN = 3.0f;
@@ -115,12 +118,31 @@ class CoasterbotFunctions : public RobotLogic {
     static constexpr float ULTRASONIC_TURN_DISTANCE = 0.35f;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
-    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)
+    uint8_t coastersSpend = 0;
+
+    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 100, 60, 40, 0 }; // Servo positions for lifter (degrees)
     const std::array<uint8_t, MAX_COASTERS> SERVO_POS_SPENDER = { 0, 90, 180 }; // Servo positions for lifter (degrees)
 
+    
     enum class ServoId : uint8_t { LIFTER, SPENDER };
+    enum class SpendingStates : uint8_t {
+        IDLE,
+        SET_LIFTER_DOWN,
+        SET_SPENDER_SPEND,
+        SET_SPENDER_HOME,
+        SET_LIFTER_UP
+    };
+    SpendingStates coasterSpending_ = SpendingStates::IDLE;
+
+    enum class CollectingStates : uint8_t {
+        IDLE,
+        SET_SPENDER_ASIDE,
+        SET_LIFTER_DOWN,
+        SET_SPENDER_HOME,
+        SET_LIFTER_UP
+    };
+    CollectingStates coasterCollecting_ = CollectingStates::IDLE;
 
 };
 
 #endif  // COASTERBOT_FUNCTIONS_H
-

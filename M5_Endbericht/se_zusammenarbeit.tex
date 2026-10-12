@@ -1,0 +1,14 @@
+
+\subsubsection*{Organisatorischer Rahmen}
+
+Das Projekt ist in die Meilensteine M0, M3, M4 und M5 gegliedert (Recherche, Produktentwicklung, Umsetzung, Test und Validierung, Endbericht), denen im Repository je ein eigenes Verzeichnis entspricht. Innerhalb des zeitlichen Rahmens wurde die Arbeit unter den drei Teammitgliedern nach technischen Gewerken aufgeteilt: Dennis Borutta verantwortete den mechanischen Aufbau, Gereon Such die Elektronik und die Hardwareabstraktion, Stefan Etringer die Navigationsalgorithmik und deren Simulation. Diese Aufteilung blieb über die Meilensteine hinweg weitestgehend gleicht. Die Zuordnung einzelner Arbeitspakete und Termine erfolgte über Notion (siehe Abschnitt~\ref{kommunikation-projekt}).
+
+\subsubsection*{Zusammenarbeit über die Versionsverwaltung}
+
+Technisch wurde über ein gemeinsames Git-Repository auf GitHub zusammengearbeitet (siehe Abschnitt~\ref{kommunikation-projekt}). Jedes Teammitglied committete überwiegend direkt auf den \texttt{main} Branch. Größere, zusammenhängende Änderungen legte sich jedes Mitglied bei Bedarf einen eigenen Arbeits-Branch an (\texttt{Dennis\_Workbranch}, \texttt{Stefan\_Workbranch}), der anschließend auf \texttt{main} zusammengeführt wurde. Ein formaler Review-Prozess über Pull Requests fand dabei nicht statt. Bei einem Team dieser Größe wurden Rückfragen zu Änderungen direkt in den wöchentlichen Besprechungen über Alfaview oder über WhatsApp geklärt (siehe erneut Abschnitt~\ref{kommunikation-projekt}).
+
+Die schriftlichen Dokumente (Lastenheft, Pflichtenheft, Softwaredokumentation, Testkonzept, dieser Endbericht, usw.) wurden nach zuvor festgelegtem Template gemeinsam in \LaTeX{} verfasst. Änderungen an den Dokumenten wurden in der Tabelle  der Versionshistorie festgehalten.
+
+\subsubsection*{Schnittstellen zwischen den Gewerken}
+
+Die genannten Verantwortungsbereiche greifen im letztendlichen Hardwareaufbau eng ineinander. Um eine zeitgleiche Arbeit an den Kompontenten zu ermöglichen, wurde eine abstrahierende Schnittstelle zur losen Kopplung zwischen diesen eingeführt. Zentral dafür ist die Hardwareabstraktionsschicht \texttt{RobotHAL} (Abschnitt~\ref{lösungsweg-elektronik}): Da die Navigations- und Sicherheitslogik gegen dieses Interface entwickelt wird, konnte die Algorithmik (Abschnitt~\ref{lösungsweg-algorithmik}) in der Simulation geprüft werden, während parallel die reale Hardwareanbindung aufgebaut wurde, ohne dass eine Seite auf den jeweils aktuellen Stand der anderen warten musste. Entkoppelt wurde die Mechanik (Abschnitt~\ref{lösungsweg-mechink}) über die Ansteuerung einzelner Servo-Freiheitsgrade angebunden. Eine engere Abstimmung war dort nötig, wo sich diese Schnittstellen im Projektverlauf änderten, etwa bei der nachträglichen Ergänzung der Radencoder (Abschnitt~\ref{nutzen-des-aktuellen-ergebnis}). Hierbei wurde die Erweiterung der \texttt{RobotHAL} zwischen Algorithmik und Elektronik abgestimmt, bevor sie umgesetzt wurde.

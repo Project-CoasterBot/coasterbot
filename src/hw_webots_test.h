@@ -28,7 +28,8 @@ protected:
 public:
 
     void begin(Bot& _bot) {
-        _pose = new PoseEstimator(_bot);
+        // TT-Raeder 6.7 cm (wie MotionDetectionOptoCoupling), nicht die Webots-Raeder
+        _pose = new PoseEstimator(_bot, 0.067f / 2.0f, 0.202f);
         _safety = new SafetyMonitor(_bot);
         _coasterbot = new CoasterbotFunctions(_bot, *_pose, *_safety);
     }

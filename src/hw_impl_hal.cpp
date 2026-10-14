@@ -230,8 +230,9 @@ bool HardwareImplementationHAL::getEdgeFrontRight() { return _edge_fr; }
 bool HardwareImplementationHAL::getEdgeRearLeft() { return _edge_rl; }
 bool HardwareImplementationHAL::getEdgeRearRight() { return _edge_rr; }
 
-float HardwareImplementationHAL::getYaw() { return 0.f; /* sensor for picking up? */ }
-float HardwareImplementationHAL::getGyroZ() { return 0.f; /* height? */}
+// the MPU-6050 has no absolute yaw reference, heading is the integrated gyro rate (ccw positive)
+float HardwareImplementationHAL::getYaw() { return inertial_sensor.ok() ? inertial_sensor.heading * DEG_TO_RAD : 0.f; }
+float HardwareImplementationHAL::getGyroZ() { return inertial_sensor.ok() ? inertial_sensor.rate_z * DEG_TO_RAD : 0.f; }
 
 float HardwareImplementationHAL::getForwardAcceleration() {
     float x = inertial_sensor.accel_x, y = inertial_sensor.accel_y;

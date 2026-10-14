@@ -104,7 +104,7 @@ void WebotsHAL::updateImuErrors() {
 
 bool WebotsHAL::step() {
     const bool ok = robot_.step(timeStep_) != -1;
-    if (ok) { updateMotorControl(); updateImuErrors(); }
+    if (ok) { updateMotorControl(); updateImuErrors(); updateGyroHeading(); }
     return ok;
 }
 
@@ -194,12 +194,7 @@ bool WebotsHAL::getEdgeFrontRight() { return digitalEdge(edgeFR_); }
 bool WebotsHAL::getEdgeRearLeft()   { return digitalEdge(edgeRL_); }
 bool WebotsHAL::getEdgeRearRight()  { return digitalEdge(edgeRR_); }
 
-float WebotsHAL::getYaw() {
-    const double* rpy = imu_->getRollPitchYaw();
-    return static_cast<float>(rpy[2]);
-}
-
-float WebotsHAL::getGyroZ() {
+void WebotsHAL::updateGyroHeading() {
     // Das PROTO ist Y-up und wird in der Z-up-Welt mit rotation "1 0 0 1.5708"
     // aufgestellt -> die Welt-Hochachse faellt mit der lokalen +Y-Achse des
     // Gyros zusammen. Die Yaw-Rate ist daher die Y-Komponente (v[1]).
@@ -209,10 +204,35 @@ float WebotsHAL::getGyroZ() {
     // GY-521/MPU-6050-Simulation: simulierten Bias + deterministisches
     // Rauschen aufpraegen, dann den im Konstruktor (calibrateGyro())
     // ermittelten Bias-Schaetzwert wieder abziehen (siehe Kommentar dort
-    // und in webots_hal.h).
+    // und in webots_hal.h). Einmal pro Zyklus, damit getGyroZ() und
+    // getYaw() auf derselben Messung beruhen.
     const float measured = raw + GYRO_BIAS_RAD + gyroDriftError_ + gyroNoise_(gyroRng_);
-    return measured - gyroBiasEstimate_;
+    gyroRate_ = measured - gyroBiasEstimate_;
+
+    const float dt = timeStep_ * 0.001f;
+    const bool motorsIdle = commandedLeft_ == 0.0f && commandedRight_ == 0.0f;
+    gyroStillTime_ = (motorsIdle && std::fabs(gyroRate_) < GYRO_STILL_RATE_RAD)
+        ? gyroStillTime_ + dt
+        : 0.0f;
+
+    if (gyroStillTime_ >= GYRO_STILL_TIME) {
+        // Stillstand: Kurs halten, Bias langsam nachfuehren (wie GyroSensor)
+        gyroBiasEstimate_ += (1.0f - std::exp(-dt / GYRO_BIAS_TRACK_TAU))
+                           * (measured - gyroBiasEstimate_);
+        return;
+    }
+
+    constexpr float pi = 3.14159265358979323846f;
+    gyroHeading_ += gyroRate_ * dt;
+    while (gyroHeading_ > pi)   gyroHeading_ -= 2.0f * pi;
+    while (gyroHeading_ <= -pi) gyroHeading_ += 2.0f * pi;
 }
+
+// Kein InertialUnit-Yaw mehr (der waere ein idealer Absolutwert, den es
+// real nicht gibt), sondern der integrierte Gyro - siehe webots_hal.h.
+float WebotsHAL::getYaw() { return gyroHeading_; }
+
+float WebotsHAL::getGyroZ() { return gyroRate_; }
 
 float WebotsHAL::getWheelAngle(WheelId wheel) {
     // Konvention: positiv = vorwaerts. Der PositionSensor dreht mit dem

@@ -105,6 +105,7 @@ public:
     float temperature {0};
 
     float heading {0};// in degree, from -180 to 180
+    float rate_z {0}; // vertical rate in deg/s, leveled and bias corrected, ccw positive
     float vel_x {0}, vel_y {0}; // in m/s
     float pos_x {0}, pos_y {0}; // in m
 
@@ -243,6 +244,7 @@ private:
         float ax = lax - _bias_ax;
         float ay = lay - _bias_ay;
         const float gz = lgz - _bias_gz;
+        rate_z = gz;
 
         // still detection: every sample of the window must be quiet, a hand or motor jitter resets it
         constexpr float still_accel = 0.02f;

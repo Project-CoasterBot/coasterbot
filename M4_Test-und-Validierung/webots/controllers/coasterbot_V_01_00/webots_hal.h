@@ -148,6 +148,25 @@ private:
     void calibrateGyro();
 
     // ---------------------------------------------------------------
+    // Kurs (getYaw) wie auf der realen Hardware: der MPU-6050 hat keinen
+    // absoluten Kursbezug (kein Magnetometer), GyroSensor::heading ist die
+    // aufintegrierte Drehrate. Deshalb wird hier ebenfalls die simulierte,
+    // fehlerbehaftete Rate integriert, statt den idealen InertialUnit-Yaw
+    // auszugeben - Gyro-Drift wirkt sich damit wie real auf den Kurs aus.
+    // Nachgebildet ist auch die Stillstandserkennung von GyroSensor:
+    // Motoren aus und Rate ruhig fuer GYRO_STILL_TIME -> Kurs einfrieren
+    // und den Bias-Schaetzwert langsam nachfuehren (Temperaturdrift).
+    // Start bei 0 wie GyroSensor::resetOrigin(); PoseEstimator::reset()
+    // gleicht den Versatz zur gesetzten Pose aus.
+    static constexpr float GYRO_STILL_RATE_RAD  = 0.0261799f;  // 1.5 deg/s (GyroSensor still_gyro)
+    static constexpr float GYRO_STILL_TIME      = 0.2f;        // [s] (GyroSensor still_window)
+    static constexpr float GYRO_BIAS_TRACK_TAU  = 1.0f;        // [s] (GyroSensor bias_alpha @ 200 Hz)
+    float gyroRate_ = 0.0f;      // [rad/s] Messwert dieses Zyklus, bias-korrigiert
+    float gyroHeading_ = 0.0f;   // [rad] integrierte Rate, (-pi, pi]
+    float gyroStillTime_ = 0.0f; // [s]
+    void updateGyroHeading();
+
+    // ---------------------------------------------------------------
     // Motorregelung: Open-Loop vs. Closed-Loop (Softwaredokumentation,
     // Abschnitt 4.3, "Erreichbarkeit einer definierten Winkelgeschwindigkeit").
     //

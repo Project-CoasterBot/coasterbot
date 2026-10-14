@@ -20,7 +20,15 @@
 // ---------------------------------------------------------------------
 class PoseEstimator {
 public:
-    explicit PoseEstimator(RobotHAL& hal);
+    // Radgeometrie aus Coasterbot.proto.
+    static constexpr float DEFAULT_WHEEL_RADIUS = 0.035f;  // [m]
+    static constexpr float DEFAULT_TRACK_WIDTH = 0.202f;    // [m]
+
+    // wheelRadius/trackWidth [m]: Standard = Coasterbot.proto (Webots),
+    // die reale Hardware hat andere Raeder (siehe hw_webots_test.h).
+    explicit PoseEstimator(RobotHAL& hal,
+                           float wheelRadius = DEFAULT_WHEEL_RADIUS,
+                           float trackWidth = DEFAULT_TRACK_WIDTH);
 
     // Einmal pro Regelzyklus aufrufen (nach hal.step()).
     void update();
@@ -38,10 +46,10 @@ public:
 
 private:
     RobotHAL& hal_;
+    const float wheelRadius_;  // [m]
+    const float trackWidth_;   // [m]
 
-    // Radgeometrie and heading filter settings from Coasterbot.proto.
-    static constexpr float WHEEL_RADIUS = 0.035f;  // [m]
-    static constexpr float TRACK_WIDTH = 0.202f;    // [m]
+    // Heading filter settings.
     static constexpr float HEADING_ODO_WEIGHT = 0.05f;
     static constexpr float YAW_CORRECTION_TIME_CONSTANT = 0.06f;  // [s]
     static constexpr float _PI = 3.14159265358979323846f; // PI in Arduino schon definiert

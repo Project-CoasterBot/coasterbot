@@ -1,7 +1,8 @@
 #include "pose_estimator.h"
 #include <cmath>
 
-PoseEstimator::PoseEstimator(RobotHAL& hal) : hal_(hal) {}
+PoseEstimator::PoseEstimator(RobotHAL& hal, float wheelRadius, float trackWidth)
+    : hal_(hal), wheelRadius_(wheelRadius), trackWidth_(trackWidth) {}
 
 float PoseEstimator::wrapAngle(float a) {
     while (a > _PI)  a -= 2.0f * _PI;
@@ -37,8 +38,8 @@ void PoseEstimator::update() {
 
     const float now = hal_.getTime();
     const float dt = now - prevTime_;
-    float dLeft  = (left  - prevLeft_)  * WHEEL_RADIUS;  // [m] Wegstrecke links
-    float dRight = (right - prevRight_)  * WHEEL_RADIUS;  // [m] Wegstrecke rechts
+    float dLeft  = (left  - prevLeft_)  * wheelRadius_;  // [m] Wegstrecke links
+    float dRight = (right - prevRight_)  * wheelRadius_;  // [m] Wegstrecke rechts
     prevLeft_  = left;
     prevRight_ = right;
     prevTime_ = now;
@@ -67,7 +68,7 @@ void PoseEstimator::update() {
     }
 
     const float dCenter   = 0.5f * (dLeft + dRight);
-    const float dThetaOdo = (dRight - dLeft) / TRACK_WIDTH;
+    const float dThetaOdo = (dRight - dLeft) / trackWidth_;
     const float dThetaGyro = stationaryCandidate
         ? 0.0f
         : (dt > 0.0f ? gyroRate * dt : dThetaOdo);

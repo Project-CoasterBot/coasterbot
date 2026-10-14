@@ -44,8 +44,10 @@
 // --------------------------------------------------------------
 // PIN-DEFINITIONEN
 // --------------------------------------------------------------
-const uint8_t SERVO1_PIN = 9;   // Signalleitung Servo 1 -> D9
-const uint8_t SERVO2_PIN = 10;  // Signalleitung Servo 2 -> D10
+const uint8_t SERVO1_PIN = 8;   // Signalleitung Servo 1 -> D9
+const uint8_t SERVO2_PIN = 9;  // Signalleitung Servo 2 -> D10
+int min_pulse_us = 500; 
+int max_pulse_us = 2400;
 
 // --------------------------------------------------------------
 // GLOBALE VARIABLEN: Kürzel für die Servos
@@ -78,8 +80,8 @@ void setup() {
   Serial.begin(115200);
 
   // Servos an die definierten Pins binden
-  servo1.attach(SERVO1_PIN);
-  servo2.attach(SERVO2_PIN);
+  servo1.attach(SERVO1_PIN, min_pulse_us, max_pulse_us);
+  servo2.attach(SERVO2_PIN, min_pulse_us, max_pulse_us);
 
   // Startposition (optional, hier Mittelstellung 90°)
   servo1.write(90);

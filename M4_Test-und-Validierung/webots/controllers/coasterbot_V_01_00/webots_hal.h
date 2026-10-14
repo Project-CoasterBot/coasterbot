@@ -74,6 +74,8 @@ private:
     int timeStep_;
     int activeCoaster_ = 0;
     bool pickupPending_ = false;
+    int lastLifterServoPosition_ = -1;
+    int lastSpenderServoPosition_ = -1;
 
     // Je ein Handle pro Seite. Die Motoren einer Seite sind im PROTO
     // gekoppelt ("coupled motors"), ein Befehl an dieses Handle treibt

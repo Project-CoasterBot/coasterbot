@@ -397,7 +397,9 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \toprule
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
-1 & 25.09.2026 & Etringer & Erstfassung: Testreport-Vorlage auf Basis der Testfallmatrix aus dem Testkonzept (Kapitel 3--6), erste Ergebnisse der Simulationstests \texttt{ST-SIM-001..006} eingetragen\\
+1 & 25.09.2026 & Etringer & Erstfassung: Testreport-Vorlage auf Basis der Testfallmatrix aus dem Testkonzept (Kapitel 3--6), erste Ergebnisse der Simulationstests\\
+2 & 28.09.2026 & Such & Komponententest Ergebnisse ergänzt\\
+3 & 15.10.2026 & Such & Tests der integrierten Hardware mit simulierter Software ergänzt\\
 \bottomrule
 \end{tabularx}
 
@@ -497,6 +499,7 @@ Testkonzept:
 \bottomrule
 \endfoot
 bestanden & erwartetes Ergebnis wurde erreicht\\
+eingeschränkt & erwartetes Ergebnis wurde mit Einschränkungen erreicht\\
 fehlgeschlagen & erwartetes Ergebnis wurde nicht erreicht\\
 nicht ausführbar & Voraussetzungen waren nicht erfüllt\\
 nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
@@ -517,15 +520,15 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \endhead
 \bottomrule
 \endfoot
-\texttt{CT-HW-001} & Verarbeitung von Sensordaten & P1 & & & \\
-\texttt{CT-LOC-001} & Positionsaktualisierung & P1 & & & \\
-\texttt{CT-NAV-001} & Berechnung einer gültigen Route & P1 & & & \\
-\texttt{CT-NAV-002} & Hinderniserkennung & P1 & & & \\
-\texttt{CT-MOT-001} & Umsetzung von Bewegungsbefehlen & P1 & & & \\
-\texttt{CT-CST-001} & Aufnahme eines Getränkeuntersetzers & P2 & & & \\
+\texttt{CT-HW-001} & Verarbeitung von Sensordaten & P1 & 28.09.2026 & bestanden & Gyroskop, Tischkanten- und Echo-Sensor werden gelesen \\
+\texttt{CT-LOC-001} & Positionsaktualisierung & P1 & 15.10.2026 & eingeschränkt & Gyroskop-basiert akkumulieren sich Fehler, nachgrüstete Odometrie zur Raddrehungserkennung schlägt bei durchdrehendem Rad fehl. \\
+\texttt{CT-NAV-001} & Berechnung einer gültigen Route & P1 & 15.10.2026 & bestanden & Route wird korrekt berechnet.  \\
+\texttt{CT-NAV-002} & Hinderniserkennung & P1 & 28.09.2026 & bestanden & Echosensor erkennt Objekte in Fahrtrichtung im Abstand von ~3 bis 45 cm mit Genauigkeit +/- 2cm. \\
+\texttt{CT-MOT-001} & Umsetzung von Bewegungsbefehlen & P1 & 15.10.2026 & eingeschränkt & Bei Rotation häufig keine Haftung der Räder auf dem Tisch, dann wird Rotation nicht korrekt durchgeführt. \\
+\texttt{CT-CST-001} & Aufnahme eines Getränkeuntersetzers & P2 & 15.10.2026 & bestanden & \\
 \texttt{CT-CST-002} & Fehler bei Untersetzeraufnahme & P2 & & & \\
-\texttt{CT-SAF-001} & Sicherheitsstopp & P1 & & & \\
-\texttt{CT-MON-001} & Fehlererkennung und Protokollierung & P1 & & & \\
+\texttt{CT-SAF-001} & Sicherheitsstopp & P1 & 28.09.2026& bestanden & Stop wird durch non-blocking Architektur stets korrekt übernommen. \\
+\texttt{CT-MON-001} & Fehlererkennung und Protokollierung & P1 & 28.09.2026 & bestanden & Definierte Fehlerzustände werden erkannt und über die serielle Schnittstelle ausgegeben. \\
 \end{longtable}
 \end{landscape}
 
@@ -544,13 +547,13 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \endhead
 \bottomrule
 \endfoot
-\texttt{IT-SEN-NAV-001} & Verarbeitung von Hindernisdaten & P1 & & & \\
-\texttt{IT-LOC-NAV-001} & Zielnavigation mit Positionsdaten & P1 & & & \\
-\texttt{IT-NAV-MOT-001} & Umsetzung von Navigationsbefehlen & P1 & & & \\
-\texttt{IT-SAF-MOT-001} & Unterbrechen einer Bewegung bei Gefahr & P1 & & & \\
-\texttt{IT-NAV-CST-001} & Navigation und Untersetzeraufnahme & P2 & & & \\
-\texttt{IT-MON-001} & Fehlerweitergabe im Gesamtsystem & P1 & & & \\
-\texttt{IT-HW-SIM-001} & Austausch Hardware durch Simulation & P2 & & & \\
+\texttt{IT-SEN-NAV-001} & Verarbeitung von Hindernisdaten & P1 & 15.10.2026 & bestanden & Hindernisse werden erkannt und in die Routenplanung übernommen. \\
+\texttt{IT-LOC-NAV-001} & Zielnavigation mit Positionsdaten & P1 & 15.10.2026 & fehlgeschlagen & Positionserkennung zu ungenau für korrekte Navigation. \\
+\texttt{IT-NAV-MOT-001} & Umsetzung von Navigationsbefehlen & P1 & 15.10.2026 & bestanden & Anweisungen werden korrekt in Hardware-Befehle übernommen, Umsetzung scheitert aber an Positionierung. \\
+\texttt{IT-SAF-MOT-001} & Unterbrechen einer Bewegung bei Gefahr & P1 & 15.10.2026 & bestanden & Fehlerzustände wie erkannte Tischkante oder Hindernis führen zur Unterbrechnung. \\
+\texttt{IT-NAV-CST-001} & Navigation und Untersetzeraufnahme & P2 & 15.10.2026 & fehlgeschlagen & Positionserkennung zu ungenau für blinde Navigation zu Untersetzern. \\
+\texttt{IT-MON-001} & Fehlerweitergabe im Gesamtsystem & P1 & 15.10.2026 & bestanden &  \\
+\texttt{IT-HW-SIM-001} & Austausch Hardware durch Simulation & P2 & 15.10.2026 & eingeschränkt & Webots Simulationsumgebung konnte in Hardwareumgebung integriert werden.  \\
 \end{longtable}
 \end{landscape}
 
@@ -595,16 +598,16 @@ nicht durchgeführt & Test noch nicht ausgeführt (Vorbelegung dieser Vorlage)\\
 \endhead
 \bottomrule
 \endfoot
-\texttt{SYS-001} & Systemstart und Initialisierung & P1 & & & \\
-\texttt{SYS-002} & Autonome Bewegung auf dem Tisch & P1 & & & \\
-\texttt{SYS-003} & Erkennung und Umfahrung eines Hindernisses & P1 & & & \\
-\texttt{SYS-004} & Schutz vor Herunterfallen vom Tisch & P1 & & & \\
-\texttt{SYS-005} & Aufnahme eines Getränkeuntersetzers & P2 & & & \\
-\texttt{SYS-006} & Platzierung eines Untersetzers & P2 & & & \\
-\texttt{SYS-007} & Aktivierung des Not-Aus & P1 & & & \\
-\texttt{SYS-008} & Verhalten bei Systemfehler & P1 & & & \\
-\texttt{SYS-009} & Überwachung des Akkuzustands & P2 & & & \\
-\texttt{SYS-010} & Vollständiger Coasterbot-Arbeitsablauf & P1 & & & \\
+\texttt{SYS-001} & Systemstart und Initialisierung & P1 & 15.10.2026 & bestanden & Initialisierungsroutinen wie Gyroskopnormalisierung werden korrekt ausgeführt. \\
+\texttt{SYS-002} & Autonome Bewegung auf dem Tisch & P1 & 15.10.2026 & eingeschränkt & Befehle werden umgesetzt, allerdings nur mit ungenügender Positionsgenauigkeit. \\
+\texttt{SYS-003} & Erkennung und Umfahrung eines Hindernisses & P1 & 15.10.2026 & bestanden & Hindernisse werden erkannt und umfahren.  \\
+\texttt{SYS-004} & Schutz vor Herunterfallen vom Tisch & P1 & 15.10.2026 & bestanden & Tischkante wird korrekt erkannt und Coasterbot rückwärts gefahren. \\
+\texttt{SYS-005} & Aufnahme eines Getränkeuntersetzers & P2 & 15.10.2026 & eingeschränkt & Aufnahme funktioniert, wenn Coasterbot direkt über Coaster platziert wird. Wiederfinden ist aber blind derzeit nicht möglich. \\
+\texttt{SYS-006} & Platzierung eines Untersetzers & P2 & 15.10.2026 & bestanden & \\
+\texttt{SYS-007} & Aktivierung des Not-Aus & P1 & 15.10.2026 & bestanden & Über Ein-/Aus Schalter jederzeit möglich.  \\
+\texttt{SYS-008} & Verhalten bei Systemfehler & P1 & 15.10.2026 & bestanden & Bot hält an und Nutzer-LED leuchtet entsprechend auf.  \\
+\texttt{SYS-009} & Überwachung des Akkuzustands & P2 & 15.10.2026 & nicht ausführbar & Keine Spannung des Akkus auslesbar. \\
+\texttt{SYS-010} & Vollständiger Coasterbot-Arbeitsablauf & P1 & 15.10.2026 & nicht durchgeführt & Cosater werden nicht wiedergefunden, damit keine vollständige Routine möglich. \\
 \end{longtable}
 \end{landscape}
 

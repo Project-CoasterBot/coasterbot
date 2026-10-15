@@ -1,28 +1,48 @@
+\subsubsection*{Ausgangslage und Leitlinien}
+Zur Umsetzung der Mechanik sind folgende Anforderungen aus dem Pflichtenheft als Leitlinien herangezogen:
+\begin{itemize}
+    \item (HW-ACT-005..007)  Anforderungen an das Getränkeuntersetzerhandling.
+    \item (HW-MEC-001..005)  Anforderungen an die mechanische Konstruktion.
+\end{itemize}
+
+\subsubsection*{Benchmarking und Auswahl der Verfahren}
 Zur Auswahl der Lösungmethoden für die verwendete Mechanik wurde wie folgt vorgegangen:
 \begin{enumerate}
-    \item Extraktion der mechanischen Anforderungen aus dem Lastenheft
-    \item Gruppieren der notwendigen Lösungsdimensionen
+    \item Extraktion der mechanischen Anforderungen aus dem Pflichtenheft
+    \item Gruppieren von Lösungsdimensionen
     \item Explorative Lösungsfindung mit Hilfe einer MindMap
     \item Gegenüberstellung der verschiedenen Lösungswege
     \item Begründung der verfolgten Lösung
 \end{enumerate}
 
-Da die unterschiedlichen Lösungsoptionen und Gegenüberstellungen ausführlich im Dokument "Alternativenbewertung"
-beschrieben wurden und diesem im DMS der WBH zur Verfügung steht, werden an dieser Stelle lediglich die Gruppierun
-und die gewählten Lösungswege mit ihren Begründungen vorgestellt. 
-Die Gruppierung der Anforderungen für die Mechnik sind wie folgt:
-\begin{itemize}
-    \item Chassis
-    \item[] \begin{itemize}
-        \item Material
-        \item Form
-        \item Modularität
-    \end{itemize}
-    \item Untersetzer ablegen
-    \item Untersetzer aufnehmen
-\end{itemize} 
+Da die unterschiedlichen Lösungsoptionen und Gegenüberstellungen ausführlich im Dokument \textit{alternativenbewertung}
+beschrieben wurden und diesem im DMS der WBH zur Verfügung steht, werden an dieser Stelle lediglich gewählten Lösungswege mit ihren Begründungen verkürzt vorgestellt.
 
-\textbf{Chassis - Materiel}
-Als Material für das Chassis des Coasterbots fiel die Wahl auf Kunststoff (Polylactid, PLA). Dieses Material
-wurde ausgewählt, da es als günstig, besonders leicht und einfach zu verarbeiten mit Hilfe eines 3D-Druckers
-gilt. 
+\begin{table}[H]
+\centering
+\footnotesize
+\caption{Betrachtete Alternativen und gewählte Lösung der Mechanik.}
+\label{tab:mechanik-auswahl}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{3.1cm}>{\raggedright\arraybackslash}p{2.3cm}X@{}}
+\toprule
+\textbf{Funktion} & \textbf{Alternativen} & \textbf{Gewählt} & \textbf{Begründung}\\
+\midrule
+Chassis - Material & Holz, Metall & Kunststoff (Polylactid) &
+Kunststoff ist günstig und Polyactid lässt sich besonders einfach auf einem 3D-Drucker verarbeiten.\\
+\midrule
+Chassis - Form & Abgerundet & Rechteckig &
+Durch die rechteckige Form sind nachträgliche Anpassungen einfach anzubringen und die Konstruktion einfacher.\\
+\midrule
+Chassis - Modularität & Zwischenebenen & Austauschbare Seitenwände &
+Druck kann in einzelnen Teilen erfolgen und die Wände sind austauschbar (Es muss kein gesamtes neues Gehäuse hergestellt werden).\\
+\midrule
+Untersetzer ablegen & Roboter mit Greifer/Sauger & Ausschieber &
+Weniger komplex und benötigt weniger Antriebe.\\
+\midrule
+Untersetzer aufnehmen & Roboter mit Greifer/Sauger, Manuelle Einlage & Magnetische Aufnahme &
+Weniger komplex und benötigt weniger Antriebe.\\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsubsection*{Anpassungen während der Umsetzung}

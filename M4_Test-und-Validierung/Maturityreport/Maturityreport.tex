@@ -399,7 +399,8 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \toprule
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
-1 & 25.09.2026 & Borutta & Erstfassung: Maturityreport auf Basis des Lastenhefts (Kapitel 2.7).\\
+1 & 27.09.2026 & Borutta & Erstfassung: Maturityreport auf Basis des Lastenhefts (Kapitel 2.7).\\
+2 & 17.10.2026 & Borutta & Anpassungen nach finalem Testlauf. \\
 \bottomrule
 \end{tabularx}
 
@@ -484,7 +485,7 @@ Funktion & M1 & M2 & M3 & M4 & M5 \\
 
 % --- Der eigentliche Inhalt der Tabelle (Daten) ---
 
-Autonome Navigation & \centering\textbf{X} & &  &  &  \\
+Autonome Navigation & \centering\textbf{(X)} & &  &  &  \\
 \toprule
 
 Lokalisierung der Untersetzer & \centering\textbf{(X)} &  &  &  &  \\ 
@@ -526,19 +527,23 @@ Verschüttungssicherung beim Transport von Getränken & \cellcolor[HTML]{EFEFEF}
 
 \subsection{Anmerkungen zu Maturity Level 1}\label{anmerkungen}
 \begin{itemize}
-\item \textbf{Autonome Navigation:} Die autonome Navigation wurde erfolgreich implementiert und getestet. Der Coasterbot kann sich selbstständig in der Umgebung bewegen und Hindernissen ausweichen.
+\item \textbf{Autonome Navigation:} Die autonome Navigation wurde erfolgreich implementiert und getestet. Der Coasterbot kann sich selbstständig in der Umgebung bewegen und Hindernissen ausweichen. Jedoch gibt es Verbesserungsbedarf hinsichtlich der Genauigkeit.
 \item \textbf{Lokalisierung der Untersetzer:} Die Lokalisierung der Untersetzer erfolgt durch festgelegte Koordinaten. Hier besteht Verbesserungsbedarf.
-\item \textbf{Aufnahme von Untersetzern:} Die Mechanismen zur Aufnahme von Untersetzern funktionieren.
-\item \textbf{Ausgabe von Untersetzern:} Die Mechanismen zur Ausgabe von Untersetzern funktionieren.
+\item \textbf{Aufnahme von Untersetzern:} Die Mechanismen zur Aufnahme von Untersetzern funktionieren. Hier sollte jedoch in zukünftigen Versionen eine Erkennung auf Vorhandensein eines Coasters implementiert werden.
+\item \textbf{Ausgabe von Untersetzern:} Die Mechanismen zur Ausgabe von Untersetzern funktionieren. Untersetzer werden jedoch mehr ausgeworfen als positioniert.
 \item \textbf{Energieverwaltung:} Die Energie wird über eine wiederaufladbare Batterie bereitgestellt. Eine automatische Energieverwaltung ist noch nicht implementiert. Jedoch kann über ein Entlademodell und der eingebauten LED, eine grobe Ladezustandsüberwachung implementiert werden.
 \end{itemize}
 
 \newpage
 \section{Fazit}\label{fazit}
 Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise. 
-Die Kernfunktionen sind abgedeckt, jedoch besteht ein Verbesserungsbedarf bei der Lokalisierung der Untersetzer.
-Diese sollten in zukünftigen Versionen durch andere Mechanismen lokalisiert werden. Vorstellbar wäre der Einsatz
-einer Kamera, die die Untersetzer erkennt und deren Position schätzt. Hinzu sollten Sensoren kommen, die sicherstellen,
-dass der Coasterbot sich über den Untersetzer befindet, bevor er diesen aufnimmt.
+Die Kernfunktionen sind abgedeckt, jedoch sind Verbesserungsbedarf identifiziert. Hierunter fallen die Optimierung der Genauigkeit der Navigation, eine genauere Lokalisierung und eine Positionierung der Untersetzer.
+Diese Verbesserungen sollten in zukünftigen Versionen berücksichtigt werden. 
+
+Zur Optimierung der Navigation sollten Alternative Sensoren getestet werden. Die Tolaranzen des verwendeten Sensors führen zu einem aufsummierten Fehler, der die Navigation ungenau macht.
+
+Um die Lokalisierung der Untersetzer zu verbessern, sollte der Einsatz von Kameras oder anderen Sensoren in Betracht gezogen werden, um die Position der Untersetzer genauer zu bestimmen. Weiterhin sollten Sensoren vorgesehen werden, die die Anwesenheit von Untersetzern unterhalb der Aufnahme prüft.
+
+Zur Verbesserung der Positionierung der Untersetzer sollte die Ausgabemechanik überdacht und Alternative Konzepte geprüft werden. 
 
 \end{document}

@@ -422,13 +422,13 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 
 Dieser Maturityreport dokumentiert das erreichte Maturity-Level der im
 Lastenheft definierten Ausbaustufen. Während das Lastenheft festlegt,
-welchen Funktionsumfang definierte Ausbaustufen haben, hält dieser Report fest, welchen Funktionsumfang der Prototyp abdeckt. 
-Dies wird erreicht durch den Aufbau einer Matrix, in der die erste Spalte die verschiedenen Funktionen definiert und 
+welchen Funktionsumfang definierte Ausbaustufen haben, hält dieser Report fest, welchen Funktionsumfang der Prototyp abdeckt.
+Dies wird erreicht durch den Aufbau einer Matrix, in der die erste Spalte die verschiedenen Funktionen definiert und
 die darauffolgenden Spalten die verschieden Maturity-Level darstellen. In den Zellen werden die erreichten Funktionen abgehakt und bei Bedarf mit Anmerkungen versehen.
 Alle Zellen die eine nicht notwendige Funktion für ein Maturity-Level darstellen, sind ausgegraut. Eine teilweise oder komplette Umsetzung der Funktion ist möglich, aber nicht
 erforderlich zum Erreichen des Maturity-Levels.
 
-Es ist dabei zu beachten, dass das Ziel dieses Projektes das Erreichen der ersten Ausbaustufe ist. 
+Es ist dabei zu beachten, dass das Ziel dieses Projektes das Erreichen der ersten Ausbaustufe ist.
 Daher ist zu erwarten, dass ein Großteil des Funktionsumfang noch nicht erreicht wurde. Dennoch hilft dieser Report dabei,
 den Entwicklungsstand des Coasterbots zu verfolgen.
 
@@ -469,14 +469,14 @@ Getränke unter Berücksichtigung der fahrdynamischen Anforderungen.
 
 % **************************************
 \sloppy % Behebt Overfull HBox Warnungen durch Flexibilität bei Abständen
-\begin{longtable}{@{}p{6cm}|p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}@{}|ccccc@{}} 
+\begin{longtable}{@{}p{6cm}|p{1cm}p{1cm}p{1cm}p{1cm}p{1cm}@{}|ccccc@{}}
 \caption{Maturity Level Übersicht} \\
-\toprule 
-& \multicolumn{5}{c}{\centering Maturity Level} \\ 
+\toprule
+& \multicolumn{5}{c}{\centering Maturity Level} \\
 \midrule[1pt] % Dicke Linie unter dem Header
 
 Funktion & M1 & M2 & M3 & M4 & M5 \\
-\toprule 
+\toprule
 \endfirsthead
 
 % --- KEINE CONTINUED FROM PREVIOUS PAGE ZEILE mehr, um die Warnungen zu vermeiden ---
@@ -488,7 +488,7 @@ Funktion & M1 & M2 & M3 & M4 & M5 \\
 Autonome Navigation & \centering\textbf{(X)} & &  &  &  \\
 \toprule
 
-Lokalisierung der Untersetzer & \centering\textbf{(X)} &  &  &  &  \\ 
+Lokalisierung der Untersetzer & \centering\textbf{(X)} &  &  &  &  \\
 \toprule
 
 Aufnahme von Untersetze & \centering\textbf{X} &  &  &  &  \\
@@ -536,14 +536,22 @@ Verschüttungssicherung beim Transport von Getränken & \cellcolor[HTML]{EFEFEF}
 
 \newpage
 \section{Fazit}\label{fazit}
-Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise. 
+<<<<<<< HEAD
+Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise.
 Die Kernfunktionen sind abgedeckt, jedoch sind Verbesserungsbedarf identifiziert. Hierunter fallen die Optimierung der Genauigkeit der Navigation, eine genauere Lokalisierung und eine Positionierung der Untersetzer.
-Diese Verbesserungen sollten in zukünftigen Versionen berücksichtigt werden. 
+Diese Verbesserungen sollten in zukünftigen Versionen berücksichtigt werden.
 
 Zur Optimierung der Navigation sollten Alternative Sensoren getestet werden. Die Tolaranzen des verwendeten Sensors führen zu einem aufsummierten Fehler, der die Navigation ungenau macht.
 
 Um die Lokalisierung der Untersetzer zu verbessern, sollte der Einsatz von Kameras oder anderen Sensoren in Betracht gezogen werden, um die Position der Untersetzer genauer zu bestimmen. Weiterhin sollten Sensoren vorgesehen werden, die die Anwesenheit von Untersetzern unterhalb der Aufnahme prüft.
 
-Zur Verbesserung der Positionierung der Untersetzer sollte die Ausgabemechanik überdacht und Alternative Konzepte geprüft werden. 
+Zur Verbesserung der Positionierung der Untersetzer sollte die Ausgabemechanik überdacht und Alternative Konzepte geprüft werden.
+=======
+Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise.
+Die Kernfunktionen sind abgedeckt, jedoch besteht ein Verbesserungsbedarf bei der Lokalisierung der Untersetzer.
+Diese sollten in zukünftigen Versionen durch andere Mechanismen lokalisiert werden. Vorstellbar wäre der Einsatz
+einer Kamera, die die Untersetzer erkennt und deren Position schätzt. Hinzu sollten Sensoren kommen, die sicherstellen,
+dass der Coasterbot sich über den Untersetzer befindet, bevor er diesen aufnimmt.
+>>>>>>> 53d214b (typo)
 
 \end{document}

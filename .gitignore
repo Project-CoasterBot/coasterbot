@@ -227,3 +227,4 @@ Temporary Items
 boardconfig_local.h
 
 tags
+*.gz

@@ -29,6 +29,7 @@
 \usepackage{wrapfig}    % Textumfluss um Abbildungen
 \usepackage{array}
 \usepackage{calc}
+\usepackage{pdfpages}
 
 \usepackage[citecolor=black, colorlinks=true, linkcolor=black, urlcolor=blue]{hyperref}
 
@@ -349,7 +350,7 @@ showstringspaces=false
 
     {\LARGE\bfseries Coasterbot} \\[0.5em]
 
-    {\large Konzeptbeschreibung} \\[1em]
+    {\large Konzeptbeschreibung der Mechanik} \\[1em]
 
     {\includegraphics[width=0.38\textwidth]{coasterbot.png}} \\[1em]
 
@@ -379,6 +380,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \textbf{Version} & \textbf{Datum} & \textbf{Bearbeiter} & \textbf{Änderungen}\\
 \midrule
 1 & 24.08.2026 & Borutta & Erstfassung der Konzeptbeschreibung\\
+2 & 18.10.2026 & Borutta & Finalisierung \\
 \bottomrule
 \end{tabularx}
 
@@ -426,24 +428,17 @@ zur Fortbewegung. Befestigt wird die obere Platte über vier Schrauben an
 das Grundgestell. Damit Klemmt diese obere Platte vier Seitenwände in
 das Grundgestell ein.
 
-\subsubsection{Frontansicht (Konzept)}\label{frontansicht-konzept}
+\subsubsection{Frontansicht (Konzept)}\label{chapter_frontansicht-konzept}
 
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth,keepaspectratio,alt={Konzept schräge Frontansicht}]{Konzept_Frontansicht.png}
-\caption{Konzept schräge Frontansicht}
-\label{frontansicht-konzept}
+\caption{Konzept schräge Frontansicht}\label{frontansicht-konzept}
 \end{figure}
 
 Die Frontansicht in Abbildung~\ref{frontansicht-konzept} verdeutlicht das Fahrzeug sowie die Anbringung der
 Sensoren zur Kanten- und Hinderniserkennung. Mittig ist eine stilisierte
-„Gesichts''-Blende zu erkennen, welche einen Ultraschallsensor aufnehmen
-kann zur Hinderniserkennung. Die vor den Rädern stehenden Gehäuse sind
-zur Aufnahme der Sensorik zur Kantenerkennung gedacht. Diese werden auch
-für die hinteren Räder vorgesehen. Die Antriebsräder werden direkt mit
-den Außenwänden verschraubt. Alle Außenwände werden von oben in das
-Grundgestell eingeschoben. Die ist an den Führungen in den Eckpfeilern
-erkennbar.
+„Gesichts''-Blende zu erkennen, welche einen Ultraschallsensor aufnimmt. Dieser wird zur Hinderniserkennung verwendet. Die vor den Rädern stehenden Gehäuse sind zur Aufnahme der Sensorik zur Kantenerkennung gedacht. Diese sind auch für die hinteren Räder vorgesehen. Die Antriebsräder werden über einen Halter mit den Außenwänden verschraubt. Alle Außenwände werden von oben in das Grundgestell eingeschoben. Ein Fixierung der Wände erfolgt über die Führungen in den Eckpfeilern, dem Deckel und der Grundplatte.
 
 \subsection{Mechanischer Aufbau}\label{mechanischer-aufbau}
 
@@ -453,24 +448,14 @@ Deckel}
 \begin{figure}
 \centering
 \includegraphics[width=0.75\textwidth,keepaspectratio,alt={Coasterbot Isometrische Ansicht ohne Deckel}]{Coasterbot_Iso_Draufsicht_ohne_Deckel.png}
-\caption{Coasterbot Isometrische Ansicht ohne Deckel}
-\label{isometrische-ansicht-ohne-deckel}
+\caption{Coasterbot Isometrische Ansicht ohne Deckel}\label{isometrische-ansicht-ohne-deckel}
 \end{figure}
 
-Die Darstellung in Abbildung~\ref{isometrische-ansicht-ohne-deckel} zeigt den Innenaufbau des Roboters ohne die obere
-Abdeckung. Im Zentrum ist die runde Aufnahme- und Ausgabemechanik für
-die Untersetzer zu erkennen. Sie besteht aus einer beweglichen Scheibe
-mit mehreren eingelassenen Magneten. Über einen Servomotor und einen
-Schubkurbeltrieb. Dieser Schubkurbeltrieb lässt die bewegliche Scheine
-auf und ab verfahren. Durch die Magneten können entsprechende
-Untersetzer aufgenommen werden. Es wird ausreichend Platz vorgesehen,
-dass wenigsten vier Untersetzer in dieser Mechanik vorgehalten werden.
+Die Darstellung in Abbildung~\ref{isometrische-ansicht-ohne-deckel} zeigt den Innenaufbau des Roboters ohne die obere Abdeckung. Im Zentrum ist die Untersetzermechanik zur Aufnahme und Ausgabe der Untersetzer zu erkennen. Sie besteht aus einem Gehäuse, einem beweglichen Stempel mit mehreren eingelassenen Magneten, Verbindungsstücken, einem Auswurf-/Führungssteg und zwei Servo-Motoren. Es wird ein Schubkurbeltrieb verwendet um den Stempel auf und ab zu bewegen. Der Antrieb erfolgt über den oberen Servomotor. Durch die im Stempel befindlichen Magneten werden speziell gefertigte Untersetzer angezogen und aufgenommen. Es wird ausreichend Platz vorgesehen, dass wenigsten vier Untersetzer in dieser Mechanik vorgehalten werden. 
 
-An den vier Ecken des Chassis sind die Antriebsmotoren der Räder zu
-sehen. Die Räder selbst sind mit gelben Felgen ausgestattet und an
-seitlichen Halterungen befestigt.
+An den vier Ecken des Chassis sind die Antriebsmotoren der Räder zu sehen. Bei dem rechts im Bild befindlichen Antriebsmotor ist dier Halter zur Befestigung eingeblendet. Mit diesem Halter werden alle weiteren Antriebsmotoren ebenfalls befestigt.
 
-\subsubsection{Untere Ansicht}\label{untere-ansicht}
+\subsubsection{Untere Ansicht}\label{chapter_untere-ansicht}
 
 \begin{figure}
 \centering
@@ -479,93 +464,27 @@ seitlichen Halterungen befestigt.
 \label{untere-ansicht}
 \end{figure}
 
-In Abbildung~\ref{untere-ansicht} ist zentral erkennbar die Unterseite der Untersetzer-Mechanik mit dem
-herausragenden Auswurf-/Führungssteg sowie dem blauen Servomotor
-darunter. Wird ein Untersetzer ausgegeben, wird dieser soweit
-heruntergelassen, dass er auf dem Führungssteg abliegt. Damit wird eine
-sichere Ausrichtung des Untersetzer gewahrt. Anschließen rotiert der
-Servomotor um 90° wodurch die kurze Seite den Untersetzer nach vorne
-schiebt. Durch ein anschließendes Anheben des Hebemechanismus, kann der
-Untersetze abgelegt werden. Wird ein Untersetzer wieder aufgenommen,
-dreht sich der Ausschieber weitere 90° zur Seite, damit der Heber an der
-Mechanik vorbeikommt. Dadurch kann der Heber soweit heruntergefahren
-werden, bis die Magneten den sich darunter befindlichen Untersetzer
-anziehen und damit aufnehmen. Befestigt wird die Mechanik mit dem
-Gehäuse über vier Schrauben.
+In Abbildung~\ref{untere-ansicht} ist zentral die Unterseite der Untersetzermechanik mit dem herausragenden Auswurf-/Führungssteg sowie dem zweiten Servomotor erkennber. Wird ein Untersetzer ausgegeben, wird dieser soweit heruntergelassen, dass er auf dem Führungssteg abliegt. Anschließen rotiert der Servomotor um 90° wodurch die kurze Seite des Auswurf-/Führungssteg den Untersetzer nach vorne schiebt. Durch ein anschließendes Anheben des Hebemechanismus, wird der Untersetze abgelegt. Wird ein Untersetzer wieder aufgenommen, dreht sich der Ausschieber weitere 90° zur Seite, damit der Stempel an der Mechanik vorbeikommt. Dadurch kann der Stempel soweit heruntergefahren werden, bis die Magneten den sich darunter befindlichen Untersetzer anziehen und damit aufnehmen. Befestigt wird die Mechanik mit dem Gehäuse über vier Schrauben.
 
-\subsection{Komponentenübersicht}\label{komponentenuxfcbersicht}
-
-{\def\LTcaptype{none} % do not increment counter
-\begin{longtable}[]{@{}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}
-  >{\raggedright\arraybackslash}p{(\linewidth - 4\tabcolsep) * \real{0.3333}}@{}}
-\toprule\noalign{}
-\begin{minipage}[b]{\linewidth}\raggedright
-Komponente
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Funktion
-\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-Position
-\end{minipage} \\
-\midrule\noalign{}
-\endhead
-\bottomrule\noalign{}
-\endlastfoot
-Zentrale Hebe-Mechanik & Aufnahme und Ausgabe der Untersetzer &
-Fahrzeugmitte \\
-Servomotor zum heben & Antrieb der zentralen Aufnahme-/Ausgabescheibe &
-Oberhalb der Drehscheibe \\
-4× Radantriebsmotoren & Fortbewegung des Roboters & Je Rad, in den vier
-Ecken \\
-HC-05-Board & Abstandssensor (Front) & Fahrzeugfront, hinter der
-„Gesichts''-Blende \\
-LM393-Board (in der Anfrage als „LM939'' bezeichnet) & Kantenerkennung /
-Abgrunderkennung & Vor jedem der vier Räder, nicht dargestellt \\
-Lochraster-Chassis & Trägerstruktur, flexible Montage aller Komponenten
-& Ober- und Unterseite des Fahrzeugs \\
-Inertialsensor & Orientierung im Raum & Im Innenraum, nicht
-dargestellt \\
-Recheneinheit & Auswertung und Steuerung & Im Innenraum, nicht
-dargestellt \\
-Energieversorgung & Versorgung der Steuerung, Sensorik und Aktorik mit
-Energie & Im Innenraum, nicht dargstellt \\
-\end{longtable}
-}
-
-\subsection{Funktionsprinzip
-(geplant)}\label{funktionsprinzip-geplant}
-
+\subsubsection{Spätere Nacharbeit}
+Im Laufe des Projekts stellte sich heraus, dass es Nachbesserungbedarf im mechanischen Konzept. Diese sind hier gelistet:
 \begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\tightlist
-\item
-  Der Roboter bewegt sich mittels der vier Radantriebe autonom im Raum.
-\item
-  Die Kantenerkennungssensoren (vor jedem Rad) verhindern das
-  Herunterfahren von Kanten oder Stufen.
-\item
-  Der Abstandssensor an der Front erkennt Hindernisse bzw.
-  Personen.
-\item
-  Die zentrale Hebe-Mechanik gibt an der Zielposition einen Untersetzer
-  aus bzw. nimmt einen leeren/benutzten Untersetzer wieder auf.
-\item
-  Über einen Inertialsensor wird der Verfahrweg aufgenommen und zur
-  Orientierung verwendet.
+  \item Erneuerung der Halter zur Motoraufnahme, damit ein Encoder montiert werden kann
+  \item Entfernen der Führungsstücke am Stempel der Untersetzermechanik
+  \item Anpassen des Auswurf-/Führungssteg für einen stärkeren Servomotor und vergößern der Auflagefläche am Führungssteg für Untersetzer
 \end{enumerate}
 
-\subsection{Offene Punkte}\label{offene-punkte}
+\newpage
+\section{Anhang}
+\subsection{Zeichnungen Coasterbot}
+\includepdf[pages=-,landscape=true]{Technische Zeichnungen/Coasterbot.pdf}
 
-\begin{itemize}
-\tightlist
-\item
-  Hinzufügen der fehlenden zwei LM393-Kantenerkennungssensoren.
-\item
-  Verkabelung und Steuerungslogik (Mikrocontroller, Motortreiber) sind
-  noch nicht dargestellt.
-\item
-  Positionierung der Steurung, Energieversorgung und Inertialsensorik
-\end{itemize}
+\subsection{Zeichnung Untersetzer}
+\includepdf[pages=-,landscape=true]{Technische Zeichnungen/Untersetzer.pdf}
+
+\subsection{Zeichnung Nacharbeit}
+\includepdf[pages=-,landscape=true]{Technische Zeichnungen/Nacharbeit.pdf}
+
+
 
 \end{document}

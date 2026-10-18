@@ -429,7 +429,7 @@ Alle Zellen die eine nicht notwendige Funktion für ein Maturity-Level darstelle
 erforderlich zum Erreichen des Maturity-Levels.
 
 Es ist dabei zu beachten, dass das Ziel dieses Projektes das Erreichen der ersten Ausbaustufe ist.
-Daher ist zu erwarten, dass ein Großteil des Funktionsumfang noch nicht erreicht wurde. Dennoch hilft dieser Report dabei,
+Daher ist zu erwarten, dass ein Großteil des Funktionsumfang noch nicht erreicht wurde. Deshalb hilft dieser Report dabei,
 den Entwicklungsstand des Coasterbots zu verfolgen.
 
 \subsection{Definition der Maturity-Level}\label{definition-der-maturity-level}
@@ -500,6 +500,12 @@ Ausgabe von Untersetzer & \centering\textbf{X} &  &  &  &  \\
 Energieverwaltung & \cellcolor{greybg} \centering\textbf{(X)} &  &  &  &  \\
 \toprule
 
+Sicherheit & \centering\textbf{X} &  &  &  &  \\
+\toprule
+
+Systemüberwachung & \centering\textbf{X} &  &  &  &  \\
+\toprule
+
 Tischreinigung & \cellcolor{greybg} &  &  &  &  \\
 \toprule
 
@@ -512,7 +518,10 @@ Unterstützung bei Bezahlvorgängen & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML
 Statusabfragen durch Benutzer & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} &  &  \\
 \toprule
 
-Benutzerzentrierte Entertainmentfunktionen & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} &  &  \\
+% Benutzerzentrierte Entertainmentfunktionen & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} &  &  \\
+\toprule
+
+Erweiterte Mensch-Roboter-Interaktion & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} &  &  \\
 \toprule
 
 Transport von Getränken & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} & \cellcolor[HTML]{EFEFEF} &  \\
@@ -527,16 +536,17 @@ Verschüttungssicherung beim Transport von Getränken & \cellcolor[HTML]{EFEFEF}
 
 \subsection{Anmerkungen zu Maturity Level 1}\label{anmerkungen}
 \begin{itemize}
-\item \textbf{Autonome Navigation:} Die autonome Navigation wurde erfolgreich implementiert und getestet. Der Coasterbot kann sich selbstständig in der Umgebung bewegen und Hindernissen ausweichen. Jedoch gibt es Verbesserungsbedarf hinsichtlich der Genauigkeit.
-\item \textbf{Lokalisierung der Untersetzer:} Die Lokalisierung der Untersetzer erfolgt durch festgelegte Koordinaten. Hier besteht Verbesserungsbedarf.
-\item \textbf{Aufnahme von Untersetzern:} Die Mechanismen zur Aufnahme von Untersetzern funktionieren. Hier sollte jedoch in zukünftigen Versionen eine Erkennung auf Vorhandensein eines Coasters implementiert werden.
-\item \textbf{Ausgabe von Untersetzern:} Die Mechanismen zur Ausgabe von Untersetzern funktionieren. Untersetzer werden jedoch mehr ausgeworfen als positioniert.
+\item \textbf{Autonome Navigation (NAV-001/002/006/007/008/009/010, CST-002):} Die autonome Navigation wurde erfolgreich implementiert und getestet. Der Coasterbot kann sich selbstständig in der Umgebung bewegen und Hindernissen ausweichen. Zur Positionsbestimmung und Orientierung des Roboters werden aus Radencoder und Gyroskop bestimmt. Dies ermöglicht die Wegpunktnavigation. Jedoch gibt es Verbesserungsbedarf hinsichtlich der Genauigkeit.
+\item \textbf{Lokalisierung der Untersetzer (NAV-008):} Die Lokalisierung der Untersetzer erfolgt durch festgelegte Koordinaten. Hier besteht Verbesserungsbedarf.
+\item \textbf{Aufnahme von Untersetzern (CST-001/006):} Die Mechanismen zur Aufnahme von Untersetzern funktionieren. Hier sollte jedoch in zukünftigen Versionen eine Erkennung auf Vorhandensein eines Coasters implementiert werden.
+\item \textbf{Ausgabe von Untersetzern (CST-003/005):} Die Mechanismen zur Ausgabe von Untersetzern funktionieren. Untersetzer werden jedoch mehr ausgeworfen als positioniert.
 \item \textbf{Energieverwaltung:} Die Energie wird über eine wiederaufladbare Batterie bereitgestellt. Eine automatische Energieverwaltung ist noch nicht implementiert. Jedoch kann über ein Entlademodell und der eingebauten LED, eine grobe Ladezustandsüberwachung implementiert werden.
+\item \textbf{Sicherheit (SAF-001/003, NAV-003/004):} Der Coasterbot hält bei beim Erkennen einer Tischkante selbstständig an. Ein Not-Aus, bzw. Reset ist über den Bedientaster möglich.
+\item \textbf{Systemüberwachung (MON-001/003):} Sensor- und Bewegungsmetriken werden gelogged, Fehler werden erkannt und über die Status-LED sowie eine Konsolenausgabe angezeigt. Die Ausgabe erfolgt über die serielle Schnittstelle.
 \end{itemize}
 
 \newpage
 \section{Fazit}\label{fazit}
-<<<<<<< HEAD
 Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise.
 Die Kernfunktionen sind abgedeckt, jedoch sind Verbesserungsbedarf identifiziert. Hierunter fallen die Optimierung der Genauigkeit der Navigation, eine genauere Lokalisierung und eine Positionierung der Untersetzer.
 Diese Verbesserungen sollten in zukünftigen Versionen berücksichtigt werden.
@@ -546,12 +556,4 @@ Zur Optimierung der Navigation sollten Alternative Sensoren getestet werden. Die
 Um die Lokalisierung der Untersetzer zu verbessern, sollte der Einsatz von Kameras oder anderen Sensoren in Betracht gezogen werden, um die Position der Untersetzer genauer zu bestimmen. Weiterhin sollten Sensoren vorgesehen werden, die die Anwesenheit von Untersetzern unterhalb der Aufnahme prüft.
 
 Zur Verbesserung der Positionierung der Untersetzer sollte die Ausgabemechanik überdacht und Alternative Konzepte geprüft werden.
-=======
-Der Coasterbot erfüllt die Mindestanforderungen für das verfolgte Maturity-Level 1 teilweise.
-Die Kernfunktionen sind abgedeckt, jedoch besteht ein Verbesserungsbedarf bei der Lokalisierung der Untersetzer.
-Diese sollten in zukünftigen Versionen durch andere Mechanismen lokalisiert werden. Vorstellbar wäre der Einsatz
-einer Kamera, die die Untersetzer erkennt und deren Position schätzt. Hinzu sollten Sensoren kommen, die sicherstellen,
-dass der Coasterbot sich über den Untersetzer befindet, bevor er diesen aufnimmt.
->>>>>>> 53d214b (typo)
-
 \end{document}

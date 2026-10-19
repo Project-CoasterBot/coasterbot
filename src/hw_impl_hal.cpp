@@ -25,8 +25,9 @@ void HardwareImplementationHAL::initializeHardware() {
     encoder_left.begin();
     encoder_right.begin();
 
-    servo1.begin();
-    servo2.begin();
+    // start in the rest position of the mechanism, not at 0 deg (lifter fully extended)
+    servo1.begin(board::PIN_COASTER_SERVO_1_INITIAL_ANGLE);
+    servo2.begin(board::PIN_COASTER_SERVO_2_INITIAL_ANGLE);
 
     edge_det_rear_left.begin();
     edge_det_rear_right.begin();
@@ -127,7 +128,7 @@ bool HardwareImplementationHAL::step() {
             motion_ctrl.turnLeft();
 
         const bool turning = (_speed_left > 0) != (_speed_right > 0);
-        motion_ctrl.setSpeed(turning ? _pwm_turn : _pwm_drive);
+        motion_ctrl.setSpeed(pwmForSpeed(_speed_left, turning));
 
         // TODO motion_ctrl.setSpeed() from rad per second... turning is voltage dependant. control with inertial system?
     }
@@ -212,6 +213,15 @@ bool HardwareImplementationHAL::step() {
     return true;
 }
 
+uint8_t HardwareImplementationHAL::pwmForSpeed(float rad_per_sec, bool turning) const {
+    const uint8_t pwm_max = turning ? _pwm_turn : _pwm_drive;
+    if (_speed_nominal <= 0.f) return pwm_max;
+
+    const uint8_t pwm_min = std::min(turning ? _pwm_turn_min : _pwm_drive_min, pwm_max);
+    const float ratio = std::min(1.f, std::abs(rad_per_sec) / _speed_nominal);
+    return static_cast<uint8_t>(std::lround(pwm_min + ratio * static_cast<float>(pwm_max - pwm_min)));
+}
+
 void HardwareImplementationHAL::setLeftSpeed(float radPerSec) { _speed_left = radPerSec; }
 void HardwareImplementationHAL::setRightSpeed(float radPerSec) { _speed_right = radPerSec; }
 
@@ -248,7 +258,8 @@ float HardwareImplementationHAL::getWheelAngle(WheelId wheel) {
     return 0.;
 }
 
-float HardwareImplementationHAL::getTime() { return static_cast<float>(micros()) * 1e-6; }
+// 64 bit timer: micros() wraps after ~71 min, every time based state (waits, safety) would stall then
+float HardwareImplementationHAL::getTime() { return static_cast<float>(static_cast<double>(time_us_64()) * 1e-6); }
 
 bool HardwareImplementationHAL::getButtonState() { return user_button.isPressed(); }
 bool HardwareImplementationHAL::simulateButtonPress(float duration) {
@@ -279,6 +290,45 @@ void HardwareImplementationHAL::led(LED_COLORS color) {
         break;
     case LED_COLORS::ORANGE:
         led_board.setModeToConstantOrange();
+        break;
+    case LED_COLORS::YELLOW:
+        led_board.setModeToConstantYellow();
+        break;
+    case LED_COLORS::CYAN:
+        led_board.setModeToConstantCyan();
+        break;
+    case LED_COLORS::PURPLE:
+        led_board.setModeToConstantPurple();
+        break;
+    case LED_COLORS::PINK:
+        led_board.setModeToConstantPink();
+        break;
+    case LED_COLORS::WHITE:
+        led_board.setModeToConstant(170, 170, 170);
+        break;
+    case LED_COLORS::BLINK_RED:
+        led_board.setModeToBlinkRed();
+        break;
+    case LED_COLORS::BLINK_ORANGE:
+        led_board.setModeToBlinkOrange();
+        break;
+    case LED_COLORS::BLINK_PURPLE:
+        led_board.setModeToBlinkPurple();
+        break;
+    case LED_COLORS::BLINK_CYAN:
+        led_board.setModeToBlinkCyan();
+        break;
+    case LED_COLORS::BLINK_YELLOW:
+        led_board.setModeToBlinkYellow();
+        break;
+    case LED_COLORS::BLINK_GREEN_FAST:
+        led_board.setModeToBlinkGreen(255, 80);
+        break;
+    case LED_COLORS::BLINK_BLUE_FAST:
+        led_board.setModeToBlinkBlue(255, 80);
+        break;
+    case LED_COLORS::BLINK_WHITE:
+        led_board.setModeToBlink(170, 170, 170);
         break;
 
         default: break;

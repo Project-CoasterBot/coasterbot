@@ -67,7 +67,11 @@ void PoseEstimator::update() {
         yawOffset_ = wrapAngle(theta_ - hal_.getYaw());
     }
 
-    const float dCenter   = 0.5f * (dLeft + dRight);
+    // Drehen auf der Stelle (Seiten gegenlaeufig kommandiert): der Mittelpunkt bleibt stehen.
+    // Unterschiedlich zaehlende Encoder wuerden die Position sonst bei jeder Drehung verschieben.
+    const bool turningOnSpot =
+        hal_.getCommandedSpeed(WHEEL_LEFT) * hal_.getCommandedSpeed(WHEEL_RIGHT) < 0.0f;
+    const float dCenter   = turningOnSpot ? 0.0f : 0.5f * (dLeft + dRight);
     const float dThetaOdo = (dRight - dLeft) / trackWidth_;
     const float dThetaGyro = stationaryCandidate
         ? 0.0f

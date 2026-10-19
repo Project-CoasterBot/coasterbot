@@ -28,7 +28,11 @@ enum WheelId {
 
 class RobotHAL {
 public:
-    enum class LED_COLORS : uint8_t { OFF, RED, GREEN, BLUE, ORANGE };
+    enum class LED_COLORS : uint8_t { OFF, RED, GREEN, BLUE, ORANGE,
+                                      YELLOW, CYAN, PURPLE, PINK, WHITE,
+                                      BLINK_RED, BLINK_ORANGE, BLINK_PURPLE,
+                                      BLINK_CYAN, BLINK_YELLOW,
+                                      BLINK_GREEN_FAST, BLINK_BLUE_FAST, BLINK_WHITE };
 
     virtual ~RobotHAL() {}
 

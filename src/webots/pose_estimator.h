@@ -40,6 +40,8 @@ public:
 
     // Gesamte gefahrene Wegstrecke ("Kilometerzaehler") [m].
     float getOdometer() const { return odometer_; }
+    float getWheelRadius() const { return wheelRadius_; }  // [m]
+    float getTrackWidth() const { return trackWidth_; }    // [m]
 
     // Pose auf einen bekannten Wert setzen (z.B. Startpose aus der Welt).
     void reset(float x = 0.0f, float y = 0.0f, float theta = 0.0f);

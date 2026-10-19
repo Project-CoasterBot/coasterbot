@@ -11,7 +11,9 @@ CoasterbotFunctions::CoasterbotFunctions(RobotHAL& hal,
     : RobotLogic(hal),
       hal_(hal), pose_(pose), safety_(safety),
       grid_(std::make_unique<OccupancyGrid>(-1.5f, -1.5f, 1.5f, 1.5f, 0.05f)),
-      dstar_(std::make_unique<DStarLite>(*grid_)) {}
+      dstar_(std::make_unique<DStarLite>(*grid_)),
+      navigationStall_(hal, NAVIGATION_STALL_MIN_TIME, NAVIGATION_STALL_MIN_EXPECTED,
+                       NAVIGATION_STALL_MIN_MOVED) {}
 
 void CoasterbotFunctions::update() {
 	// These components have state that must be refreshed once per control cycle.
@@ -103,9 +105,23 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		edgeInterruptions_ = 0;
 		edgeStopLatched_ = false;
 		edgeWasActive_ = false;
+		stallInterruptions_ = 0;
+		stallStopLatched_ = false;
+		navigationStall_.restart();
+		alignWatchActive_ = false;
+		alignStopLatched_ = false;
 	}
 
-	if (edgeStopLatched_) {
+	// Vorgabe fuer alle Ausstiege mit stop(); die anderen setzen ihren Zustand selbst.
+	navState_ = NavState::BLOCKED;
+
+	if (alignStopLatched_) {
+		navState_ = alignStopState_;
+		this->stop();
+		return;
+	}
+	if (edgeStopLatched_ || stallStopLatched_) {
+		navState_ = edgeStopLatched_ ? NavState::EDGE_LATCHED : NavState::STALL_LATCHED;
 		this->stop();
 		return;
 	}
@@ -119,22 +135,14 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		std::cout << "[NAV] edge interruption " << edgeInterruptions_ << "/3" << std::endl;
 		if (edgeInterruptions_ >= 3) {
 			edgeStopLatched_ = true;
+			navState_ = NavState::EDGE_LATCHED;
 			this->stop();
 			std::cout << "[NAV] three edge interruptions reached -> navigation stopped" << std::endl;
 			return;
 		}
 
 		if (grid_ && tableLearned) {
-			const bool frontEdge = safety_.frontEdge();
-			const float direction = frontEdge ? 1.0f : -1.0f;
-			const float edgeDistance = 0.20f;
-			const float edgeX = pose_.getX() + direction * edgeDistance * std::cos(pose_.getTheta());
-			const float edgeY = pose_.getY() + direction * edgeDistance * std::sin(pose_.getTheta());
-			const float halfWidth = std::fabs(robotBoundingBoxWidth_) * 0.5f + 0.05f;
-			const float halfLength = std::fabs(robotBoundingBoxLength_) * 0.5f + 0.05f;
-			grid_->addObstacleRect(edgeX - halfLength, edgeY - halfWidth,
-			                       edgeX + halfLength, edgeY + halfWidth, 0.0f);
-			grid_->buildDistanceField();
+			markBlockedArea(safety_.frontEdge() ? 1.0f : -1.0f);
 			navigationPlannerInitialized_ = false;
 			edgeReroutePending_ = true;
 			std::cout << "[NAV] edge recorded in map -> fresh route will be planned after recovery" << std::endl;
@@ -142,6 +150,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 
 	if (safety_.overriding()) {
+		navState_ = NavState::SAFETY;
 		return;
 	}
 	if (edgeReroutePending_) {
@@ -150,6 +159,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		std::cout << "[NAV] edge recovery complete -> replanning from current position" << std::endl;
 	}
 	if (edgeActive) {
+		navState_ = NavState::SAFETY;
 		this->stop();
 		return;
 	}
@@ -158,6 +168,38 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
         this->stop();
         return;
     }
+
+	// Fahrbefehl des letzten Zyklus ohne Radbewegung: die reale HAL unterdrueckt die Fahrt
+	// (z.B. Hindernis naeher als ihr Mindestabstand) oder der Roboter haengt fest. Ohne
+	// Reaktion wuerde derselbe Befehl endlos wiederholt -> blockierten Bereich eintragen, neu planen.
+	navigationStall_.update();
+	if (navigationStall_.stalled()) {
+		const float cmdLeft = hal_.getCommandedSpeed(WHEEL_LEFT);
+		const float cmdRight = hal_.getCommandedSpeed(WHEEL_RIGHT);
+		const bool drivingForward = cmdLeft > 0.0f && cmdRight > 0.0f;
+		const bool drivingBackward = cmdLeft < 0.0f && cmdRight < 0.0f;
+		++stallInterruptions_;
+		std::cout << "[NAV] no wheel motion despite drive command (left=" << cmdLeft
+		          << ", right=" << cmdRight << " rad/s) -> stall " << stallInterruptions_
+		          << "/" << MAX_STALL_INTERRUPTIONS << std::endl;
+		this->stop();
+		navigationStall_.restart();
+		if (stallInterruptions_ >= MAX_STALL_INTERRUPTIONS) {
+			stallStopLatched_ = true;
+			navState_ = NavState::STALL_LATCHED;
+			std::cout << "[NAV] three stalls reached -> navigation stopped" << std::endl;
+			return;
+		}
+		// beim Drehen auf der Stelle ist keine Richtung zuordenbar -> nur neu planen
+		if (drivingForward || drivingBackward) {
+			markBlockedArea(drivingForward ? 1.0f : -1.0f);
+			std::cout << "[NAV] blocked area recorded " << (drivingForward ? "ahead" : "behind")
+			          << " -> replanning" << std::endl;
+		}
+		navigationPlannerInitialized_ = false;
+		navigationAligning_ = false;
+		return;
+	}
 
 	const float driveSpeed = std::fabs(speed);
 	if (driveSpeed <= 0.0f) {
@@ -169,7 +211,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
     const Cell goalCell = grid_->worldToCell(target);
 	const float distToGoal = std::hypot(target.x - pose_.getX(), target.y - pose_.getY());
 	const float commandSpeed = std::min(driveSpeed,
-		std::max(0.12f, distToGoal * NAVIGATION_DISTANCE_GAIN));
+		std::max(NAVIGATION_MIN_DRIVE_SPEED, distToGoal * NAVIGATION_DISTANCE_GAIN));
 	const float now = hal_.getTime();
 	static float lastNavLog = -5.0f;
 	const bool logNav = (now - lastNavLog) >= 5.0f;
@@ -215,6 +257,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 			return;
 		}
 		if (grid_->inBounds(startCell) && grid_->occupied(startCell) && obstacleDetected) {
+			navState_ = NavState::ESCAPE_TURN;
 			const float recoverySpeed = std::min(commandSpeed, 2.0f);
 			hal_.setLeftSpeed(-obstacleRecoveryDirection_ * recoverySpeed);
 			hal_.setRightSpeed(obstacleRecoveryDirection_ * recoverySpeed);
@@ -246,10 +289,16 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	bool mapChanged = false;
 	std::vector<Cell> changedCells;
 	const bool obstacleDetected = std::isfinite(us) && us >= 0.0f && us < ULTRASONIC_MAP_RANGE;
-	if (obstacleDetected) {
-		const float th = pose_.getTheta();
-		const float hx = pose_.getX() + (us + 0.10f) * std::cos(th);
-		const float hy = pose_.getY() + (us + 0.10f) * std::sin(th);
+	// Kartieren nur bei Geradeausfahrt: beim Drehen auf der Stelle verschmiert der Sensor ueber den
+	// ganzen Umkreis. Jeder Treffer in Drehrichtung sperrte den Weg, D* wich zur Seite aus, der
+	// Roboter drehte hinterher - endlos. Treffer ausserhalb des Tisches (Wand, Personen) ignorieren.
+	const bool drivingStraight = hal_.getCommandedSpeed(WHEEL_LEFT) > 0.0f &&
+		hal_.getCommandedSpeed(WHEEL_RIGHT) > 0.0f;
+	const float hitX = pose_.getX() + (us + 0.10f) * std::cos(pose_.getTheta());
+	const float hitY = pose_.getY() + (us + 0.10f) * std::sin(pose_.getTheta());
+	if (obstacleDetected && drivingStraight && grid_->inBounds(grid_->worldToCell({hitX, hitY}))) {
+		const float hx = hitX;
+		const float hy = hitY;
 		const float obstacleHalfLength = useRobotBoundingBox
 			? std::fabs(robotBoundingBoxLength_) * 0.5f + ULTRASONIC_OBSTACLE_PADDING
 			: grid_->resolution();
@@ -341,7 +390,35 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	if (path.empty()) {
 		path = dstar_->extractPath();
 	}
+	if (distToGoal <= ACCEPTED_BIAS) {
+		navState_ = NavState::REACHED;
+		this->stop();
+		return;
+	}
+
+	// Endanflug: Ziel nahe und auf der Fahrtlinie -> nur vor-/rueckwaerts, nicht mehr drehen.
+	// Ein Ueberfahren (Nachlauf beim Bremsen) wird rueckwaerts korrigiert statt mit einer Wende.
+	{
+		const float th = pose_.getTheta();
+		const float dx = target.x - pose_.getX();
+		const float dy = target.y - pose_.getY();
+		const float along = dx * std::cos(th) + dy * std::sin(th);
+		const float lateral = -dx * std::sin(th) + dy * std::cos(th);
+		if (distToGoal <= NAVIGATION_FINAL_APPROACH_RADIUS &&
+		    std::fabs(lateral) <= NAVIGATION_FINAL_APPROACH_LATERAL) {
+			navigationAligning_ = false;
+			navState_ = NavState::FINAL_APPROACH;
+			if (along >= 0.0f) {
+				this->forward(commandSpeed);
+			} else {
+				this->backward(commandSpeed);
+			}
+			return;
+		}
+	}
+
 	if (path.empty()) {
+		navState_ = NavState::NO_PATH;
 		if (logNav) {
 			std::cout << "[NAV] no path -> turning to retry D*" << std::endl;
 		}
@@ -375,11 +452,6 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		}
 		return;
 	}
-	if (distToGoal <= ACCEPTED_BIAS) {
-		this->stop();
-		return;
-	}
-
 	Vec2 waypoint = path.size() > 1 ? path[1] : target;
 	for (size_t i = path.size(); i > 1; --i) {
 		if (lineIsClear(currentPosition, path[i - 1])) {
@@ -398,7 +470,11 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
                                        std::cos(desiredTheta - pose_.getTheta()));
 	const float absoluteAngleError = std::fabs(angleError);
 	if (navigationAligning_) {
-		if (absoluteAngleError <= NAVIGATION_TURN_EXIT_ERROR) {
+		// Nachlauf beim Bremsen vorwegnehmen, sonst landet der Roboter jenseits der Eintrittsschwelle
+		// und dreht zurueck (Pendeln).
+		const float brakeLead = std::min(std::fabs(hal_.getGyroZ()) * NAVIGATION_TURN_BRAKE_LEAD,
+		                                 NAVIGATION_TURN_MAX_BRAKE_LEAD);
+		if (absoluteAngleError <= NAVIGATION_TURN_EXIT_ERROR + brakeLead) {
 			navigationAligning_ = false;
 		}
 	} else if (absoluteAngleError >= NAVIGATION_TURN_ENTER_ERROR) {
@@ -406,12 +482,106 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 
 	if (navigationAligning_) {
-		const float turnSpeed = std::min(commandSpeed,
-			std::max(0.12f, absoluteAngleError * NAVIGATION_HEADING_GAIN));
+		const float theta = pose_.getTheta();
+		const float wheelLeft = hal_.getWheelAngle(WHEEL_LEFT);
+		const float wheelRight = hal_.getWheelAngle(WHEEL_RIGHT);
+		if (!alignWatchActive_) {
+			alignWatchActive_ = true;
+			alignWatchStartedAt_ = now;
+			alignWatchPrevTheta_ = theta;
+			alignWatchTurned_ = 0.0f;
+			alignWatchWheelTurned_ = 0.0f;
+		} else {
+			alignWatchTurned_ += std::fabs(std::atan2(std::sin(theta - alignWatchPrevTheta_),
+			                                          std::cos(theta - alignWatchPrevTheta_)));
+			alignWatchPrevTheta_ = theta;
+			alignWatchWheelTurned_ += (std::fabs(wheelLeft - alignWatchPrevLeft_) +
+			                           std::fabs(wheelRight - alignWatchPrevRight_)) *
+			                          pose_.getWheelRadius() / pose_.getTrackWidth();
+		}
+		alignWatchPrevLeft_ = wheelLeft;
+		alignWatchPrevRight_ = wheelRight;
+		// Kurs laeuft dem Ziel hinterher, obwohl er sich aendert -> Regelung/Sollkurs
+		const bool overrun = alignWatchTurned_ > ALIGN_MAX_TURN;
+		// Raeder drehen weit mehr als der Kurs -> die Kursschaetzung folgt der Drehung nicht (Gyro)
+		const bool headingLost = alignWatchWheelTurned_ > ALIGN_MAX_WHEEL_TURN;
+		const bool stuck = now - alignWatchStartedAt_ > ALIGN_STUCK_TIME &&
+			alignWatchTurned_ < ALIGN_STUCK_MIN_TURN;
+		if (overrun || headingLost || stuck) {
+			alignStopLatched_ = true;
+			alignStopState_ = overrun ? NavState::TURN_OVERRUN : NavState::HEADING_STUCK;
+			navState_ = alignStopState_;
+			this->stop();
+			std::cout << "[NAV] align watchdog: turned=" << alignWatchTurned_ << " rad (wheels "
+			          << alignWatchWheelTurned_ << " rad) in " << now - alignWatchStartedAt_
+			          << " s, error=" << angleError << " rad -> navigation stopped" << std::endl;
+			return;
+		}
+	} else {
+		alignWatchActive_ = false;
+	}
+
+	navState_ = navigationAligning_ ? NavState::ALIGNING : NavState::DRIVING;
+	if (navigationAligning_) {
+		const float turnSpeed = std::max(NAVIGATION_MIN_TURN_SPEED,
+			std::min({commandSpeed, NAVIGATION_MAX_TURN_SPEED, absoluteAngleError * NAVIGATION_HEADING_GAIN}));
 		this->turnLeft(angleError > 0.0f ? turnSpeed : -turnSpeed);
 	} else {
 		this->forward(commandSpeed);
 	}
+}
+
+const char* CoasterbotFunctions::navStateName(NavState state) {
+	switch (state) {
+	case NavState::IDLE:           return "IDLE";
+	case NavState::DRIVING:        return "DRIVING";
+	case NavState::ALIGNING:       return "ALIGNING";
+	case NavState::FINAL_APPROACH: return "FINAL_APPROACH";
+	case NavState::REACHED:        return "REACHED";
+	case NavState::NO_PATH:        return "NO_PATH";
+	case NavState::ESCAPE_TURN:    return "ESCAPE_TURN";
+	case NavState::BLOCKED:        return "BLOCKED";
+	case NavState::SAFETY:         return "SAFETY";
+	case NavState::EDGE_LATCHED:   return "EDGE_LATCHED";
+	case NavState::STALL_LATCHED:  return "STALL_LATCHED";
+	case NavState::TURN_OVERRUN:   return "TURN_OVERRUN";
+	case NavState::HEADING_STUCK:  return "HEADING_STUCK";
+	case NavState::SPEND_SIGNAL:   return "SPEND_SIGNAL";
+	case NavState::COLLECT_SIGNAL: return "COLLECT_SIGNAL";
+	}
+	return "?";
+}
+
+RobotHAL::LED_COLORS CoasterbotFunctions::navLedColor() const {
+	switch (navState_) {
+	case NavState::DRIVING:        return RobotHAL::LED_COLORS::GREEN;
+	case NavState::ALIGNING:       return RobotHAL::LED_COLORS::CYAN;
+	case NavState::FINAL_APPROACH: return RobotHAL::LED_COLORS::YELLOW;
+	case NavState::REACHED:        return RobotHAL::LED_COLORS::WHITE;
+	case NavState::NO_PATH:        return RobotHAL::LED_COLORS::PURPLE;
+	case NavState::ESCAPE_TURN:    return RobotHAL::LED_COLORS::PINK;
+	case NavState::BLOCKED:        return RobotHAL::LED_COLORS::BLINK_ORANGE;
+	case NavState::SAFETY:         return RobotHAL::LED_COLORS::ORANGE;
+	case NavState::EDGE_LATCHED:   return RobotHAL::LED_COLORS::BLINK_RED;
+	case NavState::STALL_LATCHED:  return RobotHAL::LED_COLORS::BLINK_PURPLE;
+	case NavState::TURN_OVERRUN:   return RobotHAL::LED_COLORS::BLINK_CYAN;
+	case NavState::HEADING_STUCK:  return RobotHAL::LED_COLORS::BLINK_YELLOW;
+	case NavState::SPEND_SIGNAL:   return RobotHAL::LED_COLORS::BLINK_GREEN_FAST;
+	case NavState::COLLECT_SIGNAL: return RobotHAL::LED_COLORS::BLINK_BLUE_FAST;
+	case NavState::IDLE:           break;
+	}
+	return RobotHAL::LED_COLORS::OFF;
+}
+
+void CoasterbotFunctions::markBlockedArea(float direction) {
+	const float blockedDistance = 0.20f;
+	const float blockedX = pose_.getX() + direction * blockedDistance * std::cos(pose_.getTheta());
+	const float blockedY = pose_.getY() + direction * blockedDistance * std::sin(pose_.getTheta());
+	const float halfWidth = std::fabs(robotBoundingBoxWidth_) * 0.5f + 0.05f;
+	const float halfLength = std::fabs(robotBoundingBoxLength_) * 0.5f + 0.05f;
+	grid_->addObstacleRect(blockedX - halfLength, blockedY - halfWidth,
+	                       blockedX + halfLength, blockedY + halfWidth, 0.0f);
+	grid_->buildDistanceField();
 }
 
 void CoasterbotFunctions::rebuildNavigationGrid(bool preserveDynamicObstacles) {
@@ -665,42 +835,122 @@ bool CoasterbotFunctions::runSpendCoasters() {
 		this->stop();
 		coasterRoutinePhase_ = CoasterRoutinePhase::SETTLE;
 		coasterRoutinePhaseStartedAt_ = now;
+		navState_ = NavState::REACHED;
+		std::cout << "[SPEND] At coaster " << coasterRoutineIndex_ << ", dispensing" << std::endl;
 		return false;
 	}
 
 	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return false;
+		bool coasterDone;
+		if (SERVO_ACTIONS_ENABLED) {
+			coasterDone = spendCoaster(coasterRoutineIndex_);
+		} else {
+			navState_ = NavState::SPEND_SIGNAL;
+			coasterDone = now - coasterRoutinePhaseStartedAt_ >= COASTER_SIGNAL_TIME;
 		}
-		std::cout << "[SPEND] At coaster " << coasterRoutineIndex_ << ", dispensing" << std::endl;
-		hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterRoutineIndex_]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::SPEND_WAIT_LIFTER;
-		coasterRoutinePhaseStartedAt_ = now;
+		if (coasterDone) {
+			++coasterRoutineIndex_;
+			coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+			if (coasterRoutineIndex_ >= MAX_COASTERS) {
+				coasterRoutineActive_ = false;
+				std::cout << "[SPEND] All coasters dispensed" << std::endl;
+				return true;
+			}
+		}
 		return false;
 	}
 
-	if (coasterRoutinePhase_ == CoasterRoutinePhase::SPEND_WAIT_LIFTER) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return false;
-		}
-		hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::SPEND_WAIT_SPENDER;
-		coasterRoutinePhaseStartedAt_ = now;
-		return false;
-	}
+	return false;
+}
 
-	if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-		return false;
-	}
-	hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[0]);
-	++coasterRoutineIndex_;
-	coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
-	if (coasterRoutineIndex_ >= MAX_COASTERS) {
-		coasterRoutineActive_ = false;
-		std::cout << "[SPEND] All coasters dispensed" << std::endl;
+bool CoasterbotFunctions::spendCoaster(int coasterIndex) {
+	if (coasterIndex < 0 || coasterIndex >= MAX_COASTERS) {
+		std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
 		return true;
 	}
+	
+	switch (coasterSpending_) {
+		case SpendingStates::IDLE:
+			if( (coasterIndex+1) - coastersSpend == 1 and coastersSpend < MAX_COASTERS) {
+				coasterSpending_ = SpendingStates::SET_LIFTER_DOWN;
+				return false;
+			}
+			else {
+				std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
+				std::cout << "[SPEND] Coaster out: " << coastersSpend << std::endl;
+				std::cout << "[SPEND] Coaster MAX: " << MAX_COASTERS << std::endl;
+				return true;
+			}
+		break;
+		case SpendingStates::SET_LIFTER_DOWN:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterIndex], SERVO_LIFTER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_SPENDER_SPEND;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_SPENDER_SPEND:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[0], SERVO_SPENDER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_SPENDER_HOME;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_SPENDER_HOME:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1], SERVO_SPENDER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::SET_LIFTER_UP;
+			}
+			else {
+				return false;
+			}
+		break;
+		case SpendingStates::SET_LIFTER_UP:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), 180.0f, SERVO_LIFTER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterSpending_ = SpendingStates::IDLE;
+				coastersSpend++;
+				return true;
+			}
+			else {
+				return false;
+			}
+		break;
+	}
+
 	return false;
+	
+}
+
+void CoasterbotFunctions::resetSpendCoasterSequence() {
+	coasterSpending_ = SpendingStates::IDLE;
+	coasterCollecting_ = CollectingStates::IDLE;
+	coastersSpend = 0;
+	resetLastTimer_ = true;
+}
+
+void CoasterbotFunctions::abortRoutine() {
+	this->stop();
+	coasterRoutineActive_ = false;
+	coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+	// Servo-Ablaeufe neu beginnen; coastersSpend bleibt, die ausgegebenen Coaster liegen ja noch
+	coasterSpending_ = SpendingStates::IDLE;
+	coasterCollecting_ = CollectingStates::IDLE;
+	resetLastTimer_ = true;
+	centerSettling_ = false;
+	navigationTargetInitialized_ = false;  // setzt beim naechsten Ziel auch alle Navigationsstopps zurueck
+	navigationPlannerInitialized_ = false;
+	navigationAligning_ = false;
+	navState_ = NavState::IDLE;
+	std::cout << "[NAV] routine aborted by user" << std::endl;
 }
 
 bool CoasterbotFunctions::goToCenter(){
@@ -765,42 +1015,101 @@ bool CoasterbotFunctions::runGetCoasters() {
 		this->stop();
 		coasterRoutinePhase_ = CoasterRoutinePhase::SETTLE;
 		coasterRoutinePhaseStartedAt_ = now;
-		return true;
-	}
-
-	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return true;
-		}
+		navState_ = NavState::REACHED;
 		std::cout << "[GET] At coaster " << coasterRoutineIndex_ << ", picking up" << std::endl;
-		hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[2]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::GET_WAIT_SPENDER_OUT;
-		coasterRoutinePhaseStartedAt_ = now;
 		return true;
 	}
 
-	if (coasterRoutinePhase_ == CoasterRoutinePhase::GET_WAIT_SPENDER_OUT) {
-		if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
-			return true;
+	// Aufnahme analog zu runSpendCoasters(): Ablauf komplett in getCoaster()
+	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
+		bool coasterDone;
+		if (SERVO_ACTIONS_ENABLED) {
+			coasterDone = getCoaster(coasterRoutineIndex_);
+		} else {
+			navState_ = NavState::COLLECT_SIGNAL;
+			coasterDone = now - coasterRoutinePhaseStartedAt_ >= COASTER_SIGNAL_TIME;
 		}
-		hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[0]);
-		coasterRoutinePhase_ = CoasterRoutinePhase::GET_WAIT_SPENDER_HOME;
-		coasterRoutinePhaseStartedAt_ = now;
+		if (coasterDone) {
+			--coasterRoutineIndex_;
+			coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
+			if (coasterRoutineIndex_ < 0) {
+				coasterRoutineActive_ = false;
+				std::cout << "[GET] All coasters collected" << std::endl;
+				return false;
+			}
+		}
 		return true;
 	}
 
-	if (now - coasterRoutinePhaseStartedAt_ < 2.0f) {
+	return true;
+}
+
+bool CoasterbotFunctions::getCoaster(int coasterIndex) {
+	if (coasterIndex < 0 || coasterIndex >= MAX_COASTERS) {
+		std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
 		return true;
 	}
-	hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterRoutineIndex_]);
-	--coasterRoutineIndex_;
-	coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
-	if (coasterRoutineIndex_ < 0) {
-		coasterRoutineActive_ = false;
-		std::cout << "[GET] All coasters collected" << std::endl;
-		return false;
+	
+	switch (coasterCollecting_) {
+		case CollectingStates::IDLE:
+			if (coastersSpend == coasterIndex + 1) {
+				coasterCollecting_ = CollectingStates::SET_SPENDER_ASIDE;
+				return false;
+			}
+			else {
+				std::cout << "[SPEND] Invalid coaster index: " << coasterIndex << std::endl;
+				std::cout << "[SPEND] Coaster out: " << coastersSpend << std::endl;
+				std::cout << "[SPEND] Coaster MAX: " << MAX_COASTERS << std::endl;
+				return true;
+			}
+		break;
+		case CollectingStates::SET_SPENDER_ASIDE:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[2], SERVO_SPENDER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::SET_LIFTER_DOWN;
+			}
+			else {
+				return false;
+			}
+		case CollectingStates::SET_LIFTER_DOWN:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), SERVO_POS_LIFTER[coasterIndex], SERVO_LIFTER_RAMP_MS);
+
+			if(blocklessWait(5.0f)) {
+				coasterCollecting_ = CollectingStates::SET_LIFTER_UP;
+			}
+			else {
+				return false;
+			}
+		break;
+		
+		case CollectingStates::SET_LIFTER_UP:
+			hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), 180.0f, SERVO_LIFTER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::SET_SPENDER_HOME;
+				
+			}
+			else {
+				return false;
+			}
+		break;
+
+		case CollectingStates::SET_SPENDER_HOME:
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), SERVO_POS_SPENDER[1], SERVO_SPENDER_RAMP_MS);
+
+			if(blocklessWait(2.0f)) {
+				coasterCollecting_ = CollectingStates::IDLE;
+				coastersSpend--;
+				return true;
+			}
+			else {
+				return false;
+			}
+		break;
 	}
-	return true;
+
+	return false;
 }
 
 std::vector<Vec2> CoasterbotFunctions::getCoasterPositions(int coasterIndex) {

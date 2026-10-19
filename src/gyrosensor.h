@@ -5,6 +5,8 @@
 #include <Arduino.h>
 #include <Wire.h> // i2c lib
 
+#include <algorithm>
+
 enum class Motion { Idle, Driving, Turning }; // hint from the main loop what the motors do
 
 /** abstraction for the MPU-6050 (accelerometer + gyroscope) via I2C, direct register access.
@@ -39,6 +41,7 @@ class GyroSensor {
     static_assert(sda_pin % 2 == 0 && scl_pin % 4 == sda_pin % 4 + 1, "sda/scl pins must belong to the same I2C peripheral");
 
     unsigned long _last_sample_us {0};
+    unsigned long _last_valid_us {0};  // last sample that was integrated
     unsigned long _sample_every_us {5000}; // 200 Hz, integration needs a steady and fast sample rate
     unsigned long _last_print {0};
     unsigned long _print_every_ms {1500};
@@ -48,6 +51,13 @@ private:
     Motion _motion {Motion::Idle};
     bool _stationary {true};   // result of the still detection
     unsigned _still_samples {0};
+
+    // dropout detection
+    static constexpr unsigned _max_bad_samples {20}; // 100 ms at 200 Hz
+    uint8_t _last_raw[14] {};
+    unsigned _frozen_samples {0};
+    unsigned _bad_samples {0};
+    unsigned _fault_count {0};
 
     float _bias_ax {0}, _bias_ay {0}, _bias_gz {0}; // bias in the leveled frame, g resp. deg/s
     float _level[3][3] {{1, 0, 0}, {0, 1, 0}, {0, 0, 1}}; // compensation for mounting direction
@@ -78,6 +88,14 @@ private:
             {vx * vy * k, 1.f - vx * vx * k, -vx},
             {-vy, vx, 1.f - (vx * vx + vy * vy) * k}};
         memcpy(_level, r, sizeof(_level));
+    }
+
+    /// Wake up and set the measurement ranges. Also used to recover after the sensor dropped out.
+    bool configure() {
+        return writeRegister(0x6B, 0x01)
+               && writeRegister(0x1A, 0x03)
+               && writeRegister(0x1B, 0x10)  // +-1000 deg/s, turning on the spot exceeds +-250
+               && writeRegister(0x1C, 0x08); // +-4 g, skid steering jolts clip at +-2 g
     }
 
     static TwoWire &bus() { return _on_i2c0 ? Wire : Wire1; }
@@ -125,11 +143,7 @@ public:
         }
         if (who_am_i != 0x68) Serial.printf("[GYRO] unexpected WHO_AM_I 0x%02X (clone?)\n", who_am_i);
 
-        // setup modes
-        _ok = writeRegister(0x6B, 0x01)
-              && writeRegister(0x1A, 0x03)
-              && writeRegister(0x1B, 0x10)  // +-1000 deg/s, turning on the spot exceeds +-250
-              && writeRegister(0x1C, 0x08); // +-4 g, skid steering jolts clip at +-2 g
+        _ok = configure();
 
         if (_ok) {
             delay(100); // let the sensor settle after wake up
@@ -140,6 +154,7 @@ public:
 
         resetOrigin();
         _last_sample_us = micros();
+        _last_valid_us = _last_sample_us;
     }
 
     /// Blocking measurement of mounting orientation and biases, the robot must not move meanwhile.
@@ -174,6 +189,10 @@ public:
         return true;
     }
 
+    /// Number of detected sensor dropouts (read errors or frozen data, see loop()). Each one may have cost
+    /// heading, the sensor is reconfigured afterwards.
+    unsigned faultCount() const { return _fault_count; }
+
     /// Set the current position and heading as origin
     void resetOrigin() {
         heading = 0;
@@ -190,6 +209,11 @@ public:
     bool read() {
         uint8_t raw[14];
         if (! readRegisters(0x3B, raw, sizeof(raw))) return false;
+
+        // real data always carries noise in the last bits. Identical bytes mean the sensor does not
+        // convert anymore, e.g. it fell back into sleep mode after a supply dip (MPU-6050 power on default).
+        _frozen_samples = memcmp(raw, _last_raw, sizeof(raw)) == 0 ? _frozen_samples + 1u : 0;
+        memcpy(_last_raw, raw, sizeof(raw));
 
         auto to_int16 = [&raw](int i) { return static_cast<int16_t>((raw[i] << 8) | raw[i + 1]); };
 
@@ -213,16 +237,26 @@ public:
         if (! _ok) return;
 
         const unsigned long now_us = micros();
-        const unsigned long elapsed_us = now_us - _last_sample_us;
-        if (elapsed_us < _sample_every_us) return;
+        if (now_us - _last_sample_us < _sample_every_us) return;
         _last_sample_us = now_us;
 
-        if (! read()) {
-            Serial.println("[GYRO] read failed");
+        const bool read_ok = read();
+        _bad_samples = read_ok && _frozen_samples == 0 ? 0 : _bad_samples + 1u;
+        if (_bad_samples >= _max_bad_samples) { // 100 ms without valid data: wake and configure again
+            ++_fault_count;
+            _bad_samples = 0;
+            _frozen_samples = 0;
+            const bool reconfigured = configure();
+            Serial.printf("[GYRO] no valid data (%s) -> reconfigure %s, fault %u\n",
+                          read_ok ? "frozen" : "read failed", reconfigured ? "ok" : "failed", _fault_count);
             return;
         }
+        if (! read_ok || _frozen_samples > 0) return;
 
-        integrate(elapsed_us * 1e-6f);
+        // a single missed sample is bridged with the next rate, a longer gap is lost anyway
+        const unsigned long valid_elapsed_us = std::min(now_us - _last_valid_us, 4 * _sample_every_us);
+        _last_valid_us = now_us;
+        integrate(valid_elapsed_us * 1e-6f);
 
         const unsigned long now = millis();
         /*if (now - _last_print >= _print_every_ms) {

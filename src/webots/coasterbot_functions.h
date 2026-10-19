@@ -6,6 +6,7 @@
 #include "safety_monitor.h"
 #include "occupancy_grid.h"
 #include "dstar_lite.h"
+#include "stall_detector.h"
 #include <array>
 #include <memory>
 #include <vector>
@@ -36,13 +37,49 @@ class CoasterbotFunctions : public RobotLogic {
     bool safetyOverriding() const { return safety_.overriding(); }
     bool pathExists() const { return dstar_ && dstar_->pathExists(); }
     bool runSpendCoasters();
+    bool spendCoaster(int coasterIndex);
+    void resetSpendCoasterSequence();
     bool runGetCoasters();
+    bool getCoaster(int coasterIndex);
     bool runCollectCoasters() { return runGetCoasters(); }
     bool goToCenter();
+    // Laufende Ausgabe/Aufnahme/Rueckfahrt abbrechen und anhalten. Tischvermessung und Karte bleiben,
+    // der naechste Start beginnt die Routine von vorn (Navigationsstopps sind zurueckgesetzt).
+    void abortRoutine();
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
     void runDriveTest();
     bool blocklessWait(float duration);
     void led(RobotHAL::LED_COLORS color) { hal_.led(color); }
+
+    // Was die Navigation im letzten Zyklus getan hat - Diagnose ohne serielle Konsole.
+    enum class NavState : uint8_t {
+        IDLE,           // noch nicht navigiert
+        DRIVING,        // faehrt vorwaerts Richtung Wegpunkt
+        ALIGNING,       // dreht auf der Stelle zum Wegpunkt
+        FINAL_APPROACH, // Endanflug, nur vor-/rueckwaerts
+        REACHED,        // Ziel innerhalb ACCEPTED_BIAS (auch waehrend der Servos)
+        NO_PATH,        // D* findet keinen Weg -> direkt anfahren bzw. links drehend suchen
+        ESCAPE_TURN,    // Startzelle belegt und Ultraschall sieht Hindernis -> drehen
+        BLOCKED,        // steht: Start/Ziel ungueltig oder belegt, Kante aktiv, Stall-Neuplanung
+        SAFETY,         // SafetyMonitor weicht der Kante aus
+        EDGE_LATCHED,   // 3 Kantenunterbrechungen -> Navigation dauerhaft gestoppt
+        STALL_LATCHED,  // 3x keine Radbewegung -> Navigation dauerhaft gestoppt
+        TURN_OVERRUN,   // Ausrichten hat > 1 Umdrehung gedauert -> Navigation gestoppt
+        HEADING_STUCK,  // Ausrichten ohne Aenderung des Kurses (Gyro/Pose) -> Navigation gestoppt
+        SPEND_SIGNAL,   // statt Coaster ablegen: LED-Signal (Servos deaktiviert)
+        COLLECT_SIGNAL  // statt Coaster aufnehmen: LED-Signal (Servos deaktiviert)
+    };
+    NavState navState() const { return navState_; }
+    // LED-Farbe zum Navigationszustand:
+    //   gruen = fahren, cyan = ausrichten, gelb = Endanflug, weiss = Ziel erreicht/Servos,
+    //   lila = kein Pfad (Suchdrehung), pink = Fluchtdrehung (Startzelle belegt),
+    //   orange blinkend = blockiert/steht, orange = Kantenausweichen,
+    //   rot blinkend = Kanten-Stopp, lila blinkend = Stall-Stopp,
+    //   cyan blinkend = Drehung > 1 Umdrehung, gelb blinkend = Kurs aendert sich beim Drehen nicht,
+    //   gruen schnell blinkend = hier wuerde abgelegt, blau schnell blinkend = hier wuerde aufgenommen,
+    //   aus = idle
+    RobotHAL::LED_COLORS navLedColor() const;
+    static const char* navStateName(NavState state);
     std::vector<Vec2> getCoasterPositions(int coasterIndex);
 
     private:
@@ -53,6 +90,7 @@ class CoasterbotFunctions : public RobotLogic {
     std::unique_ptr<DStarLite> dstar_;
 
     bool tableLearned = false;
+    NavState navState_ = NavState::IDLE;
     float tableWidth_ = 0.0f;
     float tableHeight_ = 0.0f;
     Vec2 navigationTarget_{};
@@ -70,6 +108,19 @@ class CoasterbotFunctions : public RobotLogic {
     bool edgeStopLatched_ = false;
     bool edgeWasActive_ = false;
     bool edgeReroutePending_ = false;
+    StallDetector navigationStall_;
+    int stallInterruptions_ = 0;
+    bool stallStopLatched_ = false;
+    // Drehwaechter fuer das Ausrichten (siehe ALIGN_MAX_TURN / ALIGN_STUCK_TIME)
+    bool alignWatchActive_ = false;
+    float alignWatchStartedAt_ = 0.0f;
+    float alignWatchPrevTheta_ = 0.0f;
+    float alignWatchTurned_ = 0.0f;   // [rad] Betrag, aufsummiert
+    float alignWatchWheelTurned_ = 0.0f;  // [rad] Drehung aus den Radwegen, Betrag, aufsummiert
+    float alignWatchPrevLeft_ = 0.0f;
+    float alignWatchPrevRight_ = 0.0f;
+    bool alignStopLatched_ = false;
+    NavState alignStopState_ = NavState::TURN_OVERRUN;
     bool navigationPointSettling_ = false;
     float navigationPointSettleStartedAt_ = 0.0f;
     bool centerSettling_ = false;
@@ -97,27 +148,96 @@ class CoasterbotFunctions : public RobotLogic {
 
     void navigateToInternal(Vec2 target, float speed, bool useRobotBoundingBox);
     void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
+    // Robotergrosses Hindernis direkt vor (direction = +1) bzw. hinter (-1) dem Roboter eintragen.
+    void markBlockedArea(float direction);
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
     static constexpr float _HALF_PI = 1.57079632679489661923f;
-    static constexpr float ACCEPTED_BIAS = 0.005f;
+    // Toleranzen fuer die reale Hardware: ein Encoderschritt sind ~5 mm, jeder Wechsel der
+    // Bewegungsart kostet ~300 ms Brems-/Totzeit (der Roboter laeuft so lange nach). Die frueheren
+    // Webots-Werte (5 mm, 0.5 Grad) sind damit nicht erreichbar -> Ueberschwingen, Drehen auf der Stelle.
+    static constexpr float ACCEPTED_BIAS = 0.03f;                    // [m]
     static constexpr float NAVIGATION_DISTANCE_GAIN = 20.0f;
     static constexpr float NAVIGATION_HEADING_GAIN = 3.0f;
-    static constexpr float NAVIGATION_TURN_ENTER_ERROR = 0.02f;
-    static constexpr float NAVIGATION_TURN_EXIT_ERROR = 0.008f;
+    static constexpr float NAVIGATION_TURN_ENTER_ERROR = 0.10f;      // [rad] ~6 Grad
+    static constexpr float NAVIGATION_TURN_EXIT_ERROR = 0.035f;      // [rad] ~2 Grad
+    // Mindestsollwerte: darunter skaliert die HAL die PWM so weit herunter, dass die Motoren nicht
+    // mehr anlaufen. 0.5 rad/s Drehen entspricht dem Feindrehen beim Vermessen.
+    static constexpr float NAVIGATION_MIN_TURN_SPEED = 0.5f;         // [rad/s]
+    static constexpr float NAVIGATION_MIN_DRIVE_SPEED = 2.5f;        // [rad/s]
+    // Hoechstens so schnell wie die 90-Grad-Drehung beim Vermessen (speed * 0.5): volle Dreh-PWM
+    // zieht Stromspitzen, bei denen Kantensensoren, Servos und Gyro gestoert wurden.
+    static constexpr float NAVIGATION_MAX_TURN_SPEED = 2.5f;         // [rad/s]
+    // Endanflug: liegt das Ziel nahe und (fast) auf der Fahrtlinie, wird nur noch vor-/rueckwaerts
+    // korrigiert. Sonst dreht der Roboter nach jedem Ueberfahren des Ziels um 180 Grad.
+    static constexpr float NAVIGATION_FINAL_APPROACH_RADIUS = 0.10f; // [m]
+    static constexpr float NAVIGATION_FINAL_APPROACH_LATERAL = 0.02f; // [m]
+    // Vorausschauendes Ende der Drehung: Der Motortreiber bremst 200 ms + Totzeit, der Roboter
+    // dreht so lange nach. Das Ausrichten endet daher schon um gyroRate * Vorhalt vor dem Ziel.
+    static constexpr float NAVIGATION_TURN_BRAKE_LEAD = 0.12f;       // [s]
+    // Obergrenze des Vorhalts: Austritt (EXIT + Vorhalt) muss deutlich unter dem Eintritt bleiben,
+    // sonst endet das Ausrichten schon jenseits der Eintrittsschwelle und Fahren/Ausrichten pendeln.
+    // Ohne Grenze reichen ~31 Grad/s Drehrate (oder eine Spitze im ungefilterten Gyro) dafuer aus.
+    static constexpr float NAVIGATION_TURN_MAX_BRAKE_LEAD = 0.03f;   // [rad] ~1.7 Grad
+    // Drehwaechter: Ausrichten auf einen Kurs braucht hoechstens eine halbe Umdrehung. Mehr als
+    // eine Umdrehung heisst, der Sollkurs laeuft mit oder die Kursschaetzung stimmt nicht.
+    static constexpr float ALIGN_MAX_TURN = 2.0f * 3.14159265f * 1.25f; // [rad]
+    static constexpr float ALIGN_STUCK_TIME = 6.0f;                  // [s]
+    static constexpr float ALIGN_STUCK_MIN_TURN = 0.5f;              // [rad]
+    // Zweiter Waechter unabhaengig vom Gyro: Drehung aus den Radwegen. Schlupf beim Drehen auf der
+    // Stelle laesst die Raeder mehr Weg machen als der Roboter dreht, daher die hoehere Grenze.
+    static constexpr float ALIGN_MAX_WHEEL_TURN = 2.0f * 3.14159265f * 2.5f; // [rad]
+    // Servos voruebergehend aus: am Coasterpunkt nur LED-Signal, bis die Navigation steht.
+    static constexpr bool SERVO_ACTIONS_ENABLED = false;
+    static constexpr float COASTER_SIGNAL_TIME = 3.0f;               // [s]
     static constexpr float CENTER_CAPTURE_RADIUS = ACCEPTED_BIAS;
     static constexpr float CENTER_SETTLE_TIME = 0.5f;
     static constexpr float NAVIGATION_GRID_RESOLUTION = 0.05f;
     static constexpr float TABLE_EDGE_INFLATION = 0.025f;
     static constexpr float ULTRASONIC_OBSTACLE_PADDING = 0.02f;
-    static constexpr float ULTRASONIC_MAP_RANGE = 0.75f;
+    // Nur nahe Treffer kartieren: weiter entfernt sieht der Sensor ueber die Tischkante hinaus
+    // (Wand, Personen) oder Echos der Tischplatte.
+    static constexpr float ULTRASONIC_MAP_RANGE = 0.5f;
     static constexpr float ULTRASONIC_TURN_DISTANCE = 0.35f;
+    // Stillstandserkennung: Fahrbefehl ohne Radbewegung (z.B. von der realen HAL unterdrueckt).
+    // MIN_TIME deutlich ueber der Brems-/Umschaltzeit des realen Motortreibers (~0.3 s).
+    static constexpr float NAVIGATION_STALL_MIN_TIME = 1.0f;      // [s]
+    static constexpr float NAVIGATION_STALL_MIN_EXPECTED = 1.0f;  // [rad], beide Seiten
+    static constexpr float NAVIGATION_STALL_MIN_MOVED = 0.3f;     // [rad], ~2 Encoderflanken
+    static constexpr int MAX_STALL_INTERRUPTIONS = 3;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
-    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 0, 45, 90, 135 }; // Servo positions for lifter (degrees)
-    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_SPENDER = { 0, 90, 180 }; // Servo positions for lifter (degrees)
+    // Servowinkel [deg] wie in der Webots-Statemachine (Dennis Aufbau, siehe boardconfig.h):
+    // Heber 180 = ganz eingefahren, Ausschub 90 = langer Arm zeigt ins Zentrum.
+    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 100, 60, 40, 0 }; // Heber je Coaster
+    const std::array<uint8_t, 3> SERVO_POS_SPENDER = { 0, 90, 180 }; // Ausschub: auswerfen, home, beiseite
+    // Rampen wie im Hardwaretest (CoasterMechanismus): ohne Rampe springt der Servo mit voller
+    // Geschwindigkeit, der Kurbeltrieb des Hebers verklemmt bzw. die Versorgung bricht ein.
+    // Kuerzer als die 2 s Wartezeit je Schritt in spendCoaster()/getCoaster(), damit der Servo
+    // vor dem naechsten Schritt sicher angekommen ist.
+    static constexpr unsigned long SERVO_LIFTER_RAMP_MS = 1500;
+    static constexpr unsigned long SERVO_SPENDER_RAMP_MS = 1000;
+    uint8_t coastersSpend = 0;
 
     enum class ServoId : uint8_t { LIFTER, SPENDER };
+
+    enum class SpendingStates : uint8_t {
+        IDLE,
+        SET_LIFTER_DOWN,
+        SET_SPENDER_SPEND,
+        SET_SPENDER_HOME,
+        SET_LIFTER_UP
+    };
+    SpendingStates coasterSpending_ = SpendingStates::IDLE;
+
+    enum class CollectingStates : uint8_t {
+        IDLE,
+        SET_SPENDER_ASIDE,
+        SET_LIFTER_DOWN,
+        SET_SPENDER_HOME,
+        SET_LIFTER_UP
+    };
+    CollectingStates coasterCollecting_ = CollectingStates::IDLE;
 
 };
 

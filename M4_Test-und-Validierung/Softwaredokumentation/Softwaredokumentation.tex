@@ -419,6 +419,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 11 & 28.09.2026 & Such & Besonderheiten der Hardware Implementierung hinzugefügt\\
 12 & 28.09.2026 & Ertringer, Borutta & Statemachine ergänzt \\
 13 & 19.10.2026 & Etringer & Codeblock in \enquote{Non-blocking Implementierung} angepasst. Kapitel~\ref{grenzen} aktualisiert (realer Encoder, Untersetzerhandling in \texttt{coasterbot\_V\_01\_00})\\
+14 & 20.10.2026 & Borutta & Kleinere Erweiterung im Missionsablauf\\
 \end{longtable}
 
 
@@ -1760,15 +1761,14 @@ ist nachvollziehbar, welche Bewegung warum ausgeführt wird
   deterministisch sind).
 \end{enumerate}
 
-\subsection{Vorschlag: Missionsablaufsteuerung}\label{missionsablaufsteuerung}
+\subsection{Missionsablaufsteuerung}\label{missionsablaufsteuerung}
 
 Die Variable \texttt{MODE} wählt eine \emph{Testbetriebsart}
 für die Simulation. Sie ist kein Ersatz für die im Pflichtenheft
 geforderte \emph{Missionsablaufsteuerung} des realen Prototyps
 (\texttt{IDLE\,$\to\,\ldots\,\to$\,DONE}, siehe
-\texttt{Pflichtenheft/Zustandsautomaten.svg}), die noch nicht
-implementiert ist. Abbildung~\ref{fig:missions-statemachine} zeigt einen
-dafür ausgearbeiteten \textbf{Aufbau} (Stand 22.09.2026), der die
+\texttt{Pflichtenheft/Zustandsautomaten.svg}). Abbildung~\ref{fig:missions-statemachine} zeigt einen
+dafür ausgearbeiteten \textbf{Aufbau}, der die
 abstrakten Zustände aus dem Pflichtenheft durch die konkreten Betriebszustände
 des Prototyps ersetzt.
 
@@ -1804,10 +1804,13 @@ einlernen} und \texttt{Untersetzer ausgeben}/\texttt{einsammeln}
 entsprechen bereits den Methoden der Simulation \texttt{runLearnTable()} /
 \texttt{isTableLearned()} bzw.\ \texttt{runSpendCoaster()} /
 \texttt{runGetCoaster()} der neuen Klasse \texttt{CoasterbotFunctions}
-(\texttt{coasterbot\_functions.\{h,cpp\}}, Betriebsart
-\texttt{MODE\_COASTERBOT\_LEARN\_TABLE}). Die übrigen Zustände dieses
-Aufbaus (insbesondere \emph{Not-Halt aktivieren}) sind darin noch nicht
-umgesetzt.
+(\texttt{coasterbot\_functions.\{h,cpp\}}). Die übrigen Zustände dieses
+Aufbaus (insbesondere \emph{Not-Halt aktivieren}) sind in einem separaten controller
+Softwarestand mit dem Namen \texttt{coasterbot\_V\_01\_00} abgebildet.
+Dieser Softwarestand wurde genutzt, um den Funktionsumfang des Missionsablauf parallel zur Testdurchführung 
+auszuarbeiten. Das Schichtenmodell, der Datenfluss und die enthalten Klassen werden dabei übernommen. 
+Es wurden hauptsächlich Anpassungen in \texttt{coasterbot\_functions.\{h,cpp\}} und der \texttt{main.cpp} durchgeführt. 
+Der Stand von \texttt{coasterbot\_V\_01\_00} wird auf die Hardware gespielt.
 
 % =====================================================================
 \section{Simulationsmodell}\label{simulationsmodell}
@@ -2019,7 +2022,7 @@ missionsbezogene Ablaufsteuerung
 \texttt{IDLE\,$\to\,\ldots\,\to$\,DONE} ist darin noch nicht vollständig
 implementiert. Der Ablauf ist in Abschnitt~\ref{missionsablaufsteuerung}
 dargestellt. Das Untersetzerhandling (Aufnahme/Ablage,
-\texttt{CST-*}) wird in einem eigenen Stand in der Simulation
+\texttt{CST-*}) ist in einem eigenen Stand in der Simulation
 (\texttt{coasterbot\_V\_01\_00}, Klasse \texttt{CoasterbotFunctions}) über
 einen Zustandsautomaten für Ausgabe und Aufnahme umgesetzt. Eine
 Manipulationsplanung über IK~+~RRT* ist dafür nicht erforderlich, da die

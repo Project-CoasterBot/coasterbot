@@ -16,6 +16,7 @@
 \usepackage{booktabs}
 \usepackage{mdframed}
 \usepackage{xcolor}
+\usepackage[bottom]{footmisc}
 
 \newmdenv[
     linecolor=red,
@@ -61,6 +62,7 @@ Gereon Such, M. Sc. & gereonsuch@gmail.com\\
 \midrule
 1 & 28.08.2026 & Such & Erstfassung, zunächst nur Elektronik \\
 2 & 18.09.2026 & Such & Gehäusemontage ergänzt \\
+3 & 20.10.2026 & Etringer & Layout und Ergänzungen \\
 \bottomrule
 \end{tabular}
 \clearpage
@@ -101,21 +103,20 @@ Abbildung \ref{fig:schematic} zeigt die Gesamtschaltung der Elektronik. Die Komp
 
 \subsection{3D Druck des Chassis}
 
-Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl als FreeCAD Projekt als auch fertigen \texttt{.stl} Dateien im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main}} bereitgestellt. Für den einfachen 3D Druck genügen hier die \texttt{.stl} Dateien.
+Das Chassis des Coasterbots wurde mit FreeCAD entwickelt und wird sowohl im \texttt{3D Manufacturing Format (3MF)} Format als auch in fertigen \texttt{.stl} Dateien im Github Repository~\footnote{\url{https://github.com/Project-CoasterBot/coasterbot/tree/main}} bereitgestellt. Für den einfachen 3D Druck genügen hier die \texttt{.stl} Dateien.
 
-Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer \footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden.
+Diese müssen heruntergeladen und dann entsprechend des genutzten 3D Druckers geslicet werden, dazu kann z.B. der Orca-Slicer~\footnote{\url{https://www.orcaslicer.com/}} genutzt werden, welcher eine Vielzahl von 3D Druckern und Interfaces zu diesen Druckern unterstützt. Nach dem Slicen können die Komponenten entweder über eine Netzwerkschnittstelle oder Peripherie Medium wie SD Karte an den 3D Drucker übertragen werden. Insgesamt wird für das Projekt ca. 500g PLA Medium benötigt, es können aber auch andere Materialien wie PETG verwendet werden. \\
 
 \includegraphics[scale=1.]{montage_gereon/IMG-20260912-WA0000.jpg}
-
-
 
 %\subsection{Coaster montieren}
 %TODO Magneten einführen
 %TODO Coaster verschließen
 
+\newpage
 \subsection{Chassis Grundgerüst montieren}
 
-Zunächst wird hier das Coaster Reservoir auf die Grundplatte montiert:
+Zunächst wird hier das Coaster Reservoir auf die Grundplatte montiert:\\
 
 \includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073241241.jpg}
 
@@ -125,10 +126,10 @@ Anschließend werden die Träger an den Ecken angebracht:
 \includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073227706.jpg}
 
 
-
+\newpage
 \subsection{Coastermechanismus Montieren}
 
-Nun wird der Mechanismus zur Coasteraufnahme montiert:
+Nun wird der Mechanismus zur Coasteraufnahme montiert:\\
 
 \includegraphics[scale=0.08]{montage_gereon/basis_konstrukt/PXL_20260909_073450774.jpg}
 
@@ -231,7 +232,7 @@ Falls noch nicht erfolgt bzw. im genutzten Motormodell nicht ohnehin vorhanden w
 
 \includegraphics[scale=0.1]{montage_gereon/antrieb_montage/PXL_20260909_081137444.jpg}
 
-
+\newpage
 \begin{warnbox}
 Die Kondensatoren müssen nach oben gerichtet werden, ansonsten lässt sich der Motor nicht bündig am gehäuse fixieren.
 
@@ -244,7 +245,7 @@ Nun wird jeder Motor mit den Streben auf den Seitenplatten montiert und außense
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081306481.jpg}
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_081443479.jpg}
 
-So wird für beide Seitenwände verfahren.
+So wird für beide Seitenwände verfahren.\\
 
 \includegraphics[scale=0.08]{montage_gereon/antrieb_montage/PXL_20260909_083634794.jpg}
 
@@ -260,28 +261,27 @@ Die Hauptplatine fasst die zentralen Elektronikkomponenten zusammen und wird auf
 \item DC/DC Step Up Converter Board
 \item Microprocessorboard Raspberry Pi Pico 2
 \item 2 mal TB6612FNG Motor Treiber Board
-\item \textit{(Inertialsensor)}
+\item MPU-6050 Intertialsensor
 \end{itemize}
 
-Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich für eine Lochrastermontage damit der Aufbau gemäß der Abbildung \ref{fig:protoboard_mask_combined}. Im Einzelnen stellen diese folgende Ansichten dar:
+Die Aktorik sowie die Sensorik wird über Pinheader verbunden. Es ergibt sich für eine Lochrastermontage damit der Aufbau gemäß der Abbildung~\ref{fig:protoboard_mask_combined}. Im Einzelnen stellen diese folgende Ansichten dar:
 
-\begin{figure}
+\begin{figure}[!b]
     \centering
     \includegraphics[width=0.8\linewidth]{protoboard_30x24_all.png}
-    \caption{Kombinierte Ansicht Komponenten und Lötbrücken}
-    \label{fig:protoboard_mask_combined}
+    \caption{Kombinierte Ansicht Komponenten und Lötbrücken}\label{fig:protoboard_mask_combined}
 \end{figure}
 
 Das Lochraster Layout wurde mittels der Software DIYLC \footnote{\url{https://github.com/bancika/diy-layout-creator}} erstellt und die Source Dateien finden sich im Github Repository \footnote{\url{https://github.com/Project-CoasterBot/coasterbot/blob/main/M4_Test-und-Validierung/aufbauanleitung/protoboard.diy}}.
 
 \FloatBarrier
 
-Die Platine wird nun bestückt und verdrahtet:
+Die Platine wird nun bestückt und verdrahtet:\\
 
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172856294.jpg}
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_172906337.jpg}
 
-Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter montiert. Dabei ist zu beachten, dass der Batterieanschluss (+- BAT) der Platine an der Seite des Batterieträgers montiert wird.
+Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter montiert. Dabei ist zu beachten, dass der Batterieanschluss (+- BAT) der Platine an der Seite des Batterieträgers montiert wird.\\
 
 \includegraphics[scale=0.08]{montage_gereon/platine/PXL_20260912_173108019.jpg}
 
@@ -290,9 +290,9 @@ Anschließend wird diese auf der hinteren Platte zusammen mit dem Akkuhalter mon
 
 \subsection{Programmierung des Microcontrollers}
 
-\begin{warnbox}
-Während der Microcontroller über den USB Port verbunden ist muss die Spannungsversorgung des Coasterbots getrennt werden. Falls der Akku montiert ist muss dieser entfernt werden, andernfalls droht eine Beschädigung des Microcontrollers.
-\end{warnbox}
+% \begin{warnbox}
+% Während der Microcontroller über den USB Port verbunden ist muss die Spannungsversorgung des Coasterbots getrennt werden. Falls der Akku montiert ist muss dieser entfernt werden, andernfalls droht eine Beschädigung des Microcontrollers.
+% \end{warnbox}
 
 
 Das Microcontroller Board über die boardeigene Micro USB Buchse mit dem Host-PC verbunden.
@@ -312,12 +312,12 @@ Anschließend kann das USB Kabel wieder entfernt werden.
 
 \subsection{Sensorik und Steuerung Montage}
 
-Nun werden die Infrarot Module an Front und Rückplatte montiert. Dabei ist auf einen korrekten Abstand sowohl zur Unterseite als auch nach außen zu achten.
+Nun werden die Infrarot Module an Front und Rückplatte montiert. Dabei ist auf einen korrekten Abstand sowohl zur Unterseite als auch nach außen zu achten.\\
 
 \includegraphics[scale=0.06]{montage_gereon/gesamt_montage/PXL_20260912_200037860.jpg}
 \includegraphics[scale=0.06]{montage_gereon/gesamt_montage/PXL_20260912_200913185.jpg}
 
-Die Vorderplatte kann nun in das Chassis eingesetzt werden. Dabei ist darauf zu achten, dass die Verbinder nach innen positioniert werden.
+Die Vorderplatte kann nun in das Chassis eingesetzt werden. Dabei ist darauf zu achten, dass die Verbinder nach innen positioniert werden.\\
 
 \includegraphics[scale=0.05]{montage_gereon/gesamt_montage/PXL_20260912_200946614.jpg}
 \includegraphics[scale=0.05]{montage_gereon/gesamt_montage/PXL_20260912_201010425.jpg}
@@ -342,7 +342,7 @@ Die Aktorik und Sensorik Module werden zunächst entsprechend dem Schaltplan bzw
 
 \subsection{Schließen des Chassis}
 
-Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abdeckplatte geschlossen und fixiert.
+Nun wird die Rückenplatte in das Chassis eingesetzt und das Chassis mit der Abdeckplatte geschlossen und fixiert.\\
 
 \includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082828534.jpg}
 \includegraphics[scale=0.06]{montage_gereon/abschluss/PXL_20260918_082843487.jpg}
@@ -364,7 +364,7 @@ Vorsicht, der laterale Druck auf das Chassis darf nicht zu hoch sein, da sonst d
 
 \subsection{Ergebnis}
 
-Beim fertigen Ergebnis sollte darauf geachtet werden, dass der Unterboden nicht schleift sowie der Abstand des Unterbodens bis zur Tischkante kleiner gleich 1.5cm beträgt, andernfalls können die Coaster nicht korrekt aufgenommen werden.
+Beim fertigen Ergebnis sollte darauf geachtet werden, dass der Unterboden nicht schleift sowie der Abstand des Unterbodens bis zur Tischkante kleiner gleich 1.5cm beträgt, andernfalls können die Coaster nicht korrekt aufgenommen werden.\\
 
 \includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_082957663.jpg}
 \includegraphics[scale=0.08]{montage_gereon/abschluss/PXL_20260918_083006873.jpg}

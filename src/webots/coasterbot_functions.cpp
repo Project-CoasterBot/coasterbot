@@ -641,9 +641,16 @@ void CoasterbotFunctions::runLearnTable() {
 	static LearningPhase phase = LearningPhase::PHASE_X;
 	static float distance = 0.0f;
 	static float lastOdo = 0.0f;
+	// Lage des Robotermittelpunkts beim Ausloesen des vorderen bzw. hinteren Kantensensors, vorzeichenrichtig
+	// entlang der gerade vermessenen Achse. Der Abstand ist der Bereich, den der Mittelpunkt befahren kann.
+	static float edgeForward = 0.0f;
+	static float edgeBackward = 0.0f;
 	static float previousCenterCoordinate = 0.0f;
 	static float turnStartYaw = 0.0f;
 	static bool buildGrid;
+	const auto axisCoordinate = [this]() {
+		return phase == LearningPhase::PHASE_X ? pose_.getX() : pose_.getY();
+	};
 
 	switch (state) {
 	case State::RESET:
@@ -661,6 +668,7 @@ void CoasterbotFunctions::runLearnTable() {
 			state = State::EDGE_DETECTED;
 			lastState = State::FORWARD;
 			lastOdo = pose_.getOdometer();
+			edgeForward = axisCoordinate();
 		}
 		break;
 	case State::BACKWARD:
@@ -670,6 +678,7 @@ void CoasterbotFunctions::runLearnTable() {
 			state = State::EDGE_DETECTED;
 			lastState = State::BACKWARD;
 			lastOdo = pose_.getOdometer();
+			edgeBackward = axisCoordinate();
 		}
 		break;
 	case State::CENTER:
@@ -703,7 +712,6 @@ void CoasterbotFunctions::runLearnTable() {
 				this->backward(speed);
 			} else {
 				lastOdo = 0.0f;
-				distance = pose_.getOdometer();
 				state = State::BACKWARD;
 			}
 			break;
@@ -712,7 +720,9 @@ void CoasterbotFunctions::runLearnTable() {
 				this->forward(speed);
 			} else {
 				lastOdo = 0.0f;
-				distance = pose_.getOdometer() - distance;
+				// Nicht ueber den Odometer: der zaehlt Nachlauf und Zuruecksetzen als Betrag mit und ergab
+				// ~10 cm zu viel. Die Pose ist vorzeichenrichtig, Nachlauf hebt sich heraus.
+				distance = edgeForward - edgeBackward;
 				state = State::SET_POSE;
 				std::cout << "[LEARN] distance: " << distance << " m" << std::endl;
 			}
@@ -728,18 +738,20 @@ void CoasterbotFunctions::runLearnTable() {
 			tableWidth_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
-			pose_.reset(-tableWidth_ / 2.0f, 0.0f, 0.0f);
+			// Nullpunkt = Mitte zwischen den beiden Ausloesepunkten. Frueher wurde die aktuelle Lage
+			// (gap2Edge vor dem hinteren Ausloesepunkt) als -Breite/2 gesetzt -> Karte um gap2Edge verschoben.
+			pose_.reset(pose_.getX() - (edgeForward + edgeBackward) / 2.0f, 0.0f, 0.0f);
 			previousCenterCoordinate = pose_.getX();
-			std::cout << "[LEARN] set x to: " << -tableWidth_ / 2.0f << " m" << std::endl;
+			std::cout << "[LEARN] set x to: " << pose_.getX() << " m" << std::endl;
 			std::cout << "[LEARN] Move to center." << std::endl;
 			state = State::CENTER;
 		} else {
 			tableHeight_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
-			pose_.reset(pose_.getX(), -tableHeight_ / 2.0f, _HALF_PI);
+			pose_.reset(pose_.getX(), pose_.getY() - (edgeForward + edgeBackward) / 2.0f, _HALF_PI);
 			previousCenterCoordinate = pose_.getY();
-			std::cout << "[LEARN] set y to: " << -tableHeight_ / 2.0f << " m" << std::endl;
+			std::cout << "[LEARN] set y to: " << pose_.getY() << " m" << std::endl;
 			state = State::CENTER;
 		}
 		break;

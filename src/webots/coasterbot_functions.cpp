@@ -23,9 +23,8 @@ void CoasterbotFunctions::update() {
 }
 
 void CoasterbotFunctions::calcCoasterPositions() {
-	constexpr float edgeMargin = 0.25f;
-	const float x = std::max(0.0f, tableWidth_ / 2.0f - edgeMargin);
-	const float y = std::max(0.0f, tableHeight_ / 2.0f - edgeMargin);
+	const float x = std::max(0.0f, tableWidth_ / 2.0f - COASTER_EDGE_MARGIN);
+	const float y = std::max(0.0f, tableHeight_ / 2.0f - COASTER_EDGE_MARGIN);
 	const std::array<Vec2, 4> targets{{
 		{-x, -y},
 		{ x, -y},
@@ -142,6 +141,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		}
 
 		if (grid_ && tableLearned) {
+			correctPoseAtEdge(safety_.frontEdge());
 			markBlockedArea(safety_.frontEdge() ? 1.0f : -1.0f);
 			navigationPlannerInitialized_ = false;
 			edgeReroutePending_ = true;
@@ -334,10 +334,7 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 	}
 
 	const Vec2 currentPosition{pose_.getX(), pose_.getY()};
-	const float minimumPathClearance = useRobotBoundingBox
-		? std::hypot(std::fabs(robotBoundingBoxWidth_) * 0.5f,
-		             std::fabs(robotBoundingBoxLength_) * 0.5f) + grid_->resolution() * 0.5f
-		: 0.0f;
+	const float minimumPathClearance = useRobotBoundingBox ? NAVIGATION_PATH_CLEARANCE : 0.0f;
 	const auto lineIsClear = [this, minimumPathClearance](Vec2 from, Vec2 to) {
 		const float dx = to.x - from.x;
 		const float dy = to.y - from.y;
@@ -481,6 +478,44 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		navigationAligning_ = true;
 	}
 
+	// Vor einer groesseren Drehung nahe der Tischkante erst gerade wegfahren (siehe TURN_EDGE_CLEARANCE).
+	// Nur bevor die Drehung beginnt: waehrend des Drehens aendert sich der Abstand nicht.
+	if (navigationAligning_ && !alignWatchActive_ && absoluteAngleError > TURN_CLEARANCE_MIN_ANGLE) {
+		const float hx = std::cos(pose_.getTheta());
+		const float hy = std::sin(pose_.getTheta());
+		const struct { float distance, facing; } edges[] = {
+			{tableWidth_ * 0.5f - pose_.getX(),   hx},   // +x
+			{tableWidth_ * 0.5f + pose_.getX(),  -hx},   // -x
+			{tableHeight_ * 0.5f - pose_.getY(),  hy},   // +y
+			{tableHeight_ * 0.5f + pose_.getY(), -hy},   // -y
+		};
+		bool needBackward = false;
+		bool needForward = false;
+		for (const auto& edge : edges) {
+			if (edge.distance >= TURN_EDGE_CLEARANCE) continue;
+			if (edge.facing >= TURN_CLEARANCE_MIN_FACING) needBackward = true;
+			if (edge.facing <= -TURN_CLEARANCE_MIN_FACING) needForward = true;
+		}
+		// in einer Ecke mit Front und Heck je zu einer Kante hilft gerades Fahren nicht -> trotzdem drehen
+		if (needBackward != needForward) {
+			if (!turnClearanceActive_) {
+				std::cout << "[NAV] edge closer than " << TURN_EDGE_CLEARANCE << "m -> "
+				          << (needBackward ? "backing off" : "moving forward") << " before turning" << std::endl;
+			}
+			turnClearanceActive_ = true;
+			navState_ = NavState::TURN_CLEARANCE;
+			// Anfahren aus dem Stand mit voller Fahrgeschwindigkeit: mit der Mindestgeschwindigkeit (PWM ~100)
+			// liefen die Motoren bei schwacher Batterie nicht mehr an -> Stall-Stopp. Der Weg ist nur wenige cm.
+			if (needBackward) {
+				this->backward(driveSpeed);
+			} else {
+				this->forward(driveSpeed);
+			}
+			return;
+		}
+	}
+	turnClearanceActive_ = false;
+
 	if (navigationAligning_) {
 		const float theta = pose_.getTheta();
 		const float wheelLeft = hal_.getWheelAngle(WHEEL_LEFT);
@@ -536,6 +571,7 @@ const char* CoasterbotFunctions::navStateName(NavState state) {
 	case NavState::IDLE:           return "IDLE";
 	case NavState::DRIVING:        return "DRIVING";
 	case NavState::ALIGNING:       return "ALIGNING";
+	case NavState::TURN_CLEARANCE: return "TURN_CLEARANCE";
 	case NavState::FINAL_APPROACH: return "FINAL_APPROACH";
 	case NavState::REACHED:        return "REACHED";
 	case NavState::NO_PATH:        return "NO_PATH";
@@ -556,6 +592,7 @@ RobotHAL::LED_COLORS CoasterbotFunctions::navLedColor() const {
 	switch (navState_) {
 	case NavState::DRIVING:        return RobotHAL::LED_COLORS::GREEN;
 	case NavState::ALIGNING:       return RobotHAL::LED_COLORS::CYAN;
+	case NavState::TURN_CLEARANCE: return RobotHAL::LED_COLORS::BLUE;
 	case NavState::FINAL_APPROACH: return RobotHAL::LED_COLORS::YELLOW;
 	case NavState::REACHED:        return RobotHAL::LED_COLORS::WHITE;
 	case NavState::NO_PATH:        return RobotHAL::LED_COLORS::PURPLE;
@@ -582,6 +619,46 @@ void CoasterbotFunctions::markBlockedArea(float direction) {
 	grid_->addObstacleRect(blockedX - halfLength, blockedY - halfWidth,
 	                       blockedX + halfLength, blockedY + halfWidth, 0.0f);
 	grid_->buildDistanceField();
+}
+
+// Ein Kantensensor loest nur an der Tischkante aus, und deren Lage ist seit der Vermessung bekannt.
+// Die Meldung ist also eine Messung der Position senkrecht zu dieser Kante: die Pose wird auf die
+// Kartengrenze gesetzt. Laengs der Kante und im Kurs bleibt sie unveraendert.
+void CoasterbotFunctions::correctPoseAtEdge(bool frontEdge) {
+	const float direction = frontEdge ? 1.0f : -1.0f;
+	const float dx = direction * std::cos(pose_.getTheta());
+	const float dy = direction * std::sin(pose_.getTheta());
+	const float halfWidth = tableWidth_ * 0.5f;
+	const float halfHeight = tableHeight_ * 0.5f;
+	// Kante, auf die der ausloesende Sensor (Front oder Heck) am ehesten zeigt
+	const struct { float facing; bool alongX; float sign; } edges[] = {
+		{ dx, true,  1.0f}, {-dx, true, -1.0f},
+		{ dy, false, 1.0f}, {-dy, false, -1.0f},
+	};
+	const auto* best = &edges[0];
+	for (const auto& edge : edges) {
+		if (edge.facing > best->facing) best = &edge;
+	}
+	if (best->facing < EDGE_CORRECTION_MIN_FACING) {
+		std::cout << "[NAV] edge: no table edge in sensor direction -> pose unchanged" << std::endl;
+		return;
+	}
+	const bool turning = std::fabs(hal_.getGyroZ()) > EDGE_CORRECTION_TURN_RATE;
+	const float depth = turning ? EDGE_CORRECTION_TURN_DEPTH : 0.0f;
+	const float current = best->alongX ? pose_.getX() : pose_.getY();
+	const float corrected = best->sign * ((best->alongX ? halfWidth : halfHeight) - depth);
+	if (std::fabs(corrected - current) > EDGE_CORRECTION_MAX) {
+		std::cout << "[NAV] edge: correction " << corrected - current << "m implausible -> pose unchanged"
+		          << std::endl;
+		return;
+	}
+	std::cout << "[NAV] edge: pose " << (best->alongX ? "x" : "y") << " " << current << " -> " << corrected
+	          << " m (" << (turning ? "turning" : "straight") << ")" << std::endl;
+	if (best->alongX) {
+		pose_.reset(corrected, pose_.getY(), pose_.getTheta());
+	} else {
+		pose_.reset(pose_.getX(), corrected, pose_.getTheta());
+	}
 }
 
 void CoasterbotFunctions::rebuildNavigationGrid(bool preserveDynamicObstacles) {
@@ -631,7 +708,8 @@ void CoasterbotFunctions::runLearnTable() {
 		return;
 	}*/
 
-	enum class State { RESET, FORWARD, BACKWARD, CENTER, TURN, SET_POSE,
+	enum class State { RESET, SQUARE_APPROACH, SQUARE_RIGHT, SQUARE_LEFT, SQUARE_ALIGN,
+						FORWARD, BACKWARD, CENTER, TURN, SET_POSE,
 						EDGE_DETECTED, DONE, IDLE, DEFAULT };
 	static State state = State::RESET;
 	static State lastState = State::RESET;
@@ -646,8 +724,21 @@ void CoasterbotFunctions::runLearnTable() {
 	static float edgeForward = 0.0f;
 	static float edgeBackward = 0.0f;
 	static float previousCenterCoordinate = 0.0f;
-	static float turnStartYaw = 0.0f;
 	static bool buildGrid;
+	// Ausrichten an der ersten Kante, damit die x-Achse unabhaengig von der Startausrichtung senkrecht
+	// zur Kante liegt: Auf der Stelle nach rechts drehen, bis der linke vordere Sensor ausloest, dann
+	// nach links, bis der rechte ausloest. Bei unveraenderter Lage des Mittelpunkts liegen beide
+	// Ausloesekurse symmetrisch zur Kantennormalen, die Mitte ist also senkrecht zur Kante. Gleicher
+	// Nachlauf in beide Richtungen faellt heraus, Abstand und Lage der Sensoren gehen nicht ein.
+	static float squareStartYaw = 0.0f;
+	static float squareYawLeft = 0.0f;   // Kurs beim Ausloesen vorne links (Drehung nach rechts)
+	static float squareTargetYaw = 0.0f;
+	static bool squareArmed = false;     // vorne links war waehrend SQUARE_RIGHT schon einmal frei
+	constexpr float squareTurnSpeed = 0.5f;          // [rad/s], wie das Feindrehen in TURN
+	constexpr float squareMaxTurn = 1.05f;           // [rad] ~60 Grad je Richtung, sonst Abbruch
+	constexpr float squareTolerance = _HALF_PI * 0.01f;
+	constexpr float radToDeg = 90.0f / _HALF_PI;
+	const auto wrap = [](float a) { return std::atan2(std::sin(a), std::cos(a)); };
 	const auto axisCoordinate = [this]() {
 		return phase == LearningPhase::PHASE_X ? pose_.getX() : pose_.getY();
 	};
@@ -659,7 +750,85 @@ void CoasterbotFunctions::runLearnTable() {
 		
 		buildGrid = false;
 
-		state = State::FORWARD;
+		state = State::SQUARE_APPROACH;
+		break;
+	case State::SQUARE_APPROACH:
+		this->forward(speed);
+		if (this->edgeDetected()) {
+			std::cout << "[LEARN] Edge reached, squaring up: fl=" << hal_.getEdgeFrontLeft()
+			          << " fr=" << hal_.getEdgeFrontRight() << std::endl;
+			this->stop();
+			squareStartYaw = hal_.getYaw();
+			squareArmed = false;
+			state = State::SQUARE_RIGHT;
+		}
+		break;
+	case State::SQUARE_RIGHT:
+		// Der Kurs im Moment des Ausloesens zaehlt, nicht der nach dem Bremsen. Hat vorne links schon beim
+		// Anfahren ausgeloest, gilt das nicht: der Mittelpunkt ist danach noch nachgelaufen, die Messung von
+		// vorne rechts erfolgt aber erst nach dem Nachlauf. Dann erst nach links freidrehen.
+		if (!squareArmed) {
+			if (hal_.getEdgeFrontLeft()) {
+				this->turnLeft(squareTurnSpeed);
+			} else {
+				squareArmed = true;
+			}
+		}
+		if (!squareArmed) {
+			if (std::fabs(wrap(hal_.getYaw() - squareStartYaw)) > squareMaxTurn) {
+				std::cout << "[LEARN] squaring failed (front left stays on the edge) -> keeping start heading"
+				          << std::endl;
+				this->stop();
+				squareTargetYaw = squareStartYaw;
+				state = State::SQUARE_ALIGN;
+			}
+		} else if (hal_.getEdgeFrontLeft()) {
+			squareYawLeft = hal_.getYaw();
+			squareStartYaw = squareYawLeft;
+			state = State::SQUARE_LEFT;
+		} else if (std::fabs(wrap(hal_.getYaw() - squareStartYaw)) > squareMaxTurn) {
+			std::cout << "[LEARN] squaring failed (front left never triggered) -> keeping start heading"
+			          << std::endl;
+			this->stop();
+			squareTargetYaw = squareStartYaw;
+			state = State::SQUARE_ALIGN;
+		} else {
+			this->turnLeft(-squareTurnSpeed);
+		}
+		break;
+	case State::SQUARE_LEFT:
+		if (hal_.getEdgeFrontRight()) {
+			const float squareYawRight = hal_.getYaw();
+			squareTargetYaw = wrap(squareYawLeft + 0.5f * wrap(squareYawRight - squareYawLeft));
+			std::cout << "[LEARN] squaring: yaw left=" << squareYawLeft * radToDeg
+			          << " deg, right=" << squareYawRight * radToDeg
+			          << " deg -> normal=" << squareTargetYaw * radToDeg << " deg" << std::endl;
+			state = State::SQUARE_ALIGN;
+		} else if (std::fabs(wrap(hal_.getYaw() - squareStartYaw)) > 2.0f * squareMaxTurn) {
+			std::cout << "[LEARN] squaring failed (front right never triggered) -> using left trigger heading"
+			          << std::endl;
+			this->stop();
+			squareTargetYaw = squareYawLeft;
+			state = State::SQUARE_ALIGN;
+		} else {
+			this->turnLeft(squareTurnSpeed);
+		}
+		break;
+	case State::SQUARE_ALIGN:
+		{
+			const float error = wrap(squareTargetYaw - hal_.getYaw());
+			if (std::fabs(error) <= squareTolerance) {
+				this->stop();
+				if (!this->blocklessWait(1.0f)) break;
+				// ab hier zeigt theta = 0 senkrecht auf die erste Kante, die x-Achse liegt parallel zur Tischkante
+				pose_.reset(0.0f, 0.0f, 0.0f);
+				std::cout << "[LEARN] squared to edge, residual=" << error * radToDeg
+				          << " deg. Start learning X." << std::endl;
+				state = State::FORWARD;
+			} else {
+				this->turnLeft(error > 0.0f ? squareTurnSpeed : -squareTurnSpeed);
+			}
+		}
 		break;
 	case State::FORWARD:
 		this->forward(speed);
@@ -691,7 +860,6 @@ void CoasterbotFunctions::runLearnTable() {
 				std::cout << "[LEARN] Reached center. Turn 90 degrees. Start learning Y." << std::endl;
 				this->stop();
 				phase = LearningPhase::PHASE_Y;
-				turnStartYaw = hal_.getYaw();
 				state = State::TURN;
 			}
 		} else {
@@ -740,7 +908,10 @@ void CoasterbotFunctions::runLearnTable() {
 			if(!this->blocklessWait(2.0f)) break;
 			// Nullpunkt = Mitte zwischen den beiden Ausloesepunkten. Frueher wurde die aktuelle Lage
 			// (gap2Edge vor dem hinteren Ausloesepunkt) als -Breite/2 gesetzt -> Karte um gap2Edge verschoben.
-			pose_.reset(pose_.getX() - (edgeForward + edgeBackward) / 2.0f, 0.0f, 0.0f);
+			// Kurs und Querlage behalten: Faehrt der Roboter leicht im Bogen, hat er sich wirklich gedreht.
+			// Das fruehere theta = 0 (und 90 Grad nach TURN und in Y) drehte das Kartensystem jedes Mal um
+			// diesen Rest gegen den Tisch, zusammen ~5 Grad -> ~6 cm Versatz an den Tischenden.
+			pose_.reset(pose_.getX() - (edgeForward + edgeBackward) / 2.0f, pose_.getY(), pose_.getTheta());
 			previousCenterCoordinate = pose_.getX();
 			std::cout << "[LEARN] set x to: " << pose_.getX() << " m" << std::endl;
 			std::cout << "[LEARN] Move to center." << std::endl;
@@ -749,7 +920,7 @@ void CoasterbotFunctions::runLearnTable() {
 			tableHeight_ = distance;
 			this->stop();
 			if(!this->blocklessWait(2.0f)) break;
-			pose_.reset(pose_.getX(), pose_.getY() - (edgeForward + edgeBackward) / 2.0f, _HALF_PI);
+			pose_.reset(pose_.getX(), pose_.getY() - (edgeForward + edgeBackward) / 2.0f, pose_.getTheta());
 			previousCenterCoordinate = pose_.getY();
 			std::cout << "[LEARN] set y to: " << pose_.getY() << " m" << std::endl;
 			state = State::CENTER;
@@ -757,15 +928,14 @@ void CoasterbotFunctions::runLearnTable() {
 		break;
 	case State::TURN:
 		{
-			const float yawChange = std::atan2(std::sin(hal_.getYaw() - turnStartYaw),
-			                                   std::cos(hal_.getYaw() - turnStartYaw));
-			const float turnError = std::atan2(std::sin(_HALF_PI - yawChange),
-			                                   std::cos(_HALF_PI - yawChange));
+			// auf den absoluten Kurs 90 Grad im Tischsystem drehen, nicht um 90 Grad relativ: der Kurs nach
+			// dem Zentrieren weicht um die Bogenfahrt von 0 ab
+			const float turnError = std::atan2(std::sin(_HALF_PI - pose_.getTheta()),
+			                                   std::cos(_HALF_PI - pose_.getTheta()));
 			if (std::fabs(turnError) <= _HALF_PI * 0.01f) {
 			this->stop();
-			pose_.reset(pose_.getX(), pose_.getY(), _HALF_PI);
-			std::cout << "[LEARN] Turn accepted: yaw change="
-			          << yawChange * 180.0f / (_HALF_PI * 2.0f)
+			std::cout << "[LEARN] Turn accepted: theta="
+			          << pose_.getTheta() * 180.0f / (_HALF_PI * 2.0f)
 			          << " deg (target=90). Move forward." << std::endl;
 			state = State::FORWARD;
 			} else {
@@ -796,7 +966,9 @@ void CoasterbotFunctions::runLearnTable() {
 			buildGrid = true;
 		}
 		if(!this->blocklessWait(2.0f)) break;
-		pose_.reset(0.0f, 0.0f, _HALF_PI);
+		// Kein Ruecksetzen auf (0, 0): Der Nullpunkt liegt seit SET_POSE schon in der Tischmitte, der
+		// Roboter haelt beim Zentrieren aber erst innerhalb von 5 cm und laeuft nach. Das frueher hier
+		// gesetzte (0, 0) verschob die Karte um diesen Rest.
 		state = State::IDLE;
 		this->tableLearned = true;
 

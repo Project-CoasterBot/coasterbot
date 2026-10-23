@@ -56,6 +56,7 @@ class CoasterbotFunctions : public RobotLogic {
         IDLE,           // noch nicht navigiert
         DRIVING,        // faehrt vorwaerts Richtung Wegpunkt
         ALIGNING,       // dreht auf der Stelle zum Wegpunkt
+        TURN_CLEARANCE, // vor dem Drehen gerade von der nahen Tischkante wegfahren
         FINAL_APPROACH, // Endanflug, nur vor-/rueckwaerts
         REACHED,        // Ziel innerhalb ACCEPTED_BIAS (auch waehrend der Servos)
         NO_PATH,        // D* findet keinen Weg -> direkt anfahren bzw. links drehend suchen
@@ -71,7 +72,7 @@ class CoasterbotFunctions : public RobotLogic {
     };
     NavState navState() const { return navState_; }
     // LED-Farbe zum Navigationszustand:
-    //   gruen = fahren, cyan = ausrichten, gelb = Endanflug, weiss = Ziel erreicht/Servos,
+    //   gruen = fahren, cyan = ausrichten, blau = vor dem Drehen von der Kante weg, gelb = Endanflug, weiss = Ziel erreicht/Servos,
     //   lila = kein Pfad (Suchdrehung), pink = Fluchtdrehung (Startzelle belegt),
     //   orange blinkend = blockiert/steht, orange = Kantenausweichen,
     //   rot blinkend = Kanten-Stopp, lila blinkend = Stall-Stopp,
@@ -113,6 +114,7 @@ class CoasterbotFunctions : public RobotLogic {
     bool stallStopLatched_ = false;
     // Drehwaechter fuer das Ausrichten (siehe ALIGN_MAX_TURN / ALIGN_STUCK_TIME)
     bool alignWatchActive_ = false;
+    bool turnClearanceActive_ = false;  // faehrt vor dem Drehen von der Kante weg (nur fuers Log)
     float alignWatchStartedAt_ = 0.0f;
     float alignWatchPrevTheta_ = 0.0f;
     float alignWatchTurned_ = 0.0f;   // [rad] Betrag, aufsummiert
@@ -150,6 +152,7 @@ class CoasterbotFunctions : public RobotLogic {
     void rebuildNavigationGrid(bool preserveDynamicObstacles = true);
     // Robotergrosses Hindernis direkt vor (direction = +1) bzw. hinter (-1) dem Roboter eintragen.
     void markBlockedArea(float direction);
+    void correctPoseAtEdge(bool frontEdge);
     void calcCoasterPositions();
     static constexpr int MAX_COASTERS = 4;
     static constexpr float _HALF_PI = 1.57079632679489661923f;
@@ -194,6 +197,30 @@ class CoasterbotFunctions : public RobotLogic {
     static constexpr float CENTER_SETTLE_TIME = 0.5f;
     static constexpr float NAVIGATION_GRID_RESOLUTION = 0.05f;
     static constexpr float TABLE_EDGE_INFLATION = 0.025f;
+    // Abstand der Coaster von der vermessenen Grenze. Die Grenze ist bereits die Lage des
+    // Robotermittelpunkts beim Ausloesen eines Kantensensors (senkrecht angefahren), der Abstand
+    // Mitte-Sensor steckt also schon darin. Der Rest deckt Nachlauf und schraeges Anfahren ab.
+    static constexpr float COASTER_EDGE_MARGIN = 0.15f;              // [m]
+    // Drehen auf der Stelle schwenkt die Ecken mit den Kantensensoren nach aussen (bis zur Diagonalen
+    // statt nur bis zur Front). Liegt eine Kante naeher als TURN_EDGE_CLEARANCE und steht der Roboter mit
+    // Front oder Heck zu ihr, faehrt er vor einer Drehung > TURN_CLEARANCE_MIN_ANGLE erst gerade weg.
+    // Bewusst groesser als COASTER_EDGE_MARGIN: am Coaster wird also vor jeder Drehung zurueckgesetzt,
+    // das faengt auch Fehler der Pose ab.
+    static constexpr float TURN_EDGE_CLEARANCE = 0.22f;              // [m]
+    // Korrektur der Pose beim Ausloesen eines Kantensensors (correctPoseAtEdge): Die Kartengrenze ist
+    // die Lage des Mittelpunkts beim senkrechten Anfahren. Beim Drehen loest eine Ecke etwas weiter
+    // innen aus (Diagonale statt Front), daher dort ein kleiner Abstand nach innen.
+    static constexpr float EDGE_CORRECTION_TURN_DEPTH = 0.02f;       // [m]
+    static constexpr float EDGE_CORRECTION_MAX = 0.25f;              // [m], groesser = andere Kante/Unsinn
+    static constexpr float EDGE_CORRECTION_MIN_FACING = 0.5f;        // cos(60 Grad)
+    static constexpr float EDGE_CORRECTION_TURN_RATE = 0.15f;        // [rad/s], darueber gilt "drehend"
+    static constexpr float TURN_CLEARANCE_MIN_ANGLE = 0.26f;         // [rad] ~15 Grad
+    static constexpr float TURN_CLEARANCE_MIN_FACING = 0.5f;         // cos(60 Grad): Front/Heck zeigt zur Kante
+    // Mindestabstand des direkten Wegs zu belegten Zellen. Nicht mehr der halbe Roboter: Kartengrenze
+    // (s.o.) und Ultraschall-Hindernisse (halbe Bounding Box + Padding) enthalten ihn schon, doppelt
+    // gezaehlt galt jeder Weg zu randnahen Coastern als blockiert.
+    // Knapp unter einer Zellbreite: die Nachbarzelle einer belegten Zelle bleibt befahrbar (Abstandsfeld = 0.05).
+    static constexpr float NAVIGATION_PATH_CLEARANCE = 0.04f;        // [m]
     static constexpr float ULTRASONIC_OBSTACLE_PADDING = 0.02f;
     // Nur nahe Treffer kartieren: weiter entfernt sieht der Sensor ueber die Tischkante hinaus
     // (Wand, Personen) oder Echos der Tischplatte.

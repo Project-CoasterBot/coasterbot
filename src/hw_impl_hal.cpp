@@ -143,11 +143,14 @@ bool HardwareImplementationHAL::step() {
         motion_ctrl.stop();
         movement_prevented = true;
     }
-    if (motion_ctrl.turnLeftRequested() && (_edge_fl || _edge_fr || _edge_rl || _edge_rr)) {
+    // turning on the spot swings two diagonal corners outward and the other two inward: left (ccw) moves
+    // front right and rear left outward, right (cw) front left and rear right. A turn is only allowed if it
+    // moves every active sensor back onto the table, needed to square up at an edge (runLearnTable).
+    if (motion_ctrl.turnLeftRequested() && (_edge_fr || _edge_rl)) {
         motion_ctrl.stop();
         movement_prevented = true;
     }
-    if (motion_ctrl.turnRightRequested() && (_edge_fl || _edge_fr || _edge_rl || _edge_rr)) {
+    if (motion_ctrl.turnRightRequested() && (_edge_fl || _edge_rr)) {
         motion_ctrl.stop();
         movement_prevented = true;
     }

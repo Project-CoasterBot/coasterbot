@@ -122,8 +122,10 @@ public:
                 // keine Konsole auf dem Testfeld: LED zeigt den Navigationszustand (Farbtabelle: navLedColor())
                 coasterbot.led(coasterbot.navLedColor());
 
-                if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
-                    enterEmergencyStop(coasterbot.safetyOverriding());
+                // Kanten sind kein Not-Stopp: SafetyMonitor setzt zurueck, die Navigation korrigiert die
+                // Pose an der bekannten Kante und plant neu (CoasterbotFunctions::correctPoseAtEdge)
+                if (coasterbot.coasterRoutineFailed()) {
+                    enterEmergencyStop(false);
                 } else if (bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }
@@ -136,8 +138,10 @@ public:
                 // keine Konsole auf dem Testfeld: LED zeigt den Navigationszustand (Farbtabelle: navLedColor())
                 coasterbot.led(coasterbot.navLedColor());
 
-                if (coasterbot.safetyOverriding() || coasterbot.coasterRoutineFailed()) {
-                    enterEmergencyStop(coasterbot.safetyOverriding());
+                // Kanten sind kein Not-Stopp: SafetyMonitor setzt zurueck, die Navigation korrigiert die
+                // Pose an der bekannten Kante und plant neu (CoasterbotFunctions::correctPoseAtEdge)
+                if (coasterbot.coasterRoutineFailed()) {
+                    enterEmergencyStop(false);
                 } else if (!bCoasterOut && coasterbot.goToCenter()) {
                     state = COASTERBOT_IDLE;
                 }

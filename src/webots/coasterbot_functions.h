@@ -42,10 +42,13 @@ class CoasterbotFunctions : public RobotLogic {
     bool buttonPressed() const { return hal_.getButtonState(); }
     bool safetyOverriding() const { return safety_.overriding(); }
     bool pathExists() const { return dstar_ && dstar_->pathExists(); }
-    // Spielablauf: MAX_COASTERS Coaster werden ausgegeben und wieder eingesammelt, coastersSpent() davon
-    // liegen auf dem Tisch. Der naechste spendCoaster()-Index ist coastersSpent(), der naechste
-    // getCoaster()-Index coastersSpent() - 1.
-    static constexpr int coasterCount() { return MAX_COASTERS; }
+    // Spielablauf: activeCoasters() Coaster (1..MAX_COASTERS) werden an den ersten Eckpositionen
+    // ausgegeben und wieder eingesammelt, coastersSpent() davon liegen auf dem Tisch. Der naechste
+    // spendCoaster()-Index ist coastersSpent(), der naechste getCoaster()-Index coastersSpent() - 1.
+    static constexpr int maxCoasters() { return MAX_COASTERS; }
+    int activeCoasters() const { return this->activeCoasters_; }
+    // Nur moeglich, solange kein Coaster auf dem Tisch liegt. Setzt auch den Stapel auf count.
+    bool setActiveCoasters(int count);
     int coastersSpent() const { return this->coastersSpend; }
     // Coaster im Stapel des Mechanismus, bestimmt die Heberwinkel. Kann mehr als MAX_COASTERS sein.
     int coastersInStack() const { return this->coastersInStack_; }
@@ -255,6 +258,7 @@ class CoasterbotFunctions : public RobotLogic {
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
     CoasterServoAngles servoAngles_;
+    int activeCoasters_ = MAX_COASTERS;
     int coastersInStack_ = MAX_COASTERS;
     // Rampen wie im Hardwaretest (CoasterMechanismus): ohne Rampe springt der Servo mit voller
     // Geschwindigkeit, der Kurbeltrieb des Hebers verklemmt bzw. die Versorgung bricht ein.

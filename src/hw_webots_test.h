@@ -5,6 +5,9 @@
 
 #include "webots/coasterbot_functions.h"
 #include "coaster_servo_config.h"
+#include "persistent_settings.h"
+
+#include <cmath>
 
 template<typename Bot>
 class WebotsTest {
@@ -17,6 +20,15 @@ protected:
     bool bCoasterOut = false;
     float _lastPosePrint = -1.0f;
     CoasterbotFunctions::NavState _lastNavState = CoasterbotFunctions::NavState::IDLE;
+    PersistentSettings _settings;
+
+    // Anzahl Coaster einstellen (COASTERBOT_SET_COUNT)
+    int _countSelection = 0;
+    float _countLastInput = 0.0f;
+    int _countLedOn = -1; // zuletzt gesetzter Zustand des Blinkmusters, -1 = noch keiner
+    // kurze Rueckmeldung im Ruhezustand: weiss = Anzahl uebernommen, rot = Einstellen nicht moeglich
+    float _ledFeedbackUntil = 0.0f;
+    RobotHAL::LED_COLORS _ledFeedbackColor = RobotHAL::LED_COLORS::OFF;
 
     enum states {
         COASTERBOT_SETUP,
@@ -24,7 +36,8 @@ protected:
         COASTERBOT_LEARN_TABLE,
         COASTERBOT_SET_COASTERS,
         COASTERBOT_GET_COASTER,
-        COASTERBOT_EMERGENCY_STOP
+        COASTERBOT_EMERGENCY_STOP,
+        COASTERBOT_SET_COUNT
     } state = COASTERBOT_SETUP;
 
 public:
@@ -37,6 +50,8 @@ public:
         _bot.setSpeedScaling(5.0f);
         _coasterbot = new CoasterbotFunctions(_bot, *_pose, *_safety);
         _coasterbot->setServoAngles(boardCoasterServoAngles());
+        _coasterbot->setActiveCoasters(_settings.coasterCount(CoasterbotFunctions::maxCoasters(),
+                                                              CoasterbotFunctions::maxCoasters()));
     }
 
     void loop(Bot& _bot) {
@@ -56,13 +71,14 @@ public:
         unsigned press_ms = 0;
         const bool buttonReleased = _bot.userButtonReleased(press_ms);
         const bool buttonClicked = buttonReleased && press_ms <= LONG_PRESS_MS;
-        const bool buttonLongPress = buttonReleased && press_ms > LONG_PRESS_MS;
+        bool buttonLongPress = buttonReleased && press_ms > LONG_PRESS_MS;
 
         if (buttonLongPress && (state == COASTERBOT_SET_COASTERS || state == COASTERBOT_GET_COASTER)) {
             // Vermessung bleibt erhalten; bCoasterOut bleibt, der naechste kurze Druck startet dieselbe Routine neu
             coasterbot.abortRoutine();
             Serial.println("[TEST] long press -> routine aborted, back to idle");
             state = COASTERBOT_IDLE;
+            buttonLongPress = false; // verbraucht, im Ruhezustand nicht gleich das Einstellen oeffnen
         }
 
         float now = hal.getTime();
@@ -93,9 +109,29 @@ public:
                 break;
 
             case COASTERBOT_IDLE:
-                // weiss blinkend: der Gyro ist seit dem Start mindestens einmal ausgefallen (siehe GyroSensor::loop)
-                coasterbot.led(_bot.inertialSensor().faultCount() > 0 ? RobotHAL::LED_COLORS::BLINK_WHITE
-                                                                      : RobotHAL::LED_COLORS::OFF);
+                if (now < _ledFeedbackUntil) {
+                    coasterbot.led(_ledFeedbackColor);
+                } else {
+                    // weiss blinkend: der Gyro ist seit dem Start mindestens einmal ausgefallen (siehe GyroSensor::loop)
+                    coasterbot.led(_bot.inertialSensor().faultCount() > 0 ? RobotHAL::LED_COLORS::BLINK_WHITE
+                                                                          : RobotHAL::LED_COLORS::OFF);
+                }
+
+                if (buttonLongPress) {
+                    // Anzahl nur aendern, solange kein Coaster auf dem Tisch liegt
+                    if (bCoasterOut || coasterbot.coastersSpent() > 0) {
+                        Serial.println("[COUNT] coasters are out, collect them before changing the count");
+                        showFeedback(now, RobotHAL::LED_COLORS::RED);
+                        break;
+                    }
+                    _countSelection = coasterbot.activeCoasters();
+                    _countLastInput = now;
+                    _countLedOn = -1;
+                    Serial.printf("[COUNT] set coaster count, current %d (short press = +1, long press = save)\n",
+                                  _countSelection);
+                    state = COASTERBOT_SET_COUNT;
+                    break;
+                }
 
                 if (!buttonClicked) break;
 
@@ -149,6 +185,24 @@ public:
                 }
                 break;
 
+            case COASTERBOT_SET_COUNT:
+                if (buttonClicked) {
+                    _countSelection = _countSelection % CoasterbotFunctions::maxCoasters() + 1; // 1..max, dann wieder 1
+                    _countLastInput = now;
+                    _countLedOn = -1; // Muster neu beginnen, damit die neue Zahl von vorn geblinkt wird
+                    Serial.printf("[COUNT] %d\n", _countSelection);
+                }
+                if (buttonLongPress || now - _countLastInput >= COUNT_TIMEOUT_S) {
+                    coasterbot.setActiveCoasters(_countSelection);
+                    _settings.saveCoasterCount(_countSelection);
+                    Serial.printf("[COUNT] saved: %d coasters\n", _countSelection);
+                    showFeedback(now, RobotHAL::LED_COLORS::WHITE);
+                    state = COASTERBOT_IDLE;
+                    break;
+                }
+                showCountPattern(coasterbot, now);
+                break;
+
             case COASTERBOT_EMERGENCY_STOP:
                 // bleibt stehen, bis der Taster erneut gedrueckt und losgelassen wird:
                 // rot = Kante (SafetyMonitor), rot blinkend = Ausgabe/Aufnahme fehlgeschlagen
@@ -167,6 +221,34 @@ public:
 
 protected:
     static constexpr unsigned LONG_PRESS_MS {1500};
+    static constexpr float COUNT_TIMEOUT_S = 10.0f;   // ohne Tastendruck wird die Anzahl uebernommen
+    static constexpr float COUNT_BLINK_S = 0.4f;      // ein Blink: 0.2 s an, 0.2 s aus
+    static constexpr float COUNT_PAUSE_S = 1.2f;      // Pause nach N Blinks
+    static constexpr float FEEDBACK_S = 1.0f;
+
+    static RobotHAL::LED_COLORS countColor(int count) {
+        switch (count) {
+        case 1: return RobotHAL::LED_COLORS::RED;
+        case 2: return RobotHAL::LED_COLORS::YELLOW;
+        case 3: return RobotHAL::LED_COLORS::GREEN;
+        default: return RobotHAL::LED_COLORS::BLUE;
+        }
+    }
+
+    /// N Blinks in der Farbe der Anzahl, dann Pause, wiederholt ab der letzten Eingabe.
+    void showCountPattern(CoasterbotFunctions& coasterbot, float now) {
+        const float period = _countSelection * COUNT_BLINK_S + COUNT_PAUSE_S;
+        const float phase = std::fmod(now - _countLastInput, period);
+        const bool on = phase < _countSelection * COUNT_BLINK_S && std::fmod(phase, COUNT_BLINK_S) < COUNT_BLINK_S / 2.0f;
+        if (static_cast<int>(on) == _countLedOn) return;
+        _countLedOn = on;
+        coasterbot.led(on ? countColor(_countSelection) : RobotHAL::LED_COLORS::OFF);
+    }
+
+    void showFeedback(float now, RobotHAL::LED_COLORS color) {
+        _ledFeedbackColor = color;
+        _ledFeedbackUntil = now + FEEDBACK_S;
+    }
     bool _emergencyBySafety {false};
 
     void enterEmergencyStop(bool bySafety) {

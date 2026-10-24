@@ -1003,7 +1003,7 @@ bool CoasterbotFunctions::runSpendCoasters() {
 				  << ": (" << firstPosition.x << ", " << firstPosition.y << ")" << std::endl;
 	}
 
-	if (coasterRoutineIndex_ >= MAX_COASTERS) {
+	if (coasterRoutineIndex_ >= activeCoasters_) {
 		coasterRoutineActive_ = false;
 		return true;
 	}
@@ -1035,7 +1035,7 @@ bool CoasterbotFunctions::runSpendCoasters() {
 		if (coasterDone) {
 			++coasterRoutineIndex_;
 			coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
-			if (coasterRoutineIndex_ >= MAX_COASTERS) {
+			if (coasterRoutineIndex_ >= activeCoasters_) {
 				coasterRoutineActive_ = false;
 				std::cout << "[SPEND] All coasters dispensed" << std::endl;
 				return true;
@@ -1111,7 +1111,7 @@ void CoasterbotFunctions::resetSpendCoasterSequence() {
 	coasterSpending_ = SpendingStates::IDLE;
 	coasterCollecting_ = CollectingStates::IDLE;
 	coastersSpend = 0;
-	coastersInStack_ = MAX_COASTERS;
+	coastersInStack_ = activeCoasters_;
 	resetLastTimer_ = true;
 }
 
@@ -1130,6 +1130,14 @@ void CoasterbotFunctions::abortRoutine() {
 	navigationAligning_ = false;
 	navState_ = NavState::IDLE;
 	std::cout << "[NAV] routine aborted by user" << std::endl;
+}
+
+bool CoasterbotFunctions::setActiveCoasters(int count) {
+	if (coastersSpend != 0 || coasterRoutineActive_) return false; // Coaster liegen noch auf dem Tisch
+	activeCoasters_ = std::clamp(count, 1, MAX_COASTERS);
+	coastersInStack_ = activeCoasters_;
+	std::cout << "[COASTER] active coasters: " << activeCoasters_ << std::endl;
+	return true;
 }
 
 void CoasterbotFunctions::parkMechanism() {
@@ -1177,7 +1185,7 @@ bool CoasterbotFunctions::runGetCoasters() {
 	if (!coasterRoutineActive_) {
 		coasterRoutineActive_ = true;
 		coasterRoutineFailed_ = false;
-		coasterRoutineIndex_ = MAX_COASTERS - 1;
+		coasterRoutineIndex_ = activeCoasters_ - 1;
 		coasterRoutinePhase_ = CoasterRoutinePhase::TRAVEL;
 		const Vec2& firstPosition = coasterPositions[coasterRoutineIndex_];
 		std::cout << "[GET] Navigating to coaster " << coasterRoutineIndex_

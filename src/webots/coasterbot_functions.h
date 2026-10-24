@@ -7,6 +7,8 @@
 #include "occupancy_grid.h"
 #include "dstar_lite.h"
 #include "stall_detector.h"
+#include "coaster_servo_angles.h"
+#include <algorithm>
 #include <array>
 #include <memory>
 #include <vector>
@@ -23,6 +25,10 @@ class CoasterbotFunctions : public RobotLogic {
     public:
     explicit CoasterbotFunctions(RobotHAL& hal, PoseEstimator& pose, SafetyMonitor& safety);
 
+    // Servowinkel zur Laufzeit setzen, wirkt ab dem naechsten Servo-Schritt.
+    void setServoAngles(const CoasterServoAngles& angles) { this->servoAngles_ = angles; }
+    const CoasterServoAngles& servoAngles() const { return this->servoAngles_; }
+
     // Einmal pro Regelzyklus aufrufen (autonomer Modus, Zustandsautomat).
     void update();
 
@@ -36,6 +42,18 @@ class CoasterbotFunctions : public RobotLogic {
     bool buttonPressed() const { return hal_.getButtonState(); }
     bool safetyOverriding() const { return safety_.overriding(); }
     bool pathExists() const { return dstar_ && dstar_->pathExists(); }
+    // Spielablauf: MAX_COASTERS Coaster werden ausgegeben und wieder eingesammelt, coastersSpent() davon
+    // liegen auf dem Tisch. Der naechste spendCoaster()-Index ist coastersSpent(), der naechste
+    // getCoaster()-Index coastersSpent() - 1.
+    static constexpr int coasterCount() { return MAX_COASTERS; }
+    int coastersSpent() const { return this->coastersSpend; }
+    // Coaster im Stapel des Mechanismus, bestimmt die Heberwinkel. Kann mehr als MAX_COASTERS sein.
+    int coastersInStack() const { return this->coastersInStack_; }
+    void setCoastersInStack(int count) { this->coastersInStack_ = std::max(0, count); }
+    // Servo-Ablaeufe ohne Spielablauf: untersten Coaster ausgeben bzw. einen unter den Stapel aufnehmen.
+    // Nicht blockierend, in jedem Zyklus aufrufen bis true.
+    bool spendFromStack();
+    bool collectToStack();
     bool runSpendCoasters();
     bool spendCoaster(int coasterIndex);
     void resetSpendCoasterSequence();
@@ -190,8 +208,8 @@ class CoasterbotFunctions : public RobotLogic {
     // Zweiter Waechter unabhaengig vom Gyro: Drehung aus den Radwegen. Schlupf beim Drehen auf der
     // Stelle laesst die Raeder mehr Weg machen als der Roboter dreht, daher die hoehere Grenze.
     static constexpr float ALIGN_MAX_WHEEL_TURN = 2.0f * 3.14159265f * 2.5f; // [rad]
-    // Servos voruebergehend aus: am Coasterpunkt nur LED-Signal, bis die Navigation steht.
-    static constexpr bool SERVO_ACTIONS_ENABLED = false;
+    // false: am Coasterpunkt nur LED-Signal statt Servos (Test der Navigation ohne Mechanismus).
+    static constexpr bool SERVO_ACTIONS_ENABLED = true;
     static constexpr float COASTER_SIGNAL_TIME = 3.0f;               // [s]
     static constexpr float CENTER_CAPTURE_RADIUS = ACCEPTED_BIAS;
     static constexpr float CENTER_SETTLE_TIME = 0.5f;
@@ -234,10 +252,8 @@ class CoasterbotFunctions : public RobotLogic {
     static constexpr int MAX_STALL_INTERRUPTIONS = 3;
     std::array<Vec2, MAX_COASTERS> coasterPositions;
 
-    // Servowinkel [deg] wie in der Webots-Statemachine (Dennis Aufbau, siehe boardconfig.h):
-    // Heber 180 = ganz eingefahren, Ausschub 90 = langer Arm zeigt ins Zentrum.
-    const std::array<uint8_t, MAX_COASTERS> SERVO_POS_LIFTER = { 100, 60, 40, 0 }; // Heber je Coaster
-    const std::array<uint8_t, 3> SERVO_POS_SPENDER = { 0, 90, 180 }; // Ausschub: auswerfen, home, beiseite
+    CoasterServoAngles servoAngles_;
+    int coastersInStack_ = MAX_COASTERS;
     // Rampen wie im Hardwaretest (CoasterMechanismus): ohne Rampe springt der Servo mit voller
     // Geschwindigkeit, der Kurbeltrieb des Hebers verklemmt bzw. die Versorgung bricht ein.
     // Kuerzer als die 2 s Wartezeit je Schritt in spendCoaster()/getCoaster(), damit der Servo

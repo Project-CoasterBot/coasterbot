@@ -4,6 +4,7 @@
 #include "hw_impl_hal.h"
 
 #include "webots/coasterbot_functions.h"
+#include "coaster_servo_config.h"
 
 template<typename Bot>
 class WebotsTest {
@@ -35,6 +36,7 @@ public:
         // the webots program commands real speeds (nav. 5 rad/s, slower near the target), not only a direction
         _bot.setSpeedScaling(5.0f);
         _coasterbot = new CoasterbotFunctions(_bot, *_pose, *_safety);
+        _coasterbot->setServoAngles(boardCoasterServoAngles());
     }
 
     void loop(Bot& _bot) {

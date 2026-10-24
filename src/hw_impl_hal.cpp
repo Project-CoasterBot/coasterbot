@@ -26,8 +26,8 @@ void HardwareImplementationHAL::initializeHardware() {
     encoder_right.begin();
 
     // start in the rest position of the mechanism, not at 0 deg (lifter fully extended)
-    servo1.begin(board::PIN_COASTER_SERVO_1_INITIAL_ANGLE);
-    servo2.begin(board::PIN_COASTER_SERVO_2_INITIAL_ANGLE);
+    servo_lifter.begin(board::SERVO_LIFTER_ANGLE_REST);
+    servo_spender.begin(board::SERVO_SPENDER_ANGLE_IDLE);
 
     edge_det_rear_left.begin();
     edge_det_rear_right.begin();
@@ -183,8 +183,8 @@ bool HardwareImplementationHAL::step() {
     motion_ctrl.update();
     obstcl_sensor.update();
 
-    servo1.update();
-    servo2.update();
+    servo_lifter.update();
+    servo_spender.update();
 
     // isTurning() first: isMoving() and isBusy() are true while turning as well
     inertial_sensor.setMotion(motion_ctrl.isTurning() ? Motion::Turning :
@@ -272,8 +272,8 @@ bool HardwareImplementationHAL::simulateButtonPress(float duration) {
 
 void HardwareImplementationHAL::setServoPosition(int servoId, int position, unsigned long duration_ms) {
     switch (servoId) {
-    case 0: servo1.moveTo(position, duration_ms); break;
-    case 1: servo2.moveTo(position, duration_ms); break;
+    case 0: servo_lifter.moveTo(position, duration_ms); break;
+    case 1: servo_spender.moveTo(position, duration_ms); break;
     }
 }
 

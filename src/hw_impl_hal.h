@@ -37,8 +37,9 @@ protected: // hw controllers
 
     GyroSensor<board::PIN_INERTIAL_SCL, board::PIN_INERTIAL_SDA> inertial_sensor;
 
-    ServoController<board::PIN_COASTER_SERVO_1> servo1;
-    ServoController<board::PIN_COASTER_SERVO_2> servo2;
+    // servoId 0 = Heber, 1 = Auswurfarm (siehe setServoPosition), Pins in boardconfig(_local).h
+    ServoController<board::PIN_SERVO_LIFTER> servo_lifter;
+    ServoController<board::PIN_SERVO_SPENDER> servo_spender;
 
 protected: // evaluated state
     bool _button_is_pressed {false};

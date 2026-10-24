@@ -64,6 +64,8 @@ class CoasterbotFunctions : public RobotLogic {
     // Laufende Ausgabe/Aufnahme/Rueckfahrt abbrechen und anhalten. Tischvermessung und Karte bleiben,
     // der naechste Start beginnt die Routine von vorn (Navigationsstopps sind zurueckgesetzt).
     void abortRoutine();
+    // Arm in die Ruhestellung, Heber einfahren. Auch Teil von abortRoutine().
+    void parkMechanism();
     bool coasterRoutineFailed() const { return this->coasterRoutineFailed_; }
     void runDriveTest();
     bool blocklessWait(float duration);
@@ -85,17 +87,17 @@ class CoasterbotFunctions : public RobotLogic {
         STALL_LATCHED,  // 3x keine Radbewegung -> Navigation dauerhaft gestoppt
         TURN_OVERRUN,   // Ausrichten hat > 1 Umdrehung gedauert -> Navigation gestoppt
         HEADING_STUCK,  // Ausrichten ohne Aenderung des Kurses (Gyro/Pose) -> Navigation gestoppt
-        SPEND_SIGNAL,   // statt Coaster ablegen: LED-Signal (Servos deaktiviert)
-        COLLECT_SIGNAL  // statt Coaster aufnehmen: LED-Signal (Servos deaktiviert)
+        SPEND_SIGNAL,   // am Coasterpunkt: Coaster wird ausgegeben (bzw. nur LED-Signal ohne Servos)
+        COLLECT_SIGNAL  // am Coasterpunkt: Coaster wird aufgenommen (bzw. nur LED-Signal ohne Servos)
     };
     NavState navState() const { return navState_; }
     // LED-Farbe zum Navigationszustand:
-    //   gruen = fahren, cyan = ausrichten, blau = vor dem Drehen von der Kante weg, gelb = Endanflug, weiss = Ziel erreicht/Servos,
+    //   gruen = fahren, cyan = ausrichten, blau = vor dem Drehen von der Kante weg, gelb = Endanflug, weiss = Ziel erreicht,
     //   lila = kein Pfad (Suchdrehung), pink = Fluchtdrehung (Startzelle belegt),
     //   orange blinkend = blockiert/steht, orange = Kantenausweichen,
     //   rot blinkend = Kanten-Stopp, lila blinkend = Stall-Stopp,
     //   cyan blinkend = Drehung > 1 Umdrehung, gelb blinkend = Kurs aendert sich beim Drehen nicht,
-    //   gruen schnell blinkend = hier wuerde abgelegt, blau schnell blinkend = hier wuerde aufgenommen,
+    //   gruen schnell blinkend = Coaster wird ausgegeben, blau schnell blinkend = Coaster wird aufgenommen,
     //   aus = idle
     RobotHAL::LED_COLORS navLedColor() const;
     static const char* navStateName(NavState state);

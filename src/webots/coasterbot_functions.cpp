@@ -1026,10 +1026,10 @@ bool CoasterbotFunctions::runSpendCoasters() {
 
 	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
 		bool coasterDone;
+		navState_ = NavState::SPEND_SIGNAL; // LED gruen schnell blinkend, auch waehrend der Servos
 		if (SERVO_ACTIONS_ENABLED) {
 			coasterDone = spendCoaster(coasterRoutineIndex_);
 		} else {
-			navState_ = NavState::SPEND_SIGNAL;
 			coasterDone = now - coasterRoutinePhaseStartedAt_ >= COASTER_SIGNAL_TIME;
 		}
 		if (coasterDone) {
@@ -1122,6 +1122,7 @@ void CoasterbotFunctions::abortRoutine() {
 	// Servo-Ablaeufe neu beginnen; coastersSpend bleibt, die ausgegebenen Coaster liegen ja noch
 	coasterSpending_ = SpendingStates::IDLE;
 	coasterCollecting_ = CollectingStates::IDLE;
+	parkMechanism();
 	resetLastTimer_ = true;
 	centerSettling_ = false;
 	navigationTargetInitialized_ = false;  // setzt beim naechsten Ziel auch alle Navigationsstopps zurueck
@@ -1129,6 +1130,12 @@ void CoasterbotFunctions::abortRoutine() {
 	navigationAligning_ = false;
 	navState_ = NavState::IDLE;
 	std::cout << "[NAV] routine aborted by user" << std::endl;
+}
+
+void CoasterbotFunctions::parkMechanism() {
+	// Arm frei, Heber eingefahren: beides entfernt sich vom Stapel und vom Tisch
+	hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), servoAngles_.spenderIdle, SERVO_SPENDER_RAMP_MS);
+	hal_.setServoPosition(static_cast<int>(ServoId::LIFTER), servoAngles_.lifterRest, SERVO_LIFTER_RAMP_MS);
 }
 
 bool CoasterbotFunctions::goToCenter(){
@@ -1201,10 +1208,10 @@ bool CoasterbotFunctions::runGetCoasters() {
 	// Aufnahme analog zu runSpendCoasters(): Ablauf komplett in getCoaster()
 	if (coasterRoutinePhase_ == CoasterRoutinePhase::SETTLE) {
 		bool coasterDone;
+		navState_ = NavState::COLLECT_SIGNAL; // LED blau schnell blinkend, auch waehrend der Servos
 		if (SERVO_ACTIONS_ENABLED) {
 			coasterDone = getCoaster(coasterRoutineIndex_);
 		} else {
-			navState_ = NavState::COLLECT_SIGNAL;
 			coasterDone = now - coasterRoutinePhaseStartedAt_ >= COASTER_SIGNAL_TIME;
 		}
 		if (coasterDone) {

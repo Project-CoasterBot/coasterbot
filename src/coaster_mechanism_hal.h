@@ -7,6 +7,7 @@
 #include "boardconfig.h"
 #include "ledinterface.h"
 #include "servointerface.h"
+#include "console_recovery.h"
 
 /** RobotHAL nur fuer den Coaster-Mechanismus: Servos und LED.
  *
@@ -40,6 +41,7 @@ public:
 public: // RobotHAL
 
     bool step() override {
+        recoverConsoleOutput();
         led_board.update();
         servo_lifter.update();
         servo_spender.update();

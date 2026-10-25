@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include "console_recovery.h"
+
 bool HardwareImplementationHAL::userButtonReleased(unsigned& duration_ms) {
     if (! _button_pressed) return false;
     duration_ms = _button_pressed.value();
@@ -76,6 +78,8 @@ void HardwareImplementationHAL::updateOdometry(float moved_left, float moved_rig
 bool HardwareImplementationHAL::step() {
     const unsigned long now = millis();
     unsigned long user_button_pressed_duration_millis;
+
+    recoverConsoleOutput();
 
     // 1. fetch new input
 

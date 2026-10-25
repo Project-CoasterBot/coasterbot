@@ -149,6 +149,14 @@ void CoasterbotFunctions::navigateToInternal(Vec2 target, float speed, bool useR
 		}
 	}
 
+	if (safety_.stuck()) {
+		// kein Ausweichmanoever bewegt die Raeder: wie drei Stillstaende, bis der Nutzer abbricht
+		if (!stallStopLatched_) std::cout << "[NAV] safety monitor stuck -> navigation stopped" << std::endl;
+		stallStopLatched_ = true;
+		navState_ = NavState::STALL_LATCHED;
+		this->stop();
+		return;
+	}
 	if (safety_.overriding()) {
 		navState_ = NavState::SAFETY;
 		return;
@@ -1123,6 +1131,7 @@ void CoasterbotFunctions::abortRoutine() {
 	coasterSpending_ = SpendingStates::IDLE;
 	coasterCollecting_ = CollectingStates::IDLE;
 	parkMechanism();
+	safety_.reset(); // auch ein festgefahrenes Ausweichen beginnt beim naechsten Start von vorn
 	resetLastTimer_ = true;
 	centerSettling_ = false;
 	navigationTargetInitialized_ = false;  // setzt beim naechsten Ziel auch alle Navigationsstopps zurueck

@@ -169,6 +169,25 @@ bool HardwareImplementationHAL::step() {
                       _edge_fl, _edge_fr, _edge_rl, _edge_rr, _obstcl_dist);
     }
 
+    static unsigned long lastHeadingPrint = 0;
+
+    if (now - lastHeadingPrint >= 1000UL) {
+        lastHeadingPrint = now;
+        Serial.print("[IMU] ok=");
+        Serial.print(inertial_sensor.ok() ? "yes" : "no");
+        Serial.print(" rawHeading=");
+        Serial.print(inertial_sensor.heading, 2);
+        Serial.print(" deg rawRateZ=");
+        Serial.print(inertial_sensor.rate_z, 2);
+        Serial.print(" deg/s HALYaw=");
+        Serial.print(this->getYaw(), 3);
+        Serial.print(" rad | [HAL] heading=");
+        Serial.print(this->getHeading(), 3);
+        Serial.print(" encoder=");
+        Serial.println(this->getEncoderHeading(), 3);
+    }
+        
+
     // state evaluation and indicator to the user
     if (_user_led_trigger_by_obstacles) {
         if (!motion_valid)

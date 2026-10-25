@@ -150,7 +150,15 @@ public:
             _ok = calibrate();
         }
 
-        Serial.printf("[GYRO] init %s, bias acc=(%.3f, %.3f) g gyro_z=%.2f deg/s\n", _ok ? "ok" : "failed", _bias_ax, _bias_ay, _bias_gz);
+        Serial.print("[GYRO] init ");
+        Serial.print(_ok ? "ok" : "failed");
+        Serial.print(", bias acc=(");
+        Serial.print(_bias_ax, 3);
+        Serial.print(", ");
+        Serial.print(_bias_ay, 3);
+        Serial.print(") g gyro_z=");
+        Serial.print(_bias_gz, 2);
+        Serial.println(" deg/s");
 
         resetOrigin();
         _last_sample_us = micros();
@@ -176,8 +184,17 @@ public:
         if (n < samples / 2) return false;
 
         const float mean_ax = sum_ax / n, mean_ay = sum_ay / n, mean_az = sum_az / n;
-        if (fabsf(sqrtf(mean_ax * mean_ax + mean_ay * mean_ay + mean_az * mean_az) - 1.f) > 0.1f) {
-            Serial.println("[GYRO] calibration: gravity magnitude off, robot moved?");
+        const float gravityMagnitude = sqrtf(mean_ax * mean_ax + mean_ay * mean_ay + mean_az * mean_az);
+        if (fabsf(gravityMagnitude - 1.f) > 0.2f) {
+            Serial.print("[GYRO] calibration: gravity magnitude ");
+            Serial.print(gravityMagnitude, 3);
+            Serial.print(" g from mean accel (");
+            Serial.print(mean_ax, 3);
+            Serial.print(", ");
+            Serial.print(mean_ay, 3);
+            Serial.print(", ");
+            Serial.print(mean_az, 3);
+            Serial.println(") g; expected 0.9..1.1 g. Keep sensor still and check accel range/configuration.");
             return false;
         }
         computeLevel(mean_ax, mean_ay, mean_az);

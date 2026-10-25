@@ -4,6 +4,9 @@
 #include <cmath>
 #include <iostream>
 #include <iomanip>
+#if defined(ARDUINO)
+#include <Arduino.h>
+#endif
 
 CoasterbotFunctions::CoasterbotFunctions(RobotHAL& hal,
                                          PoseEstimator& pose,
@@ -721,7 +724,7 @@ void CoasterbotFunctions::runLearnTable() {
 						EDGE_DETECTED, DONE, IDLE, DEFAULT };
 	static State state = State::RESET;
 	static State lastState = State::RESET;
-	static float speed = 5.0f;
+	static float speed = 3.0f;
 	static float gap2Edge = 0.10f;
 	enum class LearningPhase { PHASE_X, PHASE_Y };
 	static LearningPhase phase = LearningPhase::PHASE_X;
@@ -733,6 +736,7 @@ void CoasterbotFunctions::runLearnTable() {
 	static float edgeBackward = 0.0f;
 	static float previousCenterCoordinate = 0.0f;
 	static bool buildGrid;
+	static float lastTurnDebugTime = -1.0f;
 	// Ausrichten an der ersten Kante, damit die x-Achse unabhaengig von der Startausrichtung senkrecht
 	// zur Kante liegt: Auf der Stelle nach rechts drehen, bis der linke vordere Sensor ausloest, dann
 	// nach links, bis der rechte ausloest. Bei unveraenderter Lage des Mittelpunkts liegen beide
@@ -940,11 +944,43 @@ void CoasterbotFunctions::runLearnTable() {
 			// dem Zentrieren weicht um die Bogenfahrt von 0 ab
 			const float turnError = std::atan2(std::sin(_HALF_PI - pose_.getTheta()),
 			                                   std::cos(_HALF_PI - pose_.getTheta()));
+			const float now = hal_.getTime();
+			if (now - lastTurnDebugTime >= 0.01f) {
+				const float poseHeading = pose_.getTheta();
+				const float yaw = hal_.getYaw();
+#if defined(ARDUINO)
+				Serial.print("[LEARN] TURN pose=");
+				Serial.print(poseHeading, 3);
+				Serial.print(" rad (");
+				Serial.print(poseHeading * radToDeg, 1);
+				Serial.print(" deg), yaw=");
+				Serial.print(yaw, 3);
+				Serial.print(" rad (");
+				Serial.print(yaw * radToDeg, 1);
+				Serial.print(" deg), error=");
+				Serial.print(turnError, 3);
+				Serial.print(" rad (");
+				Serial.print(turnError * radToDeg, 1);
+				Serial.println(" deg)");
+#else
+				std::cout << "[LEARN] TURN pose=" << poseHeading << " rad ("
+				          << poseHeading * radToDeg << " deg), yaw=" << yaw << " rad ("
+				          << yaw * radToDeg << " deg), error=" << turnError << " rad ("
+				          << turnError * radToDeg << " deg)" << std::endl;
+#endif
+				lastTurnDebugTime = now;
+			}
 			if (std::fabs(turnError) <= _HALF_PI * 0.01f) {
 			this->stop();
+#if defined(ARDUINO)
+			Serial.print("[LEARN] Turn accepted: theta=");
+			Serial.print(pose_.getTheta() * radToDeg, 1);
+			Serial.println(" deg (target=90). Move forward.");
+#else
 			std::cout << "[LEARN] Turn accepted: theta="
-			          << pose_.getTheta() * 180.0f / (_HALF_PI * 2.0f)
+			          << pose_.getTheta() * radToDeg
 			          << " deg (target=90). Move forward." << std::endl;
+#endif
 			state = State::FORWARD;
 			} else {
 				const float turnSpeed = std::fabs(turnError) <= _HALF_PI / 18.0f
@@ -1265,7 +1301,7 @@ bool CoasterbotFunctions::collectToStack() {
 			coasterCollecting_ = CollectingStates::SET_SPENDER_ASIDE;
 			return false;
 		case CollectingStates::SET_SPENDER_ASIDE:
-			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), servoAngles_.spenderIdle, SERVO_SPENDER_RAMP_MS);
+			hal_.setServoPosition(static_cast<int>(ServoId::SPENDER), servoAngles_.spenderAside, SERVO_SPENDER_RAMP_MS);
 
 			if(blocklessWait(2.0f)) {
 				coasterCollecting_ = CollectingStates::SET_LIFTER_DOWN;

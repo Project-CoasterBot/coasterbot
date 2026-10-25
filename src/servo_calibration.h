@@ -555,7 +555,7 @@ protected: // Eingabe
             _arm = _candidate;
             _led.setModeToBlinkCyan();
             Serial.printf("Auswurfarm = GP%d, Heber = GP%d\n", pinOf(_arm), pinOf(other));
-            setStep(Step::ARM_IDLE); // Arm bleibt eingeschaltet und haelt seine Position
+            setStep(Step::ARM_EJECT); // Arm bleibt eingeschaltet und haelt seine Position
             return;
         }
         if (strcmp(line, "h") == 0) {

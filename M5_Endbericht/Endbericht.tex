@@ -47,6 +47,9 @@
 \usepackage{mdframed}
 \usepackage{enumitem}
 
+\usepackage[acronym,toc,nopostdot,nogroupskip,nonumberlist]{glossaries}
+\usepackage{glossary-longbooktabs}
+
 \newmdtheoremenv{theorem}{Theorem}
 
 \theoremstyle{definition}
@@ -342,6 +345,23 @@ showstringspaces=false
 
 
 
+
+
+\newglossary[slg]{symbols}{sym}{sbl}{List of Symbols}
+\makenoidxglossaries
+
+\newacronym{wbh}{WBH}{Wilhelm-Büchner-Hochschule}
+\newacronym{emv}{EMV}{Elektromagnetische Verträglichkeit}
+\newacronym{bom}{BOM}{Bill of Material}
+\newacronym{dms}{DMS}{Dokumenten-Management-System}
+\newacronym{pcb}{PCB}{Printed Circuit Board}
+\newacronym{pwm}{PWM}{Puls-Weiten-Modulation}
+\newacronym{imu}{IMU}{Inertial Measurement Unit, Inertialsystem}
+
+
+
+
+
 %\nocite{*}
 
 
@@ -430,6 +450,9 @@ Gereon Such, M. Sc. & 867070\\
 \newpage
 
 \tableofcontents
+
+\newpage
+\printnoidxglossary[type=\acronymtype,title={List of Acronyms},style={long}]
 
 \newpage
 

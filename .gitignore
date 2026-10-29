@@ -211,6 +211,17 @@ Temporary Items
 *.toc
 *.dvi
 *.out.ps
+# glossaries (makeglossaries)
+*.acn
+*.acr
+*.alg
+*.glo
+*.gls
+*.glg
+*.ist
+*.sbl
+*.sym
+*.slg
 .venv/pyvenv.cfg
 .gitignore
 .venv/*

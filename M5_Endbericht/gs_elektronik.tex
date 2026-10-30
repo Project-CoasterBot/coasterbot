@@ -57,15 +57,16 @@ Bedienung und Status & RGB-LED oder diskrete LEDs; Taster & RGB-LED, Taster, Hau
 
 \subsubsection*{Elektrischer Aufbau}
 
-Die Schaltung wurde in der Open Source Software KiCad erstellt (Abbildung~\ref{fig:endbericht-schematic}) und mit der Software DIYLC auf ein Lochrasterplatinenlayout im Raster $30 \times 24$ übertragen. Externe Komponenten werden über Pin Header angeschlossen. Die Platine trägt den Mikrocontroller, den Step-Up-Wandler, die
+Die Schaltung wurde in der Open Source Software KiCad erstellt (Abbildung \ref{fig:endbericht-schematic} in Anhang \ref{apx:schematic}) und mit der Software DIYLC auf ein Lochrasterplatinenlayout im Raster $30 \times 24$ übertragen. Externe Komponenten werden über Pin Header angeschlossen. Die Platine trägt den Mikrocontroller, den Step-Up-Wandler, die
 Motortreiber, das Inertialsystem, die RGB-LED, Glättungskondensatoren für die Versorgungsspannungen sowie Pulldown Widerstand und Endprellung für den Taster. Der Aufbau ist in der Aufbauanleitung (M4) detailliert dokumentiert.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{../M4_Test-und-Validierung/aufbauanleitung/schematic.png}
-  \caption{Gesamtschaltung der Elektronik (aus der Aufbauanleitung).}
-  \label{fig:endbericht-schematic}
-\end{figure}
+% endbericht stattdessen in den Anhang
+%\begin{figure}[H]
+%  \centering
+%  \includegraphics[width=\textwidth]{../M4_Test-und-Validierung/aufbauanleitung/schematic.png}
+%  \caption{Gesamtschaltung der Elektronik (aus der Aufbauanleitung).}
+%  \label{fig:endbericht-schematic}
+%\end{figure}
 
 Beide Motoren einer Seite sind durch je einen Motortreiber geregelt, wobei sich beide Motortreiber das Standby- sowie \acrshort{pwm}-Signal teilen. Dadurch drehen alle Motoren stets betragsmäßig gleich schnell. In der Folge sind nur Geradeausfahrt vorwärts/rückwärts als auch bei entgegengesetzter Drehrichtung Kurven auf der Stelle möglich. Diese Vereinfachung kann für eine zukünftige Ausbaustufe eventuell überdacht werden, da die Positionserkennung durch Odometrie(Zählen der Rad-Rotationen) bei Rotation auf der Stelle verhätnismßig ungenau ausfällt. Dies ergab sich in den Inbetriebnahmetests und wurde durch das Intertialsystem kompensiert. 
 

@@ -3,8 +3,8 @@
 
 Zur Umsetzung der Algorithmik sind folgende Anforderungen aus dem Pflichtenheft als Leitlinien herangezogen:
 \begin{itemize}
-    \item (NAV-*) Anforderungen an eine zielgerichtete autonome Bewegung auf der Tischfläche.
-    \item (SAF-*) Anforderungen an eine Sicherheitskomponente mit übergeordneter Priorität, u.\,a.\ Hindernis- und Tischkantenerkennung.
+    \item \texttt{NAV-*} Anforderungen an eine zielgerichtete autonome Bewegung auf der Tischfläche.
+    \item \texttt{SAF-*} Anforderungen an eine Sicherheitskomponente mit übergeordneter Priorität, u.\,a.\ Hindernis- und Tischkantenerkennung.
 \end{itemize}
 
 Als Hardware wurde bewusst ein einfacher Mikrocontroller (Raspberry Pi Pico~2) gewählt statt eines \gls{sbc} mit \gls{ros}: Ein \gls{sbc} ist ein vollwertiger Einplatinencomputer mit eigenem Betriebssystem, \gls{ros} ein darauf aufbauendes Robotik-Framework, das Navigation, Sensorverarbeitung und Kommunikation zwischen Komponenten bereits fertig mitbringt. Der gewählte Mikrocontroller hat dagegen kein Betriebssystem und muss all diese Aufgaben selbst in einer einzigen Firmware abbilden. Er ist dafür aber deutlich günstiger und für die Anforderungen des Projekts ausreichend. Deshalb wurde entschieden, die Navigation zunächst in einer Physiksimulation (Webots) zu entwerfen und gegen die bereits festgelegten Testfälle aus dem Testkonzept zu verifizieren, bevor sie auf die reale Hardware übertragen wird. Entscheidend dafür ist die Hardwareabstraktionsschicht \texttt{RobotHAL} (siehe Abschnitt~\ref{lösungsweg-elektronik}): Navigations- und Sicherheitslogik kennen ausschließlich dieses Interface und sollen dadurch unverändert von der Simulation auf die Zielhardware übernommen werden können.

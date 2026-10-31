@@ -2,16 +2,23 @@
 \subsubsection*{Ausgangslage und Leitlinien}
 
 Zur Umsetzung der Algorithmik sind folgende Anforderungen aus dem Pflichtenheft als Leitlinien herangezogen:
-\begin{itemize}
+\begin{itemize}[itemsep=2pt,topsep=3pt,parsep=0pt]
     \item \texttt{NAV-*} Anforderungen an eine zielgerichtete autonome Bewegung auf der Tischfläche.
     \item \texttt{SAF-*} Anforderungen an eine Sicherheitskomponente mit übergeordneter Priorität, u.\,a.\ Hindernis- und Tischkantenerkennung.
 \end{itemize}
 
-Als Hardware wurde bewusst ein einfacher Mikrocontroller (Raspberry Pi Pico~2) gewählt statt eines \gls{sbc} mit \gls{ros}: Ein \gls{sbc} ist ein vollwertiger Einplatinencomputer mit eigenem Betriebssystem, \gls{ros} ein darauf aufbauendes Robotik-Framework, das Navigation, Sensorverarbeitung und Kommunikation zwischen Komponenten bereits fertig mitbringt. Der gewählte Mikrocontroller hat dagegen kein Betriebssystem und muss all diese Aufgaben selbst in einer einzigen Firmware abbilden. Er ist dafür aber deutlich günstiger und für die Anforderungen des Projekts ausreichend. Deshalb wurde entschieden, die Navigation zunächst in einer Physiksimulation (Webots) zu entwerfen und gegen die bereits festgelegten Testfälle aus dem Testkonzept zu verifizieren, bevor sie auf die reale Hardware übertragen wird. Entscheidend dafür ist die Hardwareabstraktionsschicht \texttt{RobotHAL} (siehe Abschnitt~\ref{lösungsweg-elektronik}): Navigations- und Sicherheitslogik kennen ausschließlich dieses Interface und sollen dadurch unverändert von der Simulation auf die Zielhardware übernommen werden können.
+Als Hardware wurde bewusst ein einfacher Mikrocontroller (Raspberry Pi Pico~2) gewählt statt eines \gls{sbc} mit \gls{ros}: Der Mikrocontroller hat kein eigenes Betriebssystem und muss Navigation, Sensorverarbeitung und Kommunikation selbst in einer Firmware abbilden, ist günstiger und für das Projekt ausreichend. Die Navigation wurde zunächst in einer Physiksimulation (Webots) entworfen und gegen die Testfälle aus dem Testkonzept verifiziert, bevor sie auf die reale Hardware übertragen wurde. Entscheidend dafür ist die Hardwareabstraktionsschicht \texttt{RobotHAL} (siehe Abschnitt~\ref{lösungsweg-elektronik}): Navigations- und Sicherheitslogik kennen nur dieses Interface und laufen dadurch unverändert auf Simulation und Zielhardware.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{webots.png}
+  \caption{Webots-Simulationsumgebung des Coasterbot-Projekts.}
+  \label{fig:endbericht-webots}
+\end{figure}
 
 \subsubsection*{Benchmarking und Auswahl der Verfahren}
 
-Grundlage war eine systematische Literaturrecherche (M0, \textit{Algorithmen.md}) zu Graphalgorithmen, heuristischer und dynamischer Pfadplanung, lokaler Kollisionsvermeidung, Lokalisierung sowie Manipulationsplanung. Die daraus abgeleiteten Möglichkeiten und Alternativen wurden in einer Mindmap (M3, \textit{KonzeptMindMap-Algorithmen.svg}) je Teilproblem strukturiert und in der Alternativenbeschreibung (M3) anhand der festgelegten Anforderungen bewertet: begrenzte Tischfläche, begrenzte Rechenleistung sowie der sicherheitskritischen Anforderung, den Tisch nicht zu verlassen. Tabelle~\ref{tab:algorithmik-auswahl} fasst die resultierende Auswahl zusammen.
+Grundlage war eine systematische Literaturrecherche, deren Alternativen in einer Mindmap strukturiert und in der Alternativenbeschreibung anhand der Anforderungen bewertet wurden: begrenzte Tischfläche, Rechenleistung sowie die Anforderung, den Tisch nicht zu verlassen. Tabelle~\ref{tab:algorithmik-auswahl} fasst die Auswahl zusammen.
 
 \begin{table}[H]
 \centering
@@ -43,24 +50,23 @@ Laut Abgrenzung nicht Teil der Simulationssoftware in M4.\\
 \subsubsection*{Von der Recherche zur Simulation}
 
 Die gewählten Verfahren wurden als eigenständige C++-Module umgesetzt, die ausschließlich über \texttt{RobotHAL} auf die Hardware zugreifen:
-\begin{itemize}
+\begin{itemize}[itemsep=2pt,topsep=3pt,parsep=0pt]
     \item \texttt{OccupancyGrid} bildet die Tischfläche als Gitterkarte mit Distanzfeld ab. Bekannte Hindernisse werden direkt eingetragen, live erkannte erst nach mehreren konsistenten Messungen.
     \item \texttt{astarPlan} liefert darauf einen geglätteten Pfad, \texttt{DStarLite} plant ihn inkrementell um, sobald der Ultraschallsensor ein unkartiertes Hindernis entdeckt.
     \item \texttt{DwaPlanner} bestimmt daraus jeden Regelzyklus das Geschwindigkeitspaar beider Seiten.
-    \item \texttt{PoseEstimator} liefert die Lokalisierung über einen Komplementärfilter aus Radodometrie und Gyroskop, der beim Schlupf des Skid-Steer-Antriebs in Kurven stärker auf das Gyroskop vertraut.
+    \item \texttt{PoseEstimator} liefert die Lokalisierung über einen Komplementärfilter aus Radodometrie und Gyroskop, der dem Schlupf des Skid-Steer-Antriebs entgegenwirken kann.
     \item \texttt{SafetyMonitor} und \texttt{FaultMonitor} bilden die Sicherheitsebene. Der \texttt{SafetyMonitor} reagiert mit übergeordneter Priorität auf Tischkanten, der \texttt{FaultMonitor} zusätzlich auf Sensor- und Aktorausfälle.
 \end{itemize}
 Dedizierte Betriebsarten erlaubten es, jede Stufe einzeln und reproduzierbar zu prüfen, bevor sie Teil des Gesamtsystems wurde.
 
-\begin{figure}[H]
-  \centering
-  \includegraphics[width=\textwidth]{webots.png}
-  \caption{Webots-Simulationsumgebung des Coasterbot-Projekts.}
-  \label{fig:endbericht-webots}
-\end{figure}
-
 \subsubsection*{Anpassungen während der Umsetzung}
 
-Mehrere Entscheidungen wurden angepasst, nachdem sich in der Simulation Probleme verdichteten. Der volle Sensorfusions-Ansatz (\acrshort{ekf}/\acrshort{ukf}) wurde zugunsten des einfacheren Komplementärfilters zurückgestellt. Dies ist für die bekannte Tischfläche ausreichend genau, allerdings ohne Unsicherheitsschätzung der Pose. Da die lokale Bewegungssteuerung dem kürzesten Pfad von A* nahe von Ecken nicht zuverlässig folgen konnte, wurden zwei unterschiedlich stark inflatierte Gitter (Planung/Kollisionsvermeidung) sowie eine Pfadglättung eingesetzt. Diese Pfadplanun verschiebt Wegpunkte von Ecken weiter zur Mitte. Eine einzelne Costmap, deren Hindernis-Kosten mit der Entfernung graduell statt abrupt ansteigen, würde die beiden getrennten Gitter künftig überflüssig machen. Der \texttt{FaultMonitor} war in der ursprünglichen Mindmap noch nicht vorgesehen und kam erst hinzu, als sich die Testfälle zu Sensor- und Aktorausfällen konkretisiert haben. Bei seiner eigenen Verifikation fiel dabei eine zu eng gewählte Plausibilitätsschwelle auf, die normales Sensorrauschen fälschlich als Ausfall wertete. Dies wurde korrigiert. Bewusst nicht umgesetzt blieben die Manipulationsplanung sowie die missionsweite Ablaufsteuerung (\texttt{IDLE}~$\to\,\ldots\,\to$~\texttt{DONE}), für die inzwischen ein mit der Elektronik abgestimmter Vorschlag existiert.
+Mehrere Entscheidungen wurden durch die Ergebnisse der Simulation angepasst:
+\begin{itemize}[itemsep=2pt,topsep=3pt,parsep=0pt]
+    \item \textbf{Lokalisierung:} Der Sensorfusions-Ansatz (\acrshort{ekf}/\acrshort{ukf}) wurde zugunsten eines einfacheren Komplementärfilters zurückgestellt. Dieser ist für die bekannte Tischfläche genau genug, liefert aber keine Unsicherheitsschätzung der Pose.
+    \item \textbf{Pfadverfolgung:} Da die Bewegungssteuerung dem kürzesten A*-Pfad nahe der Ecken des Tisches nicht zuverlässig folgen konnte, wurden zwei unterschiedlich stark gewichtete Gitter sowie eine Pfadglättung eingesetzt, die Wegpunkte von Ecken weiter zur Mitte verschiebt.
+    \item \textbf{FaultMonitor:} Kam nachträglich hinzu und wertete durch eine anfangs zu eng gewählte Schwelle normales Sensorrauschen fälschlich als Ausfall, was korrigiert wurde. Beim Übertragen auf die reale Hardware wurde er nicht mit übernommen: Wiederholte Kanten-, Stillstands- oder Ausrichtungsfehler stoppen die Navigation seither direkt über die Ablaufsteuerung.
+    \item \textbf{Manipulationsplanung und Ablaufsteuerung:} Die Manipulationsplanung blieb offen, da die gebaute Mechanik mit ihrem Freiheitsgrad keine Pfadplanung benötigt. Die missionsweite Ablaufsteuerung wurde dagegen umgesetzt und deckt auch die Aufnahme und Ausgabe der Getränkeuntersetzer ab.
+\end{itemize}
 
-In der simulierten Verifikation bestanden alle bearbeiteten Testfälle: Zielfehler rund \SI{5,8}{\centi\meter}, Hindernisabstand mindestens \SI{0,22}{\meter}, zuverlässige Tischkantenerkennung, byte-identische Wiederholläufe sowie Sensor-/Aktorfehlererkennung innerhalb von \SI{0,02}{\second} bzw.\ \SI{0,34}{\second}. Offen bleiben nur die ohnehin nicht im Scope liegenden Testfälle zum Untersetzerhandling sowie der Abgleich gegen den realen Prototyp.
+In der simulierten Verifikation bestanden alle bearbeiteten Testfälle: Zielfehler rund \SI{5,8}{\centi\meter}, Hindernisabstand mindestens \SI{0,22}{\meter}, zuverlässige Tischkantenerkennung, byte-identische Wiederholläufe sowie Sensor-/Aktorfehlererkennung innerhalb von \SI{0,02}{\second} bzw.\ \SI{0,34}{\second}. \texttt{PoseEstimator}, \texttt{SafetyMonitor}, \texttt{OccupancyGrid} und \texttt{DStarLite} wurden auf den realen Pico~2 übertragen und sind Teil der Firmware des Coasterbots. \texttt{DwaPlanner} und \texttt{astarPlan} kamen dort nicht zum Einsatz, stattdessen fährt die reale Firmware jeden Wegpunkt direkt an. Die Kernfunktionen arbeiten wie entworfen, die reale Navigationsgenauigkeit liegt aber unter der simulierten, da sich Sensortoleranzen über die Fahrzeit aufsummieren.

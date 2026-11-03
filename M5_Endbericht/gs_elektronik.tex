@@ -4,18 +4,18 @@
 Die im Pflichtenheft definierten Hardwarefunktionen mussten durch entsprechende Sensorik, Aktorik und Rechenleistung abgedeckt werden:
 \begin{itemize}
 \item \texttt{HW-CPU-001..004} Rechenleistung für Sensordatenverarbeitung und Navigation
-\item \texttt{HW-SEN-001..005} Hindernis und Tischkantenerkennung
+\item \texttt{HW-SEN-001..005} Hindernis- und Tischkantenerkennung
 \item \texttt{HW-SEN-006/007} Positionierung und Orientierung
 \item \texttt{HW-ACT-001..004} Bewegungssteuerung
 \item \texttt{HW-ACT-005..007} Untersetzeraufnahme und -ausgabe
 \item \texttt{HW-PWR-*} Energieversorgung
 \end{itemize}
 
-Ein weiteres Kriterium bei der Komponentenauswahl war schnelle und problemlose Verfügbarkeit in geringen Stückzahlen sowie ein geringer Preis. Da eine \gls{pcb} Fertigung inklusive Versand einen enormen Zeitaufwand impliziert, z.B. JLCPCB ca. 4 Wochen, wurden alle Komponenten als Development-Boards beschafft und diese auf Lochrasterplatine sowie mit Steckverbindern auf Pinheadern verbunden. Jede Komponente wurde iterativ in Betrieb genommen, wobei vereinzelt Änderungen notwendig wurden.
+Ein weiteres Kriterium bei der Komponentenauswahl war schnelle und problemlose Verfügbarkeit in geringen Stückzahlen sowie ein geringer Preis. Da eine \gls{pcb}-Fertigung inklusive Versand einen enormen Zeitaufwand impliziert, z.B. JLCPCB ca. 4 Wochen, wurden alle Komponenten als Development-Boards beschafft und diese auf Lochrasterplatine sowie mit Steckverbindern auf Pinheadern verbunden. Jede Komponente wurde iterativ in Betrieb genommen, wobei vereinzelt Änderungen notwendig wurden.
 
 \subsubsection*{Benchmarking und Auswahl der Komponenten}
 
-Die Auswahl der Komponenten wurde in Phase M3 (Alternativenbeschreibung) diskutiert, Tabelle \ref{tab:elektronik-auswahl} fasst die wesentlichen Entscheidungen zusammen. 
+Die Auswahl der Komponenten wurde in Phase M3 (Alternativenbeschreibung) diskutiert. Tabelle \ref{tab:elektronik-auswahl} fasst die wesentlichen Entscheidungen zusammen. 
 
 {\footnotesize
 \setlength{\tabcolsep}{3pt}
@@ -64,23 +64,23 @@ Bedienung und Status & RGB-LED oder diskrete LEDs; Taster & RGB-LED, Taster, Hau
 Die Schaltung wurde in KiCad erstellt (Abbildung \ref{fig:endbericht-schematic} in Anhang \ref{apx:schematic}) und mit DIYLC auf eine Lochrasterplatine ($30 \times 24$) übertragen. Die Platine trägt Mikrocontroller, Step-Up-Wandler, Motortreiber, \acrshort{imu}, RGB-LED, Glättungskondensatoren sowie die Tasterbeschaltung, externe Komponenten werden über Pinheader angeschlossen. Details enthält die Aufbauanleitung (M4).
 
 
-Beide Motoren einer Seite sind durch je einen Motortreiber geregelt und teilen sich das Standby- sowie \acrshort{pwm}-Signal. Dadurch drehen alle Motoren stets betragsmäßig gleich schnell, wodurch nur Geradeausfahrt vorwärts/rückwärts und Drehung auf der Stelle möglich sind. Zur Winkelmessung bei Drehung ist die Odometrie allerdings zu ungenau und wird durch das Inertialsystem erfasst. 
+Beide Motoren einer Seite sind durch je einen Motortreiber geregelt und teilen sich das Standby- sowie \acrshort{pwm}-Signal. Dadurch drehen alle Motoren stets betragsmäßig gleich schnell, wodurch nur Geradeausfahrt vorwärts/rückwärts und Drehung auf der Stelle möglich sind. Die Winkelmessung bei Drehung erfolgt durch das Inertialsystem, da die Odometrie hierfür zu ungenau ist. 
 
 \subsubsection*{Hardwareabstraktion}
 
 Die zentrale Schnittstelle ist die abstrakte C++-Klasse \texttt{RobotHAL}, die in der Simulation parallel zur Entwicklung der Elektronik definiert wurde. Sie beschreibt die Fähigkeiten des Roboters (Geschwindigkeit je Seite, Objektdistanz nach vorne, Kantensensor, Drehrate, Encoderwinkel, Zeit, Servosteuerung und LED), unabhängig von Webots und Hardware. Die \texttt{HardwareImplementationHAL} implementiert das Interface und steuert die Arduino-basierten Komponenten an. Die Pins der Komponenten werden zur Compilezeit durch die Projektkonfigurationsdatei (\texttt{boardconfig.h}) gesetzt. 
 
 
-Alle Komponenten sind \textit{non-blocking} implementiert. Wenn z.B. die Motorsteuerung einer Seite sich derzeit in Vorwärtsdrehung befindet, dann durch die Steuerung aber ein Richtungswechsel ausgelöst wird, so muss zunächst aktiv abgebremst werden, erst danach darf der Motor in Rückwärtsrichtung angesteuert werden. Durch sequentielle \texttt{delay}/\texttt{sleep}-Befehle würden nun z.B. Sensorauswertung in dieser Zeit ausbleiben. Der Non-blocking Ansatz implementiert in den Komponenten jeweils eine interne Statemachine, die zeitabhängig Zustandsübergänge durchführt und die Ausgangssignale anpasst oder nur in fixen Zeitintervallen Sensorwerte ausliest. Alle Aktionen finden in der Anwendungslogik weiterhin seriell statt, aber in geplanten Intervallen, auf die in jedem Hauptschleifenzyklus geprüft wird, und andernfalls direkt zurückspringen (Early Exit).
+Alle Komponenten sind \textit{non-blocking} implementiert. Wenn z.\,B. die Motorsteuerung einer Seite sich derzeit in Vorwärtsdrehung befindet, dann durch die Steuerung aber ein Richtungswechsel ausgelöst wird, so muss zunächst aktiv abgebremst werden, erst danach darf der Motor in Rückwärtsrichtung angesteuert werden. Durch sequenzielle \texttt{delay}/\texttt{sleep}-Befehle würde nun z.\,B. die Sensorauswertung in dieser Zeit ausbleiben. Der Non-blocking Ansatz implementiert in den Komponenten jeweils eine interne Statemachine, die zeitabhängig Zustandsübergänge durchführt und die Ausgangssignale anpasst oder nur in fixen Zeitintervallen Sensorwerte ausliest. Alle Aktionen finden in der Anwendungslogik weiterhin seriell statt, aber in geplanten Intervallen, auf die in jedem Hauptschleifenzyklus geprüft wird, andernfalls springen die Komponenten direkt zurück (Early Exit).
 
 
 \subsubsection*{Anpassungen während der Umsetzung}
 
-Der ursprüngliche Ansatz für das Positionierungssystem war eine zweifache Integration des Beschleunigungssensors, um einen Geschwindigkeit und relative Position zu erhalten. 
+Der ursprüngliche Ansatz für das Positionierungssystem war eine zweifache Integration des Beschleunigungssensors, um eine Geschwindigkeit und die relative Position zu erhalten. 
 
-Während der Hardwaretests zeigte sich, dass trotz Bias-Kalibrierung, Lagekorrektur und Stillstandserkennung in Verbindung mit der Motorsteuerung die erreichbare Genauigkeit für ein Positionssystem außerhalb akzeptabler Toleranz lag: Durch wiederholtes vorwärts und rückwärts fahren summierte sich ein Fehler von einigen Dezimetern. In der Folge wurde die Motorhalterung modifiziert und pro Seite eine Gabellichtschranke mit 20-Loch Drehscheibe an den Achsen und LM393 Komparator angebracht. Durch diese Kodierung ist die Änderung des Radwinkels mit $\sfrac{1}{40}$ des Umfangs bestimmbar, da sowohl steigende als auch fallende Flanke ausgewertet werden. Mit Raddurchmesser von $67$ mm ergibt sich bei einem \textit{Tick} am Sensor eine Fahrtstrecke von $67 \times \sfrac{\pi}{40} \approx 5.3$ mm. Auf gerader Strecke ist das akzeptabel, aber nicht für die Drehwinkelerkennung. Dieser wird daher weider durch das Inertialsystem bezogen. Die Tickerkennung wird zusätzlich mit Hardwareinterrupt inklusive Entprellung asynchron durchgeführt um Probleme bei geringer Hauptschleifenfrequenz zu verhindern. 
+Während der Hardwaretests zeigte sich, dass trotz Bias-Kalibrierung, Lagekorrektur und Stillstandserkennung in Verbindung mit der Motorsteuerung die erreichbare Genauigkeit für ein Positionssystem außerhalb akzeptabler Toleranz lag: Durch wiederholtes Vor- und Zurückfahren summierte sich ein Fehler von einigen Dezimetern. In der Folge wurde die Motorhalterung modifiziert und pro Seite eine Gabellichtschranke mit 20-Loch Drehscheibe an den Achsen und LM393 Komparator angebracht. Durch diese Kodierung ist die Änderung des Radwinkels mit $\sfrac{1}{40}$ des Umfangs bestimmbar, da sowohl steigende als auch fallende Flanke ausgewertet werden. Mit Raddurchmesser von $67$ mm ergibt sich bei einem \textit{Tick} am Sensor eine Fahrtstrecke von $67 \times \sfrac{\pi}{40} \approx 5.3$ mm. Auf gerader Strecke ist das akzeptabel, aber nicht für die Drehwinkelerkennung. Dieser wird daher wieder durch das Inertialsystem bezogen. Die Tickerkennung wird zusätzlich mit Hardwareinterrupt inklusive Entprellung asynchron durchgeführt, um Probleme bei geringer Hauptschleifenfrequenz zu verhindern. 
 
-Es wurde festgestellt, dass die Drehbewegung auf der Stelle ein deutlich höheres Rad-Drehmoment als die Geradeausfahrt bedarf. Dies wurde in der Motorsteuerung durch getrennte \gls{pwm}-Werte für Geradeausfahrt und Drehung berücksichtigt, allerdings ist der Schlupf der Räder auf einer Tischoberfläche hier sehr hoch. %Vermutlich ist also in der Folge eine Navigation mit \textit{sanften Kurven} doch zweckmäßiger. Dies sollte für eine weitere Ausbaustufe wie bereits erwähnt in Betracht gezogen werden. 
+Es wurde festgestellt, dass die Drehbewegung auf der Stelle ein deutlich höheres Rad-Drehmoment als die Geradeausfahrt benötigt. Dies wurde in der Motorsteuerung durch getrennte \gls{pwm}-Werte für Geradeausfahrt und Drehung berücksichtigt, allerdings ist der Schlupf der Räder auf einer Tischoberfläche hier sehr hoch. %Vermutlich ist also in der Folge eine Navigation mit \textit{sanften Kurven} doch zweckmäßiger. Dies sollte für eine weitere Ausbaustufe wie bereits erwähnt in Betracht gezogen werden. 
 
 Derzeit noch nicht umgesetzt sind die Akkuüberwachung (\texttt{HW-PWR-002/003}) sowie eine Rückkopplung vom Odometriesystem zur Motorsteuerung, um eine tatsächliche Geschwindigkeitsregelung in $\sfrac{m}{s}$ zu erreichen. %Die Ansteuerung der Motoren erfolgt über das \gls{pwm}-Signal, das lediglich von $0$ für minimales bis $255$ für maximales Drehmoment parametriert werden kann, die tatsächliche Drehgeschwindigkeit ist dann wiederum von der Motorspannung \texttt{VM} abhängig. Als Näherung bildet die Hardwareabstraktion die von der Navigation kommandierten Radgeschwindigkeiten in $\sfrac{rad}{s}$ linear auf einen \gls{pwm}-Bereich zwischen der minimalen Anlaufschwelle und dem Nennwert ab (gesteuert, nicht geregelt).
 

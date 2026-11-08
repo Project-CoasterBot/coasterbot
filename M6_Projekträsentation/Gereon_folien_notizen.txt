@@ -1,0 +1,62 @@
+ZEITPLAN
+- Gesamtprojektzeit 3 Monate
+Viele Schritte nicht parallelisierbar
+Projektzeit nach DIN 69900
+- Erste Stufe mit verschiedenen Recherchen
+- Zweite Stufe mit der Anforderungsaufnahme, Maturity Level und Lastenheft
+- Konzeption von Komponenten und Software bis zum Pflichtenheft
+- Prototyp in Hardware und Software erstellen
+- Test des erstellten Prototyps
+- Projektabschluss mit Maturity Level Feststellung und Dokumentation des Ergebnis
+- In Summe 94 Arbeitstage auf dem kritischen Pfad
+---
+Meisten Grenzen gehalten
+Prototyp Erstellung deutlich verzögert, aber kompensiert.
+
+KOSTENPLAN
+In Phase M0 detailliert erstellt
+Mit Stundensatz von 89€ + 10.6% Wagnis = 100€ pro Stunde kalkuliert
+Es ergeben sich Gesamtkosten von 52827€
+Software wird OpenSource verwendet, Werkzeuge werden als gegeben gesetzt und Verschleiss o.ä. nicht berechnet
+- Prototyp deutlich günstiger, vor allem durch größere Mengen und günstige Komponentenauswahl. 
+
+ELEKTRONIK
+- Schematic für ausgewählte Komponenten mittels KiCAD erstellt. 
+- Umgesetzt auf ein Breadboard
+- Layout äquivalent auf Lochrasterplatine übernommen
+Unterseite hier Spiegelverkehrt dargestellt
+* Pegel markierungen
+- Raspi Pico2 Microcontroller
+- DC/DC Spannungswandler
+- RGB LED Modul für Statusanzeigen
+- MPU-6050 Gyroskop für Navigation - ursprünglich allgmeein Inertialsystem gedacht, durch inkrementellen Fehler aber unakzeptabel ungenau
+- Motorsteuerung 2x TB6612FNG - Steuerspannung auf 5V Pegel, Motorspannung direkt am Akku aufgrund zu hoher Ströme für DCDC-Wandler
+- umgesetzt auf der Platform
+- 4x TT-Motor, Montage innen
+- 4x Tischkanten Infrarot sensor
+- 1x Ultraschall Kollisionsvermeidung
+- 1x 3.7V Li-ION Akku
+- Ein/Aus Schalter
+- Funktionstaster
+
+- Tests zeigten, dass Aufintegrieren von Gyroskopwerten zu fehleranfällig ist. 
+Also Odometrie(Gabellichtschranke) nachrüsten → Modifikation des Motorhalters
+- CAD Design des Halters für Gabellichtschranke, hier Slicer
+- Montage an zwei Motoren, je auf einer Seite
+
+RESULTAT
+- Video Coasterauswurf
+- Video Full run - Rad abgefallen :(
+- Video Räder durchdrehen - daher im Normalbetrieb Odometrie, bei Rotation Gyroskop Winkelgeschwindigkeit integration
+
+AUSBLICK
+- Entwurf einer V2
+Open SCAD ist ein Textformat → Kann Claude Code das? Ja, es kann!
+- Direkt eine Build Pipeline gebaut, die bei SCAD Änderungen diese rendert und STL aus den Komponenten baut → direkt 3D drucken?
+- KiCAD ist ein XML Format… Kann Claude das auch?
+Ja, es kann. 
+Zwar keine Mounting Holes und Bauteile haben sicherlich zu wenig Clearance, aber eine 95% Lösung ist es allemal
+- Der geplante STM32 mit WLAN sollte auf die Hauptplatine. 
+Aber: Zu wenig Platz für die Antenne…
+Vielleicht sind die Ingenieursstellen für die nächsten zwei Jahre doch noch mit Menschen zu besetzen. 
+
